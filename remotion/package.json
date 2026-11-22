@@ -1,0 +1,21 @@
+{
+  "name": "crypto-websites-edit",
+  "private": true,
+  "scripts": {
+    "assets": "cp ../hb_1794061643210.mp4 public/raw.mp4",
+    "studio": "npm run assets && remotion studio",
+    "render": "npm run assets && remotion render Main out/crypto-websites.mp4",
+    "still": "remotion still Main"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.545",
+    "@remotion/fonts": "4.0.545",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.545"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.0",
+    "typescript": "5.8.3"
+  }
+}
