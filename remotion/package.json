@@ -4,7 +4,7 @@
   "scripts": {
     "assets": "cp ../hb_1794061643210.mp4 public/raw.mp4",
     "studio": "npm run assets && remotion studio",
-    "render": "npm run assets && remotion render Main out/crypto-websites.mp4",
+    "render": "npm run assets && remotion render Main out/crypto-websites.mp4 && ffmpeg -y -i out/crypto-websites.mp4 -c:v copy -af alimiter=limit=0.85:attack=2:release=40:level=false -c:a aac -b:a 256k out/crypto-websites_final.mp4",
     "still": "remotion still Main"
   },
   "dependencies": {
