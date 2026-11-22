@@ -84,11 +84,11 @@ export const Talk: React.FC = () => {
       <AbsoluteFill style={{transform: `scale(${z * entryScale})`, transformOrigin: '50% 35%',
         filter: `blur(${entryBlur + ctaAmt * 22}px) brightness(${1 - ctaAmt * 0.55}) saturate(${1 + ctaAmt * 0.3})`}}>
         <OffthreadVideo src={staticFile('raw.mp4')} muted />
-        <AbsoluteFill style={{background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
         {BEHIND_NAMES.map((b) => <BehindName key={b.name} {...b} />)}
         <AbsoluteFill style={{zIndex: 3}}>
           <OffthreadVideo src={staticFile('speaker_cutout.webm')} transparent muted />
         </AbsoluteFill>
+        <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
       </AbsoluteFill>
       <ClassifiedCard />
       <MadSticker />
