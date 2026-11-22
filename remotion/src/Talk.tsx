@@ -3,20 +3,26 @@ import {AbsoluteFill, interpolate, OffthreadVideo, staticFile, useCurrentFrame} 
 import {C, FONT} from './theme';
 import {BEHIND_NAMES, cameraZoom, f, SCENES, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, Dot, glass, Metallic, Plus} from './ui';
+import {PillTag, PixelLoader, smearIn} from './Pixel';
 
+const TAGS: Record<string, string> = {DefiLlama: 'DeFi data', CoinGlass: 'Derivatives', CryptoQuant: 'On-chain', Farside: 'ETF flows'};
+
+/** Site name behind the head: pixel loader → smear wipe (ref R2 "price."), pill tag + cursor (ref R1). */
 const BehindName: React.FC<{name: string; t: number; end: number}> = ({name, t, end}) => {
   const frame = useCurrentFrame();
   const at = f(t) - 1;
-  if (frame < at || frame > f(end)) return null;
-  const drift = 1 + (frame - at) * 0.0006;
+  if (frame < at - 20 || frame > f(end)) return null;
+  const drift = 1 + Math.max(0, frame - at) * 0.0006;
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 330, textAlign: 'center', zIndex: 2,
-      transform: `scale(${tw(frame, at, 4, 1.2, 1) * drift})`, filter: `blur(${tw(frame, at, 4, 30, 0)}px) drop-shadow(0 0 30px rgba(128,80,232,.55))`,
-      opacity: tw(frame, at, 3, 0, 1)}}>
-      <div style={{font: `700 168px ${FONT.display}`, letterSpacing: -9, lineHeight: 1}}>
-        <Metallic style={{background: 'linear-gradient(180deg,#FFFFFF 30%,#CFC3F0 75%,#9C8CC9)', WebkitBackgroundClip: 'text'}}>{name}</Metallic>
-        <Dot at={at + 4} />
+    <div style={{position: 'absolute', left: 0, right: 0, top: 330, textAlign: 'center', zIndex: 2, transform: `scale(${drift})`}}>
+      <div style={{position: 'relative', font: `700 168px ${FONT.display}`, letterSpacing: -9, lineHeight: 1}}>
+        <PixelLoader land={at} size={66} gap={12} seed={`bn${name}`} />
+        <div style={{display: 'inline-block', transformOrigin: '0% 70%', filter: 'drop-shadow(0 0 30px rgba(128,80,232,.55))', ...smearIn(frame, at, 7)}}>
+          <Metallic style={{background: 'linear-gradient(180deg,#FFFFFF 30%,#CFC3F0 75%,#9C8CC9)', WebkitBackgroundClip: 'text'}}>{name}</Metallic>
+          <Dot at={at + 5} />
+        </div>
       </div>
+      {frame >= at + 6 && <div style={{position: 'absolute', left: 0, right: 0, top: -70, textAlign: 'center'}}><PillTag text={TAGS[name]} at={at + 6} /></div>}
     </div>
   );
 };

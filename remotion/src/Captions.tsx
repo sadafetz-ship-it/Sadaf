@@ -1,8 +1,9 @@
 import React from 'react';
-import {interpolate, useCurrentFrame} from 'remotion';
+import {interpolate, interpolateColors, useCurrentFrame} from 'remotion';
 import {C, FONT, metallic} from './theme';
-import {CAPTION_GROUPS, f, Group, pop, Tok, tw} from './timing';
+import {CAPTION_GROUPS, f, Group, Tok, tw} from './timing';
 import {Dot} from './ui';
+import {PixelDissolve, PixelLoader, smearIn, Swoosh} from './Pixel';
 
 /** Light word: blur 20 → 0, y +10 → 0, opacity 0 → 1 in 8 f, on its spoken frame. */
 const LightWord: React.FC<{tok: Tok}> = ({tok}) => {
@@ -10,6 +11,7 @@ const LightWord: React.FC<{tok: Tok}> = ({tok}) => {
   const at = f(tok.t) - 1;
   return (
     <span style={{display: 'inline-block', marginRight: '0.24em', opacity: tw(frame, at, 6, 0, 1),
+      color: interpolateColors(frame, [at + 2, at + 12], [C.lilac, C.mist]),
       filter: `blur(${tw(frame, at, 8, 20, 0)}px)`, transform: `translateY(${tw(frame, at, 8, 10, 0)}px)`}}>{tok.text}</span>
   );
 };
@@ -30,33 +32,36 @@ const Script: React.FC<{toks: Tok[]}> = ({toks}) => {
   );
 };
 
-/** Heavy word(s): each pops 0 → 115 → 100 % (7 f) on its spoken frame; rose dot 3 f after the last. */
-const Heavy: React.FC<{toks: Tok[]; dot: boolean}> = ({toks, dot}) => {
+/** Heavy word(s): pixel loader (5 px squares, 2 f apart) then the word smears in L → R on its spoken frame (ref R2). */
+const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string}> = ({toks, dot, seed}) => {
   const frame = useCurrentFrame();
   if (!toks.length) return null;
+  const size = Math.min(156, Math.floor(1872 / toks.map((t) => t.text).join(' ').length));
+  const first = f(toks[0].t) - 1;
   const last = f(toks[toks.length - 1].t);
   return (
-    <div style={{font: `600 ${Math.min(156, Math.floor(1872 / toks.map((t) => t.text).join(' ').length))}px ${FONT.display}`, letterSpacing: -7, lineHeight: 1, marginTop: -4,
-      filter: 'drop-shadow(0 4px 20px rgba(25,13,50,.8))'}}>
-      {toks.map((t, i) => {
-        const at = f(t.t) - 1;
-        return (
-          <span key={i} style={{display: 'inline-block', transform: `scale(${pop(frame, at, 7)})`, transformOrigin: '50% 70%',
-            marginRight: i < toks.length - 1 ? '0.17em' : 0}}>
-            <span style={{background: metallic, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{t.text}</span>
-          </span>
-        );
-      })}
-      {dot && <Dot at={last + 3} />}
+    <div style={{position: 'relative', font: `600 ${size}px ${FONT.display}`, letterSpacing: -7, lineHeight: 1, marginTop: -4}}>
+      <PixelLoader land={first} size={Math.round(size * 0.36)} gap={Math.round(size * 0.07)} seed={seed} />
+      <div style={{display: 'inline-block', filter: 'drop-shadow(0 4px 20px rgba(25,13,50,.8))'}}>
+        {toks.map((t, i) => {
+          const at = f(t.t) - 1;
+          return (
+            <span key={i} style={{display: 'inline-block', transformOrigin: '0% 70%', marginRight: i < toks.length - 1 ? '0.17em' : 0, ...smearIn(frame, at)}}>
+              <span style={{background: metallic, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{t.text}</span>
+            </span>
+          );
+        })}
+        {dot && <Dot at={last + 4} />}
+      </div>
     </div>
   );
 };
 
-const CaptionGroup: React.FC<{g: Group}> = ({g}) => {
+const CaptionGroup: React.FC<{g: Group; i: number}> = ({g, i}) => {
   const frame = useCurrentFrame();
   const out = f(g.end);
-  const exitO = interpolate(frame, [out, out + 5], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const exitB = interpolate(frame, [out, out + 5], [0, 20], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const exitO = interpolate(frame, [out - 1, out + 3], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const exitB = interpolate(frame, [out - 1, out + 3], [0, 24], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   if (frame < f(g.start) - 1 || frame > out + 6) return null;
   const light = {font: `300 58px ${FONT.display}`, letterSpacing: -2, lineHeight: 1.1, textShadow: '0 2px 18px rgba(25,13,50,.9)'};
   return (
@@ -69,11 +74,21 @@ const CaptionGroup: React.FC<{g: Group}> = ({g}) => {
           {g.l2.map((t, i) => <LightWord key={i} tok={t} />)}
         </div>
       )}
-      <Heavy toks={g.h} dot={g.dot} />
+      <Heavy toks={g.h} dot={g.dot} seed={`h${i}`} />
     </div>
   );
 };
 
+const SECTION = /^(first|second|third|and)$/i;
+
 export const Captions: React.FC = () => (
-  <>{CAPTION_GROUPS.map((g, i) => <CaptionGroup key={i} g={g} />)}</>
+  <>
+    {CAPTION_GROUPS.map((g, i) => <CaptionGroup key={i} g={g} i={i} />)}
+    {/* pixel dissolve on every caption change (ref R1) */}
+    {CAPTION_GROUPS.slice(1).map((g, i) => <PixelDissolve key={`d${i}`} at={f(g.start)} seed={`pd${i}`} />)}
+    {/* swoosh streak brings in each "First / Second / Third / And lastly" (ref R2) */}
+    {CAPTION_GROUPS.filter((g) => g.l1.length && SECTION.test(g.l1[0].text.replace(/[^a-z]/gi, ''))).map((g, i) => (
+      <Swoosh key={`s${i}`} at={f(g.start) - 6} y={1430} />
+    ))}
+  </>
 );

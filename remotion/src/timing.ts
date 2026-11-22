@@ -6,8 +6,9 @@ export const f = (t: number) => Math.round(t * FPS);
 
 /** Audio ends after "ETFs." (44.34 s) — the raw take is cut off mid-sentence at 45.2 s. */
 export const SPEECH_END = 44.5;
-export const RECAP_LEN = 2.6;
-export const TOTAL_FRAMES = f(SPEECH_END + RECAP_LEN);
+/** Short hold + fade after the last word (the recap board was removed). */
+export const END_HOLD = 0.6;
+export const TOTAL_FRAMES = f(SPEECH_END + END_HOLD);
 
 export type Word = {w: string; s: number; e: number};
 export const WORDS = words as Word[];
@@ -77,7 +78,7 @@ const buildGroups = (): Group[] => {
 export const CAPTION_GROUPS = buildGroups();
 
 // ───────────────────────── scenes ─────────────────────────
-export type SceneKind = 'talk' | 'cta' | 'ex-defillama' | 'ex-coinglass' | 'ex-flows' | 'ex-entryexit' | 'ex-farside' | 'recap';
+export type SceneKind = 'talk' | 'cta' | 'ex-defillama' | 'ex-coinglass' | 'ex-flows' | 'ex-entryexit' | 'ex-farside';
 export const SCENES: {kind: SceneKind; start: number; end: number}[] = [
   {kind: 'talk', start: 0, end: 8.7},
   {kind: 'ex-defillama', start: 8.7, end: 11.96},
@@ -89,8 +90,7 @@ export const SCENES: {kind: SceneKind; start: number; end: number}[] = [
   {kind: 'talk', start: 31.82, end: 33.5},
   {kind: 'cta', start: 33.5, end: 37.42},
   {kind: 'talk', start: 37.42, end: 39.2},
-  {kind: 'ex-farside', start: 39.2, end: SPEECH_END},
-  {kind: 'recap', start: SPEECH_END, end: SPEECH_END + RECAP_LEN},
+  {kind: 'ex-farside', start: 39.2, end: SPEECH_END + END_HOLD},
 ];
 export const SWITCHES = SCENES.slice(1).map((s) => s.start);
 

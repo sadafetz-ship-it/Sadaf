@@ -10,7 +10,7 @@ export const SceneWrap: React.FC<{start: number; end: number; seed: number; chil
   const a = f(start);
   if (frame < a || frame >= f(end)) return null;
   return (
-    <AbsoluteFill style={{transform: `scale(${tw(frame, a, 6, 1.08, 1)})`, filter: `blur(${tw(frame, a, 6, 20, 0)}px)`}}>
+    <AbsoluteFill style={{transform: `scale(${tw(frame, a, 5, 1.12, 1)})`, filter: `blur(${tw(frame, a, 5, 28, 0)}px)`}}>
       {bg && <ExplainerBG seed={seed} />}
       {children}
     </AbsoluteFill>
@@ -265,41 +265,12 @@ export const FarsideScene: React.FC = () => {
     </div>
   );
   return (
-    <SceneWrap start={S} end={44.5} seed={9}>
+    <SceneWrap start={S} end={44.5 + 0.6} seed={9}>
       <XHead k="04 / 04 · ETF FLOW TRACKER" title="Farside" at={f(S)} />
       {panel(70, 42.34, <><span style={{color: C.blueLight}}>Ξ</span> Ethereum ETFs</>, C.blueLight, 'rgba(91,108,255,.55)', 'eth', C.blueLight, f(S) + 3)}
       {panel(560, 43.24, <><span style={{color: C.rose}}>₿</span> Bitcoin ETFs</>, '#FFB3DD', 'rgba(255,126,200,.5)', 'btc', C.lilac, f(S) + 6)}
       <Plus x={100} y={440} size={44} at={f(42.34)} />
       <Plus x={950} y={1150} size={40} color={C.blue} at={f(43.24)} />
-    </SceneWrap>
-  );
-};
-
-// ───────────────────────── Recap — the list ─────────────────────────
-export const RecapScene: React.FC<{start: number; end: number}> = ({start, end}) => {
-  const frame = useCurrentFrame();
-  const tiles = [
-    {n: '01', name: 'DefiLlama', what: 'DeFi data', g1: C.lilac, g2: 'rgba(128,80,232,.6)', x: 80, y: 420},
-    {n: '02', name: 'CoinGlass', what: 'Derivatives', g1: C.blueLight, g2: 'rgba(91,108,255,.55)', x: 560, y: 420},
-    {n: '03', name: 'CryptoQuant', what: 'On-chain', g1: '#E7A0FF', g2: 'rgba(198,91,242,.55)', x: 80, y: 860},
-    {n: '04', name: 'Farside', what: 'ETF flows', g1: '#FFB3DD', g2: 'rgba(255,126,200,.5)', x: 560, y: 860},
-  ];
-  const fadeOut = interpolate(frame, [f(end) - 10, f(end)], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  return (
-    <SceneWrap start={start} end={end + 1} seed={10}>
-      <AbsoluteFill style={{opacity: fadeOut}}>
-        <XHead k="SAVE THIS" title="The list" at={f(start)} />
-        {tiles.map((t, i) => (
-          <div key={t.n} style={{...glass({left: t.x, top: t.y, width: 440, height: 400, padding: '40px 36px'}), transform: `scale(${pop(frame, f(start) + 6 + i * 4, 8)})`}}>
-            <BottomGlow c1={t.g1} c2={t.g2} />
-            <div style={{position: 'relative', font: `700 30px ${FONT.mono}`, letterSpacing: 2, color: C.lilac}}>{t.n}</div>
-            <div style={{position: 'relative', font: `700 62px ${FONT.display}`, letterSpacing: -2.5, marginTop: 70}}>{t.name}</div>
-            <div style={{position: 'relative', ...ax, marginTop: 8}}>{t.what}</div>
-          </div>
-        ))}
-        <Plus x={110} y={380} size={46} at={f(start) + 10} />
-        <Plus x={940} y={1280} size={50} color={C.lilac} at={f(start) + 18} />
-      </AbsoluteFill>
     </SceneWrap>
   );
 };
