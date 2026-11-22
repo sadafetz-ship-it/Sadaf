@@ -127,18 +127,3 @@ export const GlassPhoneCard: React.FC<{opacity: number}> = ({opacity}) => (
     <div style={{position: 'absolute', left: '50%', top: 34, width: 150, height: 34, marginLeft: -75, borderRadius: 20, background: 'rgba(238,231,255,.75)'}} />
   </div>
 );
-
-/** Whole edit inside a glowing, slightly tilted phone frame (ref R1). */
-export const PhoneFrame: React.FC<{children: React.ReactNode}> = ({children}) => {
-  const frame = useCurrentFrame();
-  const rot = -1.6 + Math.sin(frame / 70) * 0.5;
-  return (
-    <AbsoluteFill style={{background: `radial-gradient(70% 50% at 30% 20%,rgba(128,80,232,.55),transparent 70%),
-      radial-gradient(60% 40% at 80% 85%,rgba(198,91,242,.35),transparent 70%), linear-gradient(160deg,#2A1458,#190D32 50%,#0D0620)`}}>
-      <AbsoluteFill style={{transform: `scale(0.9) rotate(${rot}deg)`, borderRadius: 70, overflow: 'hidden',
-        boxShadow: `0 0 0 8px ${C.lilac}, 0 0 60px 10px rgba(185,154,245,.7), 0 0 160px 30px rgba(128,80,232,.5)`}}>
-        {children}
-      </AbsoluteFill>
-    </AbsoluteFill>
-  );
-};

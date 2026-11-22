@@ -4,7 +4,6 @@ import {loadFont} from '@remotion/fonts';
 import {Captions} from './Captions';
 import {CoinGlassScene, CtaScene, DefiLlamaScene, EntryExitScene, FarsideScene, FlowsScene} from './Explainers';
 import {PixelGrid} from './Pixel';
-import {PhoneFrame} from './Extras';
 import {Sfx} from './Sfx';
 import {Talk} from './Talk';
 import {C} from './theme';
@@ -18,9 +17,6 @@ export const Main: React.FC = () => {
   const flashO = Math.max(...SWITCHES.map((t) => flash(frame, f(t))));
   return (
     <AbsoluteFill style={{background: C.ink, fontFamily: 'Inter, sans-serif', color: C.mist}}>
-      {/* whole edit inside a glowing tilted phone frame (ref R1) */}
-      <PhoneFrame>
-      <AbsoluteFill style={{background: C.ink}}>
       {frame < f(SPEECH_END) && <Talk />}
       <DefiLlamaScene />
       <CoinGlassScene />
@@ -32,8 +28,6 @@ export const Main: React.FC = () => {
       {/* pixel grid on every cut (ref R1) + a softer 2 f flash */}
       {SWITCHES.map((t, i) => <PixelGrid key={i} at={f(t)} seed={`pg${i}`} />)}
       <AbsoluteFill style={{background: C.lilac, opacity: flashO * 0.5, mixBlendMode: 'screen', pointerEvents: 'none'}} />
-      </AbsoluteFill>
-      </PhoneFrame>
       {/* fade to ink at the very end */}
       <AbsoluteFill style={{background: C.ink, opacity: interpolate(frame, [TOTAL_FRAMES - 12, TOTAL_FRAMES - 1], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}} />
       <Sfx />

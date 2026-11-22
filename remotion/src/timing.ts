@@ -44,13 +44,13 @@ const GROUPS: GroupDef[] = [
   {l1: 'about open interest, liquidation and other', s: 'super important', h: 'data', fx: {bar: true}},
   {l1: 'Third,', s: 'we have'},
   {l1: 'This website offers', s: 'on-chain', h: 'analytics', fx: {box: 'offers'}},
-  {l1: 'like', s: 'inflows', l2: 'and', h: 'outflows', fx: {arrowS: true, arrowH: true}},
+  {l1: 'like', s: 'inflows', l2: 'and', h: 'outflows'},
   {l1: 'It helps investors identify potential', s: 'entry', l2: 'and', h: 'exit points', fx: {bar: true}},
   {l1: 'Before we get into the', s: 'last', h: 'one', fx: {tilt: 6}},
   {l1: 'if you want the full website list, just', s: 'comment', h: 'Bitcoin', fx: {ring: true, box: 'list,'}},
   {l1: "and I'll send it", s: 'over', l2: 'to', h: 'you'},
   {l1: 'And lastly,', s: 'we have'},
-  {l1: 'On this website, you can track the', s: 'inflows', l2: 'and', h: 'outflows', fx: {arrowS: true, arrowH: true, box: 'track'}},
+  {l1: 'On this website, you can track the', s: 'inflows', l2: 'and', h: 'outflows', fx: {box: 'track'}},
   {l1: 'into the', s: 'Ethereum', l2: 'and', h: 'Bitcoin ETFs'},
 ];
 
