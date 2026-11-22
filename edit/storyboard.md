@@ -1,93 +1,110 @@
-# Storyboard — "Crypto websites I shouldn't be sharing"
+# Storyboard v3 — "Crypto websites I shouldn't be sharing"
 
-**Source:** `hb_1794061643210.mp4` · 45.4 s · 1080×1920 · 30 fps · one locked-off talking-head shot (purple-lit room, face in the top third, desk across the lower half).
+**Source:** `hb_1794061643210.mp4` · 45.4 s · 1080×1920 · 30 fps · one locked-off talking-head shot (purple-lit room).
 **Status:** PREVIEW ONLY — awaiting approval. Nothing is built yet.
-**Preview frames:** `edit/preview/F1…F7.png` (stills from your footage with the planned overlays), `edit/preview/board.jpg` (all 7 side by side).
+**Preview frames:** `edit/preview/P1…P8.png` (real stills from your footage with the planned overlays) and `edit/preview/board.jpg` (all 8 side by side).
+**Style source:** your `video-motion-study` skill (the rules in `study/STUDY.md` §3–4), your 8 reference images (glass cards, glow) and your caption reference ("You're not / *competing* on / **price.**").
 
 ---
 
 ## 1. Look
 
+### Palette
 | Token | Hex | Used for |
 |---|---|---|
-| Ink | `#190D32` | Card body, bottom grade (darkens the desk so cards read), text on white pills |
-| Deep | `#5426A8` | Start of gradients, ENTRY tag, inactive bar track |
-| Violet | `#8050E8` | Main accent: line graphs, progress fills, outer glow, FREE pill |
-| Lilac | `#B99AF5` | Highlight word in every headline (Defi**Llama**, Coin**Glass**…), card bottom glow, card numbers |
-| Mist | `#EEE7FF` | All main text, glowing data dots, white CTA pill |
+| Ink | `#190D32` | Card body, bottom grade under the captions |
+| Deep | `#5426A8` | Start of gradients, empty bar tracks |
+| Violet | `#8050E8` | Main accent: line graphs, glows, edge flashes |
+| Lilac | `#B99AF5` | Script caption word, card bottom glow, sparkles |
+| Mist | `#EEE7FF` | Text; heavy words fade from white at the top to grey-lilac at the bottom, like your reference |
 
-**Detail colours.** These are your additions, in the same purple family and used only for small accents, never for large areas:
+**Detail colours** (small accents only):
 
 | Token | Hex | Used for |
 |---|---|---|
-| Electric blue | `#5B6CFF` | Start of graph lines, card numbers (`01 / 04`, lilac→blue), "inflows" bars, ENTRY tag, Ethereum ETF bar, second checklist star |
-| Magenta | `#C65BF2` | End of default progress fills, FREE pill gradient, divider line, CTA button outer glow |
-| Rose | `#FF7EC8` | Sparkle next to every headline, chip status dots, lock icons, a halo ring around each graph dot, EXIT tag, "outflows" and Bitcoin ETF bars, the fade at the end of each hero word |
+| Electric blue | `#5B6CFF` | Card numbers, inflows / Ethereum bars, ENTRY tag, second checklist star |
+| Magenta | `#C65BF2` | Progress fills, `mad` edge flash, CTA button glow |
+| Rose | `#FF7EC8` | The **dot** after every heavy word, `+` sparkles, chip status dots, locks, EXIT tag, outflows / Bitcoin bars |
 
-**Reference style taken from your images:**
-- Dark glass cards: 56 px corners, blurred background, thin lilac border.
-- A glow pooled at the bottom edge of each card.
-- A faint grid inside each card.
-- Glowing line graphs ending in a bright dot.
-- Progress bars, star-bullet checklists and a white pill button.
+### Captions: lower third, in your reference's three-line style
+Each caption block is centred, with its bottom edge 280 px above the bottom of the frame, so it stays clear of the Instagram/TikTok buttons.
 
-**Type:**
-- Inter Display ExtraBold for headlines (92 px hero, tracking −3).
-- Inter Medium for setup lines (36 px).
-- JetBrains Mono for small data labels (`01 / 04`).
+| Line | Font | Size / tracking | Colour |
+|---|---|---|---|
+| 1. Setup line | **Inter Display Light** | 46 px, −1.6 | Mist, soft dark shadow |
+| 2. Accent word | **Allura** (script, OFL font, saved in `edit/preview/fonts/`), optionally followed by more light words | 104 px | Lilac with a violet glow |
+| 3. Hero word | **Inter Display SemiBold**, ending in a **rose dot** like "price." | 124 px, −6 | White fading to grey-lilac (metallic) |
 
-**Screen layout:**
+**Font matching:**
+- The light and heavy lines are the closest match to the Helvetica-style sans in your reference.
+- I tested five script fonts; Allura is closest to your reference's thin, slanted script (`edit/preview/` has the comparison).
 
-| Zone | Height | What goes there |
+### Placement (from your skill's zone rules)
+| Zone | What goes there |
+|---|---|
+| Top third, behind the head | Each **site name**, huge (168 px, metallic, rose dot), with the speaker cut out and layered in front so his head covers the bottom of the letters |
+| Chest | Glass data cards, 720 px wide, over the torso and never over the face |
+| Lower third | Captions, always on screen |
+| Around the head / caption | Small `+` sparkles in rose, lilac and blue (the yellow `+` in your reference, recoloured), and sticker icons for concrete words |
+
+---
+
+## 2. Modes (your skill: switch mode every 1.3–2.5 s so the eye never settles)
+
+| Mode | What it is | Preview |
 |---|---|---|
-| Top | 7–15 % | Headline: a small setup line, then the hero word with a rose sparkle |
-| Middle | 20–52 % | The speaker's face. Always left clear. |
-| Bottom | 52–81 % | One glass card, 720 px wide (about 67 % of frame width), over the chest and desk. Below 81 % is kept clear for the Instagram/TikTok interface. |
-
-**Grade:** a subtle Ink gradient over the bottom 30 % of the frame, plus a light top fade so the headline reads.
-
----
-
-## 2. Motion rules (from `study/STUDY.md` spec)
-
-| Element | In | Out |
-|---|---|---|
-| Setup line | Words appear one at a time as they're spoken: blur 12→0, y +16→0, opacity 0→1, 6 f each, expo-out | Blur 0→20 + fade, 5 f |
-| Hero word | Lands on the first frame of the spoken word: scale 0.85→1.04→1, blur 20→0, 8 f, back-out. A lilac glow swells, then settles. | Blur + fade, 5 f |
-| Glass card | Slides up 120 px, scale 0.94→1, blur 30→0, 10 f, expo-out. The bottom glow turns on 4 f later. | Drops 60 px + blur, 6 f |
-| Card → card | The old card exits while the new one enters 2 f behind it. The number counter rolls `01→02`. | — |
-| Line graph | Draws left to right (stroke-dashoffset) over 18 f, then the dot pops in (scale 0→1.2→1, 6 f) | — |
-| Checklist rows | Each star + row pops in on its spoken word (4 f), and the star twinkles once | — |
-| Progress bars | Fill 0→value over 14 f, expo-out | — |
-| Camera | Slow push-in on the whole shot, 100→106 % per section. A 4 f punch-in (+4 %) on each new site name. | — |
-
-**Sync rule:** every hero word and list row lands on the first frame of its spoken word (timings below come from `edit/transcript.md`). Something changes on screen every 0.5–1 s.
+| **A · Caption only** | Footage + lower-third caption + sparkles / stickers | P1, P2 |
+| **B · Name behind head** | A site name goes up behind the head; the caption carries the setup ("Second, we have") | P3 |
+| **C · Card** | A glass data card on the chest + caption | P4, P5, P6, P8 |
+| **D · Full-frame insert** | Footage blurred and darkened, one big centred card + caption | P7 |
 
 ---
 
-## 3. Beats
+## 3. Motion (from your skill's spec sheet)
 
-| # | Time (s) | Frames | Spoken (key words in **bold** = on-screen trigger) | Top headline | Bottom card | Preview |
-|---|---|---|---|---|---|---|
-| 1 | 0.00–2.94 | 0–88 | "I should **not** be giving these **crypto websites** away." | Setup "I should NOT be giving these" (NOT in Lilac at 0.42) → hero **crypto websites** at 1.50 → "away." at 2.24 | **Classified card:** "Classified · do not share", chip "4 sites", 4 rows `01–04`, each with a lock and a blurred redaction bar. Rows stagger in 3 f apart from 1.50. | F1 |
-| 2 | 2.94–6.34 | 88–190 | "Other crypto investors are going to be **mad** I shared this for **free**." | Setup word by word, "mad" in Lilac at 4.46 → **FREE** Violet pill pops at 5.70 | Same card, header changes to "Unlocking the list…" with chip `0 / 4`. Row 01 brightens. | F2 |
-| 3 | 6.34–11.96 | 190–359 | "First, we have **DefiLlama**, the best website to get **all the data** you need in the **DeFi** ecosystem." | "First, we have" → hero **Defi*Llama*** at 6.74 (punch-in) | **Card 01/04**, chip "DeFi data ▾". The line graph draws in from 8.84 ("all the data") and the dot pops at 9.34 ("data"). "All the data you need in **DeFi**" lands at 10.58. | F3 |
-| 4 | 11.96–20.56 | 359–617 | "Second, we have **CoinGlass**. This website gives **clear and detailed** information about **open interest**, **liquidation** and other **super important data**." | "Second, we have" → hero **Coin*Glass*** at 12.98 | **Card 02/04**, chip "Derivatives". Title "Clear, detailed data" at 14.88, glowing divider sweeps in. Checklist: ✦ Open interest (16.70) · ✦ Liquidations (17.84) · ✦ Super important data (19.04). | F4 |
-| 5 | 20.56–31.82 | 617–955 | "Third, we have **CryptoQuant**.com. This website offers **on-chain** analytics like **inflows** and **outflows** on the exchange. It helps investors identify potential **entry** and **exit** points." | "Third, we have" → hero **Crypto*Quant*** at 21.12 | **Card 03/04**, chip "On-chain" (pops at 23.62). Bars "↘ Exchange inflows" fill at 25.32 and "↗ Exchange outflows" at 26.16. The wave graph draws in at 28.00, then the **ENTRY** tag pops at 29.84 and **EXIT** at 30.66. | F5 |
-| 6 | 31.82–37.42 | 955–1123 | "Before we get into the last one, if you want the **full website list**, just **comment Bitcoin** and I'll send it over to you." | Hero **full *list?*** at 33.54 | **CTA card:** "Unlock every website", "Comment below", a progress bar filling to 3/4 ("Sites revealed"), then a white pill **Comment "BITCOIN"** pops at 35.12 with a glow pulse at 35.40. | F6 |
-| 7 | 37.42–44.52 | 1123–1336 | "And lastly, we have **Farside**. On this website, you can track the **inflows and outflows** into the **Ethereum** and **Bitcoin ETFs**." | "And lastly," → hero **Far*side*** at 38.34 | **Card 04/04**, chip "ETF flows ▾". A rising line draws in at 40.44 and its dot hits the top. Bars: Ξ Ethereum ETFs fill at 42.34, ₿ Bitcoin ETFs at 43.24. | F7 |
-| 8 | 44.52–45.42 | 1336–1362 | "But before you leave," *(audio cuts off)* | Setup "But before you leave…" | Card 04 exits. **Recap**: 4 mini tiles (DefiLlama · CoinGlass · CryptoQuant · Farside) pop in a 2×2 grid, 2 f stagger, in the style of your app-tile reference. Hold, then end. | — |
+| Element | Animation |
+|---|---|
+| Caption light words | Appear **one at a time as they're spoken**: blur 20→0, y +10→0, opacity 0→1, 8 f, expo-out |
+| Caption script word | The script draws on left to right (a mask wipe), 10 f, on the spoken word |
+| Caption heavy word | Lands **on the frame the word starts**: scale 0→115→100 %, 7 f, back-out; the rose dot pops 3 f later |
+| Caption change | The old caption blurs out in 5 f as the next sentence starts. Captions never stack. |
+| Name behind head | Scale 120→100 % + blur 30→0, 4 f, timed to the spoken name; idles with a slow 2 % drift |
+| Card in / out | In: up 120 px, scale 94→100 %, blur 30→0, 10 f, expo-out. Out: blur + down 60 px, 6 f |
+| Graphs / bars / list rows | Graph line draws on over 18 f, then the dot pops. Bars fill over 14 f. Each list row pops in on its spoken item. |
+| `+` sparkles | Pop in (0→120→100 %, 6 f), then rotate slowly and twinkle |
+| Hard change every ~2.5 s | Alternates between a 4 f punch-in (+4–6 %), a 2 f lilac flash at mode switches, and a zoom-out reset at section ends |
+| Shot entry (0.00 s) | Scale 120→100 % + blur 30→0, 4 f. The first word is already appearing, with no empty frames. |
 
 ---
 
-## 4. Notes / decisions for you
+## 4. Beats
 
-1. **The raw clip ends mid-sentence** ("But before you leave," at 45.2 s). Choose one:
-   - **(a)** Cut at 44.5 s after "ETFs" and end on the recap grid. This is my recommendation.
-   - **(b)** Keep the cut-off line under the recap.
-   - **(c)** Send me the rest of the take.
-2. **Name spellings.** The audio says "DeFi Llama", "liquidation" and "Farside". Whisper heard "LAMA", "incudation" and "Farsight". I've used the real site names; tell me if any is different.
-3. **Numbers on the cards** (bar lengths, graph shapes) are illustrative, not live data. No made-up figures appear as facts.
-4. **Optional extras, not shown in the preview:**
-   - Subtle whoosh/pop sound effects on card entrances.
-   - Small site logos next to each hero word, if you can send the logo files.
+Timings come from `edit/transcript.md`. **Bold** words are the trigger frames.
+
+| # | Time (s) | Mode | Spoken | Caption: light / *script* / **heavy.** | Other on screen |
+|---|---|---|---|---|---|
+| 1 | 0.00–1.50 | A | "I should not be giving these" | I should not be giving these | Shot entry; push-in 100→106 % starts |
+| 2 | 1.50–2.94 | A + mini card | "**crypto websites** away." | *crypto* (1.50) / **websites.** (1.82) | Small "Classified" card pops at 1.82 with 4 locked, blurred rows (P1) |
+| 3 | 2.94–4.46 | A | "Other crypto investors are going to be" | Other crypto investors are going to be | Card exits |
+| 4 | 4.46–5.70 | A + sticker | "**mad** I shared this for" | *mad* (4.46) I shared this for | 😤 sticker pops beside the head; magenta edge flash, 3 f (P2) |
+| 5 | 5.70–6.34 | A | "**free**." | **free.** (5.70) | 4 f punch-in |
+| 6 | 6.34–8.70 | B | "First, we have **DefiLlama**," | First, / *we have* | **DefiLlama.** behind the head at 6.74 (P3); lilac flash at 6.34 |
+| 7 | 8.70–11.96 | C | "the best website to get **all the data** you need in the DeFi **ecosystem**." | the best website to get / *all* the / **data.** (9.34) → you need in the / *DeFi* / **ecosystem.** (11.06) | Card 01: graph draws at 8.84, dot at 9.34 (P4) |
+| 8 | 11.96–14.00 | B | "Second, we have **CoinGlass**." | Second, / *we have* | **CoinGlass.** behind the head at 12.98 |
+| 9 | 14.00–20.56 | C | "This website gives clear and detailed information about **open interest**, **liquidation** and other **super important data**." | gives clear and / *detailed* / **information.** → about / *open interest,* / **liquidation.** → and other super / *important* / **data.** | Card 02 checklist: rows at 16.70, 17.84, 19.04 (P5); punch-in at 17.84 |
+| 10 | 20.56–22.68 | B | "Third, we have **CryptoQuant**.com." | Third, / *we have* | **CryptoQuant.** behind the head at 21.12 |
+| 11 | 22.68–27.72 | C | "This website offers **on-chain** analytics like **inflows** and **outflows** on the exchange." | offers / *on-chain* / **analytics.** → like / *inflows* and / **outflows.** | Card 03: chip at 23.62, blue inflow bar at 25.32, rose outflow bar at 26.16 |
+| 12 | 27.72–31.82 | C | "It helps investors identify potential **entry** and **exit** points." | helps investors identify potential / *entry* and / **exit points.** (30.66) | Graph draws at 28.0, ENTRY tag at 29.84, EXIT at 30.66 (P6); punch-in at 27.72 |
+| 13 | 31.82–33.50 | A | "Before we get into the **last** one," | Before we get into the / *last* / **one.** | Zoom-out reset to 100 % |
+| 14 | 33.50–37.42 | D | "if you want the full website list, just **comment Bitcoin** and I'll send it over to you." | if you want the full list, just / *comment* / **Bitcoin.** (35.40) | Full-frame insert: ₿ coin pops, progress bar 3/4, white **Comment "BITCOIN"** button at 35.12 (P7) |
+| 15 | 37.42–39.20 | B | "And lastly, we have **Farside**." | And lastly, / *we have* | **Farside.** behind the head at 38.34 |
+| 16 | 39.20–44.52 | C | "On this website, you can track the inflows and outflows into the **Ethereum** and **Bitcoin ETFs**." | you can / *track* the / **inflows.** → into the / *Ethereum* and / **Bitcoin ETFs.** (43.24) | Card 04: graph draws at 40.44, blue Ethereum bar at 42.34, rose Bitcoin bar at 43.24 (P8) |
+| 17 | 44.52–end | D | "But before you leave," *(cut off)* | — | Recap: 4 mini glass tiles (one per site) pop in a 2×2 grid, 2 f stagger, then end |
+
+---
+
+## 5. Still open
+1. **Ending.** The raw clip stops mid-sentence ("But before you leave," at 45.2 s). I recommend cutting at 44.5 s and ending on the recap grid.
+2. **Site names.** I've used DefiLlama, liquidation and Farside (Whisper heard LAMA / incudation / Farsight). Please confirm.
+3. **Illustrative graphics.** Graph shapes and bar lengths are design only; no real numbers are shown.
+4. **Optional:** sound effects (whoosh / pop / twinkle) and real site logos next to the behind-head names.
