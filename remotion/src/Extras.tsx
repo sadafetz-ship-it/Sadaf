@@ -117,13 +117,3 @@ export const StackTiles: React.FC<{times: number[]; show: [number, number][]}> =
     </div>
   );
 };
-
-/** Glass phone card behind the speaker (ref R2): sits between footage and the cut-out. */
-export const GlassPhoneCard: React.FC<{opacity: number}> = ({opacity}) => (
-  <div style={{position: 'absolute', left: 170, right: 170, top: 250, height: 1000, borderRadius: 90, zIndex: 1, opacity,
-    background: 'linear-gradient(180deg,rgba(238,231,255,.10),rgba(185,154,245,.05) 60%,rgba(25,13,50,.15))',
-    border: '2.5px solid rgba(238,231,255,.30)', boxShadow: 'inset 0 2px 0 rgba(255,255,255,.25), 0 30px 80px rgba(25,13,50,.35)',
-    backdropFilter: 'blur(3px)'}}>
-    <div style={{position: 'absolute', left: '50%', top: 34, width: 150, height: 34, marginLeft: -75, borderRadius: 20, background: 'rgba(238,231,255,.75)'}} />
-  </div>
-);

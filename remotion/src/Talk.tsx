@@ -1,10 +1,10 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
 import {C, FONT} from './theme';
-import {BEHIND_NAMES, cameraZoom, f, SCENES, tw} from './timing';
+import {BEHIND_NAMES, cameraZoom, f, pop, SCENES, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, Dot, glass, Metallic, Plus} from './ui';
 import {PillTag, PixelLoader, smearIn} from './Pixel';
-import {ArcText, GlassPhoneCard, StackTiles} from './Extras';
+import {ArcText, StackTiles} from './Extras';
 
 const TAGS: Record<string, string> = {DefiLlama: 'DeFi data', CoinGlass: 'Derivatives', CryptoQuant: 'On-chain', Farside: 'ETF flows'};
 
@@ -75,6 +75,46 @@ const MadSticker: React.FC = () => {
   );
 };
 
+
+/** Farside list board over the chest (ref: "The Fundamentals of Design" card): title, glowing divider,
+ *  star bullets that type on as each item is spoken. */
+const FarsideBoard: React.FC = () => {
+  const frame = useCurrentFrame();
+  const at = f(39.2), out = f(44.5) + 6;
+  if (frame < at) return null;
+  const items: [string, number][] = [['Inflows', 40.44], ['Outflows', 41.16], ['Ethereum ETFs', 42.34], ['Bitcoin ETFs', 43.24]];
+  const o = interpolate(frame, [out, out + 8], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const line = tw(frame, at + 8, 12, 0, 100);
+  return (
+    <div style={{position: 'absolute', left: 290, width: 500, top: 730, zIndex: 30, borderRadius: 22, overflow: 'hidden', padding: '42px 48px 30px',
+      background: `linear-gradient(170deg,rgba(128,80,232,.78) 0%,rgba(84,38,168,.82) 45%,rgba(25,13,50,.9) 100%)`,
+      border: '1.5px solid rgba(185,154,245,.45)', boxShadow: '0 30px 80px rgba(25,13,50,.55), 0 0 60px rgba(128,80,232,.35), inset 0 1px 0 rgba(238,231,255,.3)',
+      backdropFilter: 'blur(16px)', ...{opacity: o * tw(frame, at, 6, 0, 1)},
+      transform: `translateY(${tw(frame, at, 10, 90, 0)}px) scale(${tw(frame, at, 10, 0.94, 1)})`, filter: `blur(${tw(frame, at, 8, 20, 0)}px)`}}>
+      <div style={{textAlign: 'center', font: `600 46px ${FONT.display}`, letterSpacing: -1, lineHeight: 1.05, color: C.mist}}>
+        Farside<br /><span style={{font: `500 34px ${FONT.display}`, color: 'rgba(238,231,255,.85)'}}>ETF Flow Tracker</span>
+      </div>
+      <div style={{height: 5, borderRadius: 3, margin: '26px auto 22px', width: `${line}%`, background: `linear-gradient(90deg,${C.lilac},${C.mist},${C.lilac})`,
+        boxShadow: `0 0 14px ${C.lilac}, 0 0 30px ${C.violet}`}} />
+      {items.map(([label, t], i) => {
+        const a = f(t) - 1;
+        if (frame < a) return <div key={i} style={{height: 58}} />;
+        const chars = Math.floor(tw(frame, a, 8, 0, label.length, (x) => x));
+        const tw2 = 1 + 0.5 * Math.exp(-(frame - a) / 5) * Math.abs(Math.sin((frame - a) / 2));
+        return (
+          <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: 58, font: `500 38px ${FONT.ui}`, color: C.mist}}>
+            <svg width={40} height={40} viewBox="0 0 24 24" style={{transform: `scale(${pop(frame, a, 6) * tw2}) rotate(${(frame - a) * 2}deg)`,
+              filter: `drop-shadow(0 0 8px ${C.mist}) drop-shadow(0 0 16px ${C.lilac})`}}>
+              <path d="M12 0C12.6 8 16 11.4 24 12 16 12.6 12.6 16 12 24 11.4 16 8 12.6 0 12 8 11.4 11.4 8 12 0Z" fill={C.mist} />
+            </svg>
+            <span>{label.slice(0, chars)}<span style={{opacity: chars < label.length ? 0.5 : 0}}>{label[chars] ?? ''}</span></span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 /** Footage layer, behind-head names, speaker cut-out, plus talking-head-only graphics. Always mounted until speech ends. */
 export const Talk: React.FC = () => {
   const frame = useCurrentFrame();
@@ -91,7 +131,6 @@ export const Talk: React.FC = () => {
       <AbsoluteFill style={{transform: `scale(${z * entryScale})`, transformOrigin: '50% 35%',
         filter: `blur(${entryBlur + ctaAmt * 22}px) brightness(${1 - ctaAmt * 0.55}) saturate(${1 + ctaAmt * 0.3})`}}>
         <OffthreadVideo src={staticFile('raw.mp4')} muted />
-        <GlassPhoneCard opacity={tw(frame, 0, 12, 0, 1)} />
         {BEHIND_NAMES.map((b) => <BehindName key={b.name} {...b} />)}
         <AbsoluteFill style={{zIndex: 3}}>
           <OffthreadVideo src={staticFile('speaker_cutout.webm')} transparent muted />
@@ -99,6 +138,7 @@ export const Talk: React.FC = () => {
         <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
       </AbsoluteFill>
       <ClassifiedCard />
+      <FarsideBoard />
       {/* text arcing over the head (ref R1) */}
       <ArcText text="these crypto websites" at={f(1.22)} end={f(2.94)} cx={540} cy={610} r={285} />
       {/* stacked 3D tiles counting the sites (ref R1) */}
