@@ -4,6 +4,7 @@ import {C, FONT} from './theme';
 import {BEHIND_NAMES, cameraZoom, f, SCENES, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, Dot, glass, Metallic, Plus} from './ui';
 import {PillTag, PixelLoader, smearIn} from './Pixel';
+import {ArcText, GlassPhoneCard, StackTiles} from './Extras';
 
 const TAGS: Record<string, string> = {DefiLlama: 'DeFi data', CoinGlass: 'Derivatives', CryptoQuant: 'On-chain', Farside: 'ETF flows'};
 
@@ -90,6 +91,7 @@ export const Talk: React.FC = () => {
       <AbsoluteFill style={{transform: `scale(${z * entryScale})`, transformOrigin: '50% 35%',
         filter: `blur(${entryBlur + ctaAmt * 22}px) brightness(${1 - ctaAmt * 0.55}) saturate(${1 + ctaAmt * 0.3})`}}>
         <OffthreadVideo src={staticFile('raw.mp4')} muted />
+        <GlassPhoneCard opacity={tw(frame, 0, 12, 0, 1)} />
         {BEHIND_NAMES.map((b) => <BehindName key={b.name} {...b} />)}
         <AbsoluteFill style={{zIndex: 3}}>
           <OffthreadVideo src={staticFile('speaker_cutout.webm')} transparent muted />
@@ -97,6 +99,11 @@ export const Talk: React.FC = () => {
         <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
       </AbsoluteFill>
       <ClassifiedCard />
+      {/* text arcing over the head (ref R1) */}
+      <ArcText text="these crypto websites" at={f(1.22)} end={f(2.94)} cx={540} cy={610} r={285} />
+      {/* stacked 3D tiles counting the sites (ref R1) */}
+      <StackTiles times={BEHIND_NAMES.map((b) => f(b.t))}
+        show={[[f(6.34), f(8.7)], [f(11.96), f(14.0)], [f(20.56), f(22.68)], [f(37.42), f(39.2)]]} />
       <MadSticker />
       {/* talking-head sparkles */}
       {frame < f(8.7) && <>

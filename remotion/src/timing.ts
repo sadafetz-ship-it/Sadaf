@@ -30,29 +30,32 @@ export const pop = (frame: number, start: number, dur = 7) =>
 // ───────────────────────── captions (lower third) ─────────────────────────
 // Each group: light line / script word (+ light words) / heavy word(s).
 // Tokens are matched to the transcript in order, so every word appears on its spoken frame.
-type GroupDef = {l1?: string; s?: string; l2?: string; h?: string; dot?: boolean};
+/** Extra caption moves (refs R1/R2): ring around heavy word, tilt + wobble, highlight bar under heavy,
+ *  outline box flash around a light word, arrow before script / heavy. */
+export type Fx = {ring?: boolean; tilt?: number; bar?: boolean; box?: string; arrowS?: boolean; arrowH?: boolean};
+type GroupDef = {l1?: string; s?: string; l2?: string; h?: string; dot?: boolean; fx?: Fx};
 const GROUPS: GroupDef[] = [
   {l1: 'I should not be giving these', s: 'crypto', h: 'websites'},
-  {l1: 'Other crypto investors are going to be', s: 'mad', l2: 'I shared this for', h: 'free'},
+  {l1: 'Other crypto investors are going to be', s: 'mad', l2: 'I shared this for', h: 'free', fx: {tilt: -7, ring: true}},
   {l1: 'First,', s: 'we have'},
-  {l1: 'the best website to get', s: 'all', l2: 'the data you need in the', h: 'DeFi ecosystem'},
+  {l1: 'the best website to get', s: 'all', l2: 'the data you need in the', h: 'DeFi ecosystem', fx: {box: 'best'}},
   {l1: 'Second,', s: 'we have'},
-  {l1: 'This website gives clear and', s: 'detailed', h: 'information'},
-  {l1: 'about open interest, liquidation and other', s: 'super important', h: 'data'},
+  {l1: 'This website gives clear and', s: 'detailed', h: 'information', fx: {box: 'clear'}},
+  {l1: 'about open interest, liquidation and other', s: 'super important', h: 'data', fx: {bar: true}},
   {l1: 'Third,', s: 'we have'},
-  {l1: 'This website offers', s: 'on-chain', h: 'analytics'},
-  {l1: 'like', s: 'inflows', l2: 'and', h: 'outflows'},
-  {l1: 'It helps investors identify potential', s: 'entry', l2: 'and', h: 'exit points'},
-  {l1: 'Before we get into the', s: 'last', h: 'one'},
-  {l1: 'if you want the full website list, just', s: 'comment', h: 'Bitcoin'},
+  {l1: 'This website offers', s: 'on-chain', h: 'analytics', fx: {box: 'offers'}},
+  {l1: 'like', s: 'inflows', l2: 'and', h: 'outflows', fx: {arrowS: true, arrowH: true}},
+  {l1: 'It helps investors identify potential', s: 'entry', l2: 'and', h: 'exit points', fx: {bar: true}},
+  {l1: 'Before we get into the', s: 'last', h: 'one', fx: {tilt: 6}},
+  {l1: 'if you want the full website list, just', s: 'comment', h: 'Bitcoin', fx: {ring: true, box: 'list,'}},
   {l1: "and I'll send it", s: 'over', l2: 'to', h: 'you'},
   {l1: 'And lastly,', s: 'we have'},
-  {l1: 'On this website, you can track the', s: 'inflows', l2: 'and', h: 'outflows'},
+  {l1: 'On this website, you can track the', s: 'inflows', l2: 'and', h: 'outflows', fx: {arrowS: true, arrowH: true, box: 'track'}},
   {l1: 'into the', s: 'Ethereum', l2: 'and', h: 'Bitcoin ETFs'},
 ];
 
 export type Tok = {text: string; t: number};
-export type Group = {l1: Tok[]; s: Tok[]; l2: Tok[]; h: Tok[]; dot: boolean; start: number; end: number};
+export type Group = {l1: Tok[]; s: Tok[]; l2: Tok[]; h: Tok[]; dot: boolean; fx: Fx; start: number; end: number};
 
 const buildGroups = (): Group[] => {
   let cursor = 0;
@@ -70,7 +73,7 @@ const buildGroups = (): Group[] => {
   const gs = GROUPS.map((g) => {
     const l1 = take(g.l1), s = take(g.s), l2 = take(g.l2), h = take(g.h);
     const all = [...l1, ...s, ...l2, ...h];
-    return {l1, s, l2, h, dot: g.dot ?? true, start: all[0].t - 2 / FPS, end: 0};
+    return {l1, s, l2, h, dot: g.dot ?? true, fx: g.fx ?? {}, start: all[0].t - 2 / FPS, end: 0};
   });
   gs.forEach((g, i) => (g.end = i < gs.length - 1 ? gs[i + 1].start : SPEECH_END));
   return gs;

@@ -1,48 +1,55 @@
 import React from 'react';
 import {interpolate, interpolateColors, useCurrentFrame} from 'remotion';
 import {C, FONT, metallic} from './theme';
-import {CAPTION_GROUPS, f, Group, Tok, tw} from './timing';
+import {CAPTION_GROUPS, f, Fx, Group, Tok, tw} from './timing';
+import {Arrow, BoxFlash, HighlightBar, RingAround} from './Extras';
 import {Dot} from './ui';
 import {PixelDissolve, PixelLoader, smearIn, Swoosh} from './Pixel';
 
 /** Light word: blur 20 → 0, y +10 → 0, opacity 0 → 1 in 8 f, on its spoken frame. */
-const LightWord: React.FC<{tok: Tok}> = ({tok}) => {
+const LightWord: React.FC<{tok: Tok; box?: boolean}> = ({tok, box}) => {
   const frame = useCurrentFrame();
   const at = f(tok.t) - 1;
   return (
     <span style={{display: 'inline-block', marginRight: '0.24em', opacity: tw(frame, at, 6, 0, 1),
       color: interpolateColors(frame, [at + 2, at + 12], [C.lilac, C.mist]),
-      filter: `blur(${tw(frame, at, 8, 20, 0)}px)`, transform: `translateY(${tw(frame, at, 8, 10, 0)}px)`}}>{tok.text}</span>
+      position: 'relative', filter: `blur(${tw(frame, at, 8, 20, 0)}px)`, transform: `translateY(${tw(frame, at, 8, 10, 0)}px)`}}>
+      {box && <BoxFlash at={at + 3} />}{tok.text}</span>
   );
 };
 
 /** Script word(s): written on left → right with a soft mask wipe. */
-const Script: React.FC<{toks: Tok[]}> = ({toks}) => {
+const Script: React.FC<{toks: Tok[]; fx: Fx}> = ({toks, fx}) => {
   const frame = useCurrentFrame();
   if (!toks.length) return null;
   const at = f(toks[0].t) - 1;
   const dur = 8 + 4 * toks.length;
   const p = tw(frame, at, dur, -20, 120);
   return (
-    <span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 36, padding: '0 6px', position: 'relative', top: 10,
+    <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 36, padding: '0 6px', position: 'relative', top: 10,
       display: 'inline-block', filter: 'drop-shadow(0 0 14px rgba(128,80,232,.8))',
       WebkitMaskImage: `linear-gradient(90deg,#000 ${p - 20}%,transparent ${p}%)`}}>
       {toks.map((t) => t.text).join(' ')}
-    </span>
+    </span></>
   );
 };
 
 /** Heavy word(s): pixel loader (5 px squares, 2 f apart) then the word smears in L → R on its spoken frame (ref R2). */
-const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string}> = ({toks, dot, seed}) => {
+const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string; fx: Fx}> = ({toks, dot, seed, fx}) => {
   const frame = useCurrentFrame();
   if (!toks.length) return null;
   const size = Math.min(156, Math.floor(1872 / toks.map((t) => t.text).join(' ').length));
   const first = f(toks[0].t) - 1;
   const last = f(toks[toks.length - 1].t);
+  const text = toks.map((t) => t.text).join(' ');
+  const tilt = fx.tilt ? fx.tilt + fx.tilt * 0.8 * Math.sin((frame - first) / 2.2) * Math.exp(-Math.max(0, frame - first) / 8) : 0;
   return (
     <div style={{position: 'relative', font: `600 ${size}px ${FONT.display}`, letterSpacing: -7, lineHeight: 1, marginTop: -4}}>
       <PixelLoader land={first} size={Math.round(size * 0.36)} gap={Math.round(size * 0.07)} seed={seed} />
-      <div style={{display: 'inline-block', filter: 'drop-shadow(0 4px 20px rgba(25,13,50,.8))'}}>
+      <div style={{display: 'inline-block', position: 'relative', filter: 'drop-shadow(0 4px 20px rgba(25,13,50,.8))', transform: `rotate(${tilt}deg)`}}>
+        {fx.ring && <RingAround at={last + 2} w={text.length * size * 0.5} h={size} />}
+        {fx.bar && <HighlightBar at={last + 2} />}
+        {fx.arrowH && <Arrow at={first} size={size * 0.5} />}
         {toks.map((t, i) => {
           const at = f(t.t) - 1;
           return (
@@ -67,14 +74,14 @@ const CaptionGroup: React.FC<{g: Group; i: number}> = ({g, i}) => {
   return (
     <div style={{position: 'absolute', left: 0, right: 0, bottom: 270, textAlign: 'center', color: C.mist, zIndex: 50,
       opacity: exitO, filter: `blur(${exitB}px)`}}>
-      {g.l1.length > 0 && <div style={{...light, maxWidth: 900, margin: '0 auto', textWrap: 'balance'} as React.CSSProperties}>{g.l1.map((t, i) => <LightWord key={i} tok={t} />)}</div>}
+      {g.l1.length > 0 && <div style={{...light, maxWidth: 900, margin: '0 auto', textWrap: 'balance'} as React.CSSProperties}>{g.l1.map((t, i) => <LightWord key={i} tok={t} box={t.text === g.fx.box} />)}</div>}
       {(g.s.length > 0 || g.l2.length > 0) && (
         <div style={{...light, lineHeight: 1, marginTop: -6}}>
-          <Script toks={g.s} />
-          {g.l2.map((t, i) => <LightWord key={i} tok={t} />)}
+          <Script toks={g.s} fx={g.fx} />
+          {g.l2.map((t, i) => <LightWord key={i} tok={t} box={t.text === g.fx.box} />)}
         </div>
       )}
-      <Heavy toks={g.h} dot={g.dot} seed={`h${i}`} />
+      <Heavy toks={g.h} dot={g.dot} seed={`h${i}`} fx={g.fx} />
     </div>
   );
 };
