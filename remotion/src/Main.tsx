@@ -3,6 +3,7 @@ import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame} from 'rem
 import {loadFont} from '@remotion/fonts';
 import {Captions} from './Captions';
 import {CoinGlassScene, CtaScene, DefiLlamaScene, EntryExitScene, FarsideScene, FlowsScene, RecapScene} from './Explainers';
+import {Sfx} from './Sfx';
 import {Talk} from './Talk';
 import {C} from './theme';
 import {f, RECAP_LEN, SPEECH_END, SWITCHES} from './timing';
@@ -26,6 +27,7 @@ export const Main: React.FC = () => {
       <Captions />
       {/* 2 f lilac flash on every mode switch */}
       <AbsoluteFill style={{background: C.lilac, opacity: flashO, mixBlendMode: 'screen', pointerEvents: 'none'}} />
+      <Sfx />
       <Audio src={staticFile('raw.mp4')} endAt={f(SPEECH_END)}
         volume={(fr) => interpolate(fr, [f(SPEECH_END) - 5, f(SPEECH_END)], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
     </AbsoluteFill>
