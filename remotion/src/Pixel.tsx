@@ -70,14 +70,7 @@ export const PixelDissolve: React.FC<{at: number; seed: string; top?: number; he
     return <div key={`b${i}`} style={{position: 'absolute', left: x, top: y + 10, width: w, height: 22, borderRadius: 6, background: C.mist,
       boxShadow: `0 0 24px ${C.lilac},0 0 60px ${C.violet}`}} />;
   });
-  // leftovers under the new words
-  const left = [0, 1, 2].map((i) => {
-    const off = at + 6 + i * 3;
-    if (frame < at + 2 || frame > off) return null;
-    return <div key={`r${i}`} style={{position: 'absolute', left: 470 + i * 50, top: top + height - 40, width: 40, height: 40, borderRadius: 8,
-      background: C.lilac, opacity: 0.35 + 0.4 * flick(`${seed}r${i}`, frame), boxShadow: `0 0 14px ${C.lilac}`}} />;
-  });
-  return <AbsoluteFill style={{zIndex: 49, pointerEvents: 'none'}}>{cells}{bars}{left}</AbsoluteFill>;
+  return <AbsoluteFill style={{zIndex: 49, pointerEvents: 'none'}}>{cells}{bars}</AbsoluteFill>;
 };
 
 /**
@@ -86,17 +79,17 @@ export const PixelDissolve: React.FC<{at: number; seed: string; top?: number; he
  */
 export const PixelGrid: React.FC<{at: number; seed: string}> = ({at, seed}) => {
   const frame = useCurrentFrame();
-  const dur = 45;
+  const dur = 26;
   if (frame < at || frame > at + dur) return null;
   const fade = interpolate(frame, [at, at + 3, at + dur], [0, 1, 0], clamp);
   const cell = 90;
   const fills = new Array(16).fill(0).map((_, i) => {
-    const cx = Math.floor(random(`${seed}gx${i}`) * 12), cy = 4 + Math.floor(random(`${seed}gy${i}`) * 14);
-    const on = at + Math.floor(random(`${seed}go${i}`) * 18), life = 6 + Math.floor(random(`${seed}gl${i}`) * 20);
+    const cx = [0, 1, 2, 9, 10, 11][Math.floor(random(`${seed}gx${i}`) * 6)], cy = 2 + Math.floor(random(`${seed}gy${i}`) * 16);
+    const on = at + Math.floor(random(`${seed}go${i}`) * 10), life = 4 + Math.floor(random(`${seed}gl${i}`) * 10);
     if (frame < on || frame > on + life) return null;
     const col = random(`${seed}gc${i}`) > 0.5 ? C.lilac : C.mist;
     return <div key={i} style={{position: 'absolute', left: cx * cell, top: cy * cell, width: cell, height: cell, background: col,
-      opacity: (0.12 + 0.22 * flick(`${seed}g${i}`, frame)) * fade}} />;
+      opacity: (0.08 + 0.14 * flick(`${seed}g${i}`, frame)) * fade}} />;
   });
   return (
     <AbsoluteFill style={{zIndex: 40, pointerEvents: 'none'}}>

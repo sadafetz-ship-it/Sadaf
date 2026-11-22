@@ -92,7 +92,8 @@ export const SCENES: {kind: SceneKind; start: number; end: number}[] = [
   {kind: 'ex-entryexit', start: 27.72, end: 31.82},
   {kind: 'talk', start: 31.82, end: 33.5},
   {kind: 'cta', start: 33.5, end: 37.42},
-  {kind: 'talk', start: 37.42, end: SPEECH_END + END_HOLD}, // Farside: list board over the chest (talking head)
+  {kind: 'talk', start: 37.42, end: 39.2},
+  {kind: 'ex-farside', start: 39.2, end: SPEECH_END + END_HOLD},
 ];
 export const SWITCHES = SCENES.slice(1).map((s) => s.start);
 
@@ -101,13 +102,13 @@ export const BEHIND_NAMES = [
   {name: 'DefiLlama', t: 6.74, end: 8.7},
   {name: 'CoinGlass', t: 12.98, end: 14.0},
   {name: 'CryptoQuant', t: 21.12, end: 22.68},
-  {name: 'Farside', t: 38.34, end: 39.5},
+  {name: 'Farside', t: 38.34, end: 39.2},
 ];
 
 /** Camera: slow push per talking-head stretch + punch-ins on key words (skill: visible change ≈ every 2.5 s). */
 const CAM_SEGMENTS: [number, number, number, number][] = [
   [0, 8.7, 1.0, 1.06], [11.96, 14.0, 1.02, 1.06], [20.56, 22.68, 1.02, 1.06],
-  [31.82, 33.5, 1.08, 1.0], [33.5, 37.42, 1.0, 1.04], [37.42, 45.2, 1.02, 1.07],
+  [31.82, 33.5, 1.08, 1.0], [33.5, 37.42, 1.0, 1.04], [37.42, 39.2, 1.02, 1.06],
 ];
 const PUNCHES = [1.82, 4.46, 5.7, 6.74, 12.98, 21.12, 38.34];
 export const cameraZoom = (frame: number) => {

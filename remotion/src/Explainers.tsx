@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, random, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, interpolate, random, useCurrentFrame} from 'remotion';
 import {C, FONT} from './theme';
 import {f, pop, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, DrawPath, ExplainerBG, glass, Plus, XHead, cardIn} from './ui';
@@ -233,5 +233,98 @@ export const CtaScene: React.FC = () => {
       <Plus x={900} y={330} size={40} color={C.lilac} at={f(35.12)} rot={20} />
       <Plus x={170} y={1080} size={30} color={C.blue} at={f(35.4)} />
     </SceneWrap>
+  );
+};
+
+// ───────────────────────── 04 Farside — input bar → orb drop → card (ref: "framekush" task card) ─────────────────────────
+const Spark: React.FC<{x: number; y: number; size?: number; o?: number}> = ({x, y, size = 22, o = 1}) => (
+  <div style={{position: 'absolute', left: x - size / 2, top: y - size / 2, width: size, height: size, borderRadius: '50%', background: '#fff', opacity: o, zIndex: 20,
+    boxShadow: `0 0 ${size}px ${size / 2}px rgba(255,255,255,.9), 0 0 ${size * 3}px ${size}px rgba(185,154,245,.7), 0 0 ${size * 6}px ${size * 2}px rgba(128,80,232,.45)`}} />
+);
+
+export const FarsideScene: React.FC = () => {
+  const frame = useCurrentFrame();
+  const S = f(39.2), END = f(44.5 + 0.6);
+  if (frame < S || frame >= END) return null;
+  const text = 'Track ETF flows on Farside';
+  const W = 860, X = (1080 - W) / 2, BAR_Y = 760, BAR_H = 118;
+  // 1 · bar fades in, text types with a spark at the caret (0–20 f)
+  const barIn = tw(frame, S, 6, 0, 1);
+  const typed = Math.floor(interpolate(frame, [S + 2, S + 14], [0, text.length], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}));
+  const caretX = X + 46 + typed * 19.2;
+  const plusS = pop(frame, S + 14, 7);
+  // 2 · orb lifts off the "+", hovers, drops into the bar on "inflows" (40.44)
+  const drop = f(40.44) - 3;
+  const lift = interpolate(frame, [S + 17, S + 25], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
+  const fall = interpolate(frame, [drop - 4, drop], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.cubic)});
+  const orbX = interpolate(lift, [0, 1], [X + W - 60, 760]) + Math.sin(frame / 7) * 6 * (1 - fall);
+  const orbY = interpolate(lift, [0, 1], [BAR_Y + BAR_H / 2, BAR_Y - 200]) + Math.cos(frame / 9) * 8 * (1 - fall) + fall * 260;
+  // 3 · white flash + expand into a card
+  const flashW = interpolate(frame, [drop, drop + 2, drop + 7], [0, 0.9, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const open = tw(frame, drop + 1, 10, 0, 1);
+  const collapse = interpolate(frame, [END - 16, END - 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.cubic)});
+  const h = BAR_H + (520 - BAR_H) * open * (1 - collapse);
+  const btns: [string, number, boolean][] = [['↗ Inflows', 40.44, true], ['↘ Outflows', 41.16, false], ['Ξ Ethereum ETFs', 42.34, false], ['₿ Bitcoin ETFs', 43.24, false]];
+  const cube = f(43.24) + 4;
+  const cubeS = interpolate(frame, [cube, cube + 5, cube + 9, cube + 12], [0, 1.25, 0.92, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const fadeAll = interpolate(frame, [END - 8, END - 1], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const contentO = open * (1 - collapse);
+  return (
+    <AbsoluteFill style={{transform: `scale(${tw(frame, S, 5, 1.12, 1)})`, filter: `blur(${tw(frame, S, 5, 28, 0)}px)`}}>
+      {/* dark world with soft violet / blue corner glows (ref) */}
+      <AbsoluteFill style={{background: `radial-gradient(60% 45% at 0% 100%,rgba(91,108,255,.55),transparent 70%),
+        radial-gradient(55% 40% at 100% 0%,rgba(128,80,232,.45),transparent 70%), linear-gradient(180deg,#0E0A1C,#120A26 60%,#0D0620)`}} />
+      <XHead k="04 / 04 · ETF FLOW TRACKER" title="Farside" at={S} />
+      <AbsoluteFill style={{opacity: fadeAll}}>
+        {/* card / bar */}
+        <div style={{position: 'absolute', left: X, top: BAR_Y, width: W, height: h, borderRadius: 34, overflow: 'hidden', opacity: barIn,
+          transform: `scale(${0.96 + 0.04 * barIn})`,
+          background: 'linear-gradient(180deg,rgba(46,36,72,.92),rgba(30,22,52,.95))', border: '1.5px solid rgba(185,154,245,.22)',
+          boxShadow: `0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(238,231,255,.12), 0 0 ${40 * open}px rgba(128,80,232,${0.35 * open})`}}>
+          <div style={{position: 'absolute', left: 46, top: 0, height: BAR_H, display: 'flex', alignItems: 'center', font: `500 38px ${FONT.ui}`, color: 'rgba(238,231,255,.55)'}}>
+            {text.slice(0, typed).split(' ').map((w, i) => (
+              <span key={i} style={{marginRight: 10, color: w.startsWith('Farside') ? C.mist : undefined, fontWeight: w.startsWith('Farside') ? 600 : 500}}>{w}</span>
+            ))}
+          </div>
+          <div style={{position: 'absolute', right: 30, top: (BAR_H - 62) / 2, width: 62, height: 62, borderRadius: '50%', background: 'rgba(238,231,255,.12)',
+            border: '1.5px solid rgba(238,231,255,.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: C.mist, font: `300 46px ${FONT.ui}`,
+            transform: `scale(${plusS}) rotate(${(1 - plusS) * 180 + open * 45}deg)`}}>+</div>
+          {/* detail row */}
+          <div style={{position: 'absolute', left: 34, right: 34, top: BAR_H + 6, height: 118, borderRadius: 20, background: 'rgba(238,231,255,.08)',
+            border: '1px solid rgba(238,231,255,.1)', padding: '22px 26px', opacity: tw(frame, drop + 5, 6, 0, 1) * contentO,
+            transform: `translateY(${tw(frame, drop + 5, 8, 20, 0)}px)`}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', font: `600 32px ${FONT.ui}`, color: C.mist}}>
+              <span>Spot Bitcoin &amp; Ethereum ETFs</span>
+              <span style={{font: `600 22px ${FONT.ui}`, color: C.ink, background: C.lilac, padding: '4px 14px', borderRadius: 8}}>Daily</span>
+            </div>
+            <div style={{font: `500 24px ${FONT.ui}`, color: 'rgba(238,231,255,.5)', marginTop: 10}}>Money moving in and out of every fund</div>
+          </div>
+          {/* buttons pop left → right on each spoken word */}
+          <div style={{position: 'absolute', left: 34, right: 34, top: BAR_H + 150, display: 'flex', flexWrap: 'wrap', gap: 16, opacity: contentO}}>
+            {btns.map(([label, t, primary]) => {
+              const a = f(t) - 1;
+              const s = interpolate(frame, [a, a + 4, a + 7], [0, 1.12, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+              return (
+                <span key={label} style={{transform: `scale(${s})`, padding: '16px 30px', borderRadius: 999, font: `600 32px ${FONT.ui}`,
+                  background: primary ? `linear-gradient(90deg,${C.lilac},${C.violet})` : 'rgba(238,231,255,.1)',
+                  color: primary ? C.ink : C.mist, border: primary ? 'none' : '1.5px solid rgba(238,231,255,.18)',
+                  boxShadow: primary ? `0 0 30px rgba(185,154,245,.6)` : 'none'}}>{label}</span>
+              );
+            })}
+          </div>
+          {/* white flash when the orb lands */}
+          <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: flashW}} />
+        </div>
+        {/* glossy 3D cube bounces onto the corner */}
+        <div style={{position: 'absolute', left: X + W - 70, top: BAR_Y + h - 80, width: 120, height: 120, zIndex: 25, borderRadius: 26,
+          transform: `scale(${cubeS * (1 - collapse)}) rotate(${-12 + Math.sin((frame - cube) / 4) * 4 * Math.exp(-(frame - cube) / 14)}deg)`,
+          background: `linear-gradient(150deg,#E6D8FF 0%,${C.lilac} 30%,${C.violet} 70%,${C.deep} 100%)`,
+          boxShadow: `inset 0 4px 0 rgba(255,255,255,.7), inset -10px -14px 20px rgba(84,38,168,.6), 0 20px 40px rgba(0,0,0,.5), 0 0 50px rgba(185,154,245,.6)`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', font: `800 64px ${FONT.display}`, color: C.mist, textShadow: '0 3px 8px rgba(84,38,168,.8)'}}>₿</div>
+        {/* sparks: typing caret, then the orb */}
+        {frame < S + 16 && frame >= S + 2 && <Spark x={caretX} y={BAR_Y + BAR_H / 2} size={18} />}
+        {frame >= S + 16 && frame < drop + 1 && <Spark x={orbX} y={orbY} size={26} o={tw(frame, S + 16, 4, 0, 1)} />}
+      </AbsoluteFill>
+    </AbsoluteFill>
   );
 };

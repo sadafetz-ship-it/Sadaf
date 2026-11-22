@@ -65,12 +65,19 @@ const CUES: Cue[] = [
   {file: 'double_click', at: 35.12, vol: 0.55},                // "comment" → button pressed
   {file: 'notification', at: 35.4, vol: 0.45},                 // "Bitcoin" lands
   {file: 'stretch', at: 35.47, vol: 0.25},                     // ring round "Bitcoin."
-  // ── Farside list board
-  {file: 'paper_slide', at: 39.3, vol: 0.45},
-  {file: 'button_1', at: 40.44, vol: 0.45},
+  // ── Farside: typing bar → orb drop → card → buttons → cube
+  {file: 'whoosh_a', at: 39.2, vol: 0.5},
+  {file: 'digital_burst', at: 39.2, vol: 0.22},
+  {file: 'typing', at: 39.27, vol: 0.4, len: 0.45},
+  {file: 'stretch', at: 39.8, vol: 0.25},                      // orb lifts off the "+"
+  {file: 'premium_open', at: 40.44, vol: 0.4},                 // orb drops, card opens
+  {file: 'button_1', at: 40.44, vol: 0.4},
   {file: 'button_3', at: 41.16, vol: 0.45},
   {file: 'envoye', at: 42.34, vol: 0.45},
   {file: 'interface', at: 43.24, vol: 0.45},
+  {file: 'pop_double', at: 43.4, vol: 0.45},                   // 3D cube bounces in
+  {file: 'sparkle', at: 43.45, vol: 0.3},
+  {file: 'dissolve', at: 44.6, vol: 0.3},                      // card collapses
   // ── small caption details
   ...heavyLands.map((t) => ({file: 'soft_ui', at: t, vol: 0.25})),      // heavy word smears in
   ...captionChanges.map((t) => ({file: 'dissolve', at: t, vol: 0.18})), // pixel dissolve

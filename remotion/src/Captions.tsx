@@ -26,7 +26,7 @@ const Script: React.FC<{toks: Tok[]; fx: Fx}> = ({toks, fx}) => {
   const dur = 8 + 4 * toks.length;
   const p = tw(frame, at, dur, -20, 120);
   return (
-    <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 36, padding: '0 6px', position: 'relative', top: 10,
+    <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 24, padding: '40px 18px 34px 12px', margin: '-40px 6px -34px -12px', position: 'relative', top: 10,
       display: 'inline-block', filter: 'drop-shadow(0 0 14px rgba(128,80,232,.8))',
       WebkitMaskImage: `linear-gradient(90deg,#000 ${p - 20}%,transparent ${p}%)`}}>
       {toks.map((t) => t.text).join(' ')}
@@ -95,7 +95,7 @@ export const Captions: React.FC = () => (
     {CAPTION_GROUPS.slice(1).map((g, i) => <PixelDissolve key={`d${i}`} at={f(g.start)} seed={`pd${i}`} />)}
     {/* swoosh streak brings in each "First / Second / Third / And lastly" (ref R2) */}
     {CAPTION_GROUPS.filter((g) => g.l1.length && SECTION.test(g.l1[0].text.replace(/[^a-z]/gi, ''))).map((g, i) => (
-      <Swoosh key={`s${i}`} at={f(g.start) - 6} y={1430} />
+      <Swoosh key={`s${i}`} at={f(g.start) + 2} y={1290} />
     ))}
   </>
 );
