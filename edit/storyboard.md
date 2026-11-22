@@ -14,7 +14,15 @@
 | Deep | `#5426A8` | Start of gradients, ENTRY tag, inactive bar track |
 | Violet | `#8050E8` | Main accent: line graphs, progress fills, outer glow, FREE pill |
 | Lilac | `#B99AF5` | Highlight word in every headline (Defi**Llama**, Coin**Glass**…), card bottom glow, card numbers |
-| Mist | `#EEE7FF` | All main text, glowing data dots, white CTA pill, EXIT tag |
+| Mist | `#EEE7FF` | All main text, glowing data dots, white CTA pill |
+
+**Detail colours.** These are your additions, in the same purple family and used only for small accents, never for large areas:
+
+| Token | Hex | Used for |
+|---|---|---|
+| Electric blue | `#5B6CFF` | Start of graph lines, card numbers (`01 / 04`, lilac→blue), "inflows" bars, ENTRY tag, Ethereum ETF bar, second checklist star |
+| Magenta | `#C65BF2` | End of default progress fills, FREE pill gradient, divider line, CTA button outer glow |
+| Rose | `#FF7EC8` | Sparkle next to every headline, chip status dots, lock icons, a halo ring around each graph dot, EXIT tag, "outflows" and Bitcoin ETF bars, the fade at the end of each hero word |
 
 **Reference style taken from your images:**
 - Dark glass cards: 56 px corners, blurred background, thin lilac border.
@@ -24,17 +32,17 @@
 - Progress bars, star-bullet checklists and a white pill button.
 
 **Type:**
-- Inter Display ExtraBold for headlines (92–150 px, tracking −3 to −6).
-- Inter Medium for setup lines (44 px).
+- Inter Display ExtraBold for headlines (92 px hero, tracking −3).
+- Inter Medium for setup lines (36 px).
 - JetBrains Mono for small data labels (`01 / 04`).
 
 **Screen layout:**
 
 | Zone | Height | What goes there |
 |---|---|---|
-| Top | 6–17 % | Headline: a small setup line, then the big hero word |
+| Top | 7–15 % | Headline: a small setup line, then the hero word with a rose sparkle |
 | Middle | 20–52 % | The speaker's face. Always left clear. |
-| Bottom | 52–88 % | One glass card over the chest and desk. Below 88 % is kept clear for the Instagram/TikTok interface. |
+| Bottom | 52–81 % | One glass card, 720 px wide (about 67 % of frame width), over the chest and desk. Below 81 % is kept clear for the Instagram/TikTok interface. |
 
 **Grade:** a subtle Ink gradient over the bottom 30 % of the frame, plus a light top fade so the headline reads.
 

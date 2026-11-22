@@ -8,19 +8,21 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 CSS = """
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--ink:#190D32;--deep:#5426A8;--violet:#8050E8;--lilac:#B99AF5;--mist:#EEE7FF}
+:root{--ink:#190D32;--deep:#5426A8;--violet:#8050E8;--lilac:#B99AF5;--mist:#EEE7FF;
+  /* detail colours (harmonise with the purple theme) */ --blue:#5B6CFF;--magenta:#C65BF2;--rose:#FF7EC8}
 body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,sans-serif;color:var(--mist);position:relative;background:#000}
 .bg{position:absolute;inset:0;background-size:cover;background-position:center}
 .grade{position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(25,13,50,.55) 0%,rgba(25,13,50,0) 22%,rgba(25,13,50,0) 44%,rgba(25,13,50,.82) 70%,rgba(25,13,50,.94) 100%);}
-.hero{position:absolute;left:0;right:0;top:120px;text-align:center}
-.setup{font:500 44px Inter;color:var(--mist);opacity:.92;letter-spacing:-.5px;text-shadow:0 2px 20px rgba(25,13,50,.8)}
-.big{font:800 118px 'Inter Display';letter-spacing:-4px;line-height:1;margin-top:10px;color:var(--mist);
+.hero{position:absolute;left:0;right:0;top:140px;text-align:center}
+.setup{font:500 36px Inter;color:var(--mist);opacity:.92;letter-spacing:-.5px;text-shadow:0 2px 20px rgba(25,13,50,.8)}
+.big{position:relative;display:inline-block;font:800 92px 'Inter Display';letter-spacing:-3px;line-height:1;margin-top:8px;color:var(--mist);
   text-shadow:0 0 40px rgba(128,80,232,.75),0 4px 30px rgba(25,13,50,.7)}
-.big em{font-style:normal;color:var(--lilac)}
-.pill{display:inline-block;padding:10px 34px 16px;border-radius:999px;background:linear-gradient(180deg,var(--violet),var(--deep));
-  box-shadow:0 0 60px rgba(128,80,232,.7),inset 0 1px 0 rgba(238,231,255,.4)}
-.card{position:absolute;left:90px;right:90px;border-radius:56px;overflow:hidden;
+.big em{font-style:normal;background:linear-gradient(90deg,var(--lilac),#E3A6F5 70%,var(--rose));-webkit-background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 22px rgba(198,91,242,.55))}
+.big:after{content:'';position:absolute;right:-38px;top:-22px;width:34px;height:34px;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 0C12.8 7 17 11.2 24 12 17 12.8 12.8 17 12 24 11.2 17 7 12.8 0 12 7 11.2 11.2 7 12 0Z' fill='%23FF7EC8'/></svg>") center/contain no-repeat;filter:drop-shadow(0 0 10px #FF7EC8)}
+.pill{display:inline-block;padding:8px 30px 14px;border-radius:999px;background:linear-gradient(120deg,var(--deep),var(--violet) 45%,var(--magenta));
+  box-shadow:0 0 60px rgba(198,91,242,.6),inset 0 1px 0 rgba(238,231,255,.4)}
+.card{position:absolute;left:90px;right:90px;border-radius:56px;overflow:hidden;transform:scale(.8);transform-origin:50% 0;
   background:linear-gradient(180deg,rgba(25,13,50,.55),rgba(25,13,50,.88));
   backdrop-filter:blur(28px) saturate(140%);-webkit-backdrop-filter:blur(28px) saturate(140%);
   border:2px solid rgba(185,154,245,.30);border-bottom-color:rgba(238,231,255,.85);
@@ -31,8 +33,9 @@ body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,sans-serif;col
   background-size:60px 60px;-webkit-mask-image:linear-gradient(180deg,transparent,#000 60%);}
 .in{position:relative;z-index:2;padding:52px 60px}
 .meta{display:flex;justify-content:space-between;align-items:center;font:500 30px Inter;color:rgba(238,231,255,.6)}
+.chip:before{content:'';display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--rose);box-shadow:0 0 12px var(--rose);margin-right:14px;vertical-align:2px}
 .chip{padding:10px 26px;border-radius:999px;background:rgba(185,154,245,.14);border:1.5px solid rgba(185,154,245,.3);color:var(--mist);font:600 28px Inter}
-.num{font:700 30px 'JetBrains Mono';color:var(--lilac);letter-spacing:2px}
+.num{font:700 30px 'JetBrains Mono';letter-spacing:2px;background:linear-gradient(90deg,var(--lilac),var(--blue));-webkit-background-clip:text;color:transparent}
 .title{font:800 92px 'Inter Display';letter-spacing:-3px;margin-top:14px;line-height:1}
 .sub{font:500 34px Inter;color:rgba(238,231,255,.7);margin-top:12px}
 .kpi{font:800 150px 'Inter Display';letter-spacing:-6px;line-height:1;text-shadow:0 0 50px rgba(128,80,232,.8)}
@@ -40,19 +43,23 @@ body{width:1080px;height:1920px;overflow:hidden;font-family:Inter,sans-serif;col
 .row{display:flex;align-items:center;gap:26px;font:600 44px Inter;margin:22px 0}
 .star{width:44px;height:44px;flex:none}
 .bar{height:26px;border-radius:99px;background:rgba(185,154,245,.15);overflow:hidden;border:1.5px solid rgba(185,154,245,.2)}
-.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--deep),var(--violet),var(--lilac));box-shadow:0 0 30px var(--violet)}
-.white{background:var(--mist);color:var(--ink);font:800 56px 'Inter Display';text-align:center;padding:34px;border-radius:999px;box-shadow:0 0 70px rgba(185,154,245,.6)}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--deep),var(--violet),var(--magenta));box-shadow:0 0 30px var(--violet)}
+.bar.b i{background:linear-gradient(90deg,var(--deep),var(--blue),#9FB0FF);box-shadow:0 0 30px var(--blue)}
+.bar.r i{background:linear-gradient(90deg,var(--deep),var(--magenta),var(--rose));box-shadow:0 0 30px var(--magenta)}
+.white{background:var(--mist);color:var(--ink);font:800 56px 'Inter Display';text-align:center;padding:34px;border-radius:999px;box-shadow:0 0 50px rgba(185,154,245,.55),0 0 110px rgba(198,91,242,.45)}
 .tag{position:absolute;left:24px;bottom:24px;font:600 26px 'JetBrains Mono';color:#fff;background:rgba(0,0,0,.55);padding:8px 16px;border-radius:10px;z-index:9}
-.redact{height:44px;border-radius:12px;background:linear-gradient(90deg,rgba(185,154,245,.35),rgba(128,80,232,.25));filter:blur(1px)}
+.redact{height:44px;border-radius:12px;background:linear-gradient(90deg,rgba(185,154,245,.4),rgba(198,91,242,.3),rgba(91,108,255,.25));filter:blur(1px)}
 """
 
-STAR = '<svg class="star" viewBox="0 0 24 24"><path d="M12 0C12.8 7 17 11.2 24 12 17 12.8 12.8 17 12 24 11.2 17 7 12.8 0 12 7 11.2 11.2 7 12 0Z" fill="#EEE7FF" style="filter:drop-shadow(0 0 6px #B99AF5)"/></svg>'
-LOCK = '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#B99AF5" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
+def star(c='#EEE7FF'): return f'<svg class="star" viewBox="0 0 24 24"><path d="M12 0C12.8 7 17 11.2 24 12 17 12.8 12.8 17 12 24 11.2 17 7 12.8 0 12 7 11.2 11.2 7 12 0Z" fill="{c}" style="filter:drop-shadow(0 0 8px {c})"/></svg>'
+STAR = star()
+LOCK = '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF7EC8" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
 
 def glow_line(path, w, h, dot=None, extra=""):
     d = f'<circle cx="{dot[0]}" cy="{dot[1]}" r="16" fill="#EEE7FF" style="filter:drop-shadow(0 0 18px #B99AF5) drop-shadow(0 0 30px #8050E8)"/>' if dot else ''
+    if dot: d = f'<circle cx="{dot[0]}" cy="{dot[1]}" r="34" fill="none" stroke="#FF7EC8" stroke-opacity=".55" stroke-width="2.5"/>' + d
     return f'''<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" style="display:block;overflow:visible">
-<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#5426A8" stop-opacity=".3"/><stop offset=".6" stop-color="#8050E8"/><stop offset="1" stop-color="#B99AF5"/></linearGradient>
+<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#5B6CFF" stop-opacity=".35"/><stop offset=".55" stop-color="#8050E8"/><stop offset="1" stop-color="#B99AF5"/></linearGradient>
 <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8050E8" stop-opacity=".35"/><stop offset="1" stop-color="#8050E8" stop-opacity="0"/></linearGradient></defs>
 <path d="{path} L{w} {h} L0 {h} Z" fill="url(#fill)"/>
 <path d="{path}" fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round" style="filter:drop-shadow(0 0 12px #8050E8)"/>{extra}{d}</svg>'''
@@ -93,10 +100,10 @@ F["F4_coinglass"] = page("18.6.jpg", f'''
 <div class="card" style="top:1000px;height:680px"><div class="grid"></div><div class="in">
 <div class="meta"><span class="num">02 / 04</span><span class="chip">Derivatives</span></div>
 <div style="font:700 50px 'Inter Display';margin-top:34px">Clear, detailed data</div>
-<div style="height:3px;margin:22px 0 10px;background:linear-gradient(90deg,#8050E8,#B99AF5,transparent);box-shadow:0 0 16px #8050E8"></div>
-<div class="row">{STAR}Open interest</div>
-<div class="row">{STAR}Liquidations</div>
-<div class="row" style="opacity:.35">{STAR}Super important data</div>
+<div style="height:3px;margin:22px 0 10px;background:linear-gradient(90deg,#5B6CFF,#8050E8,#C65BF2,transparent);box-shadow:0 0 16px #8050E8"></div>
+<div class="row">{star("#B99AF5")}Open interest</div>
+<div class="row">{star("#5B6CFF")}Liquidations</div>
+<div class="row" style="opacity:.35">{star("#FF7EC8")}Super important data</div>
 </div></div>''', "00:18.6 · SITE 2 (list ticks on each word)")
 
 F["F5_cryptoquant"] = page("29.6.jpg", f'''
@@ -104,9 +111,9 @@ F["F5_cryptoquant"] = page("29.6.jpg", f'''
 <div class="card" style="top:1000px;height:680px"><div class="grid"></div><div class="in">
 <div class="meta"><span class="num">03 / 04</span><span class="chip">On-chain</span></div>
 <div style="margin:40px -60px 0">{glow_line("M0 200 C100 190 160 240 260 230 S380 110 460 120 S560 250 640 240 S760 80 900 60", 900, 280,
- extra='<g font-family="Inter" font-weight="700" font-size="26"><circle cx="262" cy="230" r="13" fill="#EEE7FF" style="filter:drop-shadow(0 0 14px #B99AF5)"/><rect x="190" y="160" width="146" height="44" rx="22" fill="#5426A8"/><text x="263" y="190" fill="#EEE7FF" text-anchor="middle">ENTRY</text><circle cx="462" cy="120" r="13" fill="#EEE7FF" style="filter:drop-shadow(0 0 14px #B99AF5)"/><rect x="398" y="50" width="128" height="44" rx="22" fill="#EEE7FF"/><text x="462" y="80" fill="#190D32" text-anchor="middle">EXIT</text></g>')}</div>
-<div style="display:flex;gap:30px;margin-top:30px"><div style="flex:1"><div class="label">↘ Exchange inflows</div><div class="bar" style="margin-top:14px"><i style="width:72%"></i></div></div>
-<div style="flex:1"><div class="label">↗ Exchange outflows</div><div class="bar" style="margin-top:14px"><i style="width:44%"></i></div></div></div>
+ extra='<g font-family="Inter" font-weight="700" font-size="26"><circle cx="262" cy="230" r="13" fill="#EEE7FF" style="filter:drop-shadow(0 0 14px #B99AF5)"/><rect x="190" y="160" width="146" height="44" rx="22" fill="#5B6CFF" style="filter:drop-shadow(0 0 12px #5B6CFF)"/><text x="263" y="190" fill="#EEE7FF" text-anchor="middle">ENTRY</text><circle cx="462" cy="120" r="13" fill="#EEE7FF" style="filter:drop-shadow(0 0 14px #B99AF5)"/><rect x="398" y="50" width="128" height="44" rx="22" fill="#FF7EC8" style="filter:drop-shadow(0 0 12px #FF7EC8)"/><text x="462" y="80" fill="#190D32" text-anchor="middle">EXIT</text></g>')}</div>
+<div style="display:flex;gap:30px;margin-top:30px"><div style="flex:1"><div class="label"><span style="color:#8E9BFF">↘</span> Exchange inflows</div><div class="bar b" style="margin-top:14px"><i style="width:72%"></i></div></div>
+<div style="flex:1"><div class="label"><span style="color:#FF7EC8">↗</span> Exchange outflows</div><div class="bar r" style="margin-top:14px"><i style="width:44%"></i></div></div></div>
 </div></div>''', "00:29.6 · SITE 3 (entry / exit points)")
 
 F["F6_cta"] = page("35.2.jpg", f'''
@@ -124,8 +131,8 @@ F["F7_farside"] = page("42.6.jpg", f'''
 <div class="card" style="top:1000px;height:680px"><div class="grid"></div><div class="in">
 <div class="meta"><span class="num">04 / 04</span><span class="chip">ETF flows ▾</span></div>
 <div style="margin:24px -60px 0">{glow_line("M0 250 C200 248 380 230 520 180 S760 50 900 20", 900, 260, dot=(900,20))}</div>
-<div style="margin-top:10px"><div style="display:flex;justify-content:space-between" class="label"><span>₿ Bitcoin ETFs</span><span style="color:#EEE7FF">Inflows</span></div><div class="bar" style="margin:12px 0 26px"><i style="width:82%"></i></div>
-<div style="display:flex;justify-content:space-between" class="label"><span>Ξ Ethereum ETFs</span><span style="color:#EEE7FF">Inflows</span></div><div class="bar" style="margin-top:12px"><i style="width:54%"></i></div></div>
+<div style="margin-top:10px"><div style="display:flex;justify-content:space-between" class="label"><span><b style="color:#FF7EC8">₿</b> Bitcoin ETFs</span><span style="color:#EEE7FF">Inflows</span></div><div class="bar r" style="margin:12px 0 26px"><i style="width:82%"></i></div>
+<div style="display:flex;justify-content:space-between" class="label"><span><b style="color:#8E9BFF">Ξ</b> Ethereum ETFs</span><span style="color:#EEE7FF">Inflows</span></div><div class="bar b" style="margin-top:12px"><i style="width:54%"></i></div></div>
 </div></div>''', "00:42.6 · SITE 4")
 
 for k, v in F.items():
