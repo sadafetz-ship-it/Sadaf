@@ -50,3 +50,17 @@ so each file's hit lands on its animation frame. The sounds come from the user's
 - Dings are used 3× in total.
 - Rendered with `--codec=wav`, muxed onto the v2 picture with `alimiter=limit=0.85`.
 - Final peak −6.2 dB, no clipped samples. The voice is unchanged.
+
+## v4: riser → whoosh → impact on every screen change
+`ava_jurgens_v4_sfx.mp4` is the current render. v3 is still in git history.
+- The **full riser → whoosh → impact combo** now plays on all **15** moments.
+  - **Name hits:** "Ava" 0.8 s, "EDITORS" 8.2 s, "THIS JOB" 22.2 s, "YOU" 38.7 s.
+  - **Every screen change:** 1.6, 4.9, 5.4, 8.6, 10.9, 15.3, 17.7, 20.4, 21.6, 28.9 and 31.2 s.
+- In each combo the riser ends on the landing frame, the whoosh peak crosses it and the impact attack hits it.
+- When two cuts are close (4.9 → 5.4 s, 8.2 → 8.6 s, 21.6 → 22.2 s), the riser is trimmed **from the front**. Its swell, which
+  sits in the last ~0.2 s, is kept, so the risers never pile up.
+- **Combo level raised:** riser 1.0, whoosh 0.85, impact 1.0 (× master 0.3). The softer paper-slide, whoosh and dissolve
+  substitutes on cuts were removed.
+- **Measured:** each combo sits between **0 and +5 dB of average speech**, so it's clearly audible and the voice stays on top.
+  Mix peak −6.2 dB after the limiter, no clipping.
+- All other element sounds (typing, comet, drops, pops, dings, caption clicks) are unchanged.
