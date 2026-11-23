@@ -15,3 +15,10 @@
 cd ../remotion && npm i && cp <raw video> public/raw.mp4
 npx remotion render Main out/ava_jurgens_v1.mp4 --concurrency=4 --crf=18
 ```
+
+## v2: F6 circle reframed
+- `ava_jurgens_v2.mp4` is the current render. v1 is still in git history.
+- **Fix:** the speaker circle in F6 (POSITION INFO, 15.3–17.7 s) showed only part of her face (forehead and eyes, off-centre).
+  The live video inside the circle is now scaled to 35 % and centred on her face. The whole face, with a little hair and
+  shoulder, sits in the middle of the ring for the whole scene. `f6_bubble_check.jpg` shows two frames.
+- Nothing else changed.

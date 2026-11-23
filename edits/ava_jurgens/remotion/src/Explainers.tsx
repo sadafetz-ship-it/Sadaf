@@ -178,7 +178,7 @@ export const RemoteScene: React.FC<{src: string}> = () => {
     <>
       <div style={{position: 'absolute', left: 410, top: 170, width: 260, height: 260, borderRadius: '50%', overflow: 'hidden', border: `4px solid ${C.mid}`,
         boxShadow: '0 0 40px rgba(132,229,114,.5)', transform: `scale(${bub})`}}>
-        <OffthreadVideo src={staticFile('raw.mp4')} muted style={{position: "absolute", width: 702, left: -237, top: -299}} /></div>
+        <OffthreadVideo src={staticFile('raw.mp4')} muted style={{position: "absolute", width: 378, left: -68, top: -112}} /></div>
       <div style={{position: 'absolute', top: 520, left: 0, right: 0, textAlign: 'center'}}>
         <span style={{...pillStyle, fontSize: 30, transform: `scale(${pop(f, 469, 7)})`}}><Dot />POSITION INFO</span></div>
       <div style={{position: 'absolute', top: 760, left: 0, right: 0, textAlign: 'center'}}>
