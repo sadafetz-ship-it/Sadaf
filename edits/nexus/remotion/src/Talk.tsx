@@ -14,12 +14,12 @@ const BehindName: React.FC<{name: string; tag: string; t: number; end: number}> 
   const frame = useCurrentFrame();
   const at = f(t) - 1;
   if (frame < at - 6 || frame > f(end) + 4) return null;
-  const size = Math.min(250, Math.floor(940 / (name.length * 0.66)));
+  const size = Math.min(250, Math.floor(900 / (name.length * 0.8)));
   const drift = 1 + Math.max(0, frame - at) * 0.0006;
   const out = interpolate(frame, [f(end) - 2, f(end) + 4], [1, 0], cl);
   const b = bloomIn(frame, at, 10);
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 575 - size, textAlign: 'center', zIndex: 2, transform: `scale(${drift})`,
+    <div style={{position: 'absolute', left: 0, right: 0, top: 555 - size, textAlign: 'center', zIndex: 2, transform: `scale(${drift})`,
       opacity: out, whiteSpace: 'nowrap'}}>
       <div style={{position: 'relative', font: `600 ${size}px ${FONT.display}`, letterSpacing: '-0.045em', lineHeight: 0.9}}>
         <ScriptPixels at={at} w={name.length * size * 0.62} h={size} seed={`bn${name}`} size={34} />
@@ -55,7 +55,7 @@ const ThreeTiles: React.FC = () => {
         const gr = glowReveal(frame, t);
         return (
           <React.Fragment key={i}>
-            <Comet d={`M${[980, 540, 100][i]} ${[640, 560, 640][i]} Q ${x + 260} ${y - 120} ${x + 140} ${y + 40}`} at={t - 8} dur={8} />
+            <Comet d={`M${[-40, 540, 1120][i]} ${[1320, 1480, 1320][i]} Q ${[120, 760, 1000][i]} ${y + 380} ${x + 140} ${y + 200}`} at={t - 8} dur={8} />
             <div style={{...cardBody, left: x, top: y, width: 280, height: 280, zIndex: 8, opacity: out * (gr.style.opacity as number),
               transform: `rotate(${rot}deg) ${gr.style.transform}`, boxShadow: `${cardBody.boxShadow}, ${gr.style.boxShadow}`}}>
               <CardGrid /><BottomGlow c1={C.lilac} c2="rgba(63,224,255,.5)" strength={0.7} />
@@ -79,7 +79,7 @@ const RangeCard: React.FC<{label: string; a: string; b: string; inAt: number; ou
   const frame = useCurrentFrame();
   const S = f(inAt), E = f(outAt);
   if (frame < S || frame > E + 6) return null;
-  const m = motion === 'whip' ? whipIn(frame, S, {from: 1, rot: -2}) : zoomDropIn(frame, S, {rot: 2, dx: -120, dy: -160});
+  const m = motion === 'whip' ? whipIn(frame, S, {from: 1, rot: -2}) : zoomDropIn(frame, S, {rot: 2, dx: -120, dy: 220, from: 1.3});
   const out = interpolate(frame, [E - 1, E + 5], [1, 0], cl);
   const [t0, t1, p0, p1] = fill;
   const p = interpolate(frame, [f(t0), f(t1)], [p0, p1], {...cl, easing: (x) => 1 - Math.pow(1 - x, 3)});

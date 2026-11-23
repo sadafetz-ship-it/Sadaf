@@ -73,7 +73,7 @@ export const LadderScene: React.FC = () => {
   const bars: {lab: string; rng: string; h: number; at: number}[] = [
     {lab: 'LAUNCHPAD', rng: '$0–10K', h: 170, at: f(23.36)},
     {lab: 'PRO', rng: '$10K–50K', h: 340, at: f(23.84)},
-    {lab: 'MASTERY', rng: '$50K–$10M', h: 760, at: f(25.06)},
+    {lab: 'MASTERY', rng: '$50K–$10M', h: 620, at: f(25.06)},
   ];
   const climb = f(26.14), land = f(27.32);
   const climbP = interpolate(frame, [climb, land], [0, 1], {...cl, easing: Easing.inOut(Easing.cubic)});
@@ -95,7 +95,6 @@ export const LadderScene: React.FC = () => {
               border: '2px solid rgba(181,243,255,.5)', opacity: gr.style.opacity,
               background: hero ? `linear-gradient(180deg,${C.violet},${C.blue} 65%,#16213F)` : 'linear-gradient(180deg,#2A3A70,#16213F)',
               boxShadow: hero ? `0 0 ${60 + 40 * climbP}px rgba(63,224,255,.6)` : 'none'}} />
-            {hero && <Comet d={`M${x + 120} ${BASE} L${x + 120} ${BASE - b.h}`} at={climb} dur={land - climb} />}
             <div style={{position: 'absolute', left: x, top: BASE + 20, width: 240, textAlign: 'center', font: `500 26px ${FONT.ui}`,
               letterSpacing: '.1em', color: C.lilac, opacity: gr.style.opacity}}>{b.lab}</div>
             <div style={{position: 'absolute', left: x - 30, top: BASE - h - 66, width: 300, textAlign: 'center',
@@ -105,7 +104,7 @@ export const LadderScene: React.FC = () => {
       })}
       {/* big counter, top left */}
       {frame >= cAt && (
-        <div style={{position: 'absolute', left: 110, top: 250, whiteSpace: 'nowrap', opacity: tw(frame, cAt, 6, 0, 1),
+        <div style={{position: 'absolute', left: 90, top: 200, whiteSpace: 'nowrap', opacity: tw(frame, cAt, 6, 0, 1),
           transform: `scale(${landed ? interpolate(frame, [land, land + 4, land + 9], [1, 1.12, 1], cl) : 1})`, transformOrigin: '0 70%'}}>
           <div style={{position: 'relative', display: 'inline-block', font: `600 150px ${FONT.display}`, letterSpacing: -6, filter: GLOW}}>
             {landed && <ScriptPixels at={land} w={480} h={150} seed="ten-m" size={30} />}

@@ -96,7 +96,7 @@ export const StackTiles: React.FC<{times: number[]; show: [number, number][]}> =
   const count = times.filter((t) => frame >= t).length;
   const SIZE = 170;
   return (
-    <div style={{position: 'absolute', left: 40, top: 470, width: 300, height: 380, zIndex: 6, opacity: fadeIn}}>
+    <div style={{position: 'absolute', left: 790, top: 545, width: 300, height: 380, zIndex: 6, opacity: fadeIn}}>
       {times.map((t, i) => {
         if (i >= count) return null;
         const depth = count - 1 - i; // 0 = newest, in front
