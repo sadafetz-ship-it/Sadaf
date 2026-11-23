@@ -1,6 +1,6 @@
 // Main composition: camera, the cold → vivid colour arc (wipe on "switch"), cut-out layering, overlays, captions, progress bar, SFX.
 import React from 'react';
-import {AbsoluteFill, Audio, continueRender, delayRender, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
 import {Captions} from './Captions';
 import {BeamReveal, ExplainA, ExplainB, ExplainC, FlashCut} from './Explainers';
 import {Burst, cl, easeInOut, Flare, prog} from './fx';
@@ -9,15 +9,8 @@ import {CTA, EdgeFlash, TalkOverlays} from './Talk';
 import {C, CUT, DURATION, FACE, GRAD} from './theme';
 import {BehindHook, BehindReveal, FrontHook} from './Titles';
 
-const fontHandle = delayRender('fonts', {timeoutInMilliseconds: 120000});
-const F = (fam: string, file: string, weight = '400', style = 'normal') => new FontFace(fam, `url(${staticFile(file)})`, {weight, style});
-const faces = [
-  F('Inter', 'Inter-Regular.otf', '400'), F('Inter', 'Inter-Medium.otf', '500'), F('Inter', 'Inter-SemiBold.otf', '600'), F('Inter', 'Inter-Bold.otf', '700'),
-  F('Inter', 'Inter-ExtraBold.otf', '800'), F('Inter', 'Inter-Black.otf', '900'),
-  F('Inter Display', 'InterDisplay-Light.otf', '300'), F('Inter Display', 'InterDisplay-SemiBold.otf', '600'), F('Inter Display', 'InterDisplay-Bold.otf', '700'),
-  F('Inter Display', 'InterDisplay-ExtraBold.otf', '800'), F('Allura', 'Allura-Regular.ttf'),
-];
-Promise.all(faces.map((ff) => ff.load().catch(() => null))).then((ls) => { ls.forEach((l) => l && (document.fonts as unknown as {add: (x: FontFace) => void}).add(l)); continueRender(fontHandle); });
+// Fonts: Inter, Inter Display and Allura are installed system-wide in the render machine (copies in public/ for reference).
+
 
 const SW = CUT.switchAt;
 const WIPE = 20; // frames for the colour wipe
