@@ -306,7 +306,7 @@ behind01 = behind_f01 = None
 
 # F03: speaker PiP (desaturated) + low-battery toast
 pip = f"""<div class="abs" style="left:70px;top:110px;width:230px;height:230px;border-radius:50%;padding:6px;background:{GRAD};box-shadow:0 0 30px rgba(147,93,249,.7)">
- <div style="width:100%;height:100%;border-radius:50%;background:url(file://{W}/stills/F03.png) -150px -170px/540px 960px;filter:saturate(.25) brightness(.85)"></div></div>
+ <div style="width:100%;height:100%;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 40%,#2A1B5C,#0D0920 75%);box-shadow:inset 0 0 24px rgba(0,0,0,.6)"><div style="width:100%;height:100%;background:url(file://{W}/stills/F03_cut.png) -54px -84px/346px 614px no-repeat;filter:saturate(.25) brightness(.9) contrast(1.08)"></div></div></div>
 <div class="glass" style="left:330px;top:150px;width:690px;height:120px;border-radius:40px">
  <div class="abs" style="left:26px;top:26px;width:68px;height:68px;border-radius:20px;background:#D35BC5;box-shadow:0 0 20px #D35BC5;font:900 46px Inter;color:#fff;text-align:center;line-height:68px">!</div>
  <div class="abs" style="left:116px;top:24px;font:700 32px 'Inter Display';color:#F2EEFF">Battery critically low</div>
