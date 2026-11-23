@@ -341,7 +341,7 @@ const Deck: React.FC = () => {
 const ITEMS: [string, number][] = [['Billions of dollars', 803], ['A private equity empire', 823], ['A massive team', 887], ['A track record', 897], ['Famous investors', 903], ['A big office', 909]];
 const ListCard: React.FC = () => {
   const f = useCurrentFrame();
-  const at = 798, out = 952;
+  const at = 805, out = 952;
   if (f < at - 1 || f > out + 12) return null;
   const s = spr(f, at, {damping: 15});
   return (
@@ -448,10 +448,10 @@ export const TalkOverlays: React.FC = () => {
       {between(f, 500, 606) ? <F7 /> : null}
       {between(f, 616, 668) ? <ScriptsTitle word="SCHWARZMAN" at={635} out={666} x={110} y={220} size={92} setL={['Steve', 624]} setR={['of Blackstone', 655]} seed="sz" /> : null}
       {between(f, 671, 752) ? <F9 /> : null}
-      {between(f, 753, 802) ? <Balance at={755} out={800} label="Starting capital" value={() => '$0.00'} delta="−100%" ticks={['CASH', 'FUNDS', 'TEAM', 'BRAND', 'DEALS']}
+      {between(f, 753, 798) ? <Balance at={755} out={796} label="Starting capital" value={() => '$0.00'} delta="−100%" ticks={['CASH', 'FUNDS', 'TEAM', 'BRAND', 'DEALS']}
         fill={(ff) => 2 + 1.5 * Math.sin(ff / 5)} chip={['✕ billions', 772]} /> : null}
       {between(f, 766, 952) ? <Deck /> : null}
-      {between(f, 798, 952) ? <ListCard /> : null}
+      {between(f, 805, 952) ? <ListCard /> : null}
       {between(f, 955, 1012) ? <><Key /><CurveCard /></> : null}
     </AbsoluteLayer>
   );

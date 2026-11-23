@@ -45,7 +45,7 @@ export const CUES: Cue[] = [
   // F9b balance + tile deck
   k('pop_media', 757), k('ref2_g_drop', 770, 0.42), k('ref2_g_drop', 823, 0.42), k('ref2_g_drop', 887, 0.42),
   // F10 list card
-  k('paper_slide', 800, 0.32), k('pop_ui', 897, 0.35), k('dissolve', 925, 0.4), k('pop_ui', 938, 0.42),
+  k('paper_slide', 806, 0.32), k('pop_ui', 897, 0.35), k('dissolve', 925, 0.4), k('pop_ui', 938, 0.42),
   // F11 key + curve
   k('ref2_g_drop', 957, 0.45), k('pop_media', 960), k('ref2_g_comet', 999, 0.42),
   // Growth explainer

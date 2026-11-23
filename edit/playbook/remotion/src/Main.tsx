@@ -46,6 +46,7 @@ export const Main: React.FC = () => {
       </AbsoluteFill>
       <TalkOverlays />
       {f >= EX.gate[0] && f < EX.gate[1] ? <BeamReveal at={EX.gate[0]}><Gatekeepers /></BeamReveal> : null}
+      {f >= EX.growth[0] + 22 ? <AbsoluteFill style={{background: '#040A1C'}} /> : null}
       {f >= EX.growth[0] && f < EX.panel[0] + 3 ? (
         <AbsoluteFill style={{transform: `scale(${1 + 0.35 * growthOut})`, filter: `blur(${24 * growthOut}px)`, opacity: 1 - growthOut}}>
           <BeamReveal at={EX.growth[0]}><Growth /></BeamReveal>

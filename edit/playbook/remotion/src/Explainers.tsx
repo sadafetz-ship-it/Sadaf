@@ -236,7 +236,7 @@ export const Panel: React.FC = () => {
       <Pulse x={cx + 20} y={cy + 14} at={a + 52} r={110} />
       <Card3D at={a + 42} from="left" x={170} y={720} w={300} h={150} radius={30} style={{...GLASS, position: 'absolute', inset: 0}}>
         <div style={{position: 'absolute', left: 30, top: 22, fontSize: 18, color: 'rgba(243,247,255,.5)'}}>AUM</div>
-        <div style={{position: 'absolute', left: 30, top: 50, ...BIG_NUM, fontWeight: 600, fontSize: 58, letterSpacing: -2, color: C.lime, background: 'none', WebkitBackgroundClip: undefined}}>${rollNum(f, a + 44, a + 60, 0, 1).toFixed(f < a + 60 ? 2 : 0)}T+</div>
+        <div style={{position: 'absolute', left: 30, top: 50, ...BIG_NUM, fontWeight: 600, fontSize: 58, letterSpacing: -2, color: C.lime, background: 'none', WebkitBackgroundClip: undefined}}><span style={{display: 'inline-block', ...pop(f, a + 48, 14)}}>$1T+</span></div>
       </Card3D>
       <Card3D at={a + 46} from="right" x={1450} y={720} w={300} h={150} radius={30} style={{...GLASS, position: 'absolute', inset: 0}}>
         <div style={{position: 'absolute', left: 30, top: 22, fontSize: 18, color: 'rgba(243,247,255,.5)'}}>Since</div>
