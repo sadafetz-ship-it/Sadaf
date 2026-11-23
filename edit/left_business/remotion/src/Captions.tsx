@@ -3,8 +3,8 @@
 import React from 'react';
 import {interpolate, interpolateColors, useCurrentFrame} from 'remotion';
 import {WORDS} from './words';
-import {C, GRAD, HEAVY_FILL, HEAVY_FILTER} from './theme';
-import {back, bloomIn, cl, InkLine, prog, ScriptPixels, wordIn} from './fx';
+import {C, HEAVY_FILTER} from './theme';
+import {back, bloomIn, cl, InkLine, Letters, prog, ScriptPixels, wordIn} from './fx';
 
 type Group = {start: number; end: number; l1: number[]; pill?: number[]; heavy?: number[]; text?: string[]; tail?: number[];
   bar?: boolean; swing?: boolean; grad?: boolean};
@@ -65,7 +65,6 @@ const Heavy: React.FC<{g: Group}> = ({g}) => {
     ? {transform: `perspective(900px) rotateY(${interpolate(f, [at, at + 13, at + 22], [75, -18, -10], {...cl, easing: back})}deg) rotateZ(${interpolate(f, [at, at + 18], [-12, -3], cl)}deg)`}
     : {};
   const barP = prog(f, at + 6, at + 20);
-  const fill = g.grad ? GRAD : HEAVY_FILL;
   const filt = g.grad ? 'drop-shadow(0 0 10px rgba(147,93,249,.5)) drop-shadow(0 2px 14px rgba(0,0,0,.45))' : HEAVY_FILTER;
   return (
     <div style={{position: 'relative', marginTop: 10, fontFamily: 'Inter Display', fontWeight: 600, fontSize: size, letterSpacing: -size * 0.045, lineHeight: 0.98,
@@ -79,9 +78,7 @@ const Heavy: React.FC<{g: Group}> = ({g}) => {
           <div key={k} style={{position: 'relative'}}>
             {g.bar && last ? <span style={{position: 'absolute', left: -12, right: -12, bottom: '0.08em', height: '0.26em', borderRadius: 8, zIndex: -1, transformOrigin: 'left',
               transform: `scaleX(${barP})`, background: `linear-gradient(90deg,${C.deep},${C.blue} 35%,${C.violet} 70%,${C.magenta})`, boxShadow: '0 0 26px rgba(120,130,252,.65)'}} /> : null}
-            <span style={{display: 'inline-block', ...b}}>
-              <span style={{background: fill, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', filter: filt}}>{l}</span>
-            </span>
+            <span style={{display: 'inline-block', filter: filt, opacity: b.opacity}}><Letters text={l} at={lat} grad={g.grad} /></span>
             {last ? <span style={{display: 'inline-block', width: '0.15em', height: '0.15em', borderRadius: '50%', background: C.magenta, marginLeft: '0.05em',
               boxShadow: `0 0 14px ${C.magenta}`, transform: `scale(${interpolate(f, [lat + 10, lat + 16, lat + 21], [0, 1.4, 1], cl)})`}} /> : null}
           </div>

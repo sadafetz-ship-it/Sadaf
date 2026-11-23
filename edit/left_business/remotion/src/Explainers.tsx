@@ -2,7 +2,7 @@
 import React from 'react';
 import {interpolate, OffthreadVideo, random, staticFile, useCurrentFrame} from 'remotion';
 import {C} from './theme';
-import {BigNum, cl, Corner, DrawPath, easeInOut, OutlinePill, pop, prog, ScriptPixels, Widget} from './fx';
+import {BigNum, cl, Corner, DrawPath, easeInOut, OutlinePill, pop, prog, Roll, ScriptPixels, sp, Widget} from './fx';
 
 /** Ink world: navy radial base, two drifting light pools, masked 72 px grid, particles drifting up. */
 export const World: React.FC<{at: number}> = ({at}) => {
@@ -69,13 +69,25 @@ export const ExplainA: React.FC = () => {
     return d + ' L 700 760 L 0 760 Z';
   };
   const waterY = 760 - 560 * lvl;
-  const pip = pop(f, 176, 12);
+  // shared-element transition: the full shot of the speaker shrinks into the PiP circle while the world builds behind it
+  const m = Math.min(1, sp(f, 168, {damping: 18, stiffness: 80}));
+  const s = 1 - 0.68 * m, tx = 22 * m, ty = 42 * m;
+  const cx = 540 + (185 - 540) * m, cy = 960 + (235 - 960) * m, R = 1150 + (109 - 1150) * m;
+  const toCut = interpolate(f, [186, 196], [0, 1], cl);
+  const ring = interpolate(f, [184, 194], [0, 1], cl);
   return (
     <div style={{position: 'absolute', inset: 0}}>
-      <World at={168} />
+      <div style={{position: 'absolute', inset: 0, opacity: interpolate(f, [168, 178], [0, 1], cl), transform: `scale(${1.12 - 0.12 * m})`}}><World at={168} /></div>
+      {toCut < 1 ? (
+        <div style={{position: 'absolute', inset: 0, clipPath: `circle(${R}px at ${cx}px ${cy}px)`, opacity: 1 - toCut}}>
+          <OffthreadVideo src={staticFile('raw.mp4')} muted style={{position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, transformOrigin: '0 0',
+            transform: `translate(${tx}px,${ty}px) scale(${s})`, filter: `saturate(${1 - 0.75 * m}) brightness(${1 - 0.1 * m})`}} />
+        </div>
+      ) : null}
       {/* PiP: the live cut-out of the speaker, desaturated, centred in a gradient ring */}
-      <div style={{position: 'absolute', left: 70, top: 120, width: 230, height: 230, borderRadius: '50%', padding: 6, ...pip,
-        background: 'linear-gradient(135deg,#657EFC,#935DF9,#D35BC5)', boxShadow: '0 0 30px rgba(147,93,249,.7)'}}>
+      <div style={{position: 'absolute', left: 70, top: 120, width: 230, height: 230, borderRadius: '50%', padding: 6, opacity: toCut,
+        boxSizing: 'border-box', transform: `scale(${0.96 + 0.04 * ring})`,
+        background: 'linear-gradient(135deg,#657EFC,#935DF9,#D35BC5)', boxShadow: `0 0 ${30 * ring}px rgba(147,93,249,.7)`}}>
         <div style={{position: 'relative', width: 218, height: 218, borderRadius: '50%', overflow: 'hidden', background: 'radial-gradient(circle at 50% 40%,#1A1E5C,#070A1F 75%)'}}>
           <OffthreadVideo src={staticFile('speaker_cutout.webm')} transparent muted
             style={{position: 'absolute', left: -54, top: -84, width: 346, height: 614, filter: 'saturate(.25) brightness(.9) contrast(1.08)'}} />
@@ -99,7 +111,9 @@ export const ExplainA: React.FC = () => {
         <div style={{position: 'absolute', left: 50, top: 112, fontSize: 24, color: C.grey}}>since 2023</div>
         <div style={{position: 'absolute', right: 50, top: 62, fontSize: 24, color: C.grey}}>Mon 11:48 PM</div>
         <div style={{position: 'absolute', left: 50, top: 230}}>
-          <BigNum size={230} weight={500} style={{filter: pct <= 5 ? `drop-shadow(0 0 26px ${C.magenta})` : undefined}}>{pct}%</BigNum>
+          <div style={{display: 'flex', alignItems: 'flex-start', fontWeight: 500, letterSpacing: -8, filter: pct <= 5 ? `drop-shadow(0 0 26px ${C.magenta})` : 'drop-shadow(0 0 18px rgba(101,126,252,.55))'}}>
+            <Roll v={lvl * 100} digits={2} size={230} style={{fontSize: 230}} /><BigNum size={150} style={{marginTop: 20}}>%</BigNum>
+          </div>
         </div>
         <div style={{position: 'absolute', right: 50, bottom: 50, width: 120, height: 120, borderRadius: '50%', background: 'rgba(255,255,255,.18)',
           border: '1.5px solid rgba(255,255,255,.45)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 64, fontWeight: 300, color: '#fff'}}>+</div>
@@ -161,7 +175,7 @@ export const ExplainC: React.FC = () => {
         {f >= 834 ? <div style={{position: 'absolute', left: 400 - 18, top: 110 + 80 - 18, width: 36, height: 36, borderRadius: '50%', background: '#EAF0FF',
           boxShadow: `0 0 0 8px rgba(143,176,255,.25),0 0 30px ${C.sky},0 0 60px ${C.blue}`, transform: `scale(${ride})`}} /> : null}
         <div style={{position: 'absolute', left: 0, right: 0, top: 500, textAlign: 'center', fontSize: 34, color: 'rgba(230,236,255,.85)'}}>Your audience</div>
-        <div style={{position: 'absolute', left: 0, right: 0, top: 548, display: 'flex', justifyContent: 'center'}}><BigNum size={170}>$27</BigNum></div>
+        <div style={{position: 'absolute', left: 0, right: 0, top: 548, display: 'flex', justifyContent: 'center'}}><div style={{display: 'flex', fontWeight: 500, letterSpacing: -6, filter: 'drop-shadow(0 0 18px rgba(101,126,252,.55))'}}><BigNum size={170}>$</BigNum><Roll v={27 * prog(f, 834, 856, easeInOut)} digits={2} size={170} style={{fontSize: 170}} /></div></div>
         <div style={{position: 'absolute', left: 0, right: 0, top: 728, textAlign: 'center', fontSize: 22, color: C.grey}}>per download · low-ticket</div>
       </Widget>
       {chips.map(([x, y, at]) => (f >= at ? (

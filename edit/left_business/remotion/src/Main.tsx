@@ -3,7 +3,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, continueRender, delayRender, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
 import {Captions} from './Captions';
 import {BeamReveal, ExplainA, ExplainB, ExplainC, FlashCut} from './Explainers';
-import {cl, easeInOut, prog} from './fx';
+import {Burst, cl, easeInOut, Flare, prog} from './fx';
 import {Sfx} from './Sfx';
 import {CTA, EdgeFlash, TalkOverlays} from './Talk';
 import {C, CUT, DURATION, FACE, GRAD} from './theme';
@@ -31,7 +31,8 @@ const camera = (f: number) => {
   s += punch(19, 60) + punch(406, CUT.explainB) + punch(609, 623) + punch(673, 703);
   let blur = 0;
   for (const c of [CUT.talkB, CUT.talkC, CUT.talkD]) if (f >= c && f < c + 9) { const p = prog(f, c, c + 9); s *= 1.12 - 0.12 * p; blur = 28 * (1 - p); }
-  return {transform: `scale(${s})`, filter: blur ? `blur(${blur}px)` : undefined, transformOrigin: `${FACE.x}px ${FACE.y}px`};
+  const dx = Math.sin(f / 37) * 4 + Math.sin(f / 13) * 1.2, dy = Math.cos(f / 41) * 4, rot = Math.sin(f / 53) * 0.25;
+  return {transform: `translate(${dx}px,${dy}px) rotate(${rot}deg) scale(${s})`, filter: blur ? `blur(${blur}px)` : undefined, transformOrigin: `${FACE.x}px ${FACE.y}px`};
 };
 
 /** Grade per era: neutral → cold/desaturated (burnout) → vivid with gradient tube + rim (after the switch). */
@@ -88,18 +89,24 @@ export const Main: React.FC = () => {
       {wiping ? <div style={{position: 'absolute', left: bx - 13, top: -40, width: 26, height: 2100, transform: 'rotate(7deg)', transformOrigin: 'top',
         background: 'linear-gradient(180deg,#7FD4FF,#F2EEFF 50%,#D35BC5)', boxShadow: '0 0 30px #fff,0 0 70px #C052E9,0 0 120px #657EFC', opacity: 1 - prog(f, SW + WIPE - 4, SW + WIPE)}} /> : null}
 
+      <Flare y={290} at={19} />
+      <Burst x={546} y={262} at={50} r={260} color={C.magenta} />
       <FrontHook />
       <TalkOverlays />
       <EdgeFlash at={673} />
+      <Burst x={540} y={1145} at={662} r={300} />
+      <Burst x={540} y={1600} at={675} r={200} color={C.magenta} />
+      <Flare y={200} at={781} color={C.violet} />
 
       {/* explainers are mounted by frame range (not <Sequence>, which re-bases useCurrentFrame) */}
-      {f >= CUT.explainA && f < CUT.talkB ? <BeamReveal at={CUT.explainA}><ExplainA /></BeamReveal> : null}
+      {f >= CUT.explainA && f < CUT.talkB ? <ExplainA /> : null}
       {f >= CUT.explainB && f < CUT.talkC ? <BeamReveal at={CUT.explainB}><ExplainB /></BeamReveal> : null}
       {f >= CUT.explainC && f < CUT.talkD ? <BeamReveal at={CUT.explainC}><ExplainC /></BeamReveal> : null}
       <FlashCut at={CUT.talkB} />
       <FlashCut at={CUT.talkC} />
       <FlashCut at={CUT.talkD} />
       <CTA />
+      <Burst x={600} y={1190} at={896} r={200} />
 
       <Captions />
 

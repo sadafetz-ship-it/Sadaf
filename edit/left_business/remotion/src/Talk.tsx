@@ -2,7 +2,7 @@
 import React from 'react';
 import {interpolate, useCurrentFrame} from 'remotion';
 import {C, GRAD} from './theme';
-import {BigNum, cl, Corner, DrawPath, easeInOut, OutlinePill, pop, prog, ProgressBar, Ripple, SoftCursor, stamp, Widget, whipIn} from './fx';
+import {BigNum, cl, Corner, DrawPath, easeInOut, OutlinePill, pop, prog, ProgressBar, Ripple, Roll, SoftCursor, stamp, Widget, whipIn} from './fx';
 
 const X = 738; // right zone
 const W = 314;
@@ -36,7 +36,7 @@ const Product: React.FC = () => {
         {f >= 70 ? <div style={{position: 'absolute', left: 190 - 13, top: 50 + 40 - 13, width: 26, height: 26, borderRadius: '50%', background: '#EAF0FF',
           boxShadow: `0 0 0 6px rgba(143,176,255,.25),0 0 24px ${C.sky},0 0 46px ${C.blue}`, transform: `scale(${dot})`}} /> : null}
         <div style={{position: 'absolute', left: 0, right: 0, top: 268, textAlign: 'center', fontSize: 22, color: 'rgba(230,236,255,.75)'}}>Starter template</div>
-        <div style={{position: 'absolute', left: 0, right: 0, top: 300, display: 'flex', justifyContent: 'center'}}><BigNum size={86}>$27</BigNum></div>
+        <div style={{position: 'absolute', left: 0, right: 0, top: 300, display: 'flex', justifyContent: 'center'}}><div style={{fontWeight: 500, letterSpacing: -2, filter: 'drop-shadow(0 0 18px rgba(101,126,252,.55))', display: 'flex', alignItems: 'flex-start'}}><BigNum size={86}>$</BigNum><Roll v={27 * prog(f, 64, 94, easeInOut)} digits={2} size={86} style={{fontSize: 86}} /></div></div>
         <div style={{position: 'absolute', left: 0, right: 0, top: 386, textAlign: 'center', fontSize: 16, color: C.grey}}>digital download · instant access</div>
       </Widget>
       <Stamp text="ALL IN" at={66} exit={152} x={760} y={556} rot={-12} color={C.mist} />
@@ -48,7 +48,6 @@ const Product: React.FC = () => {
 const Clock: React.FC = () => {
   const f = useCurrentFrame();
   const p = f < 309 ? (10 / 12) * prog(f, 276, 309, easeInOut) : 10 / 12 + (2 / 12) * prog(f, 323, 333);
-  const hrs = f < 323 ? Math.round(12 * p) : 12;
   const R = 104;
   return (
     <Widget x={X} y={570} w={W} h={420} at={266} exit={343}>
@@ -59,7 +58,7 @@ const Clock: React.FC = () => {
       <div style={{position: 'absolute', left: (W - 2 * R) / 2 + 12, top: 92, width: 2 * R - 24, height: 2 * R - 24, borderRadius: '50%',
         background: 'radial-gradient(circle at 50% 35%,rgba(101,126,252,.35),rgba(7,10,31,0) 70%)'}} />
       <div style={{position: 'absolute', left: 0, right: 0, top: 136, display: 'flex', justifyContent: 'center', alignItems: 'baseline'}}>
-        <BigNum size={84}>{hrs}</BigNum><span style={{fontSize: 34, color: C.sky, marginLeft: 4}}>h</span>
+        <div style={{fontWeight: 500, letterSpacing: -2, filter: 'drop-shadow(0 0 18px rgba(101,126,252,.55))', display: 'flex', alignItems: 'flex-start'}}><Roll v={12 * p} digits={2} size={84} style={{fontSize: 84}} /></div><span style={{fontSize: 34, color: C.sky, marginLeft: 4}}>h</span>
       </div>
       <div style={{position: 'absolute', left: 28, top: 330, fontSize: 16, color: C.grey}}>WORK</div>
       <div style={{position: 'absolute', left: 28, top: 352, fontSize: 30, fontWeight: 600}}>{Math.round(p * 100)}%</div>

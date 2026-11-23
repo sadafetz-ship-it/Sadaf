@@ -1,7 +1,7 @@
 // Animation helpers (house recipes, slower house pace) recoloured to the blue → violet → magenta accent,
 // plus the widget kit from the user's references (rim light, bottom light pool, grid, soft cursor).
 import React from 'react';
-import {Easing, interpolate, random, useCurrentFrame} from 'remotion';
+import {Easing, interpolate, interpolateColors, random, spring, useCurrentFrame} from 'remotion';
 import {C, WIDGET} from './theme';
 
 export const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
@@ -167,19 +167,17 @@ const RimLight: React.FC<{w: number; t: number}> = ({w, t}) => (
 export const Widget: React.FC<{x: number; y: number; w: number; h: number; at: number; exit?: number; enter?: 'pop' | 'drop' | 'whip';
   radius?: number; grid?: boolean; style?: React.CSSProperties; children?: React.ReactNode}> = ({x, y, w, h, at, exit, enter = 'pop', radius, grid = true, style, children}) => {
   const f = useCurrentFrame();
-  if (f < at - 1 || (exit !== undefined && f > exit + 10)) return null;
-  const e = enter === 'drop' ? zoomDropIn(f, at, {rot: 0, dx: 60, dy: -140}) : enter === 'whip' ? whipIn(f, at, {from: 1, dist: 520}) : glassPop(f, at);
-  const ex = exit !== undefined ? exitStyle(f, exit) : {};
+  if (f < at - 1 || (exit !== undefined && f > exit + 16)) return null;
+  const e = spring3D(f, at, exit, enter === 'drop' ? 'down' : enter === 'whip' ? 'right' : 'up');
   const bob = Math.sin((f - at) / 26) * 3;
   return (
-    <div style={{position: 'absolute', left: x, top: y + bob, width: w, height: h, ...e, ...ex,
-      transform: `${(e.transform as string) ?? ''} ${(ex.transform as string) ?? ''}`, filter: `${(e.filter as string) ?? ''} ${(ex.filter as string) ?? ''}`.trim() || undefined,
-      opacity: ((e.opacity as number) ?? 1) * ((ex.opacity as number) ?? 1)}}>
+    <div style={{position: 'absolute', left: x, top: y + bob, width: w, height: h, ...e, transformStyle: 'preserve-3d'}}>
       <div style={{...WIDGET, inset: 0, borderRadius: radius ?? Math.round(Math.min(w, h) * 0.2), ...style}}>
         {grid ? <div style={{position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(143,176,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(143,176,255,.09) 1px,transparent 1px)',
           backgroundSize: '34px 34px', WebkitMaskImage: 'linear-gradient(180deg,transparent 45%,#000 100%)'}} /> : null}
         <RimLight w={w} t={f - at} />
         {children}
+        <Shine at={at + 8} />
       </div>
     </div>
   );
@@ -217,3 +215,113 @@ export const ProgressBar: React.FC<{p: number; w: number; h?: number}> = ({p, w,
 );
 
 export const clampText = (s: string) => s.replace(/[.,?!]+$/, '');
+
+// ───────────── Advanced motion kit (springs, 3D, shine, odometer, per-letter, bursts, flares) ─────────────
+
+export const SPRING = {damping: 13, stiffness: 110, mass: 0.9};
+export const sp = (f: number, at: number, cfg: Partial<typeof SPRING> = {}) => spring({frame: f - at, fps: 30, config: {...SPRING, ...cfg}});
+
+/** 3D spring entrance from depth with perspective tilt; idle 3D drift; 3D flip-away exit. */
+export const spring3D = (f: number, at: number, exit: number | undefined, dir: 'up' | 'down' | 'right' | 'left' = 'up'): React.CSSProperties => {
+  const s = sp(f, at);
+  const inv = 1 - s;
+  const v = {up: [0, 220, 34, 0], down: [0, -260, -30, 0], right: [460, 40, 0, -38], left: [-460, 40, 0, 38]}[dir];
+  const t = f - at;
+  const idleX = Math.sin(t / 38) * 3, idleY = Math.cos(t / 47) * 4;
+  let ex = 0;
+  if (exit !== undefined && f > exit) ex = Math.min(1, sp(f, exit, {damping: 20, stiffness: 140}));
+  return {
+    transform: `perspective(1400px) translate3d(${v[0] * inv + 120 * ex}px, ${v[1] * inv - 40 * ex}px, ${-380 * inv - 300 * ex}px) rotateX(${v[2] * inv + idleX}deg) rotateY(${v[3] * inv + idleY - 35 * ex}deg) scale(${0.86 + 0.14 * Math.min(s, 1.04)})`,
+    opacity: Math.min(1, interpolate(f, [at, at + 5], [0, 1], cl)) * (1 - ex),
+    filter: `blur(${Math.max(0, 14 * inv) + 14 * ex}px)`,
+  };
+};
+
+/** Specular shine sweeping across a glass card once (22 f). */
+export const Shine: React.FC<{at: number}> = ({at}) => {
+  const f = useCurrentFrame();
+  const p = interpolate(f, [at, at + 22], [-0.6, 1.6], cl);
+  if (f < at || f > at + 22) return null;
+  return <div style={{position: 'absolute', top: '-20%', bottom: '-20%', left: `${p * 100}%`, width: '45%', transform: 'skewX(-18deg)', mixBlendMode: 'screen',
+    background: 'linear-gradient(90deg,transparent,rgba(200,220,255,.22) 45%,rgba(255,255,255,.38) 50%,rgba(200,220,255,.22) 55%,transparent)', pointerEvents: 'none'}} />;
+};
+
+/** Odometer: every digit is a rolling 0–9 column; fractional values roll smoothly. */
+export const Roll: React.FC<{v: number; digits: number; size: number; style?: React.CSSProperties}> = ({v, digits, size, style}) => {
+  const cols = [];
+  for (let k = digits - 1; k >= 0; k--) {
+    const raw = v / Math.pow(10, k);
+    let d = raw % 10;
+    // carry smoothing: lower digit's last 10 % drives this digit's roll
+    const lower = (v % Math.pow(10, k)) / Math.pow(10, k);
+    d = Math.floor(d) + (k > 0 ? Math.max(0, (lower - 0.9) / 0.1) : d - Math.floor(d));
+    const hide = k > 0 && v < Math.pow(10, k) - 0.05;
+    cols.push(
+      <span key={k} style={{display: 'inline-block', height: size, overflow: 'hidden', width: hide ? 0 : size * 0.6, transition: 'none', verticalAlign: 'top'}}>
+        <span style={{display: 'block', transform: `translateY(${-d * size}px)`}}>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((n, i) => <span key={i} style={{display: 'block', height: size, lineHeight: `${size}px`, textAlign: 'center', background: 'linear-gradient(180deg,#FFFFFF 25%,#C7D3FF 75%,#9DB0FF 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{n}</span>)}
+        </span>
+      </span>,
+    );
+  }
+  return <span style={{display: 'inline-flex', ...style}}>{cols}</span>;
+};
+
+const GSTOPS = [0, 0.22, 0.45, 0.65, 0.82, 1];
+const GCOLS = ['#657EFC', '#7773FB', '#935DF9', '#AB55F4', '#C052E9', '#D35BC5'];
+/** Per-letter kinetic reveal: 3D flip-up + rise + blur, spring, 1.6 f stagger. Gradient words get per-letter colours along the gradient. */
+export const Letters: React.FC<{text: string; at: number; grad?: boolean; stagger?: number}> = ({text, at, grad, stagger = 1.6}) => {
+  const f = useCurrentFrame();
+  const n = text.length;
+  return (
+    <span style={{display: 'inline-block', perspective: 800, whiteSpace: 'pre'}}>
+      {text.split('').map((ch, i) => {
+        const a = at + i * stagger;
+        const s = sp(f, a, {damping: 12, stiffness: 140});
+        const col = grad ? interpolateColors(n > 1 ? i / (n - 1) : 0, GSTOPS, GCOLS) : undefined;
+        const fill = grad ? `linear-gradient(180deg,#FFFFFF -30%,${col} 45%,${col} 100%)` : 'linear-gradient(180deg,#FFFFFF 30%,#E6E4FF 70%,#C3C6FF 100%)';
+        return (
+          <span key={i} style={{display: 'inline-block', transformOrigin: '50% 100%', opacity: interpolate(f, [a, a + 3], [0, 1], cl),
+            transform: `translateY(${(1 - s) * 0.55}em) rotateX(${(1 - s) * -80}deg) scale(${0.7 + 0.3 * s})`, filter: `blur(${Math.max(0, (1 - s) * 10)}px)`,
+            background: fill, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{ch}</span>
+        );
+      })}
+    </span>
+  );
+};
+
+/** Radial spark burst + shockwave ring. */
+export const Burst: React.FC<{x: number; y: number; at: number; n?: number; r?: number; color?: string}> = ({x, y, at, n = 12, r = 220, color = C.sky}) => {
+  const f = useCurrentFrame();
+  if (f < at || f > at + 22) return null;
+  const p = prog(f, at, at + 18);
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: 0, height: 0}}>
+      <div style={{position: 'absolute', left: -r * p, top: -r * p, width: 2 * r * p, height: 2 * r * p, borderRadius: '50%', border: `${6 * (1 - p) + 1}px solid ${C.mist}`,
+        boxShadow: `0 0 30px ${color},inset 0 0 30px ${color}`, opacity: 1 - p}} />
+      {Array.from({length: n}).map((_, i) => {
+        const ang = (i / n) * Math.PI * 2 + random(`b${at}${i}`) * 0.4;
+        const len = r * (0.55 + random(`l${at}${i}`) * 0.6);
+        const d1 = len * (0.45 + 0.55 * p), d0 = d1 - len * 0.22 * (1 - p * 0.6);
+        return <div key={i} style={{position: 'absolute', left: Math.cos(ang) * d0, top: Math.sin(ang) * d0, width: Math.max(2, d1 - d0), height: 3, borderRadius: 2,
+          transformOrigin: '0 50%', transform: `rotate(${ang}rad)`, background: `linear-gradient(90deg,${color},#fff)`, boxShadow: `0 0 10px ${color}`, opacity: 1 - p}} />;
+      })}
+    </div>
+  );
+};
+
+/** Anamorphic lens-flare streak across the frame (title landings). */
+export const Flare: React.FC<{y: number; at: number; color?: string}> = ({y, at, color = C.blue}) => {
+  const f = useCurrentFrame();
+  if (f < at || f > at + 18) return null;
+  const p = prog(f, at, at + 8);
+  const o = interpolate(f, [at, at + 3, at + 18], [0, 1, 0], cl);
+  return (
+    <>
+      <div style={{position: 'absolute', left: 540 - 700 * p, width: 1400 * p, top: y - 6, height: 12, borderRadius: 6, opacity: o, mixBlendMode: 'screen',
+        background: `linear-gradient(90deg,transparent,${color} 30%,#fff 50%,${color} 70%,transparent)`, filter: 'blur(2px)', boxShadow: `0 0 40px ${color}`}} />
+      <div style={{position: 'absolute', left: 340, width: 400, top: y - 120, height: 240, borderRadius: '50%', opacity: o * 0.6, mixBlendMode: 'screen',
+        background: `radial-gradient(closest-side,rgba(255,255,255,.7),${color}55,transparent)`}} />
+    </>
+  );
+};
