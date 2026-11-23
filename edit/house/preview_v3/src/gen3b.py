@@ -27,3 +27,21 @@ for k,(label,body) in {'8A':A,'8B':B,'8C':C}.items():
     html=talk('11.95', front=body) + caption3('so you can get', 'started', 'today')
     open(f'h{k}.html','w').write(f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="stage">{html}</div></body></html>')
 import json; json.dump({k:['11.95',v[0]] for k,v in {'8A':A,'8B':B,'8C':C}.items()}, open('frames3b.json','w'))
+
+# 8BC: calendar (left zone) + CTA card (right zone)
+Bl = B[1].replace('left:1290px;top:150px', 'left:70px;top:150px').replace('cx="1356" cy="376"', 'cx="136" cy="376"').replace('rotate(-8 1356 376)', 'rotate(-8 136 376)')
+html = talk('11.95', front=Bl + C[1]) + caption3('so you can get', 'started', 'today')
+open('h8BC.html','w').write(f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="stage">{html}</div></body></html>')
+json.dump({'8BC':['11.95','8 B+C']}, open('frames3c.json','w'))
+
+# 8 sequence: (1) cursor clicks 23 on the calendar, (2) home card opens out of the 23 cell, over the dimmed calendar (left zone)
+ripple = '<div style="position:absolute;left:96px;top:336px;width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,244,222,.8);box-shadow:0 0 18px #FFC000;transform:scale(1.35);opacity:.7"></div>'
+s1 = Bl + ripple + CUR.format(s='left:150px;top:385px')
+cal_dim = '<div style="filter:blur(6px) brightness(.55);transform:scale(.96);transform-origin:20% 50%">' + Bl + '</div>'
+card = C[1].replace('left:1290px;top:170px', 'left:110px;top:170px').replace("CUR", "")
+card = re.sub(r'<svg viewBox="0 0 24 24" style="position:absolute;left:1700px;top:505px".*?</svg>', '', card, flags=re.S)
+s2 = cal_dim + card + CUR.format(s='left:520px;top:505px')
+for k,body in {'8S1':s1,'8S2':s2}.items():
+    html = talk('11.95', front=body) + caption3('so you can get', 'started', 'today')
+    open(f'h{k}.html','w').write(f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="stage">{html}</div></body></html>')
+json.dump({'8S1':['11.95','8.1'],'8S2':['11.95','8.2']}, open('frames3c.json','w'))

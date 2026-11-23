@@ -1,5 +1,7 @@
 # House video: storyboard v3 (waiting for approval, not built)
 
+## v3.1: F8 is now a sequence: calendar → click on 23 → "Your home plan" card opens out of it (left zone)
+
 ## v3 changes: 16:9 frame, captions in the lower third, nothing on the face
 - **Canvas:** 1920×1080 (16:9). This is the full source frame, with no crop and no upscale.
 - **Captions** sit in the **lower third**. Each caption block ends 64 px above the bottom edge and never starts above y = 720.
@@ -93,7 +95,7 @@ The caption lockup is: L1 = Inter Display Light 58 px (the current word types on
 | 5 | 5.90–7.12 | over the next 10 years. | Explainer (continues) | over the next / **10 years** | **10-year timeline**: an amber ink line draws through nodes YR 1 → 3 → 5 → 7 → 10. Each node goes from ghost to sharp. The YR 10 node is a house icon. | line starts f177 · YR10 on "years" f206 | F5 |
 | 6 | 7.18–9.44 | So you can buy a home before you're out of your thirties. | **Card on chest** | So you can buy a home before you're out of your / **thirties** | **Whip-in milestone card**: house icon, "Homeowner", chips "Before 40" and "Keys ready". Zoom-blur cut back to the speaker. | cut f215 · card on "home" f242 · thirties f274 | F6 |
 | 7 | 9.70–10.94 | Let's break it down step by step | **Name behind head** | Let's break it down / *step by step* | **PLAN** behind the head. Pill tag "STEP BY STEP" with a cursor. | PLAN on "break" f295 | F7 |
-| 8 | 10.94–12.20 | so you can get started today. | **Caption only** | so you can get / *started* / **today** | Swoosh streak above the caption. 4 f punch-in. | started f349 · today f357 | F8 |
+| 8 | 10.94–12.20 | so you can get started today. | **Card sequence (left zone)** | so you can get / *started* / **today** | (a) A glass **"Day 1" calendar** pops in, and the cursor **clicks 23** (today) with a ripple. (b) The 23 cell **expands into the "Your home plan" card**, using the quest-card morph: clip-path inset + radius over 8 f, with a glow bloom. The calendar blurs and dims behind it. On "today" the cursor **presses "Get started"**. | calendar in f328 · click 23 f335 · card morph f335–343 · "Get started" pressed f356 | F8a, F8b |
 | 9 | 12.44–15.32 | Buying a home is one of the biggest financial goals for a lot of people, | **Full-background explainer** | Buying a home is one of the biggest / *financial* / **goals** → then "for a lot of people," | **Goals board** (input bar → card): Emergency fund · Retirement · Pay off debt · **Buy a home** (highlighted, cursor click) | cut f373 · highlight on "home" f383 · goals f422 | F9 |
 | 10 | 15.66–16.98 | but as you're likely aware, | **Caption only** | but as you're likely / *aware,* | Cut back to the speaker. Slow push. | aware f497 | F10 |
 | 11 | 17.20–18.67 | it's gotten pretty pricey. | **Card on chest** | it's gotten pretty / **pricey** | **"Home prices" card**: the amber line chart draws upward and a $ tile drops in. Ember edge flash on "pricey". Then a short fade to end. | chart f516 · pricey + flash f538 · fade f548–560 | F11 |
