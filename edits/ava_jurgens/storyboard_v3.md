@@ -99,3 +99,16 @@ Unchanged and already clear: the number tiles (left of the face, x ≤ 320) and 
 
 **Build rule:** the speaker moves. During the Remotion build the audit checks every 6 fps sheet against the face zone. Punch-ins
 scale the face up, so during a punch-in the cards slide down by the same amount.
+
+## v8 change: top words must stand out from the background
+"Darker" meant **visible**: the v6/v7 top words blended into the light beige wall.
+
+| Background | Big word | Small words and handles |
+|---|---|---|
+| **Footage (light wall)**: F1 "Ava", F9 "THIS JOB", F13 "YOU" | **Deep green gradient** `#0B6B4F → #1F8436 → #4E8A0B`, crisp (no blur, no ghost layer), soft dark shadow + 1 px dark edge | **Dark green** `#0B2A17`, weight 500 |
+| **Dark explainer**: F3 "EDITORS" | Bright accent gradient `#4CDAB4 → #84E572 → #C2F433` with a small bloom | White |
+
+- The pixel clusters keep the bright accent tones, so they pop against the dark word.
+- The pixel clusters were moved off the small words (left, right and centre-top of the box) so they never cover text.
+- The face check still passes (`preview_v8/facecheck.jpg`). `preview_v8/cmp.jpg` is a close-up of the four top words.
+- Previews: `board_v8.jpg`, `preview_v8/`.
