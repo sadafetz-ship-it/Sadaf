@@ -119,3 +119,10 @@ scale the face up, so during a punch-in the cards slide down by the same amount.
 - **F9** (21.9–23.2 s, "Who is · for? · THIS JOB"): the caption is removed. The top word carries the question.
 - Captions with no caption now: F8, F9, F10, F11b, F12. Captions return at F11 ("consistency") and from F13.
 - Previews: `board_v9.jpg`, `preview_v9/`.
+
+## v10 change: small top words reverted to white
+- In v8 the small words beside the top words ("Meet / CEO", "Who is / for?", "Is this / ?") and the small square handles were
+  changed to dark green **without being asked**. Only the big coloured word was meant to change.
+- v10 **reverts** them to the original white (weight 400, soft shadow) and white handles.
+- The big word keeps the deep green gradient `#0B6B4F → #1F8436 → #4E8A0B` from v8.
+- Previews: `board_v10.jpg`, `preview_v10/` (`cmp.jpg` = close-up).
