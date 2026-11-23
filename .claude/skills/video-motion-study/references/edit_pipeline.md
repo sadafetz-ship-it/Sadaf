@@ -68,3 +68,7 @@ remotion/
 - Find each file's **peak offset** so cues land on frames.
 - If the video labels its SFX on screen (highlighted words), read the 6 fps sheet to name each cut.
 - Run Whisper first: if it finds speech, the file is a voiceover, not SFX.
+- **Music under the SFX?** Demucs models (`dl.fbaipublicfiles.com`) may be blocked. Use REPET-SIM instead: STFT →
+  `nn_filter` (median, cosine, width 0.5 s) → soft masks → the non-repeating **foreground** holds the one-off SFX.
+  Cut events from the foreground at the times the circled animations happen, then run Whisper on each cut to catch vocal bleed
+  (Whisper's "Thank you." with no_speech ≥0.75 on non-speech is a hallucination, not speech).

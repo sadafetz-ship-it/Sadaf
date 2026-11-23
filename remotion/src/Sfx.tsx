@@ -17,6 +17,8 @@ const SFX_GAIN = 0.62;
 
 const PEAK: Record<string, number> = {
   // separated from the reference video
+  // separated from the user's 2 reference grid videos (music removed by REPET-SIM foreground separation)
+  ref2_g_drop: 0.22, ref2_g_whip: 0.13, ref2_g_scripts: 0.12, ref2_g_comet: 0.27, ref2_g_photostack: 0.09, ref2_q_pill: 0.2, ref2_q_morph: 0.21, ref2_g_golden: 0.18,
   ref_typing_a: 0.11, ref_typing_b: 0.11, ref_riser: 1.06, ref_light_reveal: 0.02, ref_ding: 0.13, ref_click: 0.08, ref_wheel: 0.05,
   // library
   whoosh_a: 0.51, whoosh_b: 0.4, whoosh_deep: 0.3, whoosh_air: 0.72, whoosh_arrow: 0.29, impact: 0.28, data_load: 0.62,
@@ -29,7 +31,9 @@ const PEAK: Record<string, number> = {
 /** Site name lands behind the head: riser → light reveal + soft impact + pixel data-load → ding on the pill tag. */
 const nameReveal = (t: number, bigRiser = false): Cue[] => [
   bigRiser ? {file: 'riser', at: t, vol: 0.4} : {file: 'ref_riser', at: t, vol: 0.45},
-  {file: 'data_load', at: t, vol: 0.22},
+  {file: 'ref2_g_scripts', at: t, vol: 0.4},                     // Scripts-style pixel reveal
+  {file: 'ref2_g_golden', at: t + 0.05, vol: 0.3},               // Golden Hour glow blooms
+  {file: 'ref2_g_comet', at: t, vol: 0.22},                      // number tile develops (comet reveal)
   {file: 'ref_light_reveal', at: t, vol: 0.55},
   {file: 'impact', at: t, vol: 0.4},
   {file: 'ref_ding', at: t + 0.2, vol: 0.35},
@@ -54,7 +58,7 @@ const CUES: Cue[] = [
   {file: 'scifi_ui', at: 0.1, vol: 0.3},
   {file: 'ref_typing_a', at: 0.12, vol: 0.28, len: 1.05},          // caption words type on
   {file: 'ref_typing_b', at: 1.22, vol: 0.35, len: 0.7},           // text arcing over the head
-  {file: 'paper_slide', at: 1.82, vol: 0.4},                       // "Classified" card
+  {file: 'ref2_g_drop', at: 1.85, vol: 0.5},                       // "Classified" card zoom drop-in
   {file: 'ref_click', at: 1.9, vol: 0.3},
   {file: 'game_over', at: 4.46, vol: 0.4},                         // "mad" 😤
   ...uiPop(5.7, 'pop_double', 0.5),                                // tilted "free."
@@ -73,16 +77,18 @@ const CUES: Cue[] = [
   {file: 'whoosh_deep', at: 33.5, vol: 0.45},                      // into the CTA insert
 
   // ── DefiLlama dashboard
-  {file: 'whoosh_b', at: 8.75, vol: 0.3},                          // dashboard card whips in
+  {file: 'ref2_g_whip', at: 8.78, vol: 0.5},                       // dashboard card whips in
   {file: 'gears', at: 8.84, vol: 0.3},                             // curve draws on
   ...uiPop(9.34),                                                  // glowing dot
   {file: 'ref_wheel', at: 10.58, vol: 0.35, len: 0.45},            // 4 chips tick in
 
   // ── CoinGlass three cards
   ...uiPop(16.7, 'pop_media', 0.5), ...uiPop(17.84, 'pop_media', 0.5), ...uiPop(19.04, 'pop_media', 0.5),
-  ...[16.7, 17.84, 19.04].map((t) => ({file: 'whoosh_arrow', at: t - 0.05, vol: 0.25})),     // comet arcs onto each card
+  ...[16.7, 17.84, 19.04].map((t) => ({file: 'ref2_g_comet', at: t - 0.03, vol: 0.45})),     // comet arcs onto each card
 
   // ── CryptoQuant
+  {file: 'ref2_g_photostack', at: 22.9, vol: 0.45},              // nodes appear along the line (ghost → sharp)
+  {file: 'ref2_g_photostack', at: 23.04, vol: 0.35},
   {file: 'button_3', at: 23.62, vol: 0.35},                        // "On-chain" chip
   {file: 'whoosh_arrow', at: 25.5, vol: 0.4},                      // INFLOWS arrow
   {file: 'whoosh_arrow', at: 26.34, vol: 0.4},                     // OUTFLOWS arrow
@@ -93,9 +99,10 @@ const CUES: Cue[] = [
 
   // ── CTA ("Trial edit" quest-card motion): icon pops → pill stretches + label types → morphs into the full card
   ...uiPop(33.6, 'pop_ui', 0.45),                                  // ₿ icon pops
-  {file: 'stretch', at: 33.85, vol: 0.3},                          // stretches into a pill
+  {file: 'ref2_q_pill', at: 33.88, vol: 0.5},                      // stretches into a pill
   {file: 'ref_typing_b', at: 33.93, vol: 0.4, len: 0.4},           // "Comment “BITCOIN”" types
-  {file: 'ref_light_reveal', at: 34.42, vol: 0.5},                 // pill morphs into the card (glow bloom)
+  {file: 'ref2_q_morph', at: 34.42, vol: 0.5},                     // pill morphs into the card
+  {file: 'ref_light_reveal', at: 34.45, vol: 0.3},                 // glow bloom
   {file: 'sparkle', at: 34.45, vol: 0.25},
   {file: 'ref_wheel', at: 34.77, vol: 0.35, len: 0.5},             // progress bar ratchets up
   {file: 'double_click', at: 35.12, vol: 0.5},                     // button pressed
@@ -118,7 +125,7 @@ const CUES: Cue[] = [
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 
   // ── small caption details (kept quiet so they never compete with the voice)
-  ...heavyLands.map((t) => ({file: 'soft_ui', at: t, vol: 0.2})),          // heavy word smears in
+  ...heavyLands.map((t) => ({file: 'ref2_g_scripts', at: t, vol: 0.22})),  // heavy word: Scripts pixel reveal
   ...captionChanges.map((t) => ({file: 'dissolve', at: t, vol: 0.13})),    // pixel dissolve
   ...[7.82, 14.88, 23.16, 34.2, 40.06].map((t) => ({file: 'ref_click', at: t + 0.1, vol: 0.25})), // box flashes
   ...[20.03, 31.01].map((t) => ({file: 'menu', at: t, vol: 0.3})),         // highlight bars

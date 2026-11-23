@@ -153,6 +153,11 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
 - **From the user's labelled SFX reference video** (separated by silence gaps): `ref_typing_a/b`, `ref_riser`,
   `ref_light_reveal`, `ref_ding`, `ref_click`, `ref_wheel`. When the user sends a video that labels its SFX on screen, cut them by
   those labels.
+- **From the user's two reference grids** (music removed with REPET-SIM foreground separation, `librosa.decompose.nn_filter`, then
+  cut per event and checked with Whisper for vocal bleed): `ref2_g_drop` (zoom drop-in), `ref2_g_whip` (whip-in),
+  `ref2_g_scripts` (Scripts pixel reveal), `ref2_g_comet` (comet + glow reveal), `ref2_g_photostack` (line path),
+  `ref2_q_pill` and `ref2_q_morph` (quest-card pill and morph), `ref2_g_golden` (Golden Hour glow). Use each with its
+  animation recipe.
 - **Combos (layer sounds for key moments):**
   - **Name reveal:** riser → light reveal + soft impact + data-load → ding on the pill tag (+0.2 s).
   - **Scene cut:** whoosh + digital burst + light-reveal shimmer.
