@@ -1,4 +1,31 @@
-# House video: storyboard v1 (waiting for approval, not built)
+# House video: storyboard v2 (waiting for approval, not built)
+
+## v2 changes (from your feedback on v1)
+1. **HOME and PLAN use the "Make better Scripts" style.** Each sits behind the head and is built like this:
+   - **Word:** a flat solid accent (`#FFB21A`) in tight bold, with no gradient and no glow.
+   - **Setup words:** two small cream words sit above the left and right ends ("buying a … new" / "your … 10-year"), plus a small outline square on the left.
+   - **Pixels:** chunky stair-step clusters in the same hue sit at the lower-left and upper-right.
+   - **Entry:** the word arrives with a motion-blur ghost that trails it, then clears.
+   - The old pill tags ("THE GOAL" / "STEP BY STEP") are removed.
+2. **Bold words now glow much less, like "Nexus." and "$10,000 per month".**
+   - The fill fades from white to pale gold.
+   - The glow is a single soft 8 px shadow, and the dot after the word is amber.
+   - On "twenties", "10 years" and "pricey", a **glowing highlight bar** (umber → ember → amber) sits behind the lower half of the word.
+3. **New motion graphics from your reference grid** (4 clips, studied at 6 fps):
+
+| Reference | What it does | Used at |
+|---|---|---|
+| Rc "Performance 48°" | A glass gauge widget appears out of a pixel-mosaic dissolve, its dial ticks fill in, and the number rolls up | #2 "10 yrs" gauge (replaces the tile deck) |
+| Rc product cards | Cards have a light top and a dark bottom with an italic bold title, a subtitle and stars. A glowing light ribbon loops around the card, and the cards swap in turn. | #9 "Buy a home" goal card (replaces the list board) |
+| Rb music player | A player card uses the speaker as album art and the steps as tracks; the play button gets pressed | #8 "The 10-Year Plan" player, play pressed on "started" |
+| Ra "Consistency is the Key" | A glowing 3D gold key, and a thin orbit circle with a dot travelling along it | #6 next to the Homeowner card |
+| Ra "Multibillion dollar / $$$" | The heavy word swings in with a 3D tilt, over a big pale "$$$" in condensed type with thin V lines | #11 "pricey" (replaces the chart) |
+| Rb light-beam sweep | A cone of light pivots from a small ring and wipes to the next scene | cut into each explainer (#4, #9) |
+| Rc light ribbon | A glowing neon line curves through the background | behind the explainer scenes (#4, #9) |
+| Rb small header | Small header words blur in one at a time | caption L1 type-on |
+
+The v2 frames are in `preview_v2/`, and `preview_v2/board_v2.jpg` shows them all on one sheet. The v1 frames are kept in `preview_v1/`.
+
 
 **Output:** 1080×1920 vertical, 30 fps, 18.7 s (560 f). The source is 16:9, so each shot is a 608×1080 crop that follows the speaker's head (centre x ≈ 870–1090 px), scaled up 1.78×.
 **Previews:** `preview_v1/frame_01–11.jpg`, plus everything on one sheet in `preview_v1/board_v1.jpg`.
