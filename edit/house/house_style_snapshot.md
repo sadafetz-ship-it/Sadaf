@@ -218,18 +218,27 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - **Typing UI** (bars, pills): `ref_typing`.
   - **Progress bars / chips ticking:** `ref_wheel`.
   - **Card opens:** light reveal (+ impact).
-- **Riser → whoosh → impact rule (user, final):** use them **ONLY when a crypto/site name lands** (the behind-the-head name
-  reveal), **not** on screen changes or anywhere else:
-  - **riser** (`ref_riser`): ~0.85 s build that **ends on the name's landing frame**; trim it (`len` = peak offset) so no tail spills.
-  - **whoosh**: one smooth pass (air-woosh), peak crossing the landing. Avoid choppy multi-burst whooshes.
-  - **impact**: align its **attack/onset** (not its loudest point) to the landing frame; trim to ~0.6 s.
-  - Check the effects-only envelope (mix minus voice): a steady climb into the landing, then a hold for ~0.6 s.
-  - **Screen changes stay clean:** no pop/click-type sound on a screen change. Drop every non-name cue from 0.5 s before to
-    0.3 s after each cut (captions often start exactly on a cut, so their click must be skipped there).
-  - **Duck pops under the name hits:** any other sound (caption click, bold-word hit, reveal, comet) from 1 s before a name
-    lands to 0.6 s after plays at **30 %**, so the riser, whoosh and impact lead.
-  - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
-    doubled clicks.
+- **Riser → whoosh → impact rule (user, updated Nov 2026: "use riser, whoosh, impact and other SFX smoothly and perfectly to
+  make the video more engaging").** This replaces the older "names only / screen changes stay clean" rule.
+  - **Use the hit on every big moment:** name titles (HOME, the first word of STEP BY STEP) **and every screen change** (into
+    and out of full-screen explainers).
+    - Riser **ends** on the moment; whoosh **peak** crosses it; impact **attack** (0.04 s into the file) lands on it.
+  - **Grade the hits so they don't all sound the same:**
+    - **Full hit** (names, cuts into explainers): riser ~1.0 s, impact 0.7 s.
+    - **Light hit** (cuts back to the speaker): only the last 0.55 s of the riser, softer whoosh and impact, about 0.55–0.65×.
+    - Vary the whoosh pitch per hit (`playbackRate` 0.92–1.18).
+    - Multi-word titles: a smaller echo impact on the last word (STEP … **STEP**).
+  - **Pair transitions with a quiet shimmer.** On a light-beam sweep, add `ref_light_reveal` at vol ~0.18, trimmed to 0.6 s.
+  - **Smoothness:**
+    - Every trimmed or mid-file sound gets a 2 f fade-in and a 4 f fade-out (no clicks).
+    - Non-hero sounds from 0.8 s before to 0.5 s after a hit drop to 45 %, so the hit leads.
+    - No file plays more than 8 times: count with esbuild and drop the smallest repeats.
+    - Rising pitch on repeated drops (`$` glyphs, timeline nodes: rate +0.06–0.08 each).
+  - **Levels:**
+    - Hit effects within about ±4 dB of the voice, measured over −0.2…+0.4 s around the hit.
+    - Where the voice is quiet, scale the hit down (e.g. ×0.8).
+    - Final peak about −3 dBFS after `alimiter=limit=0.72`.
+    - Measure peaks in **stereo**: a mono downmix misreports them.
 - **Visual-element pops are WANTED (user):** "no unnecessary UI pops" does NOT mean no pops. Keep a pop on each meaningful
   visual element appearing: cards in a row (`pop_media`), diagram nodes (Wallets / Exchange), chart tags (ENTRY / EXIT)
   (`pop_ui`), at vol ~0.5. Mark them `keep` so the screen-change filter doesn't drop them. Remove only filler pops (dots,

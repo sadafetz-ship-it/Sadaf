@@ -7,9 +7,9 @@ Copy the files to `remotion/public/sfx/` and use `scripts/remotion_HouseSfx.tsx`
 
 | File | Peak (s) | Role / when to use |
 |---|---|---|
-| `ref_riser.wav` | 1.06 | **Name hit only.** The riser ends on the frame the name lands. Trim to `len` = 1.06 s. |
-| `whoosh_air.wav` | 0.72 | **Name hit only.** One smooth pass; its peak crosses the landing. |
-| `impact.wav` | 0.28 (attack 0.04) | **Name hit only.** Align the attack (0.04) to the landing and trim to 0.6 s. |
+| `ref_riser.wav` | 1.06 | Big-moment hit (names and screen changes). The riser ends on the moment. Full hit: from 0.06 s, length 1.0 s; light hit: from 0.5 s, length 0.56 s. |
+| `whoosh_air.wav` | 0.72 | Big-moment hit, plus small lifts and whips (rate 1.25–1.35). Vary the pitch per hit; at most 8 plays. |
+| `impact.wav` | 0.28 (attack 0.04) | Big-moment hit: attack (0.04) on the moment, 0.7 s full or 0.45 s light. Also a smaller echo on the last word of a title and on the punchline. |
 | `pop_media.wav` | 0.12 | Visual element appears: cards, widgets, number tiles, `$` glyphs. |
 | `pop_ui.wav` | 0.28 | Smaller UI element appears: calendar, nodes, list bullets, people row. |
 | `ref2_g_drop.wav` | 0.22 | Zoom drop-in (cards and objects dropping in, e.g. the gold key or the plan card). |
