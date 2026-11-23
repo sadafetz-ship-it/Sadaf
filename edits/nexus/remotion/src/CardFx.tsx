@@ -86,6 +86,8 @@ export const bloomIn = (frame: number, at: number, dur = 10): React.CSSPropertie
 
 /** Purple "Golden Hour" glow for script + bold words. */
 export const GLOW = `drop-shadow(0 0 6px rgba(242,252,255,.55)) drop-shadow(0 0 18px ${C.lilac}) drop-shadow(0 0 42px rgba(63,224,255,.85)) drop-shadow(0 0 80px rgba(91,108,255,.45))`;
+/** Softer glow for bold caption words only (user: glow on bold words only, reduced). */
+export const GLOW_CAPTION = `drop-shadow(0 0 3px rgba(242,252,255,.35)) drop-shadow(0 0 12px rgba(63,224,255,.4))`;
 export const GLOW_FILL = 'linear-gradient(180deg,#FFFFFF 10%,#F0FDFF 45%,#B5F3FF 75%,#B5F3FF 100%)';
 
 /**

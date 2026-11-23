@@ -5,7 +5,7 @@ import {CAPTION_GROUPS, f, Fx, Group, Tok, tw} from './timing';
 import {Arrow, BoxFlash, HighlightBar, RingAround} from './Extras';
 import {Dot} from './ui';
 import {Swoosh} from './Pixel';
-import {bloomIn, GLOW, GLOW_FILL, InkLine, ScriptPixels} from './CardFx';
+import {bloomIn, GLOW_CAPTION, GLOW_FILL, InkLine, ScriptPixels} from './CardFx';
 
 /** Light word: blur 20 → 0, y +10 → 0, opacity 0 → 1 in 8 f, on its spoken frame. */
 const LightWord: React.FC<{tok: Tok; box?: boolean}> = ({tok, box}) => {
@@ -30,7 +30,7 @@ const Script: React.FC<{toks: Tok[]; fx: Fx}> = ({toks, fx}) => {
     <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 24, padding: '100px 100px 100px 100px', margin: '-100px -58px -100px -100px', position: 'relative', top: 10,
       display: 'inline-block',
       WebkitMaskImage: `linear-gradient(90deg,#000 ${p - 20}%,transparent ${p}%)`}}>
-      <span style={{display: 'inline-block', filter: GLOW}}>{toks.map((t) => t.text).join(' ')}</span>
+      <span style={{display: 'inline-block', textShadow: '0 2px 14px rgba(0,0,0,.7)'}}>{toks.map((t) => t.text).join(' ')}</span>
     </span></>
   );
 };
@@ -47,7 +47,7 @@ const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string; fx: Fx}> = ({tok
   return (
     <div style={{position: 'relative', font: `600 ${size}px ${FONT.display}`, letterSpacing: -7, lineHeight: 1, marginTop: -4}}>
       <ScriptPixels at={first} w={text.length * size * 0.5} h={size} seed={seed} size={Math.round(size * 0.2)} />
-      <div style={{display: 'inline-block', position: 'relative', filter: GLOW, transform: `rotate(${tilt}deg)`}}>
+      <div style={{display: 'inline-block', position: 'relative', filter: GLOW_CAPTION, transform: `rotate(${tilt}deg)`}}>
         {fx.ring && <RingAround at={last + 2} w={text.length * size * 0.5} h={size} />}
         {fx.bar && <HighlightBar at={last + 2} />}
         {fx.arrowH && <Arrow at={first} size={size * 0.5} />}
