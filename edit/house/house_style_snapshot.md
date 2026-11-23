@@ -38,6 +38,34 @@ project. Ask only when the user's new instructions conflict with them. When the 
 - Commit and push after every meaningful step (a stop hook enforces this). Never commit the raw upload twice. Never commit voice
   files that aren't SFX.
 
+### Pace (user, Nov 2026: "the animation is too fast")
+The measured reference timings (about 30 fps) felt too fast in the user's own edit. These slower durations **override the frame
+counts in §3, §5, §6 and §11**:
+
+| Motion | Default |
+|---|---|
+| Caption word blur-in | 9 f, karaoke colour settling over 18 f |
+| Pill pop | 13 f |
+| Heavy bloom | 16 f; dot at +10–21 f; highlight bar wipes +6–20 f; 3D swing 22 f |
+| Group exit | 7 f |
+| Scripts title | slide/blur 15 f; ghost collapses over 26 f; pixel clusters live 28–34 f and jitter every 5 f |
+| Pop | 12 f |
+| Glass pop | 12–14 f |
+| Zoom drop-in | 16 f |
+| Whip-in | 15 f (overshoot settles +11 f) |
+| Morph (cell → card) | 14 f |
+| Ripple | 20 f |
+| Exits | 10 f |
+| Light-beam sweep | 20 f |
+| Zoom-blur cut | 9 f |
+| Punch-in | 8 f |
+| Staggers | about 1.6–2× the reference (e.g. `$` glyphs every 4 f, calendar cells every 0.8 f) |
+
+**Hold rules:**
+- Hold every graphic **≥1.2 s**. Let it stay in its side zone while the next one comes in on the other side.
+- Bring interactive pieces in **early**, so they have settled before the action word. For example, the calendar appears
+  ~0.9 s before its click, and the button press waits until the button has fully popped.
+
 ## 2. Palette (default purple set; replaced by the circled accent when the user gives one, see §3)
 | Token | Hex | Use |
 |---|---|---|

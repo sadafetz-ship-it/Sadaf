@@ -21,10 +21,10 @@ const camera = (f: number) => {
   const segs: [number, number][] = [[0, CUT.explainA], [CUT.talkB, CUT.explainB], [CUT.talkC, DURATION]];
   let s = 1;
   for (const [a, b] of segs) if (f >= a && f < b) s = 1 + 0.035 * ((f - a) / (b - a));
-  const punch = (at: number, until: number) => (f >= at && f < until ? 0.05 * prog(f, at, at + 4) : 0);
+  const punch = (at: number, until: number) => (f >= at && f < until ? 0.05 * prog(f, at, at + 8) : 0);
   s += punch(103, CUT.explainA) + punch(357, CUT.explainB) + punch(497, 516);
   let blur = 0;
-  for (const c of [CUT.talkB, CUT.talkC]) if (f >= c && f < c + 5) { const p = prog(f, c, c + 5); s *= 1.12 - 0.12 * p; blur = 28 * (1 - p); }
+  for (const c of [CUT.talkB, CUT.talkC]) if (f >= c && f < c + 9) { const p = prog(f, c, c + 9); s *= 1.12 - 0.12 * p; blur = 28 * (1 - p); }
   return {transform: `scale(${s})`, filter: blur ? `blur(${blur}px)` : undefined, transformOrigin: '960px 320px'};
 };
 
