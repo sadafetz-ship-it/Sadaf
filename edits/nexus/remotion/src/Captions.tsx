@@ -87,7 +87,8 @@ const CaptionGroup: React.FC<{g: Group; i: number}> = ({g, i}) => {
   );
 };
 
-const SECTION = /^(first|second|third|and)$/i;
+/** Swoosh only on the section openers, placed above the caption block (never through text). */
+const SECTION = /^(starting off|and last)$/i;
 
 export const Captions: React.FC = () => (
   <>
@@ -96,8 +97,8 @@ export const Captions: React.FC = () => (
     {/* thin accent line drops onto each heavy word just before it blooms in (red "Scripts" ref) */}
     {CAPTION_GROUPS.filter((g) => g.h.length).map((g, i) => <InkLine key={`il${i}`} x={540} y={1650 - 156} at={f(g.h[0].t) - 1} h={120} />)}
     {/* swoosh streak brings in each "First / Second / Third / And lastly" (ref R2) */}
-    {CAPTION_GROUPS.filter((g) => g.l1.length && SECTION.test(g.l1[0].text.replace(/[^a-z]/gi, ''))).map((g, i) => (
-      <Swoosh key={`s${i}`} at={f(g.start) + 2} y={1290} />
+    {CAPTION_GROUPS.filter((g) => SECTION.test(g.l1.slice(0, 2).map((t) => t.text.replace(/[^a-z]/gi, '')).join(' '))).map((g, i) => (
+      <Swoosh key={`s${i}`} at={f(g.start) + 2} y={1110} />
     ))}
   </>
 );

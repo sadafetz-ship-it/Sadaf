@@ -55,7 +55,7 @@ const ThreeTiles: React.FC = () => {
         const gr = glowReveal(frame, t);
         return (
           <React.Fragment key={i}>
-            <Comet d={`M${[-40, 540, 1120][i]} ${[1320, 1480, 1320][i]} Q ${[120, 760, 1000][i]} ${y + 380} ${x + 140} ${y + 200}`} at={t - 8} dur={8} />
+            <Comet d={`M${[-40, 1120, 1120][i]} ${[1060, 760, 1080][i]} Q ${[120, 760, 1040][i]} ${[1080, 820, 1120][i]} ${x + 140} ${y + 140}`} at={t - 8} dur={8} />
             <div style={{...cardBody, left: x, top: y, width: 280, height: 280, zIndex: 8, opacity: out * (gr.style.opacity as number),
               transform: `rotate(${rot}deg) ${gr.style.transform}`, boxShadow: `${cardBody.boxShadow}, ${gr.style.boxShadow}`}}>
               <CardGrid /><BottomGlow c1={C.lilac} c2="rgba(63,224,255,.5)" strength={0.7} />
