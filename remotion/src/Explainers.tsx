@@ -3,6 +3,7 @@ import {AbsoluteFill, Easing, interpolate, random, useCurrentFrame} from 'remoti
 import {C, FONT} from './theme';
 import {f, pop, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, DrawPath, ExplainerBG, glass, Plus, XHead, cardIn} from './ui';
+import {Comet, glowReveal, whipIn} from './CardFx';
 
 /** Mounts a full-background scene for [start, end) with entry: scale 1.08 → 1, blur 20 → 0 (6 f). */
 export const SceneWrap: React.FC<{start: number; end: number; seed: number; children: React.ReactNode; bg?: boolean}> = ({start, end, seed, children, bg = true}) => {
@@ -30,7 +31,7 @@ export const DefiLlamaScene: React.FC = () => {
   return (
     <SceneWrap start={S} end={11.96} seed={4}>
       <XHead k="01 / 04 · DEFI DATA HUB" title="DefiLlama" at={f(S)} />
-      <div style={{...glass({left: 100, right: 100, top: 440, height: 700, padding: '44px 50px'}), ...cardIn(frame, f(S) + 1)}}>
+      <div style={{...glass({left: 100, right: 100, top: 440, height: 700, padding: '44px 50px'}), ...whipIn(frame, f(S) + 1, {from: 1, rot: -2})}}>
         <CardGrid /><BottomGlow />
         <div style={{position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <span style={ax}>All of DeFi, one dashboard</span><Chip>Live data ▾</Chip>
@@ -94,7 +95,9 @@ export const CoinGlassScene: React.FC = () => {
         const bump = interpolate(frame, [f(c.t) - 1, f(c.t) + 3, f(c.t) + 8], [1, 1.05, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
         return (
           <React.Fragment key={i}>
-            <div style={{...glass({left: c.x, top: 560, width: 290, height: 520, padding: '150px 28px 0'}), opacity: Math.max(ghost, lit), transform: `scale(${bump})`}}>
+            <div style={{...glass({left: c.x, top: 560, width: 290, height: 520, padding: '150px 28px 0'}), opacity: Math.max(ghost, lit),
+              ...(frame >= f(c.t) - 1 ? glowReveal(frame, f(c.t) - 1).style : {}), transform: `${frame >= f(c.t) - 1 ? glowReveal(frame, f(c.t) - 1).style.transform : ''} scale(${bump})`}}>
+              <div style={{position: 'absolute', inset: 0, background: '#F4EEFF', opacity: frame >= f(c.t) - 1 ? glowReveal(frame, f(c.t) - 1).whiteness : 0, zIndex: 5, borderRadius: 48}} />
               <BottomGlow c1={c.g1} c2={c.g2} strength={lit} />
               <div style={{position: 'relative', font: `700 40px ${FONT.display}`, letterSpacing: -1.5, lineHeight: 1.05, opacity: 0.35 + 0.65 * lit}}>{c.title}</div>
               <div style={{position: 'relative', ...ax, marginTop: 16, fontSize: 27, lineHeight: 1.35, opacity: lit}}>{c.sub}</div>
@@ -103,11 +106,22 @@ export const CoinGlassScene: React.FC = () => {
           </React.Fragment>
         );
       })}
+      {/* glowing comet arcs in and lands on each card as it lights up */}
+      <Comet d="M120 360 C 300 220, 520 260, 205 640" at={f(16.7) - 9} dur={8} />
+      <Comet d="M205 640 C 330 380, 520 340, 540 640" at={f(17.84) - 9} dur={8} />
+      <Comet d="M540 640 C 660 380, 860 360, 875 640" at={f(19.04) - 9} dur={8} />
       <Plus x={90} y={430} size={40} at={f(16.7)} />
       <Plus x={960} y={1140} size={50} color={C.lilac} at={f(19.04)} rot={20} />
     </SceneWrap>
   );
 };
+
+/** Photo stack on a line (ref): element appears ghosted + blurred along the path, then sharpens (≈10 f). */
+const ghostToSharp = (frame: number, at: number): React.CSSProperties => ({
+  opacity: interpolate(frame, [at, at + 3, at + 6, at + 10], [0, 0.4, 0.45, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
+  filter: `blur(${interpolate(frame, [at, at + 10], [14, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}px)`,
+  transform: `scale(${interpolate(frame, [at, at + 10], [0.88, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})})`,
+});
 
 // ───────────────────────── 03a CryptoQuant — flow diagram ─────────────────────────
 export const FlowsScene: React.FC = () => {
@@ -127,14 +141,15 @@ export const FlowsScene: React.FC = () => {
   return (
     <SceneWrap start={S} end={27.72} seed={6}>
       <XHead k="03 / 04 · ON-CHAIN ANALYTICS" title="CryptoQuant" at={f(S)} />
+      <Comet d="M-20 520 C 120 560, 160 700, 210 760 S 560 700, 855 760" at={f(S) + 2} dur={10} w={4} color={C.violet} />
       <div style={{...glass({left: 70, top: 620, width: 280, height: 280, borderRadius: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}),
-        transform: `scale(${pop(frame, f(S) + 6, 8)})`}}>
+        ...ghostToSharp(frame, f(S) + 6)}}>
         <BottomGlow c1={C.blueLight} c2="rgba(91,108,255,.5)" />
         <svg viewBox="0 0 64 64" width={96} height={96} fill="none" stroke={C.mist} strokeWidth={4} style={{position: 'relative'}}><rect x="8" y="16" width="48" height="36" rx="8" /><path d="M40 30h16v12H40a6 6 0 0 1 0-12z" /></svg>
         <div style={{position: 'relative', font: `700 40px ${FONT.display}`, marginTop: 10}}>Wallets</div>
       </div>
       <div style={{...glass({left: 690, top: 590, width: 330, height: 340, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}),
-        transform: `scale(${pop(frame, f(S) + 10, 8)})`}}>
+        ...ghostToSharp(frame, f(S) + 10)}}>
         <BottomGlow />
         <svg viewBox="0 0 64 64" width={120} height={120} fill="none" stroke={C.mist} strokeWidth={4} strokeLinejoin="round" style={{position: 'relative'}}><path d="M6 24 32 8l26 16z" /><path d="M12 28v20M24 28v20M40 28v20M52 28v20M6 54h52" /></svg>
         <div style={{position: 'relative', font: `700 42px ${FONT.display}`, marginTop: 12}}>Exchange</div>
@@ -202,34 +217,62 @@ export const EntryExitScene: React.FC = () => {
 // ───────────────────────── CTA — card over blurred footage ─────────────────────────
 export const CtaScene: React.FC = () => {
   const frame = useCurrentFrame();
-  const S = 33.5;
-  const bar = tw(frame, f(34.0), 14, 0, 75);
+  const S = 33.5, s0 = f(S);
+  const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
+  // "Trial edit" quest-card motion: icon pops → stretches into a pill whose label types → pill morphs into the full card
+  const W = 840, H = 660, PW = 600, PH = 124, IC = 124;
+  const icon = interpolate(frame, [s0 + 3, s0 + 7, s0 + 10], [0, 1.15, 1], cl);
+  const stretch = interpolate(frame, [s0 + 10, s0 + 16], [0, 1], {...cl, easing: Easing.out(Easing.cubic)});
+  const morph = interpolate(frame, [s0 + 27, s0 + 35], [0, 1], {...cl, easing: Easing.inOut(Easing.cubic)});
+  const w = (IC + (PW - IC) * stretch) * (1 - morph) + W * morph, h = PH * (1 - morph) + H * morph;
+  const insX = (W - w) / 2, insY = (H - h) / 2, rad = 62 * (1 - morph) + 52 * morph;
+  const label = 'Comment “BITCOIN”';
+  const typed = Math.floor(interpolate(frame, [s0 + 13, s0 + 24], [0, label.length], cl));
+  const contentO = interpolate(frame, [s0 + 31, s0 + 40], [0, 1], cl);
+  const pillO = 1 - interpolate(frame, [s0 + 27, s0 + 31], [0, 1], cl);
+  const bloom = interpolate(frame, [s0 + 27, s0 + 31, s0 + 38], [0, 1, 0], cl);
+  const bar = tw(frame, s0 + 38, 14, 0, 75);
   const btn = pop(frame, f(35.12) - 1, 8);
-  const pulse = interpolate(frame, [f(35.4), f(35.4) + 6, f(35.4) + 16], [0, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const pulse = interpolate(frame, [f(35.4), f(35.4) + 6, f(35.4) + 16], [0, 1, 0], cl);
+  const COIN = (size: number, extra: React.CSSProperties = {}) => (
+    <svg width={size} height={size} viewBox="0 0 100 100" style={{display: 'block', filter: `drop-shadow(0 0 ${24 + pulse * 30}px ${C.violet})`, ...extra}}>
+      <defs><linearGradient id={`cg${size}`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={C.lilac} /><stop offset=".5" stopColor={C.violet} /><stop offset="1" stopColor={C.magenta} /></linearGradient></defs>
+      <circle cx={50} cy={50} r={46} fill={`url(#cg${size})`} /><circle cx={50} cy={50} r={38} fill="none" stroke={C.mist} strokeOpacity={0.5} strokeWidth={2} />
+      <text x={50} y={68} textAnchor="middle" fontFamily="DejaVu Sans" fontWeight={700} fontSize={50} fill={C.mist}>₿</text>
+    </svg>
+  );
   return (
     <SceneWrap start={S} end={37.42} seed={8} bg={false}>
-      <div style={{...glass({left: 120, right: 120, top: 300, padding: '56px 56px 64px', textAlign: 'center', borderRadius: 52}), ...cardIn(frame, f(S) + 2)}}>
-        <CardGrid /><BottomGlow />
-        <svg width={170} height={170} viewBox="0 0 100 100" style={{position: 'relative', display: 'block', margin: '0 auto',
-          transform: `scale(${pop(frame, f(S) + 8, 8) * (1 + pulse * 0.12)}) rotateY(${tw(frame, f(S) + 8, 16, 180, 0)}deg)`,
-          filter: `drop-shadow(0 0 ${30 + pulse * 30}px ${C.violet})`}}>
-          <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={C.lilac} /><stop offset=".5" stopColor={C.violet} /><stop offset="1" stopColor={C.magenta} /></linearGradient></defs>
-          <circle cx={50} cy={50} r={46} fill="url(#cg)" /><circle cx={50} cy={50} r={38} fill="none" stroke={C.mist} strokeOpacity={0.5} strokeWidth={2} />
-          <text x={50} y={68} textAnchor="middle" fontFamily="DejaVu Sans" fontWeight={700} fontSize={50} fill={C.mist}>₿</text>
-        </svg>
-        <div style={{position: 'relative', font: `500 34px ${FONT.ui}`, color: 'rgba(238,231,255,.75)', marginTop: 26}}>Want the full website list?</div>
-        <div style={{position: 'relative', height: 26, borderRadius: 99, background: 'rgba(185,154,245,.15)', border: '1.5px solid rgba(185,154,245,.2)', margin: '34px 0 12px', overflow: 'hidden'}}>
-          <div style={{height: '100%', width: `${bar}%`, borderRadius: 99, background: `linear-gradient(90deg,${C.deep},${C.violet},${C.magenta})`, boxShadow: `0 0 30px ${C.violet}`}} />
+      <div style={{...glass({left: 120, width: W, top: 300, height: H, padding: '56px 56px 64px', textAlign: 'center', borderRadius: 52}),
+        clipPath: `inset(${insY}px ${insX}px ${insY}px ${insX}px round ${rad}px)`, opacity: icon > 0 ? 1 : 0,
+        transform: `scale(${morph < 1 && stretch === 0 ? icon : 1})`,
+        boxShadow: `0 0 ${40 + 80 * bloom}px rgba(185,154,245,${0.4 + 0.5 * bloom}), 0 50px 90px -45px rgba(185,154,245,.9)`}}>
+        {/* glow fill that blooms while the pill morphs into the card */}
+        <div style={{position: 'absolute', inset: 0, background: `radial-gradient(60% 50% at 50% 50%,rgba(185,154,245,${0.55 * bloom}),transparent 75%)`, zIndex: 2}} />
+        {/* pill state: coin icon + typed label */}
+        <div style={{position: 'absolute', left: insX, top: insY, width: w, height: h, display: 'flex', alignItems: 'center', gap: 22, padding: '0 22px', opacity: pillO, zIndex: 3}}>
+          <div style={{flex: 'none', width: 84, height: 84, borderRadius: 22, background: 'rgba(238,231,255,.95)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: `0 0 24px ${C.lilac}`}}>{COIN(70)}</div>
+          <span style={{font: `800 44px ${FONT.display}`, color: C.mist, whiteSpace: 'nowrap', textShadow: `0 0 18px ${C.lilac}, 0 0 40px ${C.violet}`}}>{label.slice(0, typed)}</span>
         </div>
-        <div style={{position: 'relative', display: 'flex', justifyContent: 'space-between', font: `500 30px ${FONT.ui}`, color: 'rgba(238,231,255,.75)'}}>
-          <span>Sites revealed</span><span>{Math.round((bar / 75) * 3)} / 4</span>
-        </div>
-        <div style={{position: 'relative', marginTop: 40, background: C.mist, color: C.ink, font: `800 54px ${FONT.display}`, padding: 30, borderRadius: 999,
-          transform: `scale(${btn * (1 + pulse * 0.06)})`, boxShadow: `0 0 ${50 + pulse * 40}px rgba(185,154,245,.6),0 0 ${110 + pulse * 60}px rgba(198,91,242,.5)`}}>
-          Comment “BITCOIN”
+        {/* full card content (unchanged look) */}
+        <div style={{position: 'relative', opacity: contentO, transform: `translateY(${(1 - contentO) * 16}px)`}}>
+          <CardGrid /><BottomGlow />
+          {COIN(170, {position: 'relative', margin: '0 auto', transform: `scale(${1 + pulse * 0.12})`})}
+          <div style={{position: 'relative', font: `500 34px ${FONT.ui}`, color: 'rgba(238,231,255,.75)', marginTop: 26}}>Want the full website list?</div>
+          <div style={{position: 'relative', height: 26, borderRadius: 99, background: 'rgba(185,154,245,.15)', border: '1.5px solid rgba(185,154,245,.2)', margin: '34px 0 12px', overflow: 'hidden'}}>
+            <div style={{height: '100%', width: `${bar}%`, borderRadius: 99, background: `linear-gradient(90deg,${C.deep},${C.violet},${C.magenta})`, boxShadow: `0 0 30px ${C.violet}`}} />
+          </div>
+          <div style={{position: 'relative', display: 'flex', justifyContent: 'space-between', font: `500 30px ${FONT.ui}`, color: 'rgba(238,231,255,.75)'}}>
+            <span>Sites revealed</span><span>{Math.round((bar / 75) * 3)} / 4</span>
+          </div>
+          <div style={{position: 'relative', marginTop: 40, background: C.mist, color: C.ink, font: `800 54px ${FONT.display}`, padding: 30, borderRadius: 999,
+            transform: `scale(${btn * (1 + pulse * 0.06)})`, boxShadow: `0 0 ${50 + pulse * 40}px rgba(185,154,245,.6),0 0 ${110 + pulse * 60}px rgba(198,91,242,.5)`}}>
+            Comment “BITCOIN”
+          </div>
         </div>
       </div>
-      <Plus x={120} y={280} size={50} at={f(S) + 6} />
+      <Plus x={120} y={280} size={50} at={s0 + 30} />
       <Plus x={900} y={330} size={40} color={C.lilac} at={f(35.12)} rot={20} />
       <Plus x={170} y={1080} size={30} color={C.blue} at={f(35.4)} />
     </SceneWrap>

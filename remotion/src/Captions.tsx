@@ -4,7 +4,8 @@ import {C, FONT, metallic} from './theme';
 import {CAPTION_GROUPS, f, Fx, Group, Tok, tw} from './timing';
 import {Arrow, BoxFlash, HighlightBar, RingAround} from './Extras';
 import {Dot} from './ui';
-import {PixelDissolve, PixelLoader, smearIn, Swoosh} from './Pixel';
+import {Swoosh} from './Pixel';
+import {bloomIn, GLOW, GLOW_FILL, InkLine, ScriptPixels} from './CardFx';
 
 /** Light word: blur 20 → 0, y +10 → 0, opacity 0 → 1 in 8 f, on its spoken frame. */
 const LightWord: React.FC<{tok: Tok; box?: boolean}> = ({tok, box}) => {
@@ -26,15 +27,15 @@ const Script: React.FC<{toks: Tok[]; fx: Fx}> = ({toks, fx}) => {
   const dur = 8 + 4 * toks.length;
   const p = tw(frame, at, dur, -20, 120);
   return (
-    <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 24, padding: '40px 18px 34px 12px', margin: '-40px 6px -34px -12px', position: 'relative', top: 10,
-      display: 'inline-block', filter: 'drop-shadow(0 0 14px rgba(128,80,232,.8))',
+    <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 24, padding: '100px 100px 100px 100px', margin: '-100px -58px -100px -100px', position: 'relative', top: 10,
+      display: 'inline-block',
       WebkitMaskImage: `linear-gradient(90deg,#000 ${p - 20}%,transparent ${p}%)`}}>
-      {toks.map((t) => t.text).join(' ')}
+      <span style={{display: 'inline-block', filter: GLOW}}>{toks.map((t) => t.text).join(' ')}</span>
     </span></>
   );
 };
 
-/** Heavy word(s): pixel loader (5 px squares, 2 f apart) then the word smears in L → R on its spoken frame (ref R2). */
+/** Heavy word(s): "red Scripts" reveal — accent line drops, word blooms in blurry → sharp with stair-step pixel clusters; purple "Golden Hour" glow. */
 const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string; fx: Fx}> = ({toks, dot, seed, fx}) => {
   const frame = useCurrentFrame();
   if (!toks.length) return null;
@@ -45,16 +46,16 @@ const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string; fx: Fx}> = ({tok
   const tilt = fx.tilt ? fx.tilt + fx.tilt * 0.8 * Math.sin((frame - first) / 2.2) * Math.exp(-Math.max(0, frame - first) / 8) : 0;
   return (
     <div style={{position: 'relative', font: `600 ${size}px ${FONT.display}`, letterSpacing: -7, lineHeight: 1, marginTop: -4}}>
-      <PixelLoader land={first} size={Math.round(size * 0.36)} gap={Math.round(size * 0.07)} seed={seed} />
-      <div style={{display: 'inline-block', position: 'relative', filter: 'drop-shadow(0 4px 20px rgba(25,13,50,.8))', transform: `rotate(${tilt}deg)`}}>
+      <ScriptPixels at={first} w={text.length * size * 0.5} h={size} seed={seed} size={Math.round(size * 0.2)} />
+      <div style={{display: 'inline-block', position: 'relative', filter: GLOW, transform: `rotate(${tilt}deg)`}}>
         {fx.ring && <RingAround at={last + 2} w={text.length * size * 0.5} h={size} />}
         {fx.bar && <HighlightBar at={last + 2} />}
         {fx.arrowH && <Arrow at={first} size={size * 0.5} />}
         {toks.map((t, i) => {
           const at = f(t.t) - 1;
           return (
-            <span key={i} style={{display: 'inline-block', transformOrigin: '0% 70%', marginRight: i < toks.length - 1 ? '0.17em' : 0, ...smearIn(frame, at)}}>
-              <span style={{background: metallic, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{t.text}</span>
+            <span key={i} style={{display: 'inline-block', transformOrigin: '0% 70%', marginRight: i < toks.length - 1 ? '0.17em' : 0, ...bloomIn(frame, at)}}>
+              <span style={{background: GLOW_FILL, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{t.text}</span>
             </span>
           );
         })}
@@ -92,7 +93,8 @@ export const Captions: React.FC = () => (
   <>
     {CAPTION_GROUPS.map((g, i) => <CaptionGroup key={i} g={g} i={i} />)}
     {/* pixel dissolve on every caption change (ref R1) */}
-    {CAPTION_GROUPS.slice(1).map((g, i) => <PixelDissolve key={`d${i}`} at={f(g.start)} seed={`pd${i}`} />)}
+    {/* thin accent line drops onto each heavy word just before it blooms in (red "Scripts" ref) */}
+    {CAPTION_GROUPS.filter((g) => g.h.length).map((g, i) => <InkLine key={`il${i}`} x={540} y={1650 - 156} at={f(g.h[0].t) - 1} h={120} />)}
     {/* swoosh streak brings in each "First / Second / Third / And lastly" (ref R2) */}
     {CAPTION_GROUPS.filter((g) => g.l1.length && SECTION.test(g.l1[0].text.replace(/[^a-z]/gi, ''))).map((g, i) => (
       <Swoosh key={`s${i}`} at={f(g.start) + 2} y={1290} />

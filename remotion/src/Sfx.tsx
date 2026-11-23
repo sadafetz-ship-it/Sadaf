@@ -73,12 +73,14 @@ const CUES: Cue[] = [
   {file: 'whoosh_deep', at: 33.5, vol: 0.45},                      // into the CTA insert
 
   // ── DefiLlama dashboard
+  {file: 'whoosh_b', at: 8.75, vol: 0.3},                          // dashboard card whips in
   {file: 'gears', at: 8.84, vol: 0.3},                             // curve draws on
   ...uiPop(9.34),                                                  // glowing dot
   {file: 'ref_wheel', at: 10.58, vol: 0.35, len: 0.45},            // 4 chips tick in
 
   // ── CoinGlass three cards
   ...uiPop(16.7, 'pop_media', 0.5), ...uiPop(17.84, 'pop_media', 0.5), ...uiPop(19.04, 'pop_media', 0.5),
+  ...[16.7, 17.84, 19.04].map((t) => ({file: 'whoosh_arrow', at: t - 0.05, vol: 0.25})),     // comet arcs onto each card
 
   // ── CryptoQuant
   {file: 'button_3', at: 23.62, vol: 0.35},                        // "On-chain" chip
@@ -89,11 +91,14 @@ const CUES: Cue[] = [
   ...uiPop(30.66), {file: 'ref_ding', at: 30.7, vol: 0.3},         // EXIT
   ...uiPop(32.6, 'pop_double', 0.4),                               // tilted "one."
 
-  // ── CTA
-  {file: 'ref_light_reveal', at: 33.78, vol: 0.45},                // ₿ coin flips in
-  {file: 'sparkle', at: 33.8, vol: 0.3},
-  {file: 'ref_wheel', at: 34.0, vol: 0.35, len: 0.5},              // progress bar ratchets up
-  {file: 'double_click', at: 35.12, vol: 0.5},                     // "comment" → button pressed
+  // ── CTA ("Trial edit" quest-card motion): icon pops → pill stretches + label types → morphs into the full card
+  ...uiPop(33.6, 'pop_ui', 0.45),                                  // ₿ icon pops
+  {file: 'stretch', at: 33.85, vol: 0.3},                          // stretches into a pill
+  {file: 'ref_typing_b', at: 33.93, vol: 0.4, len: 0.4},           // "Comment “BITCOIN”" types
+  {file: 'ref_light_reveal', at: 34.42, vol: 0.5},                 // pill morphs into the card (glow bloom)
+  {file: 'sparkle', at: 34.45, vol: 0.25},
+  {file: 'ref_wheel', at: 34.77, vol: 0.35, len: 0.5},             // progress bar ratchets up
+  {file: 'double_click', at: 35.12, vol: 0.5},                     // button pressed
   {file: 'ref_click', at: 35.12, vol: 0.35},
   {file: 'ref_ding', at: 35.4, vol: 0.5},                          // "Bitcoin" lands
   {file: 'stretch', at: 35.47, vol: 0.22},                         // ring round "Bitcoin."

@@ -3,7 +3,8 @@ import {AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurren
 import {C, FONT} from './theme';
 import {BEHIND_NAMES, cameraZoom, f, pop, SCENES, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, Dot, glass, Metallic, Plus} from './ui';
-import {PillTag, PixelLoader, smearIn} from './Pixel';
+import {PillTag} from './Pixel';
+import {bloomIn, GLOW, GLOW_FILL, InkLine, ScriptPixels, zoomDropIn} from './CardFx';
 import {ArcText, StackTiles} from './Extras';
 
 const TAGS: Record<string, string> = {DefiLlama: 'DeFi data', CoinGlass: 'Derivatives', CryptoQuant: 'On-chain', Farside: 'ETF flows'};
@@ -12,14 +13,14 @@ const TAGS: Record<string, string> = {DefiLlama: 'DeFi data', CoinGlass: 'Deriva
 const BehindName: React.FC<{name: string; t: number; end: number}> = ({name, t, end}) => {
   const frame = useCurrentFrame();
   const at = f(t) - 1;
-  if (frame < at - 20 || frame > f(end)) return null;
+  if (frame < at - 6 || frame > f(end)) return null;
   const drift = 1 + Math.max(0, frame - at) * 0.0006;
   return (
     <div style={{position: 'absolute', left: 0, right: 0, top: 330, textAlign: 'center', zIndex: 2, transform: `scale(${drift})`}}>
       <div style={{position: 'relative', font: `700 168px ${FONT.display}`, letterSpacing: -9, lineHeight: 1}}>
-        <PixelLoader land={at} size={66} gap={12} seed={`bn${name}`} />
-        <div style={{display: 'inline-block', transformOrigin: '0% 70%', filter: 'drop-shadow(0 0 30px rgba(128,80,232,.55))', ...smearIn(frame, at, 7)}}>
-          <Metallic style={{background: 'linear-gradient(180deg,#FFFFFF 30%,#CFC3F0 75%,#9C8CC9)', WebkitBackgroundClip: 'text'}}>{name}</Metallic>
+        <ScriptPixels at={at} w={name.length * 84} h={168} seed={`bn${name}`} size={34} />
+        <div style={{display: 'inline-block', transformOrigin: '50% 70%', ...bloomIn(frame, at, 10), filter: `${bloomIn(frame, at, 10).filter} ${GLOW}`}}>
+          <Metallic style={{background: GLOW_FILL, WebkitBackgroundClip: 'text'}}>{name}</Metallic>
           <Dot at={at + 5} />
         </div>
       </div>
@@ -42,8 +43,8 @@ const ClassifiedCard: React.FC = () => {
   const o = interpolate(frame, [out, out + 6], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <div style={{...glass({left: 230, width: 620, top: 820, padding: '34px 44px 44px', borderRadius: 44}),
-      opacity: tw(frame, at, 6, 0, 1) * o, transform: `translateY(${tw(frame, at, 10, 120, 0) + (1 - o) * 60}px) scale(${tw(frame, at, 10, 0.94, 1)})`,
-      filter: `blur(${tw(frame, at, 10, 30, 0) + (1 - o) * 20}px)`, zIndex: 30}}>
+      ...zoomDropIn(frame, at, {rot: -3}), opacity: zoomDropIn(frame, at, {rot: -3}).opacity as number * o,
+      filter: `${zoomDropIn(frame, at, {rot: -3}).filter} blur(${(1 - o) * 20}px)`, zIndex: 30}}>
       <CardGrid /><BottomGlow />
       <div style={{position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'center', font: `500 28px ${FONT.ui}`, color: 'rgba(238,231,255,.6)'}}>
         <span>Classified</span><Chip>4 sites</Chip>
@@ -182,6 +183,7 @@ export const Talk: React.FC = () => {
         </AbsoluteFill>
         <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
       </AbsoluteFill>
+      <InkLine x={540} y={820} at={f(1.82)} h={160} />
       <ClassifiedCard />
       <FarsideBoard />
       {/* text arcing over the head (ref R1) */}

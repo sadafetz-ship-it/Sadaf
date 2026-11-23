@@ -2,6 +2,7 @@ import React from 'react';
 import {AbsoluteFill, interpolate, random, useCurrentFrame} from 'remotion';
 import {C, FONT} from './theme';
 import {pop} from './timing';
+import {glowReveal} from './CardFx';
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
@@ -99,7 +100,8 @@ export const StackTiles: React.FC<{times: number[]; show: [number, number][]}> =
       {times.map((t, i) => {
         if (i >= count) return null;
         const depth = count - 1 - i; // 0 = newest, in front
-        const s = pop(frame, t, 8);
+        const gr = glowReveal(frame, t);
+        const s = depth === 0 ? Number(String(gr.style.transform).match(/scale\(([-0-9.]+)\)/)?.[1] ?? 1) : 1;
         const glow = depth === 0 ? 1 : 0.35;
         return (
           <div key={i} style={{position: 'absolute', left: 20 + depth * 46, top: 170 - depth * 70, width: SIZE, height: SIZE, borderRadius: 38, overflow: 'hidden',
@@ -110,6 +112,7 @@ export const StackTiles: React.FC<{times: number[]; show: [number, number][]}> =
             <svg viewBox="0 0 100 100" width="100%" height="100%" style={{position: 'absolute', inset: 0}} preserveAspectRatio="none">
               {CRACKS.map((d, k) => <path key={k} d={d} fill="none" stroke="rgba(238,231,255,.32)" strokeWidth={0.7} />)}
             </svg>
+            <div style={{position: 'absolute', inset: 0, background: '#F4EEFF', opacity: depth === 0 ? gr.whiteness : 0, zIndex: 3}} />
             <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
               font: `800 112px ${FONT.display}`, letterSpacing: -4, color: C.mist,
               textShadow: `0 0 24px ${C.lilac}, 0 0 50px rgba(128,80,232,.8), 0 4px 10px rgba(13,6,32,.6)`}}>{i + 1}</div>

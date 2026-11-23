@@ -3,7 +3,6 @@ import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame} from 'rem
 import {loadFont} from '@remotion/fonts';
 import {Captions} from './Captions';
 import {CoinGlassScene, CtaScene, DefiLlamaScene, EntryExitScene, FlowsScene} from './Explainers';
-import {PixelGrid} from './Pixel';
 import {Sfx} from './Sfx';
 import {Talk} from './Talk';
 import {C} from './theme';
@@ -24,8 +23,7 @@ export const Main: React.FC = () => {
       <EntryExitScene />
       <CtaScene />
       <Captions />
-      {/* pixel grid on every cut (ref R1) + a softer 2 f flash */}
-      {SWITCHES.map((t, i) => <PixelGrid key={i} at={f(t)} seed={`pg${i}`} />)}
+      {/* soft 2 f flash on every cut */}
       <AbsoluteFill style={{background: C.lilac, opacity: flashO * 0.5, mixBlendMode: 'screen', pointerEvents: 'none'}} />
       {/* fade to ink at the very end */}
       <AbsoluteFill style={{background: C.ink, opacity: interpolate(frame, [TOTAL_FRAMES - 12, TOTAL_FRAMES - 1], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}} />
