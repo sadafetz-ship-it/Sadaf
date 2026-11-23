@@ -1,4 +1,22 @@
-# House video: storyboard v2 (waiting for approval, not built)
+# House video: storyboard v3 (waiting for approval, not built)
+
+## v3 changes: 16:9 frame, captions in the lower third, nothing on the face
+- **Canvas:** 1920×1080 (16:9). This is the full source frame, with no crop and no upscale.
+- **Captions** sit in the **lower third**. Each caption block ends 64 px above the bottom edge and never starts above y = 720.
+  - L1 (setup line): 46 px.
+  - Pill (script): 76 px.
+  - Heavy word: up to 118 px.
+- **Face zone is kept clear.** Across all shots the face sits at x 690–1165, y 60–540 (measured with the cut-out mask). Every graphic goes into one of two side zones:
+
+| Side | Area | What goes there |
+|---|---|---|
+| Left | x 60–620, y 150–620 | HOME (Scripts style, now fully readable), Homeowner card |
+| Right | x 1240–1860, y 110–620 | gauge, PLAN, key + orbit, player card, $$$ |
+
+- **Explainer scenes** (#4, #5, #9) are full-frame, so they are laid out across the whole 16:9 frame.
+- The behind-head name layout is dropped for this video. HOME and PLAN sit beside the speaker, the way "Scripts" sits in clear space in the reference.
+- The v3 frames are in `preview_v3/`, with all of them on one sheet in `preview_v3/board_v3.jpg`. The 9:16 v1 and v2 frames are kept for reference.
+
 
 ## v2 changes (from your feedback on v1)
 1. **HOME and PLAN use the "Make better Scripts" style.** Each sits behind the head and is built like this:

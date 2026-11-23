@@ -206,3 +206,8 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - Fill fades white → pale tint, with one soft ~8 px glow and an accent dot.
   - An optional glowing highlight bar sits behind the lower half of the word.
   - The heavy glow stack from §3 was too strong.
+- **Frame:** if the source is 16:9, the edit stays **16:9 (1920×1080)** unless the user asks for vertical. Don't crop to 9:16 without asking.
+- **Captions:** the regular caption always sits in the **lower third**.
+- **Nothing on the face:** visual elements must never cover the speaker's face.
+  - Measure the face box from the cut-out mask, then place cards and titles in the side zones beside the speaker.
+  - In 16:9, the Scripts-style names go beside the head, fully readable, not behind it.
