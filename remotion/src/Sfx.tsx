@@ -30,7 +30,6 @@ const PEAK: Record<string, number> = {
 // ── combos ────────────────────────────────────────────────────────────────
 /** Site name lands behind the head: Scripts pixel reveal + Golden Hour glow + light reveal + tile comet (no riser/whoosh/impact: those are reserved for screen changes). */
 const nameReveal = (t: number): Cue[] => [
-  {file: 'ref2_g_scripts', at: t, vol: 0.4},                     // Scripts-style pixel reveal
   {file: 'ref_light_reveal', at: t, vol: 0.4},
   {file: 'ref2_g_comet', at: t, vol: 0.22},                      // number tile develops
 ];
@@ -46,7 +45,6 @@ const sceneCut = (t: number, w = 'whoosh_air'): Cue[] => [
   {file: 'impact', at: t, peak: 0.04, len: 0.6, vol: 0.42, cut: true},
 ];
 
-const heavyLands = CAPTION_GROUPS.filter((g) => g.h.length).map((g) => g.h[0].t);
 const captionStarts = CAPTION_GROUPS.map((g) => g.start + 2 / FPS);
 
 const CUES: Cue[] = [
@@ -92,7 +90,6 @@ const CUES: Cue[] = [
 
   // ── captions: ONE sound for every caption, a DIFFERENT one only for bold words (user rule)
   ...captionStarts.map((t) => ({file: 'ref_click', at: t, vol: 0.28})),     // every caption appears: same soft click
-  ...heavyLands.map((t) => ({file: 'ref2_g_scripts', at: t, vol: 0.4})),    // every bold word: Scripts reveal hit
 ];
 
 /** Duck every other sound (pops, clicks, reveal hits) around each site-name hit: from 1 s before the cut

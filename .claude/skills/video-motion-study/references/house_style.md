@@ -177,9 +177,10 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
     lands to 0.6 s after plays at **30 %**, so the riser, whoosh and impact lead.
   - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
     doubled clicks.
-- **Caption sound rule (user):** every caption gets the **same** sound (one soft click as each caption appears). Only **bold
-  (heavy) words** get a **different** sound (the Scripts pixel-reveal hit), the same for all bold words. No per-caption variety:
-  no dissolve, box-flash, highlight-bar, ring or tilt sounds on captions.
+- **Caption sound rule (user):** every caption gets the **same** soft click as it appears (skipped on screen changes). **No
+  extra hit on bold words or names**: the user rejected the Scripts reveal hit that repeated 16 times. Before sending, **count
+  plays per sound file** (bundle `Sfx.tsx` with esbuild and count the cue list). Any one sound repeating ~10+ times reads as
+  unnecessary, so cut it or vary it.
 - **Mix rules:**
   - All SFX × master gain ~0.6.
   - Quiet caption details (0.13–0.25).
