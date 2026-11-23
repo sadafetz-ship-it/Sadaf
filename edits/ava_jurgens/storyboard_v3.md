@@ -49,3 +49,28 @@ The number tiles stay as they were.
   the reference card's size.
 - The highlight bar under "organized." is dropped, because it belonged to that caption.
 - The number tiles are unchanged. Previews: `board_v4.jpg`, `preview_v4/`.
+
+## v5 change: circled accent = mint → lime gradient
+Sampled from the circled "3 big mistakes" pill, the 1/2/3 tiles and the toggle pill:
+
+| Stop | Hex |
+|---|---|
+| Mint | `#4CDAB4` |
+| Mid green | `#84E572` |
+| Lime | `#C2F433` |
+
+Text on the gradient is dark green `#0B2A17`. Sparkles are lime `#C2F433` and mint `#4CDAB4`.
+
+Where the gradient is applied:
+- **Number tiles:** gradient fill (lime top-left → mint bottom-right), a glossy top edge, a dark-green numeral and two small 4-point
+  sparkles (lime and mint). This replaces the dark glass tile with a glowing border.
+- **Pills:** gradient fill with dark text and a glossy top edge. This covers the PBL typing pill, POSITION INFO, the remote-job pill
+  and the F3 trait chips.
+- **Buttons:** gradient fill (Follow, Submit edit).
+- **Progress bar and highlight bar:** gradient fill.
+- **Top words:** the "Scripts" word gets a gradient fill with a small bloom.
+- **Pixel clusters:** gradient tones.
+- **Small accents:** "1M", the avatar ring, the verified badge, the week chips, the Content Flow nodes and the list-card underline.
+- **Caption dot and card edges:** lime `#C2F433`, plus a mint/green bottom edge and shadow on cards.
+
+The white, deep green and olive background roles are unchanged. Previews: `board_v5.jpg`, `preview_v5/`.
