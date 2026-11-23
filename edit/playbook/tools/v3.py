@@ -99,14 +99,38 @@ bal = gcard(110, 130, 540, 320, ab(36, 32, '<div class="lab">Starting capital</d
 add('F9b', 26.3, 'NEW · "$0.00 starting capital" card drops in (left), empty bar outlines · tile 01 BILLIONS lands and is struck (right)',
     talk(26.3, extra=bal + tile(1340, 220, 330, '01', 'BILLIONS', 1, True) + caption("he didn't have billions of", '', 'dollars')))
 
-# F10 + checklist card (left)
-rows = [('Billions of dollars', 1), ('Private equity empire', 1), ('Massive team', 1), ('?????????', 0)]
-chk = gcard(110, 110, 520, 360, ab(34, 30, '<div class="lab">What he had in 1985</div>') + ab(34, 80, ''.join(
-    f'<div style="display:flex;align-items:center;gap:16px;margin:16px 0;font-size:30px;{"color:rgba(243,247,255,.5);text-decoration:line-through;text-decoration-color:"+LIME+";text-decoration-thickness:3px" if d else "color:"+LIME+";filter:blur(3px)"}"><span style="width:34px;height:34px;border-radius:10px;border:2px solid {LIME if not d else "rgba(243,247,255,.4)"};display:inline-flex;align-items:center;justify-content:center;font-size:22px;color:{LIME};text-decoration:none">{"✕" if d else ""}</span>{t}</div>' for t, d in rows)), r=40)
-add('F10', 30.0, 'Tile deck 01/02/03 (right), each struck on its word · checklist card ticks ✕ on each line (left), 4th line stays blurred (foreshadows "strategy")',
-    talk(30.0, extra=chk + tile(1610, 90, 240, '01', 'BILLIONS', .45) + tile(1480, 160, 280, '02', 'PE EMPIRE', .7) + tile(1300, 250, 330, '03', 'MASSIVE TEAM', 1, True)
+# F10 + sparkle-bullet list card (left), from the user's circled "Fundamentals of Design" reference, recoloured
+def star4(size=34, col=MIST):
+    h = size/2
+    return (f'<svg width="{size}" height="{size}" viewBox="0 0 {size} {size}" style="flex:none;filter:drop-shadow(0 0 6px {LIME}) drop-shadow(0 0 14px rgba(230,255,79,.55))">'
+            f'<path d="M{h} 0 Q{h*1.08} {h*.92} {size} {h} Q{h*1.08} {h*1.08} {h} {size} Q{h*.92} {h*1.08} 0 {h} Q{h*.92} {h*.92} {h} 0Z" fill="{col}"/></svg>')
+def listcard(x, y, w, title, items, reveal):
+    # reveal: index of the item currently wiping in (fraction shown 0..1 via last element)
+    idx, frac = reveal
+    rows = ''
+    for k, it in enumerate(items):
+        if k > idx: break
+        mask = '' if k < idx else f'-webkit-mask:linear-gradient(90deg,#000 {int(frac*100)}%,transparent {int(frac*100)+18}%);'
+        rows += (f'<div style="display:flex;align-items:center;gap:20px;margin:0 0 30px;{mask}">{star4(34, MIST)}'
+                 f'<span style="font-family:Montserrat,\'Inter Display\',sans-serif;font-weight:500;font-size:31px;letter-spacing:.3px;color:{MIST};text-shadow:0 0 10px rgba(243,247,255,.25)">{it}</span></div>')
+    return (f'<div style="position:absolute;left:{x}px;top:{y}px;width:{w}px;padding:46px 48px 30px;border-radius:10px;'
+            f'background:linear-gradient(180deg,#2457A0 0%,{DEEP} 45%,#0B2350 100%);'
+            f'box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(243,247,255,.25),0 0 0 1px rgba(156,194,255,.18)">'
+            f'<div style="position:absolute;inset:0;border-radius:10px;background:radial-gradient(ellipse at 30% 0%,rgba(243,247,255,.18),transparent 60%)"></div>'
+            f'<div style="position:relative;text-align:center;font-weight:500;font-size:42px;line-height:1.1;letter-spacing:-.3px;color:{MIST}">{title}</div>'
+            f'<div style="position:relative;height:5px;border-radius:3px;margin:26px 0 40px;background:{LIME};box-shadow:0 0 12px {LIME},0 0 30px rgba(230,255,79,.6)"></div>'
+            f'<div style="position:relative">{rows}</div></div>')
+L10 = ['Billions of dollars', 'A private equity empire', 'A massive team', 'A track record', 'Famous investors', 'A big office', 'A strategy']
+add('F10', 30.3, 'Sparkle-bullet list card "What he didn\'t have" (left, like your circled card): points wipe in left→right one by one on their words, extra points every 4 f after "team" · tile deck 01/02/03 (right)',
+    talk(30.3, extra=listcard(90, 60, 560, 'What he didn\'t have<br>in 1985', L10[:6], (5, .35))
+    + tile(1610, 90, 240, '01', 'BILLIONS', .45) + tile(1480, 160, 280, '02', 'PE EMPIRE', .7) + tile(1300, 250, 330, '03', 'MASSIVE TEAM', 1, True)
     + caption("He didn't have a", 'massive', 'team')))
-
+# NEW F10b: same card, list complete, then the payoff point "A strategy" lands in lime on "But he did have"
+lc = listcard(90, 60, 560, 'What he didn\'t have<br>in 1985', L10[:6], (6, 1))
+lc = lc.replace('</div></div></div>', '</div>' + f'<div style="position:relative;display:flex;align-items:center;gap:20px;margin-top:-4px">{star4(40, LIME)}<span style="font-weight:700;font-size:36px;color:{LIME};text-shadow:0 0 16px rgba(230,255,79,.6)">But he had… ?</span></div></div></div>', 1)
+lc = lc.replace(f'font-weight:500;font-size:31px;letter-spacing:.3px;color:{MIST}', f'font-weight:500;font-size:31px;letter-spacing:.3px;color:rgba(243,247,255,.45);text-decoration:line-through;text-decoration-color:{LIME};text-decoration-thickness:3px')
+add('F10b', 31.4, 'NEW · List card complete: the six points strike through with a lime line in a 3 f cascade on "But", then a lime payoff point "But he had… ?" wipes in',
+    talk(31.4, extra=lc + caption('But he did', '', 'have')))
 # F11 + value chart card (right)
 val = gcard(1320, 150, 480, 330, ab(34, 30, '<div class="lab">Value</div>')
     + f'<svg style="position:absolute;left:30px;top:80px" width="420" height="220" class="glow"><path d="M10 200 L120 180 L200 170 L280 120 L340 60 L400 14" fill="none" stroke="{LIME}" stroke-width="7" stroke-linecap="round"/><path d="M10 200 L120 180 L200 170 L280 120 L340 60 L400 14 L400 210 L10 210Z" fill="rgba(230,255,79,.12)"/><circle cx="400" cy="14" r="9" fill="{LIME}"/></svg>'
@@ -129,3 +153,46 @@ add('F12', 38.2, 'Explainer · "The Strategy" card develops from white · lime r
     + gcard(1450, 140, 300, 150, ab(30, 24, '<div class="lab" style="font-size:18px">Since</div>') + ab(30, 56, f'<div style="font-weight:700;font-size:58px;letter-spacing:-2px">1985</div>'), r=30)
     + sparkles([(560, 160, 14, LIME), (1380, 700, 12, MIST), (1500, 380, 9, LIME)])
     + caption('it transformed the financial world', '', 'forever', swing=True))
+
+# F5 v4: "Levels" timeline (user's reference), recoloured navy + lime
+SIL = '<linearGradient id="sil" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="#C9D3E3"/><stop offset=".6" stop-color="#6F7E98"/><stop offset="1" stop-color="#E9EEF7"/></linearGradient>'
+def padlock_closed():
+    return (f'<svg width="230" height="250" viewBox="0 0 230 250" style="filter:drop-shadow(0 18px 24px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(230,255,79,.18))"><defs>{SIL}'
+            f'<linearGradient id="lb" x1="0" x2="1"><stop offset="0" stop-color="#2B4C86"/><stop offset=".45" stop-color="#6F8FC6"/><stop offset="1" stop-color="#22406F"/></linearGradient></defs>'
+            f'<path d="M58 118 V70 a57 57 0 0 1 114 0 V118" fill="none" stroke="url(#sil)" stroke-width="24"/>'
+            f'<rect x="28" y="110" width="174" height="138" rx="10" fill="url(#lb)" stroke="rgba(243,247,255,.35)" stroke-width="2"/>'
+            f'<circle cx="115" cy="166" r="13" fill="{LIME}" style="filter:drop-shadow(0 0 8px {LIME})"/><rect x="109" y="170" width="12" height="38" rx="4" fill="{LIME}"/></svg>')
+def swords():
+    def sw(rot):
+        return (f'<g transform="translate(130 130) rotate({rot}) translate(-14 -150)">'
+                f'<polygon points="14,0 26,22 24,190 4,190 2,22" fill="url(#sil)" stroke="rgba(255,255,255,.6)" stroke-width="1"/>'
+                f'<line x1="14" y1="10" x2="14" y2="186" stroke="rgba(80,96,124,.7)" stroke-width="2"/>'
+                f'<rect x="-30" y="188" width="88" height="14" rx="7" fill="url(#sil)"/><rect x="7" y="202" width="14" height="58" rx="5" fill="#4B5A74"/>'
+                f'<circle cx="14" cy="266" r="12" fill="url(#sil)"/></g>')
+    return f'<svg width="260" height="300" viewBox="0 0 260 300" style="filter:drop-shadow(0 16px 22px rgba(0,0,0,.55))"><defs>{SIL}</defs>{sw(-38)}{sw(38)}</svg>'
+def coins():
+    c = ''
+    for k in range(7):
+        y = 230 - k * 22
+        c += f'<ellipse cx="110" cy="{y+10}" rx="80" ry="22" fill="#56657F"/><rect x="30" y="{y-6}" width="160" height="16" fill="#8794AC"/><ellipse cx="110" cy="{y-6}" rx="80" ry="22" fill="url(#sil)" stroke="rgba(255,255,255,.5)"/>'
+    c += f'<ellipse cx="110" cy="{230-6*22-6}" rx="36" ry="9" fill="none" stroke="{LIME}" stroke-width="3" style="filter:drop-shadow(0 0 6px {LIME})"/>'
+    return f'<svg width="220" height="270" viewBox="0 0 220 270" style="filter:drop-shadow(0 16px 22px rgba(0,0,0,.55))"><defs>{SIL}</defs>{c}</svg>'
+def lvcard(x, y, label, obj, ox, oy):
+    return (f'<div style="position:absolute;left:{x}px;top:{y}px;width:640px;height:150px;border-radius:26px;background:linear-gradient(120deg,rgba(23,61,112,.55),rgba(6,16,40,.92) 55%);'
+            f'border:1.5px solid rgba(156,194,255,.35);box-shadow:inset 0 1px 0 rgba(243,247,255,.18),0 20px 50px rgba(0,0,0,.45)">'
+            f'<div style="position:absolute;left:34px;top:38px;font-family:Playfair;font-style:italic;font-size:54px;color:{MIST};text-shadow:0 0 14px rgba(243,247,255,.45)">{label}</div></div>'
+            + ab(x + ox, y + oy, obj))
+def diamond(cx, cy):
+    return f'<div style="position:absolute;left:{cx-22}px;top:{cy-22}px;width:44px;height:44px;transform:rotate(45deg);border:4px solid {LIME};border-radius:7px;background:rgba(8,24,58,.9);box-shadow:0 0 14px {LIME},0 0 34px rgba(230,255,79,.45),inset 0 0 10px rgba(230,255,79,.4)"></div>'
+LX = 960
+spine = (f'<div style="position:absolute;left:{LX-2}px;top:140px;width:4px;height:520px;border-radius:2px;background:linear-gradient(180deg,rgba(243,247,255,.2),#9CC2FF 20%,#9CC2FF);box-shadow:0 0 12px rgba(156,194,255,.8)"></div>'
+         f'<div style="position:absolute;left:{LX}px;top:618px;width:960px;height:4px;background:linear-gradient(90deg,#9CC2FF,rgba(156,194,255,.6));box-shadow:0 0 12px rgba(156,194,255,.8)"></div>')
+title5 = f'<div style="position:absolute;left:0;right:0;top:20px;text-align:center;font-family:Playfair;font-weight:700;font-size:96px;letter-spacing:-1px;color:{MIST};text-shadow:0 0 18px rgba(243,247,255,.55),0 0 40px rgba(230,255,79,.25)">Gatekeepers</div>'
+dark = '<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(23,61,112,.45),rgba(4,10,26,.95) 75%)"></div>'
+add('F5', 12.3, 'Explainer "Gatekeepers" timeline (like your Levels ref): spine draws down, lime diamonds pop as it passes, cards slide out of the spine on "financiers" / "gatekeeping" / "industry", metal objects drop in and break out of each card',
+    world(seed=8) + dark + '<div class="grid" style="opacity:.6"></div>' + title5 + spine
+    + diamond(LX, 220) + diamond(LX, 420) + diamond(LX, 620)
+    + lvcard(1020, 145, 'Closed doors', padlock_closed(), 420, -95)
+    + lvcard(260, 345, 'Insiders only', swords(), 400, -110)
+    + lvcard(1020, 545, 'Private wealth', coins(), 430, -110)
+    + caption('While most financiers are out there', 'gatekeeping the', 'industry', bar=True))

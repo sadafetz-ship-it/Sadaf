@@ -6,6 +6,8 @@ INK, DEEP, LIME, MIST = '#08183A', '#173D70', '#E6FF4F', '#F3F7FF'
 F = f'file://{W}/fonts'
 
 CSS = f"""
+@font-face{{font-family:Playfair;src:url({F}/playfair-display-700.woff2);font-weight:700}}
+@font-face{{font-family:Playfair;src:url({F}/playfair-display-italic.woff2);font-style:italic}}
 @font-face{{font-family:Allura;src:url({F}/Allura.woff2)}}
 @font-face{{font-family:Antonio;src:url({F}/Antonio700.woff2);font-weight:700}}
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -240,6 +242,7 @@ add('F12', 38.2, 'Explainer · "The Strategy" card develops from white · lime l
     + caption('it transformed the financial world', '', 'forever', swing=True, ))
 
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'v3.py')).read())
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'v4.py')).read())
 import json
 frames.sort(key=lambda f: f[1])
 json.dump(frames, open(f'{OUT}/frames.json', 'w'))

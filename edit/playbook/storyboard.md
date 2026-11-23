@@ -1,4 +1,4 @@
-# Storyboard v3 — "The Playbook" (playbook.mp4)
+# Storyboard v4 — "The Playbook" (playbook.mp4)
 
 **Source:** 1920×1080 (16:9), 30 fps, 39.1 s. The edit stays 16:9 with no crop.
 **From your reference image I took only the circled colours.** Every scene below comes from your script and the house motion-graphics library.
@@ -50,3 +50,20 @@ Rhythm: caption-only F1/F4/F7 → side graphics F2/F3/F6/F8–F11 → explainers
 | F11 | 30.8–33.9 | Value chart card (right): the line draws up, "FAR MORE ▲" chip | — |
 | **F11b NEW** | 34.0–36.5 | Explainer (light-beam sweep in): a lime line path draws Capital → Deals → Returns → Scale, and each node sharpens from ghost on the beat. Caption: "a strategy so" · heavy **powerful.** + highlight bar | beam whoosh, pop per node |
 | F12 | 36.5–39.1 | Floating counters "AUM $1T+" and "Since 1985"; sparkles; short fade | — |
+
+## v4: element look from your references (all recoloured navy + lime)
+- **All cards and widgets:** near-black navy bodies, lime light pooling up from the bottom edge, neon rims, big light-weight numbers (house_style §13).
+- **F1:** player widget with an arc that starts on "listen" and the ▶ button pressed on "up".
+- **F2:** neon prompt pill "Reveal the **playbook**?" with an arrow-up send.
+- **F3:** balance-style card "Assets under management $1,000,000,000,000", with a glowing bar filling from 1985 → TODAY.
+- **F5:** "Gatekeepers" Levels timeline. A glowing spine draws down; lime diamond nodes pop; serif-italic cards slide out alternating left and right (Closed doors / Insiders only / Private wealth), each with a metal object (padlock, crossed swords, coin stack) breaking out of the card.
+- **F5b:** neon corner frame "CLASSIFIED" with ghost text and one lime glowing word.
+- **F6:** dark notes window; lines type on, then "plain sight" glows lime.
+- **F7:** neon search pill, then a results widget counts to "0".
+- **F9:** arc gauge widget "1985" with Lehman / Blackstone corners.
+- **F9b:** balance card "Starting capital $0.00" with an empty bar.
+- **F10:** sparkle-bullet list card "What he didn't have in 1985", now 6 points; each wipes in left → right on its word, and the extra points come 4 f apart after "team". The 3 extra points (track record / famous investors / big office) are not spoken: veto any you don't want.
+- **F10b NEW (31.4 s):** on "But", the six points strike through in a 3 f cascade, then a lime payoff point "But he had… ?" wipes in.
+- **F11:** curve widget; the glowing dot rides to the peak on "valuable", with "Far more" underneath.
+- **F11b:** huge blurred ghost words "strategy" / "powerful" drift behind the node path.
+- **F12:** big blue panel with a lime neon streak racing along its top edge; "The Strategy" types on, a cursor clicks, and ghost word "forever" sits behind.
