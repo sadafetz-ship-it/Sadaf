@@ -1,0 +1,17 @@
+{
+  "name": "ava-jurgens-edit",
+  "private": true,
+  "scripts": {
+    "assets": "cp ../../../.raw/raw.mp4 public/raw.mp4 || true",
+    "still": "remotion still Main",
+    "render": "remotion render Main"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.546",
+    "@types/react": "^18.3.31",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.546",
+    "typescript": "^5.9.3"
+  }
+}
