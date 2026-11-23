@@ -16,14 +16,20 @@ const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
  * chunky stair-step pixel clusters. Entry: ink line → bloom (blur 16→0, brightness 1.6→1, scale 1.08→1).
  */
 const BLUE = '#2F7BFF';
+/** Names shown in the blue "Scripts" look: the big word + the two small words above its ends. */
+const SCRIPTS_LOOK: Record<string, {name: string; left: string; right: string}> = {
+  NEXUS: {name: 'Nexus', left: 'Welcome', right: 'to'},
+  LAUNCHPAD: {name: 'Launchpad', left: 'Media', right: 'Program 01'},
+  'MEDIA PRO': {name: 'Media Pro', left: 'We have', right: 'Program 02'},
+};
 const ScriptsName: React.FC<{name: string; left: string; right: string; t: number; end: number}> = ({name, left, right, t, end}) => {
   const frame = useCurrentFrame();
   const at = f(t) - 1;
   if (frame < at - 6 || frame > f(end) + 4) return null;
-  const size = 250;
+  const size = Math.min(250, Math.floor(900 / (name.length * 0.64)));
   const out = interpolate(frame, [f(end) - 2, f(end) + 4], [1, 0], cl);
   const b = bloomIn(frame, at, 10);
-  const small = (txt: string, d: number): React.CSSProperties => ({position: 'absolute', top: -58, font: `500 64px ${FONT.ui}`, letterSpacing: -2, color: C.mist,
+  const small = (txt: string, d: number): React.CSSProperties => ({position: 'absolute', top: -58, font: `500 ${Math.round(Math.max(48, size * 0.26))}px ${FONT.ui}`, letterSpacing: -2, color: C.mist,
     textShadow: '0 2px 14px rgba(0,0,0,.6)', opacity: tw(frame, at + d, 6, 0, 1), transform: `translateY(${tw(frame, at + d, 8, 14, 0)}px)`});
   const marker = (side: 'left' | 'right'): React.CSSProperties => ({position: 'absolute', top: '50%', [side]: -78, width: 34, height: 34, marginTop: -10,
     borderRadius: 9, border: `3px solid ${C.lilac}`, opacity: 0.85 * tw(frame, at + 4, 6, 0, 1), boxShadow: `0 0 10px rgba(63,224,255,.45)`});
@@ -148,8 +154,8 @@ export const Talk: React.FC = () => {
     <AbsoluteFill>
       <AbsoluteFill style={{transform: `scale(${z * entryScale})`, transformOrigin: '50% 35%', filter: `blur(${entryBlur}px)`}}>
         <OffthreadVideo src={staticFile('raw.mp4')} muted />
-        {BEHIND_NAMES.map((b) => b.name === 'NEXUS'
-          ? <ScriptsName key={b.name} name="Nexus" left="Welcome" right="to" t={b.t} end={b.end} />
+        {BEHIND_NAMES.map((b) => SCRIPTS_LOOK[b.name]
+          ? <ScriptsName key={b.name} {...SCRIPTS_LOOK[b.name]} t={b.t} end={b.end} />
           : <BehindName key={b.name} {...b} />)}
         <AbsoluteFill style={{zIndex: 3}}>
           <OffthreadVideo src={staticFile('speaker_cutout.webm')} transparent muted />
@@ -165,7 +171,7 @@ export const Talk: React.FC = () => {
       {/* number tiles stacked beside the head: newest in front */}
       <StackTiles times={[f(11.04), f(16.0), f(21.48)]} show={[[f(JUMP_CUT), f(23.1)]]} />
       {/* sparkles on name moments */}
-      {BEHIND_NAMES.map((b, i) => i > 0 && frame >= f(b.t) - 2 && frame < f(b.end) && (
+      {BEHIND_NAMES.map((b, i) => !SCRIPTS_LOOK[b.name] && frame >= f(b.t) - 2 && frame < f(b.end) && (
         <React.Fragment key={i}>
           <Plus x={[110, 940, 120, 930][i]} y={[250, 300, 230, 280][i]} size={46} at={f(b.t)} color={C.violet} />
           <Plus x={[930, 110, 920, 120][i]} y={[520, 560, 540, 560][i]} size={36} at={f(b.t) + 2} color={C.lilac} rot={15} />
