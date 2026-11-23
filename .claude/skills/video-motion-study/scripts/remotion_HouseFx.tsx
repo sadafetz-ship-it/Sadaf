@@ -1,5 +1,5 @@
 // From the user's house edit (16:9, Golden Hour accent, Nov 2026). Drop into a Remotion src/ with theme.ts (C, GLASS, HEAVY_FILL, HEAVY_FILTER).
-// Helpers: easing, exits, zoomDropIn, whipIn, bloomIn, glassPop, wordIn, pop, InkLine, ScriptPixels, DrawPath (draw-on + flowing highlight), Cursor, Ripple, HouseIcon, GoldKey.
+// Helpers: easing, exits, zoomDropIn, whipIn, bloomIn, glassPop, wordIn, pop, InkLine, ScriptPixels, DrawPath (draw-on + flowing highlight), Cursor, Ripple, HouseIcon, GoldKey. Durations = slower house pace.
 // Animation recipes (house CardFx, recoloured Golden Hour) + new ones from the reference grid.
 import React from 'react';
 import {Easing, interpolate, random, useCurrentFrame} from 'remotion';
@@ -14,7 +14,7 @@ export const back = Easing.out(Easing.back(1.6));
 export const prog = (f: number, a: number, b: number, ease: (t: number) => number = easeOut) => ease(interpolate(f, [a, b], [0, 1], cl));
 
 /** Blur-out exit (6 f): scale up slightly, blur, fade. */
-export const exitStyle = (f: number, at: number, dur = 6): React.CSSProperties => {
+export const exitStyle = (f: number, at: number, dur = 10): React.CSSProperties => {
   if (f < at) return {};
   const p = prog(f, at, at + dur, (t) => t * t);
   return {opacity: 1 - p, filter: `blur(${14 * p}px)`, transform: `scale(${1 + 0.04 * p})`};
@@ -22,9 +22,9 @@ export const exitStyle = (f: number, at: number, dur = 6): React.CSSProperties =
 
 /** "fixes." zoom drop-in: fly in oversized + blurred, settle with tilt (10 f), then gentle bob. */
 export const zoomDropIn = (f: number, at: number, o: {rot?: number; dx?: number; dy?: number; from?: number; dur?: number} = {}): React.CSSProperties => {
-  const {rot = 0, dx = -120, dy = -160, from = 1.6, dur = 10} = o;
+  const {rot = 0, dx = -120, dy = -160, from = 1.6, dur = 16} = o;
   const p = prog(f, at, at + dur);
-  const bob = f > at + dur ? Math.sin((f - at - dur) / 14) * 4 : 0;
+  const bob = f > at + dur ? Math.sin((f - at - dur) / 20) * 4 : 0;
   return {
     opacity: interpolate(f, [at, at + 3], [0, 1], cl),
     transform: `translate(${dx * (1 - p)}px, ${dy * (1 - p) + bob}px) scale(${from + (1 - from) * p}) rotate(${rot * p + (rot - 14) * (1 - p)}deg)`,
@@ -34,18 +34,18 @@ export const zoomDropIn = (f: number, at: number, o: {rot?: number; dx?: number;
 
 /** "mistake / Life" whip-in: slide from the side with skew + motion blur, overshoot tilt (9 f). */
 export const whipIn = (f: number, at: number, o: {from?: 1 | -1; dist?: number; rot?: number; dur?: number} = {}): React.CSSProperties => {
-  const {from = -1, dist = 700, rot = -3, dur = 9} = o;
+  const {from = -1, dist = 700, rot = -3, dur = 15} = o;
   const p = prog(f, at, at + dur);
-  const over = interpolate(f, [at + dur - 3, at + dur + 2, at + dur + 6], [0, 1, 0], cl);
+  const over = interpolate(f, [at + dur - 4, at + dur + 4, at + dur + 11], [0, 1, 0], cl);
   return {
-    opacity: interpolate(f, [at, at + 2], [0, 1], cl),
+    opacity: interpolate(f, [at, at + 4], [0, 1], cl),
     transform: `translateX(${from * dist * (1 - p) - from * 18 * over}px) skewX(${-from * 14 * (1 - p)}deg) rotate(${rot * p + rot * 0.6 * over}deg) scale(${1 + 0.08 * (1 - p)})`,
     filter: `blur(${24 * (1 - p)}px)`,
   };
 };
 
 /** "Scripts" bloom: blurry bright → sharp (10 f). */
-export const bloomIn = (f: number, at: number, dur = 10): React.CSSProperties => {
+export const bloomIn = (f: number, at: number, dur = 16): React.CSSProperties => {
   const p = interpolate(f, [at, at + dur], [0, 1], cl);
   return {
     opacity: interpolate(f, [at, at + 2], [0, 1], cl),
@@ -55,20 +55,20 @@ export const bloomIn = (f: number, at: number, dur = 10): React.CSSProperties =>
 };
 
 /** Glass pop: scale 0.86 → 1.03 → 1 with blur (8 f). */
-export const glassPop = (f: number, at: number, dur = 8): React.CSSProperties => ({
-  opacity: interpolate(f, [at, at + 3], [0, 1], cl),
+export const glassPop = (f: number, at: number, dur = 13): React.CSSProperties => ({
+  opacity: interpolate(f, [at, at + 5], [0, 1], cl),
   transform: `scale(${interpolate(f, [at, at + dur * 0.6, at + dur], [0.86, 1.03, 1], cl)})`,
   filter: `blur(${interpolate(f, [at, at + dur], [18, 0], cl)}px)`,
 });
 
 /** Word blur-in (5 f): used for small setup words and caption L1 words. */
-export const wordIn = (f: number, at: number, dur = 5): React.CSSProperties => {
+export const wordIn = (f: number, at: number, dur = 9): React.CSSProperties => {
   const p = prog(f, at, at + dur);
-  return {opacity: interpolate(f, [at, at + 2], [0, 1], cl), filter: `blur(${10 * (1 - p)}px)`, transform: `translateY(${12 * (1 - p)}px)`, display: 'inline-block'};
+  return {opacity: interpolate(f, [at, at + 4], [0, 1], cl), filter: `blur(${10 * (1 - p)}px)`, transform: `translateY(${12 * (1 - p)}px)`, display: 'inline-block'};
 };
 
 /** Pop (scale 0 → 1.15 → 1, 7 f). */
-export const pop = (f: number, at: number, dur = 7): React.CSSProperties => ({
+export const pop = (f: number, at: number, dur = 12): React.CSSProperties => ({
   opacity: interpolate(f, [at, at + 2], [0, 1], cl),
   transform: `scale(${interpolate(f, [at, at + dur * 0.6, at + dur], [0, 1.15, 1], cl)})`,
 });
@@ -76,11 +76,11 @@ export const pop = (f: number, at: number, dur = 7): React.CSSProperties => ({
 /** Thin accent line that drops onto a spot just before a reveal (4 f). */
 export const InkLine: React.FC<{x: number; y: number; at: number; h?: number; color?: string}> = ({x, y, at, h = 150, color = C.amber}) => {
   const f = useCurrentFrame();
-  if (f < at - 4 || f > at + 2) return null;
-  const p = interpolate(f, [at - 4, at], [0, 1], cl);
+  if (f < at - 6 || f > at + 4) return null;
+  const p = interpolate(f, [at - 6, at], [0, 1], cl);
   return (
     <div style={{position: 'absolute', left: x - 2, top: y - h * (1 - p) - 40, width: 4, height: h * p, background: color, borderRadius: 2,
-      boxShadow: `0 0 12px ${color}`, opacity: 1 - interpolate(f, [at, at + 2], [0, 1], cl)}} />
+      boxShadow: `0 0 12px ${color}`, opacity: 1 - interpolate(f, [at, at + 4], [0, 1], cl)}} />
   );
 };
 
@@ -91,7 +91,7 @@ const SHAPES = [[[0, 0], [1, 0], [1, 1]], [[0, 0], [0, 1], [1, 1], [1, 2]], [[0,
  * They pop in with the reveal, jitter one cell every 3 f, flicker, and blink out one by one (life ≈ 18 f).
  */
 export const ScriptPixels: React.FC<{at: number; x: number; y: number; w: number; h: number; seed: string; size?: number; life?: number;
-  anchors?: [number, number][]; cols?: string[]; glow?: boolean}> = ({at, x, y, w, h, seed, size = 28, life = 18, anchors, cols, glow = false}) => {
+  anchors?: [number, number][]; cols?: string[]; glow?: boolean}> = ({at, x, y, w, h, seed, size = 28, life = 28, anchors, cols, glow = false}) => {
   const f = useCurrentFrame();
   if (f < at - 2 || f > at + life) return null;
   const COLS = cols ?? ['#FFB21A', '#F0913A', C.ember, '#FFD36B', '#FFE9B8'];
@@ -99,15 +99,15 @@ export const ScriptPixels: React.FC<{at: number; x: number; y: number; w: number
   const cells: React.ReactNode[] = [];
   A.forEach(([ax, ay], k) => {
     const shape = SHAPES[Math.floor(random(`${seed}s${k}`) * SHAPES.length)];
-    const jitter = Math.floor((f - at) / 3);
+    const jitter = Math.floor((f - at) / 5);
     shape.forEach(([gx, gy], j) => {
       const id = `${seed}${k}-${j}`;
-      const born = at - 1 + Math.floor(random(`${id}b`) * 4);
-      const dies = at + 8 + Math.floor(random(`${id}d`) * (life - 8));
+      const born = at - 1 + Math.floor(random(`${id}b`) * 7);
+      const dies = at + 12 + Math.floor(random(`${id}d`) * (life - 12));
       if (f < born || f > dies) return;
       const jx = (random(`${id}x${jitter}`) > 0.72 ? (random(`${id}dir`) > 0.5 ? 1 : -1) : 0) * size;
       const col = COLS[Math.floor(random(`${id}c`) * COLS.length)];
-      const o = (0.6 + 0.4 * random(`${id}o${Math.floor(f / 2)}`)) * interpolate(f, [dies - 2, dies], [1, 0], cl);
+      const o = (0.6 + 0.4 * random(`${id}o${Math.floor(f / 4)}`)) * interpolate(f, [dies - 4, dies], [1, 0], cl);
       cells.push(
         <div key={id} style={{position: 'absolute', left: x + ax * w + gx * size + jx, top: y + ay * h + gy * size, width: size - 2, height: size - 2,
           background: col, opacity: o, boxShadow: glow ? `0 0 12px ${col}` : undefined}} />,
@@ -151,8 +151,8 @@ export const Cursor: React.FC<{x: number; y: number; press?: number; size?: numb
 /** Expanding click ripple. */
 export const Ripple: React.FC<{x: number; y: number; at: number; r?: number}> = ({x, y, at, r = 70}) => {
   const f = useCurrentFrame();
-  if (f < at || f > at + 12) return null;
-  const p = prog(f, at, at + 12);
+  if (f < at || f > at + 20) return null;
+  const p = prog(f, at, at + 20);
   return <div style={{position: 'absolute', left: x - r, top: y - r, width: r * 2, height: r * 2, borderRadius: '50%',
     border: `${4 * (1 - p) + 1}px solid ${C.cream}`, boxShadow: `0 0 18px ${C.amber}`, transform: `scale(${0.3 + 0.9 * p})`, opacity: 1 - p}} />;
 };

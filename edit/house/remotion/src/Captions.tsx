@@ -15,7 +15,7 @@ export const GROUPS: Group[] = [
   {start: 135, end: 177, l1: R(21, 25), pill: [26, 27], heavy: [28]},
   {start: 177, end: 213, l1: R(29, 31), heavy: [32, 33], bar: true},
   {start: 213, end: 291, l1: R(34, 44), heavy: [45]},
-  {start: 291, end: 328, l1: R(46, 49), pill: R(50, 52)},
+  {start: 291, end: 328, l1: R(46, 49)}, // "step by step" is the Scripts title, not in the caption
   {start: 328, end: 373, l1: R(53, 56), pill: [57], heavy: [58]},
   {start: 373, end: 433, l1: R(59, 66), pill: [67], heavy: [68]},
   {start: 433, end: 470, l1: R(69, 73)},

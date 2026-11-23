@@ -29,7 +29,7 @@ const nameHit = (t: number): Cue[] => [
 const CUES: Cue[] = [
   // names
   ...nameHit(s(41)), // HOME
-  ...nameHit(s(297)), // PLAN
+  ...nameHit(s(308)), // STEP BY STEP (first word lands)
   // glass gauge widget appears (pixel mosaic → glass)
   {file: 'pop_media', at: s(64), vol: 0.5, keep: true},
   // Explainer A: input bar types, plan card drops, timeline draws, nodes sharpen, YR 10 lands

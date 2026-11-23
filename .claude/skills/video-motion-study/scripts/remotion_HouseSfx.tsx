@@ -31,28 +31,28 @@ const nameHit = (t: number): Cue[] => [
 const CUES: Cue[] = [
   // names
   ...nameHit(s(41)), // HOME
-  ...nameHit(s(297)), // PLAN
+  ...nameHit(s(308)), // STEP BY STEP (first word lands)
   // glass gauge widget appears (pixel mosaic → glass)
-  {file: 'pop_media', at: s(61), vol: 0.5, keep: true},
+  {file: 'pop_media', at: s(64), vol: 0.5, keep: true},
   // Explainer A: input bar types, plan card drops, timeline draws, nodes sharpen, YR 10 lands
-  {file: 'ref_typing_b', at: s(147), vol: 0.18, len: 0.8},
-  {file: 'ref2_g_drop', at: s(168), vol: 0.45, keep: true},
+  {file: 'ref_typing_b', at: s(149), vol: 0.18, len: 0.9},
+  {file: 'ref2_g_drop', at: s(174), vol: 0.45, keep: true},
   {file: 'gears', at: s(181), vol: 0.28},
-  ...[186, 193, 199].map((f) => ({file: 'ref2_g_photostack', at: s(f), vol: 0.38, keep: true})),
-  {file: 'ref_ding', at: s(206), vol: 0.45, keep: true},
+  ...[185, 192, 199].map((f) => ({file: 'ref2_g_photostack', at: s(f), vol: 0.38, keep: true})),
+  {file: 'ref_ding', at: s(208), vol: 0.45, keep: true},
   // Homeowner card whips in; gold key drops onto its orbit
   {file: 'paper_slide', at: s(244), vol: 0.32, keep: true},
-  {file: 'ref2_g_drop', at: s(258), vol: 0.5, keep: true},
+  {file: 'ref2_g_drop', at: s(266), vol: 0.5, keep: true},
   // Calendar → click 23 → card morphs out of the cell → "Get started" pressed
-  {file: 'pop_ui', at: s(327), vol: 0.45, keep: true},
+  {file: 'pop_ui', at: s(312), vol: 0.45, keep: true},
   {file: 'ref_click', at: s(336), vol: 0.55, keep: true},
-  {file: 'dissolve', at: s(339), vol: 0.35, keep: true},
-  {file: 'double_click', at: s(356), vol: 0.5, keep: true},
+  {file: 'dissolve', at: s(342), vol: 0.35, keep: true},
+  {file: 'double_click', at: s(362), vol: 0.5, keep: true},
   // Explainer B: goal card develops (glow reveal), people row
-  {file: 'ref2_g_comet', at: s(383), vol: 0.45, keep: true},
+  {file: 'ref2_g_comet', at: s(387), vol: 0.45, keep: true},
   {file: 'pop_ui', at: s(442), vol: 0.35, keep: true},
   // $$$ glyphs drop in, "pricey" lands
-  ...[522, 525, 528].map((f) => ({file: 'pop_media', at: s(f), vol: 0.42, keep: true})),
+  ...[526, 530, 534].map((f) => ({file: 'pop_media', at: s(f), vol: 0.42, keep: true})),
   {file: 'ref_ding', at: s(538), vol: 0.4, keep: true},
 ];
 

@@ -17,7 +17,7 @@ export const GROUPS: Group[] = [
   {start: 135, end: 177, l1: R(21, 25), pill: [26, 27], heavy: [28]},
   {start: 177, end: 213, l1: R(29, 31), heavy: [32, 33], bar: true},
   {start: 213, end: 291, l1: R(34, 44), heavy: [45]},
-  {start: 291, end: 328, l1: R(46, 49), pill: R(50, 52)},
+  {start: 291, end: 328, l1: R(46, 49)}, // "step by step" is the Scripts title, not in the caption
   {start: 328, end: 373, l1: R(53, 56), pill: [57], heavy: [58]},
   {start: 373, end: 433, l1: R(59, 66), pill: [67], heavy: [68]},
   {start: 433, end: 470, l1: R(69, 73)},
@@ -32,20 +32,20 @@ const L1Word: React.FC<{i: number}> = ({i}) => {
   const f = useCurrentFrame();
   const [w, s] = WORDS[i];
   if (f < s) return <span style={{display: 'inline-block', opacity: 0}}>{w}&nbsp;</span>;
-  const color = interpolateColors(f, [s, s + 3, s + 12], [C.amber, C.amber, C.cream]);
+  const color = interpolateColors(f, [s, s + 5, s + 18], [C.amber, C.amber, C.cream]);
   return <span style={{...wordIn(f, s), color}}>{w}&nbsp;</span>;
 };
 
 const Pill: React.FC<{idx: number[]}> = ({idx}) => {
   const f = useCurrentFrame();
   const at = WORDS[idx[0]][1];
-  const endW = Math.max(WORDS[idx[idx.length - 1]][2], at + 10);
+  const endW = Math.max(WORDS[idx[idx.length - 1]][2], at + 16);
   if (f < at - 1) return null;
-  const sc = interpolate(f, [at - 1, at + 4, at + 8], [0.6, 1.06, 1], cl);
+  const sc = interpolate(f, [at - 2, at + 7, at + 13], [0.6, 1.06, 1], cl);
   const reveal = interpolate(f, [at + 1, endW], [0, 100], cl); // left→right write-on
   const text = idx.map((i) => WORDS[i][0]).join(' ');
   return (
-    <div style={{display: 'inline-block', borderRadius: 999, padding: '2px 34px 10px', transform: `scale(${sc})`, opacity: interpolate(f, [at - 1, at + 2], [0, 1], cl),
+    <div style={{display: 'inline-block', borderRadius: 999, padding: '2px 34px 10px', transform: `scale(${sc})`, opacity: interpolate(f, [at - 2, at + 3], [0, 1], cl),
       background: 'linear-gradient(180deg,#FFE58A 0%,#FFC000 55%,#F0913A 100%)',
       boxShadow: '0 0 0 2px rgba(255,244,222,.35) inset,0 0 22px rgba(255,192,0,.6),0 0 50px rgba(235,136,88,.45)'}}>
       <span style={{fontFamily: 'Allura', color: C.ink, fontSize: 76, lineHeight: 1, display: 'inline-block', transform: 'translateY(6px)',
@@ -63,9 +63,9 @@ const Heavy: React.FC<{idx: number[]; bar?: boolean; swing?: boolean}> = ({idx, 
   const wEst = text.length * size * 0.52;
   const b = bloomIn(f, at);
   const sw = swing
-    ? {transform: `perspective(900px) rotateY(${interpolate(f, [at, at + 8, at + 14], [75, -18, -10], {...cl, easing: back})}deg) rotateZ(${interpolate(f, [at, at + 10], [-12, -3], cl)}deg)`}
+    ? {transform: `perspective(900px) rotateY(${interpolate(f, [at, at + 13, at + 22], [75, -18, -10], {...cl, easing: back})}deg) rotateZ(${interpolate(f, [at, at + 18], [-12, -3], cl)}deg)`}
     : {};
-  const barP = prog(f, at + 4, at + 12);
+  const barP = prog(f, at + 6, at + 20);
   return (
     <div style={{position: 'relative', fontWeight: 620, fontSize: size, letterSpacing: -5, lineHeight: 0.95, whiteSpace: 'nowrap', isolation: 'isolate', ...sw}}>
       <InkLine x={wEst / 2} y={10} at={at} h={120} />
@@ -77,7 +77,7 @@ const Heavy: React.FC<{idx: number[]; bar?: boolean; swing?: boolean}> = ({idx, 
         <span style={{background: HEAVY_FILL, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', filter: HEAVY_FILTER}}>{text}</span>
       </span>
       <span style={{display: 'inline-block', width: '0.15em', height: '0.15em', borderRadius: '50%', background: C.amber, marginLeft: '0.05em',
-        boxShadow: '0 0 10px rgba(255,192,0,.7)', transform: `scale(${interpolate(f, [at + 6, at + 10, at + 13], [0, 1.4, 1], cl)})`}} />
+        boxShadow: '0 0 10px rgba(255,192,0,.7)', transform: `scale(${interpolate(f, [at + 10, at + 16, at + 21], [0, 1.4, 1], cl)})`}} />
       <ScriptPixels at={at} x={0} y={0} w={wEst} h={size} seed={`hv${at}`} size={Math.round(size * 0.2)}
         anchors={[[-0.16, 0.15], [-0.12, 0.7], [1.06, 0.05], [1.08, 0.65], [0.15, 1.02], [0.82, 1.02]]} />
     </div>
@@ -88,7 +88,7 @@ export const Captions: React.FC = () => {
   const f = useCurrentFrame();
   const g = GROUPS.find((x) => f >= x.start && f < x.end);
   if (!g) return null;
-  const ex = interpolate(f, [g.end - 4, g.end], [0, 1], cl);
+  const ex = interpolate(f, [g.end - 7, g.end], [0, 1], cl);
   return (
     <div style={{position: 'absolute', left: 0, right: 0, bottom: 64, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 2,
       opacity: 1 - ex, filter: `blur(${10 * ex}px)`}}>

@@ -287,6 +287,14 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   | Idle | Drifts ±3 px |
   | Exit | Blur out over 6 f |
 
+  - **Multi-word titles** (user: "put 'step by step' instead of 'plan', same effect"):
+    - **Stack** the phrase so it fits the side zone at a readable size, e.g. "STEP BY / STEP" at 140 px, first line
+      left-aligned and second right-aligned.
+    - **Each word lands on its own spoken frame** with the full Scripts reveal (slide/blur, ghost, pixel clusters per word).
+    - The small setup words are the spoken lead-in ("Let's break … it down").
+    - Component: `StackedScriptsTitle` in `scripts/remotion_HouseOverlays.tsx`.
+  - **A phrase shown as a title is removed from the caption** for that group, so it doesn't appear twice.
+  - The riser → whoosh → impact name hit lands on the title's first word.
   - In 16:9 the lockup sits in a side zone, fully readable. In 9:16 it can go behind the head.
   - No pill tags or cursor on names.
 

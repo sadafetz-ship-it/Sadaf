@@ -39,6 +39,50 @@ const ScriptsTitle: React.FC<{word: string; left: string; right: string; x: numb
   );
 };
 
+/* ---------- Multi-word Scripts title, stacked ("STEP BY / STEP"): each word lands on its spoken frame ---------- */
+type TW = {w: string; at: number};
+const StackedScriptsTitle: React.FC<{lines: TW[][]; left: string; right: string; x: number; top: number; size: number; tl: number; tr: number; out: number; seed: string}> = ({
+  lines, left, right, x, top, size, tl, tr, out, seed,
+}) => {
+  const f = useCurrentFrame();
+  if (f < tl || f > out + 10) return null;
+  const width = Math.max(...lines.map((l) => l.map((t) => t.w).join(' ').length)) * size * 0.62;
+  const first = lines[0][0].at;
+  const drift = Math.sin((f - first) / 26) * 3;
+  const word = ({w, at}: TW, k: string) => {
+    if (f < at) return <span key={k} style={{display: 'inline-block', opacity: 0}}>{w}</span>;
+    const p = prog(f, at, at + 15);
+    const g = prog(f, at, at + 26);
+    return (
+      <span key={k} style={{display: 'inline-block', position: 'relative', opacity: interpolate(f, [at, at + 4], [0, 1], cl),
+        filter: `blur(${16 * (1 - p)}px) brightness(${1 + 0.5 * (1 - p)})`, transform: `translateX(${-70 * (1 - p)}px) scale(${1.08 - 0.08 * p})`}}>
+        {w}
+        <span style={{position: 'absolute', inset: 0, color: C.solid, opacity: 0.55 - 0.3 * g, filter: `blur(${10 - 3 * g}px)`, transform: `translateX(${50 - 36 * g}px)`}}>{w}</span>
+      </span>
+    );
+  };
+  const small: React.CSSProperties = {position: 'absolute', top: -46, fontWeight: 500, fontSize: 40, letterSpacing: -1, color: C.cream, textShadow: '0 2px 12px rgba(0,0,0,.6)', whiteSpace: 'nowrap'};
+  const lh = size * 0.9;
+  return (
+    <div style={{position: 'absolute', left: x, top, width, ...exitStyle(f, out), transform: `translateY(${drift}px) ${exitStyle(f, out).transform ?? ''}`}}>
+      <InkLine x={width / 2} y={0} at={first} h={160} />
+      <span style={{...small, left: 4, ...wordIn(f, tl)}}>{left}</span>
+      <span style={{...small, right: 4, ...wordIn(f, tr)}}>{right}</span>
+      {lines.map((l, li) => (
+        <div key={li} style={{fontWeight: 780, fontSize: size, letterSpacing: -9, lineHeight: 0.86, height: lh, color: C.solid, textAlign: li === 0 ? 'left' : 'right',
+          whiteSpace: 'nowrap', textShadow: '0 6px 24px rgba(60,20,0,.35)', display: 'flex', gap: size * 0.22, justifyContent: li === 0 ? 'flex-start' : 'flex-end'}}>
+          {l.map((t, i) => word(t, `${li}-${i}`))}
+        </div>
+      ))}
+      <span style={{position: 'absolute', left: -44, top: size * 0.32, width: 26, height: 26, border: '3px solid rgba(255,244,222,.75)', borderRadius: 6, ...pop(f, first + 5)}} />
+      {lines.flat().map((t, i) => (
+        <ScriptPixels key={i} at={t.at} x={0} y={0} w={width} h={lh * lines.length} seed={`${seed}${i}`} size={Math.round(size * 0.14)} life={30}
+          anchors={i === 0 ? [[0.0, 0.48], [0.08, 0.5], [0.9, -0.08]] : i === 1 ? [[1.0, 0.02], [0.96, 0.4]] : [[0.3, 1.0], [0.9, 1.02], [0.08, 0.98]]} />
+      ))}
+    </div>
+  );
+};
+
 /* ---------- Glass gauge widget "10 yrs" (Rc "Performance 48°"), right zone ---------- */
 const Gauge: React.FC<{at: number; out: number}> = ({at, out}) => {
   const f = useCurrentFrame();
@@ -244,7 +288,8 @@ export const TalkOverlays: React.FC = () => (
     <ScriptsTitle word="HOME" left="buying a" right="new" x={70} top={250} size={230} tl={24} tr={37} at={41} out={74} seed="home" />
     <Gauge at={58} out={112} />
     <HomeownerAndKey at={240} keyAt={250} chipAt={274} out={281} />
-    <ScriptsTitle word="PLAN" left="your" right="10-year" x={1240} top={250} size={215} tl={291} tr={294} at={297} out={344} seed="plan" />
+    <StackedScriptsTitle lines={[[{w: 'STEP', at: 308}, {w: 'BY', at: 315}], [{w: 'STEP', at: 320}]]} left="Let's break" right="it down"
+      x={1235} top={215} size={140} tl={291} tr={299} out={352} seed="sbs" />
     <CalendarToCard at={310} click={336} press={362} out={368} />
     <Dollars at={516} hit={538} />
   </>
