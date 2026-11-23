@@ -63,7 +63,7 @@ export const FundCard: React.FC<{title: [string, string]; items: {t: string; f: 
         const w = p(f, it.f + 2, 8);
         return <div key={i} style={{display: 'flex', alignItems: 'center', gap: 20, fontSize: 40, color: '#fff', margin: '0 0 26px 6px', whiteSpace: 'nowrap', minHeight: 48}}>
           <Star size={44} style={{flex: 'none', transform: `scale(${s}) rotate(${45 * (1 - Math.min(s, 1))}deg)`, filter: `drop-shadow(0 0 6px ${C.mintD}) drop-shadow(0 0 12px rgba(255,255,255,.6))`}} />
-          <span style={{WebkitMaskImage: `linear-gradient(90deg,#000 ${w * 100}%,transparent ${w * 100 + 15}%)`, maskImage: `linear-gradient(90deg,#000 ${w * 100}%,transparent ${w * 100 + 15}%)`,
+          <span style={{opacity: f < it.f + 2 ? 0 : 1, WebkitMaskImage: `linear-gradient(90deg,#000 ${w * 115 - 15}%,transparent ${w * 115}%)`, maskImage: `linear-gradient(90deg,#000 ${w * 115 - 15}%,transparent ${w * 115}%)`,
             transform: `translateX(${-14 * (1 - w)}px)`}}>{it.t}</span></div>;
       })}
     </div>

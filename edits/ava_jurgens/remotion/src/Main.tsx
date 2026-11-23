@@ -70,7 +70,6 @@ export const Main: React.FC = () => {
       {f >= 867 && f < 936 && <AbsoluteFill style={sceneEnv(f, 867, 936)}><World /><KeyScene />
         <Tile n={2} at={883} x={110} y={900} rot={-6} size={150} /></AbsoluteFill>}
       <BeamWipe at={453} />
-      <BeamWipe at={1148} dur={14} />
       <Captions hide={[[612, 867], [936, 1150]]} />
       <AbsoluteFill style={{background: '#000', opacity: fadeEnd}} />
     </AbsoluteFill>
