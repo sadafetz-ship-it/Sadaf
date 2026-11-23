@@ -9,7 +9,7 @@ import {CTA, EdgeFlash, TalkOverlays} from './Talk';
 import {C, CUT, DURATION, FACE, GRAD} from './theme';
 import {BehindHook, BehindReveal, FrontHook} from './Titles';
 
-const fontHandle = delayRender('fonts');
+const fontHandle = delayRender('fonts', {timeoutInMilliseconds: 120000});
 const F = (fam: string, file: string, weight = '400', style = 'normal') => new FontFace(fam, `url(${staticFile(file)})`, {weight, style});
 const faces = [
   F('Inter', 'Inter-Regular.otf', '400'), F('Inter', 'Inter-Medium.otf', '500'), F('Inter', 'Inter-SemiBold.otf', '600'), F('Inter', 'Inter-Bold.otf', '700'),
@@ -17,7 +17,7 @@ const faces = [
   F('Inter Display', 'InterDisplay-Light.otf', '300'), F('Inter Display', 'InterDisplay-SemiBold.otf', '600'), F('Inter Display', 'InterDisplay-Bold.otf', '700'),
   F('Inter Display', 'InterDisplay-ExtraBold.otf', '800'), F('Allura', 'Allura-Regular.ttf'),
 ];
-Promise.all(faces.map((ff) => ff.load())).then((ls) => { ls.forEach((l) => (document.fonts as unknown as {add: (x: FontFace) => void}).add(l)); continueRender(fontHandle); });
+Promise.all(faces.map((ff) => ff.load().catch(() => null))).then((ls) => { ls.forEach((l) => l && (document.fonts as unknown as {add: (x: FontFace) => void}).add(l)); continueRender(fontHandle); });
 
 const SW = CUT.switchAt;
 const WIPE = 20; // frames for the colour wipe
