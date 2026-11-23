@@ -21,6 +21,7 @@ const SCRIPTS_LOOK: Record<string, {name: string; left: string; right: string}> 
   NEXUS: {name: 'Nexus', left: 'Welcome', right: 'to'},
   LAUNCHPAD: {name: 'Launchpad', left: 'Media', right: 'Program 01'},
   'MEDIA PRO': {name: 'Media Pro', left: 'We have', right: 'Program 02'},
+  MASTERY: {name: 'Mastery', left: 'Media', right: 'Program 03'},
 };
 const ScriptsName: React.FC<{name: string; left: string; right: string; t: number; end: number}> = ({name, left, right, t, end}) => {
   const frame = useCurrentFrame();

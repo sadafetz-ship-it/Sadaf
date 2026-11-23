@@ -28,17 +28,17 @@ export const pop = (frame: number, start: number, dur = 7) =>
 
 // ───────────────────────── captions (lower third) ─────────────────────────
 export type Fx = {ring?: boolean; tilt?: number; bar?: boolean; box?: string; arrowS?: boolean; arrowH?: boolean};
-type GroupDef = {l1?: string; s?: string; l2?: string; h?: string; dot?: boolean; fx?: Fx};
+/** skip: spoken words consumed from the transcript but NOT shown (names that appear big at the top instead). */
+type GroupDef = {l1?: string; s?: string; l2?: string; h?: string; dot?: boolean; fx?: Fx; skip?: string};
 const GROUPS: GroupDef[] = [
-  {l1: 'Alright ladies and gentlemen,', s: 'welcome to', h: 'Nexus'},
+  {l1: 'Alright ladies and gentlemen,', dot: false, skip: 'welcome to Nexus'},
   {l1: 'Nexus is the link between', s: 'online business', l2: 'and the', h: 'creator economy', fx: {box: 'link'}},
   {l1: 'And we have', s: '3 different', h: 'programs'},
   {l1: 'in Nexus that do', s: 'just', h: 'that'},
-  {l1: 'Starting off, we have', s: 'Media', h: 'Launchpad'},
-  {l1: 'which is built for entrepreneurs making', s: 'anywhere from', l2: '$0 to', h: '$10,000 per month', fx: {bar: true}},
-  {l1: 'We have', s: 'Media', h: 'Pro'},
+  {l1: 'Starting off, we have', dot: false, skip: 'Media Launchpad'},
+  {l1: 'which is built for entrepreneurs making', s: 'anywhere from', l2: '$0 to', h: '$10,000 per month', fx: {bar: true}, skip: 'We have Media Pro'},
   {l1: 'for entrepreneurs that are making', s: '$10 to', h: '$50,000 per month', fx: {bar: true}},
-  {l1: 'And last but for damn sure', s: 'not least,', l2: 'we have Media', h: 'Mastery', fx: {tilt: -6}},
+  {l1: 'And last but for damn sure', s: 'not least,', dot: false, skip: 'we have Media Mastery'},
   {l1: 'And Media Mastery is designed for', s: 'entrepreneurs', dot: false},
   {l1: 'making anywhere from', h: '$50,000 per month'},
   {l1: 'all the way up to', s: '$10 million', h: 'per month', fx: {ring: true}},
@@ -62,10 +62,15 @@ const buildGroups = (): Group[] => {
   };
   const gs = GROUPS.map((g) => {
     const l1 = take(g.l1), s = take(g.s), l2 = take(g.l2), h = take(g.h);
+    take(g.skip);
     const all = [...l1, ...s, ...l2, ...h];
     return {l1, s, l2, h, dot: g.dot ?? true, fx: g.fx ?? {}, start: all[0].t - 2 / FPS, end: 0};
   });
-  gs.forEach((g, i) => (g.end = i < gs.length - 1 ? gs[i + 1].start : SPEECH_END + END_HOLD));
+  // a group leaves at the next group's start, or 1.2 s after its last word (names are shown big at the top, not in captions)
+  gs.forEach((g, i) => {
+    const last = Math.max(...[...g.l1, ...g.s, ...g.l2, ...g.h].map((t) => t.t));
+    g.end = i < gs.length - 1 ? Math.min(gs[i + 1].start, last + 1.2) : SPEECH_END + END_HOLD;
+  });
   return gs;
 };
 export const CAPTION_GROUPS = buildGroups();
