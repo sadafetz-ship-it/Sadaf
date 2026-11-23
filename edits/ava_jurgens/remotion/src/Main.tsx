@@ -4,6 +4,7 @@ import {C, cl, p, eio, fontFace} from './theme';
 import {Captions} from './Captions';
 import {TopWord} from './TopWord';
 import {Tile, FundCard, TestCard, CtaCard} from './UI';
+import {Sfx} from './Sfx';
 import {World, sceneEnv, PBLPage, GlowCards, ContentFlow, RemoteScene, BeamWipe, GaugeScene, Orbit, KeyScene} from './Explainers';
 
 const BLOCKS: [number, number][] = [[48, 147], [162, 327], [459, 648], [867, 936]];
@@ -70,6 +71,7 @@ export const Main: React.FC = () => {
       {f >= 867 && f < 936 && <AbsoluteFill style={sceneEnv(f, 867, 936)}><World /><KeyScene />
         <Tile n={2} at={883} x={110} y={900} rot={-6} size={150} /></AbsoluteFill>}
       <BeamWipe at={453} />
+      <Sfx />
       <Captions hide={[[612, 867], [936, 1150]]} />
       <AbsoluteFill style={{background: '#000', opacity: fadeEnd}} />
     </AbsoluteFill>
