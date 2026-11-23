@@ -38,16 +38,11 @@ const nameReveal = (t: number, bigRiser = false): Cue[] => [
   {file: 'impact', at: t, vol: 0.4},
   {file: 'ref_ding', at: t + 0.2, vol: 0.35},
 ];
-/** Cut between talking head and an explainer: whoosh + digital burst (pixel grid) + light reveal shimmer. */
+/** Screen change: riser builds into the cut → whoosh across it → impact lands on the new screen (user rule). */
 const sceneCut = (t: number, w: string): Cue[] => [
-  {file: w, at: t, vol: 0.5},
-  {file: 'digital_burst', at: t, vol: 0.18},
-  {file: 'ref_light_reveal', at: t + 0.02, vol: 0.25},
-];
-/** UI element pops in: pop body + crisp click on top. */
-const uiPop = (t: number, pop = 'pop_ui', vol = 0.45): Cue[] => [
-  {file: pop, at: t, vol},
-  {file: 'ref_click', at: t, vol: vol * 0.6},
+  {file: 'ref_riser', at: t, vol: 0.4},
+  {file: w, at: t, vol: 0.55},
+  {file: 'impact', at: t + 0.03, vol: 0.5},
 ];
 
 const heavyLands = CAPTION_GROUPS.filter((g) => g.h.length).map((g) => g.h[0].t);
@@ -55,7 +50,6 @@ const captionStarts = CAPTION_GROUPS.map((g) => g.start + 2 / FPS);
 
 const CUES: Cue[] = [
   // ── hook
-  {file: 'scifi_ui', at: 0.1, vol: 0.3},
   {file: 'ref_typing_b', at: 1.22, vol: 0.35, len: 0.7},           // text arcing over the head
   {file: 'ref2_g_drop', at: 1.85, vol: 0.5},                       // "Classified" card zoom drop-in
   {file: 'ref_click', at: 1.9, vol: 0.3},
@@ -71,16 +65,14 @@ const CUES: Cue[] = [
   // ── scene cuts (combo)
   ...sceneCut(8.7, 'whoosh_a'), ...sceneCut(11.96, 'whoosh_b'), ...sceneCut(14.0, 'whoosh_a'), ...sceneCut(20.56, 'whoosh_b'),
   ...sceneCut(22.68, 'whoosh_a'), ...sceneCut(27.72, 'whoosh_b'), ...sceneCut(31.82, 'whoosh_a'), ...sceneCut(37.42, 'whoosh_b'),
-  {file: 'whoosh_deep', at: 33.5, vol: 0.45},                      // into the CTA insert
+  {file: 'ref_riser', at: 33.5, vol: 0.35}, {file: 'whoosh_deep', at: 33.5, vol: 0.32}, {file: 'impact', at: 33.53, vol: 0.32}, // into the CTA insert (softer)
 
   // ── DefiLlama dashboard
   {file: 'ref2_g_whip', at: 8.78, vol: 0.5},                       // dashboard card whips in
   {file: 'gears', at: 8.84, vol: 0.3},                             // curve draws on
-  ...uiPop(9.34),                                                  // glowing dot
   {file: 'ref_wheel', at: 10.58, vol: 0.35, len: 0.45},            // 4 chips tick in
 
   // ── CoinGlass three cards
-  ...uiPop(16.7, 'pop_media', 0.5), ...uiPop(17.84, 'pop_media', 0.5), ...uiPop(19.04, 'pop_media', 0.5),
   ...[16.7, 17.84, 19.04].map((t) => ({file: 'ref2_g_comet', at: t - 0.03, vol: 0.45})),     // comet arcs onto each card
 
   // ── CryptoQuant
@@ -90,11 +82,8 @@ const CUES: Cue[] = [
   {file: 'whoosh_arrow', at: 25.5, vol: 0.4},                      // INFLOWS arrow
   {file: 'whoosh_arrow', at: 26.34, vol: 0.4},                     // OUTFLOWS arrow
   {file: 'gears', at: 28.0, vol: 0.28},                            // chart draws on
-  ...uiPop(29.84),                                                 // ENTRY
-  ...uiPop(30.66), {file: 'ref_ding', at: 30.7, vol: 0.3},         // EXIT
 
   // ── CTA ("Trial edit" quest-card motion): icon pops → pill stretches + label types → morphs into the full card
-  ...uiPop(33.6, 'pop_ui', 0.45),                                  // ₿ icon pops
   {file: 'ref2_q_pill', at: 33.88, vol: 0.5},                      // stretches into a pill
   {file: 'ref_typing_b', at: 33.93, vol: 0.4, len: 0.4},           // "Comment “BITCOIN”" types
   {file: 'ref2_q_morph', at: 34.42, vol: 0.5},                     // pill morphs into the card
@@ -108,15 +97,14 @@ const CUES: Cue[] = [
   // ── Farside: typing bar → "+" → orb lifts → drops (reveal) → buttons → cube → collapse
   {file: 'paper_slide', at: 39.25, vol: 0.35},                     // board slides up as a bar
   {file: 'ref_typing_b', at: 39.33, vol: 0.45, len: 0.6},         // bar types (same sound as the reference's typing bar)
-  ...uiPop(39.87, 'pop_ui', 0.35),                                 // "+" appears
   {file: 'ref_riser', at: 40.34, vol: 0.4},                        // orb rises and hovers, builds into the drop
   {file: 'ref_light_reveal', at: 40.4, vol: 0.6},                  // orb drops → white flash → card opens
   {file: 'impact', at: 40.4, vol: 0.3},
-  {file: 'ref_click', at: 40.44, vol: 0.45}, {file: 'button_1', at: 40.44, vol: 0.3},
-  {file: 'ref_click', at: 41.16, vol: 0.45}, {file: 'button_3', at: 41.16, vol: 0.3},
-  {file: 'ref_click', at: 42.34, vol: 0.45}, {file: 'envoye', at: 42.34, vol: 0.3},
-  {file: 'ref_click', at: 43.24, vol: 0.45}, {file: 'interface', at: 43.24, vol: 0.3},
-  ...uiPop(43.4, 'pop_double', 0.45), {file: 'ref_ding', at: 43.42, vol: 0.4}, // 3D cube bounces in
+  {file: 'ref_click', at: 40.44, vol: 0.45},
+  {file: 'ref_click', at: 41.16, vol: 0.45},
+  {file: 'ref_click', at: 42.34, vol: 0.45},
+  {file: 'ref_click', at: 43.24, vol: 0.45},
+  {file: 'ref_ding', at: 43.42, vol: 0.35},                        // ₿ cube lands
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 
   // ── captions: ONE sound for every caption, a DIFFERENT one only for bold words (user rule)

@@ -165,6 +165,9 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - **Typing UI** (bars, pills): `ref_typing`.
   - **Progress bars / chips ticking:** `ref_wheel`.
   - **Card opens:** light reveal (+ impact).
+- **Screen change rule (user):** every cut between screens gets **riser → whoosh → impact** (riser peaks on the cut, whoosh
+  across it, impact lands +0.03 s). **No unnecessary UI pops**: no pop on dots, chips, tags, ENTRY/EXIT, icons or "+" buttons.
+  Keep only meaningful sounds (comet, reveals, clicks on real button presses, dings on key landings).
 - **Caption sound rule (user):** every caption gets the **same** sound (one soft click as each caption appears). Only **bold
   (heavy) words** get a **different** sound (the Scripts pixel-reveal hit), the same for all bold words. No per-caption variety:
   no dissolve, box-flash, highlight-bar, ring or tilt sounds on captions.
