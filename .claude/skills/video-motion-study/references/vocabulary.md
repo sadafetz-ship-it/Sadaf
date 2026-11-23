@@ -91,3 +91,24 @@ Blur + fade (4–6 f); scale up through camera; letters scatter; horizontal smea
 
 ## 8. Common style families (for classifying clips)
 Neon cinematic on dark · Swiss/editorial white studio with one accent · Spotlight black premium · Warm premium room with gold · Product-UI motion (single component or triptych) · Hue-shifting glass widget · Caption-driven interview · Raw-vs-Edit comparison with CTA · Graphic poster collage · Behind-the-scenes (screen + timeline).
+
+## 9. Named recipes added from the user's references (see house_style.md §5–6 for frame counts)
+- **Scripts pixel reveal:**
+  1. An accent line drops onto the word.
+  2. The word blooms (blur → sharp, brightness 1.6 → 1).
+  3. Stair-step / tetromino pixel clusters jitter around it and blink out by ~18 f.
+- **Golden Hour glow:** a gradient text fill plus 3–4 stacked drop-shadow blooms.
+- **Zoom drop-in:** the card flies in oversized (×1.6) and blurred, then settles with a tilt.
+- **Whip-in:** a lateral slide with skew + motion blur and an overshooting tilt.
+- **Comet + glow reveal:** a glowing comet arcs onto a tile; the tile flashes white and develops into its content.
+- **Line path + ghost-to-sharp:** a thin line draws a path; elements appear ghosted along it, then sharpen.
+- **Quest-card morph:**
+  1. App-icon pop.
+  2. The icon stretches into a pill with a typed label.
+  3. The pill morphs into the full card (clip-path inset) with a glow bloom.
+  4. The content fades in; the button pops last.
+- **Input bar → orb → card:**
+  1. The title types behind a spark caret, then a "+" appears.
+  2. An orb lifts off, hovers, and drops in with a white flash.
+  3. The bar expands into the card; rows pop on their words; a cube bounces onto the corner.
+  4. It folds back into the bar.
