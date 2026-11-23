@@ -74,3 +74,9 @@ Where the gradient is applied:
 - **Caption dot and card edges:** lime `#C2F433`, plus a mint/green bottom edge and shadow on cards.
 
 The white, deep green and olive background roles are unchanged. Previews: `board_v5.jpg`, `preview_v5/`.
+
+## v6 change: darker top words
+- The top-word gradient ("Ava", "EDITORS", "THIS JOB", "YOU") is now a slightly darker version of the accent:
+  `#34B994 → #69C657 → #A2CF22` (was `#4CDAB4 → #84E572 → #C2F433`). Its bloom is a touch softer to match.
+- Everything else keeps the brighter accent gradient: pills, tiles, buttons, bars and pixel clusters.
+- Previews: `board_v6.jpg`, `preview_v6/`.
