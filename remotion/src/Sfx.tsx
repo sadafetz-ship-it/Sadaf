@@ -51,18 +51,15 @@ const uiPop = (t: number, pop = 'pop_ui', vol = 0.45): Cue[] => [
 ];
 
 const heavyLands = CAPTION_GROUPS.filter((g) => g.h.length).map((g) => g.h[0].t);
-const captionChanges = CAPTION_GROUPS.slice(1).map((g) => g.start);
+const captionStarts = CAPTION_GROUPS.map((g) => g.start + 2 / FPS);
 
 const CUES: Cue[] = [
   // ── hook
   {file: 'scifi_ui', at: 0.1, vol: 0.3},
-  {file: 'ref_typing_a', at: 0.12, vol: 0.28, len: 1.05},          // caption words type on
   {file: 'ref_typing_b', at: 1.22, vol: 0.35, len: 0.7},           // text arcing over the head
   {file: 'ref2_g_drop', at: 1.85, vol: 0.5},                       // "Classified" card zoom drop-in
   {file: 'ref_click', at: 1.9, vol: 0.3},
   {file: 'game_over', at: 4.46, vol: 0.4},                         // "mad" 😤
-  ...uiPop(5.7, 'pop_double', 0.5),                                // tilted "free."
-  {file: 'stretch', at: 5.8, vol: 0.28},                           // ring draws round "free."
   {file: 'whoosh_air', at: 6.2, vol: 0.28},                        // swoosh on "First,"
 
   // ── site names (combo)
@@ -95,7 +92,6 @@ const CUES: Cue[] = [
   {file: 'gears', at: 28.0, vol: 0.28},                            // chart draws on
   ...uiPop(29.84),                                                 // ENTRY
   ...uiPop(30.66), {file: 'ref_ding', at: 30.7, vol: 0.3},         // EXIT
-  ...uiPop(32.6, 'pop_double', 0.4),                               // tilted "one."
 
   // ── CTA ("Trial edit" quest-card motion): icon pops → pill stretches + label types → morphs into the full card
   ...uiPop(33.6, 'pop_ui', 0.45),                                  // ₿ icon pops
@@ -108,7 +104,6 @@ const CUES: Cue[] = [
   {file: 'double_click', at: 35.12, vol: 0.5},                     // button pressed
   {file: 'ref_click', at: 35.12, vol: 0.35},
   {file: 'ref_ding', at: 35.4, vol: 0.5},                          // "Bitcoin" lands
-  {file: 'stretch', at: 35.47, vol: 0.22},                         // ring round "Bitcoin."
 
   // ── Farside: typing bar → "+" → orb lifts → drops (reveal) → buttons → cube → collapse
   {file: 'paper_slide', at: 39.25, vol: 0.35},                     // board slides up as a bar
@@ -124,11 +119,9 @@ const CUES: Cue[] = [
   ...uiPop(43.4, 'pop_double', 0.45), {file: 'ref_ding', at: 43.42, vol: 0.4}, // 3D cube bounces in
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 
-  // ── small caption details (kept quiet so they never compete with the voice)
-  ...heavyLands.map((t) => ({file: 'ref2_g_scripts', at: t, vol: 0.22})),  // heavy word: Scripts pixel reveal
-  ...captionChanges.map((t) => ({file: 'dissolve', at: t, vol: 0.13})),    // pixel dissolve
-  ...[7.82, 14.88, 23.16, 34.2, 40.06].map((t) => ({file: 'ref_click', at: t + 0.1, vol: 0.25})), // box flashes
-  ...[20.03, 31.01].map((t) => ({file: 'menu', at: t, vol: 0.3})),         // highlight bars
+  // ── captions: ONE sound for every caption, a DIFFERENT one only for bold words (user rule)
+  ...captionStarts.map((t) => ({file: 'ref_click', at: t, vol: 0.28})),     // every caption appears: same soft click
+  ...heavyLands.map((t) => ({file: 'ref2_g_scripts', at: t, vol: 0.4})),    // every bold word: Scripts reveal hit
 ];
 
 export const Sfx: React.FC = () => (

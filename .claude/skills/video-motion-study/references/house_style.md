@@ -165,6 +165,9 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - **Typing UI** (bars, pills): `ref_typing`.
   - **Progress bars / chips ticking:** `ref_wheel`.
   - **Card opens:** light reveal (+ impact).
+- **Caption sound rule (user):** every caption gets the **same** sound (one soft click as each caption appears). Only **bold
+  (heavy) words** get a **different** sound (the Scripts pixel-reveal hit), the same for all bold words. No per-caption variety:
+  no dissolve, box-flash, highlight-bar, ring or tilt sounds on captions.
 - **Mix rules:**
   - All SFX × master gain ~0.6.
   - Quiet caption details (0.13–0.25).
