@@ -10,6 +10,39 @@ import {StackTiles} from './Extras';
 const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
 /** Program name behind the head: ink line → bloom (blur 16→0, brightness 1.6→1, scale 1.08→1) + Scripts pixels, pill tag + cursor. */
+/**
+ * NEXUS in the "Make better Scripts" style (user reference, recoloured blue): one heavy SOLID-colour word with a soft
+ * same-colour bloom, small words sitting above each end ("Welcome" / "to"), small outlined squares at both sides,
+ * chunky stair-step pixel clusters. Entry: ink line → bloom (blur 16→0, brightness 1.6→1, scale 1.08→1).
+ */
+const BLUE = '#2F7BFF';
+const ScriptsName: React.FC<{name: string; left: string; right: string; t: number; end: number}> = ({name, left, right, t, end}) => {
+  const frame = useCurrentFrame();
+  const at = f(t) - 1;
+  if (frame < at - 6 || frame > f(end) + 4) return null;
+  const size = 250;
+  const out = interpolate(frame, [f(end) - 2, f(end) + 4], [1, 0], cl);
+  const b = bloomIn(frame, at, 10);
+  const small = (txt: string, d: number): React.CSSProperties => ({position: 'absolute', top: -58, font: `500 64px ${FONT.ui}`, letterSpacing: -2, color: C.mist,
+    textShadow: '0 2px 14px rgba(0,0,0,.6)', opacity: tw(frame, at + d, 6, 0, 1), transform: `translateY(${tw(frame, at + d, 8, 14, 0)}px)`});
+  const marker = (side: 'left' | 'right'): React.CSSProperties => ({position: 'absolute', top: '50%', [side]: -78, width: 34, height: 34, marginTop: -10,
+    borderRadius: 9, border: `3px solid ${C.lilac}`, opacity: 0.85 * tw(frame, at + 4, 6, 0, 1), boxShadow: `0 0 10px rgba(63,224,255,.45)`});
+  return (
+    <div style={{position: 'absolute', left: 0, right: 0, top: 560 - size, textAlign: 'center', zIndex: 2, opacity: out, whiteSpace: 'nowrap',
+      transform: `scale(${1 + Math.max(0, frame - at) * 0.0006})`}}>
+      <div style={{position: 'relative', display: 'inline-block'}}>
+        <span style={{...small(left, 2), left: 6}}>{left}</span>
+        <span style={{...small(right, 4), right: 6}}>{right}</span>
+        <span style={marker('left')} /><span style={marker('right')} />
+        <ScriptPixels at={at} w={name.length * size * 0.72} h={size} seed={`sc${name}`} size={44} cols={[BLUE, C.violet, C.blue, '#8FD0FF', BLUE]} />
+        <div style={{display: 'inline-block', transformOrigin: '50% 70%', ...b,
+          filter: `${b.filter} drop-shadow(0 0 10px rgba(47,123,255,.55)) drop-shadow(0 0 34px rgba(47,123,255,.35))`,
+          font: `800 ${size}px ${FONT.display}`, letterSpacing: '-0.06em', lineHeight: 0.9, color: BLUE}}>{name}</div>
+      </div>
+    </div>
+  );
+};
+
 const BehindName: React.FC<{name: string; tag: string; t: number; end: number}> = ({name, tag, t, end}) => {
   const frame = useCurrentFrame();
   const at = f(t) - 1;
@@ -115,7 +148,9 @@ export const Talk: React.FC = () => {
     <AbsoluteFill>
       <AbsoluteFill style={{transform: `scale(${z * entryScale})`, transformOrigin: '50% 35%', filter: `blur(${entryBlur}px)`}}>
         <OffthreadVideo src={staticFile('raw.mp4')} muted />
-        {BEHIND_NAMES.map((b) => <BehindName key={b.name} {...b} />)}
+        {BEHIND_NAMES.map((b) => b.name === 'NEXUS'
+          ? <ScriptsName key={b.name} name="Nexus" left="Welcome" right="to" t={b.t} end={b.end} />
+          : <BehindName key={b.name} {...b} />)}
         <AbsoluteFill style={{zIndex: 3}}>
           <OffthreadVideo src={staticFile('speaker_cutout.webm')} transparent muted />
         </AbsoluteFill>
@@ -130,7 +165,7 @@ export const Talk: React.FC = () => {
       {/* number tiles stacked beside the head: newest in front */}
       <StackTiles times={[f(11.04), f(16.0), f(21.48)]} show={[[f(JUMP_CUT), f(23.1)]]} />
       {/* sparkles on name moments */}
-      {BEHIND_NAMES.map((b, i) => frame >= f(b.t) - 2 && frame < f(b.end) && (
+      {BEHIND_NAMES.map((b, i) => i > 0 && frame >= f(b.t) - 2 && frame < f(b.end) && (
         <React.Fragment key={i}>
           <Plus x={[110, 940, 120, 930][i]} y={[250, 300, 230, 280][i]} size={46} at={f(b.t)} color={C.violet} />
           <Plus x={[930, 110, 920, 120][i]} y={[520, 560, 540, 560][i]} size={36} at={f(b.t) + 2} color={C.lilac} rot={15} />

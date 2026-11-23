@@ -94,11 +94,11 @@ export const GLOW_FILL = 'linear-gradient(180deg,#FFFFFF 10%,#F0FDFF 45%,#B5F3FF
  * "Red Scripts" pixels: chunky square pixels in stair-step clusters around a word. They pop in with the bloom,
  * jitter between positions every 2–3 f, then blink out one by one (≈16 f). Purple tints.
  */
-export const ScriptPixels: React.FC<{at: number; w: number; h: number; seed: string; size?: number}> = ({at, w, h, seed, size = 26}) => {
+export const ScriptPixels: React.FC<{at: number; w: number; h: number; seed: string; size?: number; cols?: string[]}> = ({at, w, h, seed, size = 26, cols}) => {
   const frame = useCurrentFrame();
   const life = 18;
   if (frame < at - 2 || frame > at + life) return null;
-  const COLS = [C.violet, C.lilac, C.magenta, '#D6F8FF', C.deep];
+  const COLS = cols ?? [C.violet, C.lilac, C.magenta, '#D6F8FF', C.deep];
   // cluster anchors around the word box (corners + edges), each a small tetromino
   const anchors: [number, number][] = [[-0.08, -0.25], [0.92, -0.35], [1.02, 0.85], [-0.05, 1.05], [0.55, 1.15], [0.35, -0.4]];
   const shapes = [[[0, 0], [1, 0], [1, 1]], [[0, 0], [0, 1], [1, 1], [1, 2]], [[0, 0], [1, 0], [2, 0], [2, 1]], [[0, 0], [1, 1]], [[0, 0], [0, 1], [1, 0]]];
