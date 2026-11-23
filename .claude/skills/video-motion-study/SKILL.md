@@ -19,11 +19,14 @@ When the user gives a new standing preference, or rejects something, add it to `
 - `scripts/vstudy.py` wraps ffmpeg: `probe`, `split`, `sheets`, `frames`, `zoom`, `web`. Run it with `python3 -I <skill>/scripts/vstudy.py <cmd> ...` (`-I` keeps untrusted upload folders off the import path). Only ffmpeg/ffprobe are required.
 - `references/vocabulary.md` is the naming checklist for techniques, transitions and timing patterns. Read it before you start watching, so your notes use consistent names.
 - `references/example_study.md` is a finished synthesis from a real run. Skim it to calibrate depth and structure.
+- `references/reference_library.md`: what each circled reference is, what was measured, and which recipe it became.
 - `references/house_style.md`: the user's house style and rules for edits (palette, caption lockup, the only pixel style they want, card animation recipes with measured frames, SFX roles and combos, things they rejected).
 - `references/edit_pipeline.md`: the transcript → storyboard → preview → Remotion pipeline, speaker cut-out, render and audit steps, environment workarounds.
 - `scripts/remotion_CardFx.tsx`: drop-in Remotion code for every animation recipe (Scripts pixels, glow, drop-in, whip, comet reveal, ink line, bloom).
 - `scripts/remotion_House*.tsx` + `remotion_house_theme.ts`: the full 16:9 house edit. This is the **current caption lockup** and the **motion-graphics library**: gauge, product card with light ribbon, calendar→card morph, gold key, $$$, beam sweep, Scripts-style titles, camera and grade. Start new edits from these files, recoloured to the new accent.
-- `scripts/make_sfx.py`: synthesises stand-in SFX (click, key, pop, whoosh, impact, riser, shimmer, data, ding, swell, scripts_hit) and writes their peak offsets. Use it only when the user's SFX library isn't in the container, and tell them.
+- `assets/sfx/` holds **the user's SFX library**. `assets/sfx/INDEX.md` lists each file's role and peak offset. Always use it for sound design.
+- `assets/references/` holds the user's references: the **circled stills** (Golden Hour accent, Scripts title, Nexus / $10,000 heavy words), the **motion-graphics reference video** (full grid plus 4 split clips), and every-frame / 6 fps sheets. `assets/examples/` holds the finished 16:9 house edit and its preview board. Catalogue: `references/reference_library.md`.
+- `scripts/make_sfx.py`: emergency stand-in SFX only. Use it when `assets/sfx/` is somehow missing, and tell the user.
 - `scripts/cutout_speaker.py`: speaker cut-out → alpha WebM, for text behind the head. `scripts/sfx_tools.py`: analyse SFX files (peak offsets, duplicates) and split SFX out of a reference video.
 
 ## Defaults to confirm only if unclear

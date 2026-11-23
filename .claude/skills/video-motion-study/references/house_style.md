@@ -155,6 +155,8 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - Size: cards were made ~20 % smaller after the first preview.
 
 ## 8. Sound design
+- **The library is bundled with the skill:** `assets/sfx/*.wav`, with roles and peak offsets in `assets/sfx/INDEX.md`. Copy
+  the files to `public/sfx/`. Never synthesise stand-ins when these are available.
 - **SFX library** (user's files, peak-normalised to −3 dBFS, cue placed so the file's *peak* lands on the animation frame):
 
   | Role | Files |
@@ -188,18 +190,39 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - **Typing UI** (bars, pills): `ref_typing`.
   - **Progress bars / chips ticking:** `ref_wheel`.
   - **Card opens:** light reveal (+ impact).
-- **Screen change rule (user):** every cut between screens gets **riser → whoosh → impact** (riser peaks on the cut, whoosh
-  across it, impact lands +0.03 s). **No unnecessary UI pops**: no pop on dots, chips, tags, ENTRY/EXIT, icons or "+" buttons.
-  Keep only meaningful sounds (comet, reveals, clicks on real button presses, dings on key landings).
-- **Caption sound rule (user):** every caption gets the **same** sound (one soft click as each caption appears). Only **bold
-  (heavy) words** get a **different** sound (the Scripts pixel-reveal hit), the same for all bold words. No per-caption variety:
-  no dissolve, box-flash, highlight-bar, ring or tilt sounds on captions.
+- **Riser → whoosh → impact rule (user, final):** use them **ONLY when a crypto/site name lands** (the behind-the-head name
+  reveal), **not** on screen changes or anywhere else:
+  - **riser** (`ref_riser`): ~0.85 s build that **ends on the name's landing frame**; trim it (`len` = peak offset) so no tail spills.
+  - **whoosh**: one smooth pass (air-woosh), peak crossing the landing. Avoid choppy multi-burst whooshes.
+  - **impact**: align its **attack/onset** (not its loudest point) to the landing frame; trim to ~0.6 s.
+  - Check the effects-only envelope (mix minus voice): a steady climb into the landing, then a hold for ~0.6 s.
+  - **Screen changes stay clean:** no pop/click-type sound on a screen change. Drop every non-name cue from 0.5 s before to
+    0.3 s after each cut (captions often start exactly on a cut, so their click must be skipped there).
+  - **Duck pops under the name hits:** any other sound (caption click, bold-word hit, reveal, comet) from 1 s before a name
+    lands to 0.6 s after plays at **30 %**, so the riser, whoosh and impact lead.
+  - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
+    doubled clicks.
+- **Visual-element pops are WANTED (user):** "no unnecessary UI pops" does NOT mean no pops. Keep a pop on each meaningful
+  visual element appearing: cards in a row (`pop_media`), diagram nodes (Wallets / Exchange), chart tags (ENTRY / EXIT)
+  (`pop_ui`), at vol ~0.5. Mark them `keep` so the screen-change filter doesn't drop them. Remove only filler pops (dots,
+  chips, sparkles, progress ticks, doubled clicks).
+- Also pop: each **number-icon tile** as it appears (`pop_media`, +0.12 s after the name), each **list-board bullet/point**
+  (`pop_ui`). **Typing sounds stay low** (vol ~0.18).
+- **Riser / whoosh / impact level:** loud and clear (vol riser 0.8, whoosh 0.85, impact 0.8, × master 0.62). Effects peak
+  ≈ −5 dB around a name hit, under the limiter.
+- **Caption sound rule (user, final):** captions get **NO sound at all**. No click per caption and no hit on bold words or names
+  (the user rejected both). Before sending, **count plays per sound file** (bundle `Sfx.tsx` with esbuild and count the cue
+  list). Any one sound repeating ~10+ times reads as unnecessary, so cut it or vary it. When the user can't name a sound, export
+  every used SFX as numbered mp3s plus one catalog file with timestamps (`edit/sfx_used/`) and let them pick by number.
 - **Mix rules:**
   - All SFX × master gain ~0.6.
   - Quiet caption details (0.13–0.25).
   - **Render the audio with Remotion** (`--codec=wav`, fast when only sound changed), mux onto the existing video, then apply
     `alimiter=limit=0.85`.
   - Target: no clipped samples, peak ≈ −2.5 dBFS, effects within about ±4 dB of the voice.
+- **Never use sounds separated from a reference that has vocals/rap under it** (bleed sounds like a weird voice; user rejected
+  `ref2_q_pill` / `ref2_q_morph` / `ref2_g_golden`). Avoid sustained tonal swells (e.g. `ref_light_reveal`) on UI boards: they
+  read as a sung "aah". Check candidates with `librosa.pyin`; mostly-pitched files are suspect.
 - Files that turn out to be **speech** (e.g. someone's voiceover) are not SFX. Tell the user and leave them out.
 - **Music:**
   - Suggest instrumental, no-vocal beds (100–120 BPM, dark-tech / minimal synth), ducked under the voice.
@@ -240,6 +263,7 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - No pill tags or cursor on names.
 
 ## 11. Motion-graphics library (from the user's reference grids, Nov 2026)
+The reference clips, the circled stills and a finished example are in `assets/`. See `references/reference_library.md`.
 All of these are recoloured into the video's accent. The working code is in `scripts/remotion_House*.tsx`:
 - `Fx`: helpers.
 - `Captions`: the lockup.

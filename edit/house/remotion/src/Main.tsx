@@ -34,7 +34,7 @@ export const Main: React.FC = () => {
   return (
     <AbsoluteFill style={{background: '#000', fontFamily: 'Inter', fontVariationSettings: "'opsz' 32", overflow: 'hidden'}}>
       <AbsoluteFill style={camera(f)}>
-        <OffthreadVideo src={staticFile('raw.mp4')} />
+        <OffthreadVideo src={staticFile('raw.mp4')} volume={0.88} />
         {/* Golden Hour grade: warm soft-light + vignette */}
         <AbsoluteFill style={{background: '#ff9a3c', mixBlendMode: 'soft-light', opacity: 0.28}} />
         <AbsoluteFill style={{background: 'radial-gradient(120% 90% at 50% 35%,rgba(0,0,0,0) 50%,rgba(14,6,0,.6) 100%),linear-gradient(180deg,rgba(255,150,60,.08),rgba(40,12,0,.18) 70%,rgba(10,4,0,.45))'}} />
