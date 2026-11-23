@@ -1,4 +1,4 @@
-// Main composition: camera, the cold → vivid colour arc (wipe on "switch"), cut-out layering, overlays, captions, progress bar, SFX.
+// Main composition: camera, the cold → vivid colour arc (wipe on "switch"), cut-out layering, overlays, captions, SFX.
 import React from 'react';
 import {AbsoluteFill, Audio, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
 import {Captions} from './Captions';
@@ -6,7 +6,7 @@ import {BeamReveal, ExplainA, ExplainB, ExplainC, FlashCut} from './Explainers';
 import {Burst, cl, easeInOut, Flare, prog} from './fx';
 import {Sfx} from './Sfx';
 import {CTA, EdgeFlash, TalkOverlays} from './Talk';
-import {C, CUT, DURATION, FACE, GRAD} from './theme';
+import {C, CUT, DURATION, FACE} from './theme';
 import {BehindHook, BehindReveal, FrontHook} from './Titles';
 
 // Fonts: Inter, Inter Display and Allura are installed system-wide in the render machine (copies in public/ for reference).
@@ -102,12 +102,6 @@ export const Main: React.FC = () => {
       <Burst x={600} y={1190} at={896} r={200} />
 
       <Captions />
-
-      {/* story progress bar */}
-      <div style={{position: 'absolute', left: 0, top: 0, height: 10, width: `${(f / (DURATION - 1)) * 100}%`, background: GRAD, borderRadius: '0 6px 6px 0',
-        boxShadow: `0 0 18px ${C.violet},0 0 30px ${C.orchid}`}}>
-        <div style={{position: 'absolute', right: -8, top: -5, width: 20, height: 20, borderRadius: '50%', background: C.mist, boxShadow: '0 0 16px #fff'}} />
-      </div>
 
       <AbsoluteFill style={{background: '#000', opacity: fade}} />
       <Audio src={staticFile('raw.mp4')} volume={0.88} />
