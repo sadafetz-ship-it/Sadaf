@@ -6,6 +6,7 @@ import {BottomGlow, CardGrid, Plus} from './ui';
 import {PillTag} from './Pixel';
 import {bloomIn, Comet, GLOW, GLOW_FILL, glowReveal, InkLine, ScriptPixels, whipIn, zoomDropIn} from './CardFx';
 import {StackTiles} from './Extras';
+import {GlowCard} from './RefFx';
 
 const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
@@ -165,12 +166,12 @@ export const Talk: React.FC = () => {
         <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 16%,rgba(0,0,0,0) 58%,rgba(0,0,0,.55) 74%,rgba(0,0,0,.8) 100%)'}} />
       </AbsoluteFill>
       <ThreeTiles />
-      <InkLine x={540} y={880} at={f(12.6)} h={160} />
-      <RangeCard label="MEDIA LAUNCHPAD" a="$0" b="$10K" inAt={12.6} outAt={15.55} fill={[13.44, 14.1, 0, 0.22]} motion="whip" />
-      <InkLine x={540} y={880} at={f(16.6)} h={160} />
-      <RangeCard label="MEDIA PRO" a="$10K" b="$50K" inAt={16.6} outAt={19.35} fill={[17.32, 18.0, 0.22, 0.6]} motion="drop" />
+      {/* glowing program cards (reference grid: "advantage / Faster / Stronger / Unstoppable") */}
+      <GlowCard title="Launchpad" sub="$0 → $10K / month" icon="rocket" color={C.violet} inAt={12.6} outAt={15.55} seed={0} />
+      <GlowCard title="Media Pro" sub="$10K → $50K / month" icon="chart" color="#2F7BFF" inAt={16.6} outAt={19.35} seed={1} />
+      <GlowCard title="Mastery" sub="$50K → $10M / month" icon="crown" color="#7A5CFF" inAt={22.6} outAt={24.1} seed={2} />
       {/* number tiles stacked beside the head: newest in front */}
-      <StackTiles times={[f(11.04), f(16.0), f(21.48)]} show={[[f(JUMP_CUT), f(23.1)]]} />
+      <StackTiles times={[f(11.04), f(16.0), f(21.48)]} show={[[f(JUMP_CUT), f(24.1)]]} />
       {/* sparkles on name moments */}
       {BEHIND_NAMES.map((b, i) => !SCRIPTS_LOOK[b.name] && frame >= f(b.t) - 2 && frame < f(b.end) && (
         <React.Fragment key={i}>

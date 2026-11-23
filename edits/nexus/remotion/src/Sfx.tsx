@@ -35,13 +35,14 @@ const CUES: Cue[] = [
   // three program tiles: comet + glow reveal
   ...[7.34, 7.5, 7.74].map((t) => ({file: 'ref2_g_comet', at: t - 0.03, vol: 0.38})),
   // range cards
-  {file: 'whoosh_air', at: 12.6, vol: 0.3},                  // Launchpad card whips in
-  {file: 'gears', at: 13.44, vol: 0.22},                     // bar fills to $10K
-  {file: 'ref2_g_drop', at: 16.6, vol: 0.5},                 // Pro card zoom drop-in
-  {file: 'gears', at: 17.32, vol: 0.22},                     // bar fills to $50K
+  // glowing program cards: zoom-in + white flash
+  ...[12.6, 16.6, 22.6].flatMap((t) => [{file: 'ref_light_reveal', at: t, vol: 0.45}, {file: 'ref2_g_comet', at: t, vol: 0.25}]),
+  // typing pill
+  {file: 'ref_typing_b', at: 4.42, vol: 0.35, len: 0.8},
   // tier chart
-  {file: 'ref2_g_photostack', at: 23.36, vol: 0.4},
-  {file: 'ref2_g_photostack', at: 23.84, vol: 0.4},
+  {file: 'ref2_g_photostack', at: 24.15, vol: 0.45},         // gauge pixel burst
+  {file: 'ref2_g_photostack', at: 24.3, vol: 0.3},
+  {file: 'ref2_g_photostack', at: 24.6, vol: 0.3},
   {file: 'ref2_g_comet', at: 25.06, vol: 0.35},              // Mastery bar + $50K counter
   {file: 'ref_riser', at: 27.32, peak: 1.06, len: 1.06, vol: 0.4}, // climb to $10M
   {file: 'ref_ding', at: 27.32, vol: 0.55},                  // "$10 million" lands

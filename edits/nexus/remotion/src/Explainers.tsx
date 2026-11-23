@@ -4,6 +4,7 @@ import {C, FONT} from './theme';
 import {f, tw} from './timing';
 import {BottomGlow, CardGrid, DrawPath, ExplainerBG} from './ui';
 import {Comet, GLOW, GLOW_FILL, glowReveal, ScriptPixels, whipIn} from './CardFx';
+import {Gauge, GlowWave, TypingPill} from './RefFx';
 
 const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 const gold: React.CSSProperties = {background: GLOW_FILL, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'};
@@ -60,20 +61,21 @@ export const LinkScene: React.FC = () => {
         <CardGrid /><BottomGlow c1={C.lilac} c2="rgba(63,224,255,.5)" strength={0.8} />
         <span style={{position: 'relative', font: `600 64px ${FONT.display}`, letterSpacing: -2, filter: GLOW, ...gold}}>NEXUS</span>
       </div>
+      <TypingPill text="Online business × Creators" at={4.3} end={6.9} y={1060} />
     </SceneWrap>
   );
 };
 
 // ───────── Tier chart: Launchpad / Pro / Mastery, Mastery shoots up to $10M (23.1 – end) ─────────
-const fmt = (v: number) => (v >= 1e6 ? `$${(v / 1e6).toFixed(v >= 9.95e6 ? 0 : 1)}M` : `$${Math.round(v / 1e3)}K`);
+const fmt = (v: number) => (v >= 1e6 ? `$${(v / 1e6).toFixed(v >= 9.95e6 ? 0 : 1)}M` : `$${Math.max(1, Math.round(v / 1e3))}K`);
 
 export const LadderScene: React.FC = () => {
   const frame = useCurrentFrame();
   const BASE = 1180;
   const bars: {lab: string; rng: string; h: number; at: number}[] = [
-    {lab: 'LAUNCHPAD', rng: '$0–10K', h: 170, at: f(23.36)},
-    {lab: 'PRO', rng: '$10K–50K', h: 340, at: f(23.84)},
-    {lab: 'MASTERY', rng: '$50K–$10M', h: 620, at: f(25.06)},
+    {lab: 'LAUNCHPAD', rng: '$0–10K', h: 130, at: f(24.3)},
+    {lab: 'PRO', rng: '$10K–50K', h: 260, at: f(24.6)},
+    {lab: 'MASTERY', rng: '$50K–$10M', h: 430, at: f(25.06)},
   ];
   const climb = f(26.14), land = f(27.32);
   const climbP = interpolate(frame, [climb, land], [0, 1], {...cl, easing: Easing.inOut(Easing.cubic)});
@@ -82,7 +84,7 @@ export const LadderScene: React.FC = () => {
   const cAt = f(25.06);
   const landed = frame >= land;
   return (
-    <SceneWrap start={23.1} end={28.8} seed={23}>
+    <SceneWrap start={24.1} end={28.8} seed={23}>
       {bars.map((b, i) => {
         const x = 110 + i * 300;
         const hero = i === 2;
@@ -102,17 +104,12 @@ export const LadderScene: React.FC = () => {
           </React.Fragment>
         );
       })}
-      {/* big counter, top left */}
-      {frame >= cAt && (
-        <div style={{position: 'absolute', left: 90, top: 200, whiteSpace: 'nowrap', opacity: tw(frame, cAt, 6, 0, 1),
-          transform: `scale(${landed ? interpolate(frame, [land, land + 4, land + 9], [1, 1.12, 1], cl) : 1})`, transformOrigin: '0 70%'}}>
-          <div style={{position: 'relative', display: 'inline-block', font: `600 150px ${FONT.display}`, letterSpacing: -6, filter: GLOW}}>
-            {landed && <ScriptPixels at={land} w={480} h={150} seed="ten-m" size={30} />}
-            <span style={gold}>{fmt(val)}</span>
-          </div>
-          <span style={{font: `300 54px ${FONT.ui}`, color: C.mist}}> /month</span>
-        </div>
-      )}
+      {/* gauge (reference "Performance 48°"): pixel burst in, counts $1K → $50K, then climbs to $10M on "all the way up to … million" */}
+      <Gauge at={24.15} label="Media Mastery" x={290} y={130} w={500}
+        value={fmt(frame < climb ? Math.exp(Math.log(1e3) + (Math.log(5e4) - Math.log(1e3)) * interpolate(frame, [f(24.2), cAt], [0, 1], cl)) : val)}
+        p={frame < climb ? 0.42 * interpolate(frame, [f(24.2), cAt], [0, 1], {...cl, easing: Easing.out(Easing.cubic)}) : 0.42 + 0.58 * climbP}
+        sub="per " subAccent="month" subAt={25.8} />
+      <GlowWave at={26.14} y={1860} />
     </SceneWrap>
   );
 };

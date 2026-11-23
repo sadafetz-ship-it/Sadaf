@@ -81,8 +81,8 @@ export const SCENES: {kind: SceneKind; start: number; end: number}[] = [
   {kind: 'talk', start: 0, end: 3.5},
   {kind: 'ex-link', start: 3.5, end: 6.9},
   {kind: 'talk', start: 6.9, end: JUMP_CUT},
-  {kind: 'talk', start: JUMP_CUT, end: 23.1},
-  {kind: 'ex-ladder', start: 23.1, end: SPEECH_END + END_HOLD},
+  {kind: 'talk', start: JUMP_CUT, end: 24.1},
+  {kind: 'ex-ladder', start: 24.1, end: SPEECH_END + END_HOLD},
 ];
 export const SWITCHES = SCENES.slice(1).map((s) => s.start);
 
@@ -91,12 +91,12 @@ export const BEHIND_NAMES = [
   {name: 'NEXUS', tag: 'THE PROGRAM', t: 2.7, end: 3.5},
   {name: 'LAUNCHPAD', tag: 'PROGRAM 01', t: 11.04, end: 11.9},
   {name: 'MEDIA PRO', tag: 'PROGRAM 02', t: 16.0, end: 16.75},
-  {name: 'MASTERY', tag: 'PROGRAM 03', t: 21.48, end: 23.1},
+  {name: 'MASTERY', tag: 'PROGRAM 03', t: 21.48, end: 22.6},
 ];
 
 /** Camera: slow push per talking-head stretch + 4 f punch-ins on key words. */
 const CAM_SEGMENTS: [number, number, number, number][] = [
-  [0, 3.5, 1.0, 1.05], [6.9, JUMP_CUT, 1.02, 1.06], [JUMP_CUT, 23.1, 1.0, 1.08],
+  [0, 3.5, 1.0, 1.05], [6.9, JUMP_CUT, 1.02, 1.06], [JUMP_CUT, 24.1, 1.0, 1.08],
 ];
 const PUNCHES = [2.7, 7.34, 11.04, 16.0, 20.22, 21.48];
 export const cameraZoom = (frame: number) => {
