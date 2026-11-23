@@ -1,6 +1,26 @@
-# Storyboard v1: "I left my $30K business" (9:16, 30.2 s)
+# Storyboard: "I left my $30K business" (9:16, 30.2 s)
 
-**Status: waiting for approval. Nothing gets built until the preview frames are approved.**
+**Status: v2 waiting for approval. Nothing gets built until the preview frames are approved.**
+
+## v2: "more engaging" (preview_v2/board_v2.jpg)
+v1 was overlays on a flat edit. v2 gives the edit a **visual story arc** and adds a surprise to every beat.
+
+| Change | Where | Why it hooks |
+|---|---|---|
+| **Colour arc.** The burnout stretch (B3–B7) plays **desaturated and cold**. On "switch" (22.08) a glowing gradient light-wipe sweeps across, and the footage snaps back to **vivid colour**. The real light tube behind you turns **blue → magenta** and a gradient rim light comes in, so everything after the switch looks like a new life. | B3–B11 | The viewer *feels* the before/after instead of just hearing it. It pays off the story at the exact word. |
+| **Story progress bar.** A thin gradient bar with a glowing head runs along the top edge. | all | A retention cue: people stay to see it finish. |
+| **Hook slash.** A magenta light-strike slashes through **$30K** on "business" (1.36), with "gone." in script and a **TRUE STORY** tag (from your reference). | B1 | The first second now shows a loss, which makes people curious. |
+| **ALL IN** stamp | B2, "all in" (2.14) | Turns a throwaway phrase into a beat. |
+| A **PiP of you** (desaturated circle) plus a **"Battery critically low"** alert | B3 | Keeps your face in the explainer. The alert feels like a real phone moment. |
+| **12-hour clock**, a full ring "9 AM → 9 PM · every day", replacing the gauge | B4 | Easier to read at a glance: the whole day is gone. |
+| **7/7** stamp on the calendar | B5 | |
+| **47** unread badge plus phone-buzz lines | B6 | Relatable guilt. |
+| **"Today" to-do list**: Hit the gym / Eat out with friends / Lunch, each crossed out on its word, then a **SKIPPED** stamp | B7 | A concrete, relatable list instead of icons. |
+| **The switch** is the centre-piece. A big glass toggle on the chest (Clients → Digital products) flips on "switch". BEFORE / AFTER labels sit at the top, and the wipe line stays left of the face. | B8 | The peak moment of the video. |
+| Neutral **"New order · +$27"** chips (no fake names or totals) | B10 | |
+| **Tap ripple**, sparks and a handwritten "tap here ↓" | B11 | A clearer call to action. |
+
+Sound changes for v2 (still within your rules): a `whoosh_air` pass on the colour wipe at 22.08, `paper_slide` on the ALL IN stamp, `ref_click` on the toggle and a `ref_ding` on ASAP. Strike-throughs on the to-do list use `pop_ui` at 0.4.
 
 ## Accent (from the circled reference: "$30K" and "DIGITAL PRODUCTS")
 The circled words use one gradient: blue → violet → magenta. I sampled it from the image and it replaces the default accent everywhere: pixels, glows, cards, the pill and the hero words.
