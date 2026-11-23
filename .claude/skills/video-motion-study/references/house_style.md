@@ -181,6 +181,8 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   visual element appearing: cards in a row (`pop_media`), diagram nodes (Wallets / Exchange), chart tags (ENTRY / EXIT)
   (`pop_ui`), at vol ~0.5. Mark them `keep` so the screen-change filter doesn't drop them. Remove only filler pops (dots,
   chips, sparkles, progress ticks, doubled clicks).
+- Also pop: each **number-icon tile** as it appears (`pop_media`, +0.12 s after the name), each **list-board bullet/point**
+  (`pop_ui`). **Typing sounds stay low** (vol ~0.18).
 - **Riser / whoosh / impact level:** loud and clear (vol riser 0.8, whoosh 0.85, impact 0.8, × master 0.62). Effects peak
   ≈ −5 dB around a name hit, under the limiter.
 - **Caption sound rule (user, final):** captions get **NO sound at all**. No click per caption and no hit on bold words or names

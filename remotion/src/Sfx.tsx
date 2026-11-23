@@ -54,6 +54,7 @@ const CUES: Cue[] = [
 
   // ── site names (combo)
   ...sceneCut(6.74), ...sceneCut(12.98), ...sceneCut(21.12), ...sceneCut(38.34), // riser → whoosh → impact ONLY on site names (user rule)
+  ...[6.74, 12.98, 21.12, 38.34].map((t) => ({file: 'pop_media', at: t + 0.12, vol: 0.5, keep: true})), // number icon tile pops in
   ...nameReveal(6.74),
   ...nameReveal(12.98),
   ...nameReveal(21.12),
@@ -72,6 +73,7 @@ const CUES: Cue[] = [
   {file: 'pop_ui', at: 23.02, vol: 0.5, keep: true},              // Exchange node
   {file: 'pop_ui', at: 29.84, vol: 0.5, keep: true},              // ENTRY tag
   {file: 'pop_ui', at: 30.66, vol: 0.5, keep: true},              // EXIT tag
+  ...[40.44, 41.16, 42.34, 43.24].map((t) => ({file: 'pop_ui', at: t, vol: 0.45, keep: true})), // Farside points (bullets)
 
   // ── CryptoQuant
   {file: 'ref2_g_photostack', at: 22.9, vol: 0.45},              // nodes appear along the line (ghost → sharp)
@@ -82,14 +84,14 @@ const CUES: Cue[] = [
 
   // ── CTA ("Trial edit" quest-card motion): icon pops → pill stretches + label types → morphs into the full card
   {file: 'paper_slide', at: 33.88, vol: 0.3},                     // ₿ icon stretches into a pill (clean, no vocal bleed)
-  {file: 'ref_typing_b', at: 33.93, vol: 0.4, len: 0.4},           // "Comment “BITCOIN”" types
+  {file: 'ref_typing_b', at: 33.93, vol: 0.18, len: 0.4},           // "Comment “BITCOIN”" types
   {file: 'dissolve', at: 34.42, vol: 0.35},                        // pill morphs into the card (clean digital, no tonal/vocal swell)
   {file: 'double_click', at: 35.12, vol: 0.5},                     // button pressed
   {file: 'ref_ding', at: 35.4, vol: 0.5},                          // "Bitcoin" lands
 
   // ── Farside: typing bar → "+" → orb lifts → drops (reveal) → buttons → cube → collapse
   {file: 'paper_slide', at: 39.25, vol: 0.35},                     // board slides up as a bar
-  {file: 'ref_typing_b', at: 39.33, vol: 0.45, len: 0.6},         // bar types (same sound as the reference's typing bar)
+  {file: 'ref_typing_b', at: 39.33, vol: 0.185, len: 0.6},         // bar types (same sound as the reference's typing bar)
   {file: 'ref_light_reveal', at: 40.4, vol: 0.6},                  // orb drops → white flash → card opens
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 
