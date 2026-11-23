@@ -139,6 +139,8 @@ def page(body):
 
 frames = []
 def add(fid, t, label, body):
+    global frames
+    frames = [f for f in frames if f[0] != fid]
     frames.append((fid, t, label))
     open(f'{OUT}/{fid}.html', 'w').write(page(body))
 
@@ -237,6 +239,8 @@ add('F12', 38.2, 'Explainer · "The Strategy" card develops from white · lime l
     world(seed=13, pools=((960, 420, '#1E4C8C'), (300, 200, '#173D70'))) + ghost(330, -8) + ghost(1250, 8) + loop + card
     + caption('it transformed the financial world', '', 'forever', swing=True, ))
 
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'v3.py')).read())
 import json
+frames.sort(key=lambda f: f[1])
 json.dump(frames, open(f'{OUT}/frames.json', 'w'))
 print(len(frames))

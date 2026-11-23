@@ -1,4 +1,4 @@
-# Storyboard v2 — "The Playbook" (playbook.mp4)
+# Storyboard v3 — "The Playbook" (playbook.mp4)
 
 **Source:** 1920×1080 (16:9), 30 fps, 39.1 s. The edit stays 16:9 with no crop.
 **From your reference image I took only the circled colours.** Every scene below comes from your script and the house motion-graphics library.
@@ -31,3 +31,22 @@
 | End | 38.5–39.1 | — | — | — | Hold the last scene, then a short fade. No end card (house rule). | — |
 
 Rhythm: caption-only F1/F4/F7 → side graphics F2/F3/F6/F8–F11 → explainers F5/F12. Each graphic holds ≥1.2 s.
+
+## v3: more visual elements and motion graphics (added on top of the table above)
+
+| # | Time | Added graphics (house recipes, navy + lime) | SFX |
+|---|---|---|---|
+| F1 | 0.0–2.1 | Music-player card "The Playbook · Episode 01" whips in (left); the play button is pressed on "up" with a ripple; progress bar runs | pop + click on the press |
+| F2 | 2.2–5.0 | Input bar types "Reveal the exact playbook" behind a spark caret (left); "+" spins in; a lime orb lifts off and hovers | ref_typing (low) |
+| F3 | 5.0–7.0 | $1T counter card (left): the number rolls up, mini bars grow, the trend line draws | wheel tick |
+| F4 | 7.0–9.5 | Avatar crowd pops in, 2 f stagger, on "everyone's" (left); glass eye tile with pulse rings on "eyes" (right) | pop_media |
+| F5 | 9.6–12.9 | Chips BANKS / FUNDS / INSIDERS pop along the ribbon; an "Access to the industry" meter stalls at 2 % | pop_ui |
+| **F5b NEW** | 13.0–14.6 | Zoom-blur back to the speaker. A light-beam cone from a ring pivot sweeps down and reveals a hidden glass file "Classified · 1985 → ✦ DISCOVERED" (right). Sparkles. Caption: "I discovered something that was" · pill "hidden" | light reveal |
+| F6 | 14.6–16.5 | A lime underline sweeps under "Hidden in plain sight" on the card; sparkles | sparkle |
+| F7 | 16.6–19.5 | Search bar types "how they really built it" → "0 results"; the chips books / courses / news are struck through (right) | ref_typing, soft hit |
+| F9 | 22.4–25.0 | Line path (left): "Lehman Brothers" (ghosted) → lime curve with a "LEFT · 1985" tag → "Blackstone" (sharpens) | — |
+| **F9b NEW** | 25.1–27.0 | A "$0.00 starting capital" card with empty dashed bars drops in (left); tile 01 BILLIONS lands and is struck (right). Caption: "he didn't have billions of" · heavy **dollars.** | pop_media |
+| F10 | 27.0–30.5 | Checklist card "What he had in 1985" (left): each line gets a ✕ on its word; the 4th line stays blurred (pays off at "strategy") | soft hit per ✕ |
+| F11 | 30.8–33.9 | Value chart card (right): the line draws up, "FAR MORE ▲" chip | — |
+| **F11b NEW** | 34.0–36.5 | Explainer (light-beam sweep in): a lime line path draws Capital → Deals → Returns → Scale, and each node sharpens from ghost on the beat. Caption: "a strategy so" · heavy **powerful.** + highlight bar | beam whoosh, pop per node |
+| F12 | 36.5–39.1 | Floating counters "AUM $1T+" and "Since 1985"; sparkles; short fade | — |
