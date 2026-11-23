@@ -172,6 +172,8 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
     whooshes.
   - **impact**: align its **attack/onset** (not its loudest point) to the first frame of the new screen; trim to ~0.6 s.
   - Check the effects-only envelope (mix minus voice) around each cut: a steady climb into the cut, then a hold for ~0.6 s.
+  - **Duck pops under cuts:** any other sound (caption click, bold-word hit, reveal, comet) landing from 1 s before a cut to
+    0.6 s after it plays at **30 %**, so the riser, whoosh and impact lead.
   - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
     doubled clicks.
 - **Caption sound rule (user):** every caption gets the **same** sound (one soft click as each caption appears). Only **bold

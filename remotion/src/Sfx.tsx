@@ -10,7 +10,7 @@ import {CAPTION_GROUPS, f, FPS} from './timing';
  * so the sound starts at `at − peak` and the hit lands exactly on the frame.
  * Sounds are layered into COMBOS (e.g. riser → light reveal + impact → ding) so key moments feel bigger.
  */
-type Cue = {file: string; at: number; peak?: number; vol: number; len?: number; from?: number};
+type Cue = {file: string; at: number; peak?: number; vol: number; len?: number; from?: number; cut?: boolean};
 
 /** Master level for all effects: keeps them under the voice and stops stacked combos from clipping. */
 const SFX_GAIN = 0.62;
@@ -42,9 +42,9 @@ const nameReveal = (t: number): Cue[] => [
  *  impact : its ATTACK (not its peak) lands on the first frame of the new screen; trimmed to 0.6 s
  */
 const sceneCut = (t: number, w = 'whoosh_air'): Cue[] => [
-  {file: 'ref_riser', at: t, peak: 1.06, len: 1.06, vol: 0.45},
-  {file: w, at: t - 0.02, vol: 0.5},
-  {file: 'impact', at: t, peak: 0.04, len: 0.6, vol: 0.42},
+  {file: 'ref_riser', at: t, peak: 1.06, len: 1.06, vol: 0.45, cut: true},
+  {file: w, at: t - 0.02, vol: 0.5, cut: true},
+  {file: 'impact', at: t, peak: 0.04, len: 0.6, vol: 0.42, cut: true},
 ];
 
 const heavyLands = CAPTION_GROUPS.filter((g) => g.h.length).map((g) => g.h[0].t);
@@ -99,6 +99,15 @@ const CUES: Cue[] = [
   ...heavyLands.map((t) => ({file: 'ref2_g_scripts', at: t, vol: 0.4})),    // every bold word: Scripts reveal hit
 ];
 
+/** Duck every other sound (pops, clicks, reveal hits) that falls inside a screen change: from 1 s before the cut
+ *  (while the riser builds) to 0.6 s after (while the impact rings). User rule: pops must sit under riser/whoosh/impact. */
+const CUT_TIMES = CUES.filter((c) => c.cut && c.file === 'impact').map((c) => c.at);
+const duck = (c: Cue) => {
+  if (c.cut) return 1;
+  const near = CUT_TIMES.some((t) => c.at >= t - 1.0 && c.at <= t + 0.6);
+  return near ? 0.3 : 1;
+};
+
 export const Sfx: React.FC = () => (
   <>
     {CUES.map((c, i) => {
@@ -107,7 +116,7 @@ export const Sfx: React.FC = () => (
       const trim = start < 0 ? f(-start) : 0;
       return (
         <Sequence key={i} from={from} durationInFrames={c.len ? Math.round(c.len * FPS) : undefined} layout="none">
-          <Audio src={staticFile(`sfx/${c.file}.wav`)} volume={c.vol * SFX_GAIN} startFrom={trim + (c.from ? f(c.from) : 0)} />
+          <Audio src={staticFile(`sfx/${c.file}.wav`)} volume={c.vol * SFX_GAIN * duck(c)} startFrom={trim + (c.from ? f(c.from) : 0)} />
         </Sequence>
       );
     })}
