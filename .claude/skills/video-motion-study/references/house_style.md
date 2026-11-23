@@ -165,9 +165,15 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - **Typing UI** (bars, pills): `ref_typing`.
   - **Progress bars / chips ticking:** `ref_wheel`.
   - **Card opens:** light reveal (+ impact).
-- **Screen change rule (user):** every cut between screens gets **riser → whoosh → impact** (riser peaks on the cut, whoosh
-  across it, impact lands +0.03 s). **No unnecessary UI pops**: no pop on dots, chips, tags, ENTRY/EXIT, icons or "+" buttons.
-  Keep only meaningful sounds (comet, reveals, clicks on real button presses, dings on key landings).
+- **Screen change rule (user):** every cut between screens gets **riser → whoosh → impact**, and these three are used **only**
+  on screen changes (not on name reveals, card drops or orbs):
+  - **riser** (`ref_riser`): ~0.85 s build that **ends on the cut**; trim it (`len` = peak offset) so no tail spills past.
+  - **whoosh**: one smooth pass (air-woosh; deep whoosh into the CTA) with its peak crossing the cut. Avoid choppy multi-burst
+    whooshes.
+  - **impact**: align its **attack/onset** (not its loudest point) to the first frame of the new screen; trim to ~0.6 s.
+  - Check the effects-only envelope (mix minus voice) around each cut: a steady climb into the cut, then a hold for ~0.6 s.
+  - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
+    doubled clicks.
 - **Caption sound rule (user):** every caption gets the **same** sound (one soft click as each caption appears). Only **bold
   (heavy) words** get a **different** sound (the Scripts pixel-reveal hit), the same for all bold words. No per-caption variety:
   no dissolve, box-flash, highlight-bar, ring or tilt sounds on captions.

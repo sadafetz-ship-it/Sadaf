@@ -28,20 +28,23 @@ const PEAK: Record<string, number> = {
 };
 
 // ── combos ────────────────────────────────────────────────────────────────
-/** Site name lands behind the head: riser → light reveal + soft impact + pixel data-load → ding on the pill tag. */
-const nameReveal = (t: number, bigRiser = false): Cue[] => [
-  bigRiser ? {file: 'riser', at: t, vol: 0.4} : {file: 'ref_riser', at: t, vol: 0.45},
+/** Site name lands behind the head: Scripts pixel reveal + Golden Hour glow + light reveal + tile comet (no riser/whoosh/impact: those are reserved for screen changes). */
+const nameReveal = (t: number): Cue[] => [
   {file: 'ref2_g_scripts', at: t, vol: 0.4},                     // Scripts-style pixel reveal
   {file: 'ref2_g_golden', at: t + 0.05, vol: 0.3},               // Golden Hour glow blooms
-  {file: 'ref2_g_comet', at: t, vol: 0.22},                      // number tile develops (comet reveal)
-  {file: 'ref_light_reveal', at: t, vol: 0.55},
-  {file: 'impact', at: t, vol: 0.4},
+  {file: 'ref_light_reveal', at: t, vol: 0.4},
+  {file: 'ref2_g_comet', at: t, vol: 0.22},                      // number tile develops
 ];
-/** Screen change: riser builds into the cut → whoosh across it → impact lands on the new screen (user rule). */
-const sceneCut = (t: number, w: string): Cue[] => [
-  {file: 'ref_riser', at: t, vol: 0.4},
-  {file: w, at: t, vol: 0.55},
-  {file: 'impact', at: t + 0.03, vol: 0.5},
+/**
+ * Screen change (user rule) — used ONLY on cuts:
+ *  riser  : builds ~0.85 s and ENDS on the cut (trimmed so no tail spills past it)
+ *  whoosh : one smooth pass, its peak crossing the cut
+ *  impact : its ATTACK (not its peak) lands on the first frame of the new screen; trimmed to 0.6 s
+ */
+const sceneCut = (t: number, w = 'whoosh_air'): Cue[] => [
+  {file: 'ref_riser', at: t, peak: 1.06, len: 1.06, vol: 0.45},
+  {file: w, at: t - 0.02, vol: 0.5},
+  {file: 'impact', at: t, peak: 0.04, len: 0.6, vol: 0.42},
 ];
 
 const heavyLands = CAPTION_GROUPS.filter((g) => g.h.length).map((g) => g.h[0].t);
@@ -52,21 +55,19 @@ const CUES: Cue[] = [
   {file: 'ref_typing_b', at: 1.22, vol: 0.35, len: 0.7},           // text arcing over the head
   {file: 'ref2_g_drop', at: 1.85, vol: 0.5},                       // "Classified" card zoom drop-in
   {file: 'game_over', at: 4.46, vol: 0.4},                         // "mad" 😤
-  {file: 'whoosh_air', at: 6.2, vol: 0.28},                        // swoosh on "First,"
 
   // ── site names (combo)
-  ...nameReveal(6.74, true),
+  ...nameReveal(6.74),
   ...nameReveal(12.98),
   ...nameReveal(21.12),
   ...nameReveal(38.34),
 
   // ── scene cuts (combo)
-  ...sceneCut(8.7, 'whoosh_a'), ...sceneCut(11.96, 'whoosh_b'), ...sceneCut(14.0, 'whoosh_a'), ...sceneCut(20.56, 'whoosh_b'),
-  ...sceneCut(22.68, 'whoosh_a'), ...sceneCut(27.72, 'whoosh_b'), ...sceneCut(31.82, 'whoosh_a'), ...sceneCut(37.42, 'whoosh_b'),
-  {file: 'ref_riser', at: 33.5, vol: 0.35}, {file: 'whoosh_deep', at: 33.5, vol: 0.32}, {file: 'impact', at: 33.53, vol: 0.32}, // into the CTA insert (softer)
+  ...sceneCut(8.7), ...sceneCut(11.96), ...sceneCut(14.0), ...sceneCut(20.56),
+  ...sceneCut(22.68), ...sceneCut(27.72), ...sceneCut(31.82), ...sceneCut(37.42),
+  ...sceneCut(33.5, 'whoosh_deep'),                                // into the CTA insert
 
   // ── DefiLlama dashboard
-  {file: 'ref2_g_whip', at: 8.78, vol: 0.5},                       // dashboard card whips in
   {file: 'gears', at: 8.84, vol: 0.3},                             // curve draws on
 
   // ── CoinGlass three cards
@@ -75,8 +76,8 @@ const CUES: Cue[] = [
   // ── CryptoQuant
   {file: 'ref2_g_photostack', at: 22.9, vol: 0.45},              // nodes appear along the line (ghost → sharp)
   {file: 'ref2_g_photostack', at: 23.04, vol: 0.35},
-  {file: 'whoosh_arrow', at: 25.5, vol: 0.4},                      // INFLOWS arrow
-  {file: 'whoosh_arrow', at: 26.34, vol: 0.4},                     // OUTFLOWS arrow
+  {file: 'ref2_g_comet', at: 25.5, vol: 0.3},                      // INFLOWS arrow
+  {file: 'ref2_g_comet', at: 26.34, vol: 0.3},                     // OUTFLOWS arrow
   {file: 'gears', at: 28.0, vol: 0.28},                            // chart draws on
 
   // ── CTA ("Trial edit" quest-card motion): icon pops → pill stretches + label types → morphs into the full card
@@ -90,9 +91,7 @@ const CUES: Cue[] = [
   // ── Farside: typing bar → "+" → orb lifts → drops (reveal) → buttons → cube → collapse
   {file: 'paper_slide', at: 39.25, vol: 0.35},                     // board slides up as a bar
   {file: 'ref_typing_b', at: 39.33, vol: 0.45, len: 0.6},         // bar types (same sound as the reference's typing bar)
-  {file: 'ref_riser', at: 40.34, vol: 0.4},                        // orb rises and hovers, builds into the drop
   {file: 'ref_light_reveal', at: 40.4, vol: 0.6},                  // orb drops → white flash → card opens
-  {file: 'impact', at: 40.4, vol: 0.3},
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 
   // ── captions: ONE sound for every caption, a DIFFERENT one only for bold words (user rule)
