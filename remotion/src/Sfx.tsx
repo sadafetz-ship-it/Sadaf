@@ -36,7 +36,6 @@ const nameReveal = (t: number, bigRiser = false): Cue[] => [
   {file: 'ref2_g_comet', at: t, vol: 0.22},                      // number tile develops (comet reveal)
   {file: 'ref_light_reveal', at: t, vol: 0.55},
   {file: 'impact', at: t, vol: 0.4},
-  {file: 'ref_ding', at: t + 0.2, vol: 0.35},
 ];
 /** Screen change: riser builds into the cut → whoosh across it → impact lands on the new screen (user rule). */
 const sceneCut = (t: number, w: string): Cue[] => [
@@ -52,7 +51,6 @@ const CUES: Cue[] = [
   // ── hook
   {file: 'ref_typing_b', at: 1.22, vol: 0.35, len: 0.7},           // text arcing over the head
   {file: 'ref2_g_drop', at: 1.85, vol: 0.5},                       // "Classified" card zoom drop-in
-  {file: 'ref_click', at: 1.9, vol: 0.3},
   {file: 'game_over', at: 4.46, vol: 0.4},                         // "mad" 😤
   {file: 'whoosh_air', at: 6.2, vol: 0.28},                        // swoosh on "First,"
 
@@ -70,7 +68,6 @@ const CUES: Cue[] = [
   // ── DefiLlama dashboard
   {file: 'ref2_g_whip', at: 8.78, vol: 0.5},                       // dashboard card whips in
   {file: 'gears', at: 8.84, vol: 0.3},                             // curve draws on
-  {file: 'ref_wheel', at: 10.58, vol: 0.35, len: 0.45},            // 4 chips tick in
 
   // ── CoinGlass three cards
   ...[16.7, 17.84, 19.04].map((t) => ({file: 'ref2_g_comet', at: t - 0.03, vol: 0.45})),     // comet arcs onto each card
@@ -78,7 +75,6 @@ const CUES: Cue[] = [
   // ── CryptoQuant
   {file: 'ref2_g_photostack', at: 22.9, vol: 0.45},              // nodes appear along the line (ghost → sharp)
   {file: 'ref2_g_photostack', at: 23.04, vol: 0.35},
-  {file: 'button_3', at: 23.62, vol: 0.35},                        // "On-chain" chip
   {file: 'whoosh_arrow', at: 25.5, vol: 0.4},                      // INFLOWS arrow
   {file: 'whoosh_arrow', at: 26.34, vol: 0.4},                     // OUTFLOWS arrow
   {file: 'gears', at: 28.0, vol: 0.28},                            // chart draws on
@@ -88,10 +84,7 @@ const CUES: Cue[] = [
   {file: 'ref_typing_b', at: 33.93, vol: 0.4, len: 0.4},           // "Comment “BITCOIN”" types
   {file: 'ref2_q_morph', at: 34.42, vol: 0.5},                     // pill morphs into the card
   {file: 'ref_light_reveal', at: 34.45, vol: 0.3},                 // glow bloom
-  {file: 'sparkle', at: 34.45, vol: 0.25},
-  {file: 'ref_wheel', at: 34.77, vol: 0.35, len: 0.5},             // progress bar ratchets up
   {file: 'double_click', at: 35.12, vol: 0.5},                     // button pressed
-  {file: 'ref_click', at: 35.12, vol: 0.35},
   {file: 'ref_ding', at: 35.4, vol: 0.5},                          // "Bitcoin" lands
 
   // ── Farside: typing bar → "+" → orb lifts → drops (reveal) → buttons → cube → collapse
@@ -100,11 +93,6 @@ const CUES: Cue[] = [
   {file: 'ref_riser', at: 40.34, vol: 0.4},                        // orb rises and hovers, builds into the drop
   {file: 'ref_light_reveal', at: 40.4, vol: 0.6},                  // orb drops → white flash → card opens
   {file: 'impact', at: 40.4, vol: 0.3},
-  {file: 'ref_click', at: 40.44, vol: 0.45},
-  {file: 'ref_click', at: 41.16, vol: 0.45},
-  {file: 'ref_click', at: 42.34, vol: 0.45},
-  {file: 'ref_click', at: 43.24, vol: 0.45},
-  {file: 'ref_ding', at: 43.42, vol: 0.35},                        // ₿ cube lands
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 
   // ── captions: ONE sound for every caption, a DIFFERENT one only for bold words (user rule)
