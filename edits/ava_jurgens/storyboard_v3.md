@@ -41,3 +41,11 @@ This replaces the old checklist card (icon boxes and ✓ marks) in **F10, F11b (
 | F12 (33.3–38.2 s) | Someone who is | On time, always 35.50 · Dependable 36.30 · Very organized 37.56 |
 
 The number tiles stay as they were.
+
+## v4 change: no captions on the list-card scenes
+- **No caption** is shown while a list card is on screen: F10 (23.2–28.9 s), F11b (31.2–33.2 s) and F12 (33.3–38.2 s). The card's points carry
+  the script, as in the reference. Captions come back for the next scene.
+- With the caption area free, the card is a little larger: 520 px wide, 44 px title, 40 px items, top at 900 px. This is closer to
+  the reference card's size.
+- The highlight bar under "organized." is dropped, because it belonged to that caption.
+- The number tiles are unchanged. Previews: `board_v4.jpg`, `preview_v4/`.
