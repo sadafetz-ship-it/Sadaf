@@ -184,6 +184,9 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - **Render the audio with Remotion** (`--codec=wav`, fast when only sound changed), mux onto the existing video, then apply
     `alimiter=limit=0.85`.
   - Target: no clipped samples, peak ≈ −2.5 dBFS, effects within about ±4 dB of the voice.
+- **Never use sounds separated from a reference that has vocals/rap under it** (bleed sounds like a weird voice; user rejected
+  `ref2_q_pill` / `ref2_q_morph` / `ref2_g_golden`). Avoid sustained tonal swells (e.g. `ref_light_reveal`) on UI boards: they
+  read as a sung "aah". Check candidates with `librosa.pyin`; mostly-pitched files are suspect.
 - Files that turn out to be **speech** (e.g. someone's voiceover) are not SFX. Tell the user and leave them out.
 - **Music:**
   - Suggest instrumental, no-vocal beds (100–120 BPM, dark-tech / minimal synth), ducked under the voice.

@@ -31,7 +31,6 @@ const PEAK: Record<string, number> = {
 /** Site name lands behind the head: Scripts pixel reveal + Golden Hour glow + light reveal + tile comet (no riser/whoosh/impact: those are reserved for screen changes). */
 const nameReveal = (t: number): Cue[] => [
   {file: 'ref2_g_scripts', at: t, vol: 0.4},                     // Scripts-style pixel reveal
-  {file: 'ref2_g_golden', at: t + 0.05, vol: 0.3},               // Golden Hour glow blooms
   {file: 'ref_light_reveal', at: t, vol: 0.4},
   {file: 'ref2_g_comet', at: t, vol: 0.22},                      // number tile develops
 ];
@@ -79,10 +78,9 @@ const CUES: Cue[] = [
   {file: 'gears', at: 28.0, vol: 0.28},                            // chart draws on
 
   // ── CTA ("Trial edit" quest-card motion): icon pops → pill stretches + label types → morphs into the full card
-  {file: 'ref2_q_pill', at: 33.88, vol: 0.5},                      // stretches into a pill
+  {file: 'paper_slide', at: 33.88, vol: 0.3},                     // ₿ icon stretches into a pill (clean, no vocal bleed)
   {file: 'ref_typing_b', at: 33.93, vol: 0.4, len: 0.4},           // "Comment “BITCOIN”" types
-  {file: 'ref2_q_morph', at: 34.42, vol: 0.5},                     // pill morphs into the card
-  {file: 'ref_light_reveal', at: 34.45, vol: 0.3},                 // glow bloom
+  {file: 'dissolve', at: 34.42, vol: 0.35},                        // pill morphs into the card (clean digital, no tonal/vocal swell)
   {file: 'double_click', at: 35.12, vol: 0.5},                     // button pressed
   {file: 'ref_ding', at: 35.4, vol: 0.5},                          // "Bitcoin" lands
 
