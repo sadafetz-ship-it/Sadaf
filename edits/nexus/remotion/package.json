@@ -1,0 +1,21 @@
+{
+  "name": "nexus-edit",
+  "private": true,
+  "scripts": {
+    "assets": "node scripts/assets.js",
+    "studio": "npm run assets && remotion studio",
+    "still": "remotion still Main",
+    "render": "npm run assets && remotion render Main out/nexus.mp4 && ffmpeg -y -i out/nexus.mp4 -c:v copy -af alimiter=limit=0.85:attack=2:release=40:level=false -c:a aac -b:a 256k out/nexus_final.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.545",
+    "@remotion/fonts": "4.0.545",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.545"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.0",
+    "typescript": "5.8.3"
+  }
+}
