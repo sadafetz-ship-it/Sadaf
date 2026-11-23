@@ -80,3 +80,22 @@ The white, deep green and olive background roles are unchanged. Previews: `board
   `#34B994 → #69C657 → #A2CF22` (was `#4CDAB4 → #84E572 → #C2F433`). Its bloom is a touch softer to match.
 - Everything else keeps the brighter accent gradient: pills, tiles, buttons, bars and pixel clusters.
 - Previews: `board_v6.jpg`, `preview_v6/`.
+
+## v7 change: nothing over the speaker's face
+Face measured on the stills at about x 420–715, y 370–950 (1080×1920). The **face no-go zone** is **x 360–760, y 330–1010**,
+which includes a margin for head movement. No element may enter it. `preview_v7/facecheck.jpg` shows the zone in red on every
+talking-head frame.
+
+| Element | Before (top y) | Now (top y) |
+|---|---|---|
+| Editing-test card + 🍀 (F5) | 860 / 810 | 1030 / 985 |
+| List cards (F10, F11b, F12) | 900 | 1035 (bottom about 1500; no caption in these scenes) |
+| CTA card (F13) | 860 | 1030. Made more compact: the title and button sit side by side so it clears the captions |
+| Top words (F1, F13) | 120 | 75 (size 250 → 230) |
+| Top words (F9) | 150 | 110 |
+| Pixel clusters on top words | two clusters under the word | moved to the sides and above the word, so none drop toward the head |
+
+Unchanged and already clear: the number tiles (left of the face, x ≤ 320) and the explainer scenes (full background, no face).
+
+**Build rule:** the speaker moves. During the Remotion build the audit checks every 6 fps sheet against the face zone. Punch-ins
+scale the face up, so during a punch-in the cards slide down by the same amount.
