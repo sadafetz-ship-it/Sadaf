@@ -137,3 +137,29 @@ for f in glob.glob(f'{OUT}/F*.html'):
     h = open(f).read().replace(OLD_CSS, CSS)
     h = h.replace(f'font-weight:700;font-size:{int(330*0.48)}px', f'font-weight:300;font-size:{int(330*0.48)}px')
     open(f, 'w').write(h)
+
+# F11b v5: rising growth path of step widgets, comet into "Scale"
+def sicon(kind):
+    p = {
+        'cap': f'<g fill="none" stroke="{LIME}" stroke-width="4"><ellipse cx="32" cy="18" rx="18" ry="6"/><path d="M14 18v10c0 3.3 8 6 18 6s18-2.7 18-6V18"/><path d="M14 28v10c0 3.3 8 6 18 6s18-2.7 18-6V28"/><path d="M14 38v10c0 3.3 8 6 18 6s18-2.7 18-6V38"/></g>',
+        'deal': f'<g fill="none" stroke="{LIME}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 22 H50 L40 12"/><path d="M54 42 H14 L24 52"/></g>',
+        'ret': f'<g fill="none" stroke="{LIME}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 50 L24 34 L34 42 L56 18"/><path d="M42 18 H56 V32"/></g>',
+        'scale': f'<g fill="none" stroke="{LIME}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 C44 16 46 32 40 46 H24 C18 32 20 16 32 6Z"/><circle cx="32" cy="24" r="5"/><path d="M24 46 L16 56 M40 46 L48 56 M32 48 V58"/></g>',
+    }[kind]
+    return f'<div style="width:72px;height:72px;border-radius:22px;background:rgba(230,255,79,.08);border:1.5px solid rgba(230,255,79,.35);display:flex;align-items:center;justify-content:center"><svg width="44" height="44" viewBox="0 0 64 64" style="filter:drop-shadow(0 0 6px {LIME})">{p}</svg></div>'
+def stepw(x, y, n, name, val, kind, hot=False):
+    extra = 'box-shadow:inset 0 -2px 0 #fff,inset 0 -60px 80px -30px rgba(230,255,79,.8),0 0 0 2px rgba(230,255,79,.8),0 0 60px rgba(230,255,79,.55),0 40px 100px -20px rgba(230,255,79,.6)' if hot else ''
+    return gcard(x, y, 330, 210, corner(30, 26, f'Step {n:02d}') + ab(230, 22, sicon(kind))
+        + ab(30, 82, f'<div style="font-size:26px;color:rgba(243,247,255,.7)">{name}</div>{big(val, 64 if len(val) < 7 else 52, "font-weight:300")}'), r=48, extra=extra)
+pts11 = [(150, 540), (560, 420), (970, 300), (1390, 170)]
+spath = (f'<svg style="position:absolute;left:0;top:0" width="1920" height="1080"><defs><linearGradient id="sp" x1="0" x2="1"><stop offset="0" stop-color="#2E64B0" stop-opacity=".5"/><stop offset=".7" stop-color="{LIME}"/><stop offset="1" stop-color="#fff"/></linearGradient></defs>'
+    f'<path d="M100 760 C 300 760, 380 650, 480 645 S 700 560, 890 525 S 1120 420, 1300 400 S 1560 300, 1780 120" fill="none" stroke="url(#sp)" stroke-width="7" stroke-linecap="round" style="filter:drop-shadow(0 0 10px {LIME}) drop-shadow(0 0 26px rgba(230,255,79,.5))"/>'
+    f'<path d="M1500 300 Q1650 230 1780 120" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" opacity=".85" style="filter:blur(4px)"/>'
+    f'<circle cx="1780" cy="120" r="16" fill="#fff" style="filter:drop-shadow(0 0 14px {LIME}) drop-shadow(0 0 34px {LIME})"/></svg>')
+rings = ''.join(f'<div style="position:absolute;left:{1555-r}px;top:{275-r}px;width:{2*r}px;height:{2*r}px;border-radius:50%;border:2px solid rgba(230,255,79,{o})"></div>' for r, o in ((230, .35), (300, .2), (370, .1)))
+burst = '<div style="position:absolute;left:1180px;top:-60px;width:760px;height:700px;background:radial-gradient(circle,rgba(230,255,79,.22),rgba(46,100,176,.18) 40%,transparent 70%)"></div>'
+steps = (stepw(*pts11[0], 1, 'Capital', '$400K', 'cap') + stepw(*pts11[1], 2, 'Deals', 'Buyouts', 'deal')
+    + stepw(*pts11[2], 3, 'Returns', 'Compound', 'ret') + stepw(*pts11[3], 4, 'Scale', '$1T+', 'scale', hot=True))
+add('F11b', 35.3, 'Explainer (light-beam sweep in): a glowing growth path climbs left→right; step widgets 01 Capital $400K → 02 Deals → 03 Returns → 04 Scale $1T+ pop in on the beat; a white comet races up the path and hits "Scale" on "powerful" (widget flares, pulse rings, light burst) · ghost words drift behind',
+    world(seed=17) + '<div class="ghostw" style="left:60px;top:40px;font-size:260px">strategy</div><div class="ghostw" style="left:820px;top:600px;font-size:200px">powerful</div>'
+    + burst + rings + spath + steps + caption('a strategy so', '', 'powerful', bar=True))

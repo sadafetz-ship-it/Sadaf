@@ -67,3 +67,10 @@ Rhythm: caption-only F1/F4/F7 → side graphics F2/F3/F6/F8–F11 → explainers
 - **F11:** curve widget; the glowing dot rides to the peak on "valuable", with "Far more" underneath.
 - **F11b:** huge blurred ghost words "strategy" / "powerful" drift behind the node path.
 - **F12:** big blue panel with a lime neon streak racing along its top edge; "The Strategy" types on, a cursor clicks, and ghost word "forever" sits behind.
+
+## v5: F11b improved (34.0–36.5 s)
+- **Look:** explainer world with huge ghost words "strategy" / "powerful", and a soft lime light burst top-right.
+- **Path:** a glowing growth path climbs left → right (blue → lime → white).
+- **Steps:** four step widgets (dark body, lime bottom glow, icon tile, light-weight value) pop in up the path on the beat: 01 Capital **$400K** (Blackstone's starting capital) → 02 Deals **Buyouts** → 03 Returns **Compound** → 04 Scale **$1T+**.
+- **Payoff:** a white comet races up the path and hits **Scale** on "powerful" (35.16 s). The widget flares (white rim, stronger glow) and three pulse rings ripple out.
+- **SFX:** beam whoosh in, pop_media per step, light reveal + soft impact on the comet hit.
