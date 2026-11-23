@@ -177,6 +177,12 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
     lands to 0.6 s after plays at **30 %**, so the riser, whoosh and impact lead.
   - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
     doubled clicks.
+- **Visual-element pops are WANTED (user):** "no unnecessary UI pops" does NOT mean no pops. Keep a pop on each meaningful
+  visual element appearing: cards in a row (`pop_media`), diagram nodes (Wallets / Exchange), chart tags (ENTRY / EXIT)
+  (`pop_ui`), at vol ~0.5. Mark them `keep` so the screen-change filter doesn't drop them. Remove only filler pops (dots,
+  chips, sparkles, progress ticks, doubled clicks).
+- **Riser / whoosh / impact level:** loud and clear (vol riser 0.8, whoosh 0.85, impact 0.8, × master 0.62). Effects peak
+  ≈ −5 dB around a name hit, under the limiter.
 - **Caption sound rule (user, final):** captions get **NO sound at all**. No click per caption and no hit on bold words or names
   (the user rejected both). Before sending, **count plays per sound file** (bundle `Sfx.tsx` with esbuild and count the cue
   list). Any one sound repeating ~10+ times reads as unnecessary, so cut it or vary it. When the user can't name a sound, export

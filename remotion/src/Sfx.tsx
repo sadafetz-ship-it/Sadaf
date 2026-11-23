@@ -10,7 +10,7 @@ import {CAPTION_GROUPS, f, FPS, SWITCHES} from './timing';
  * so the sound starts at `at − peak` and the hit lands exactly on the frame.
  * Sounds are layered into COMBOS (e.g. riser → light reveal + impact → ding) so key moments feel bigger.
  */
-type Cue = {file: string; at: number; peak?: number; vol: number; len?: number; from?: number; cut?: boolean};
+type Cue = {file: string; at: number; peak?: number; vol: number; len?: number; from?: number; cut?: boolean; keep?: boolean};
 
 /** Master level for all effects: keeps them under the voice and stops stacked combos from clipping. */
 const SFX_GAIN = 0.62;
@@ -40,9 +40,9 @@ const nameReveal = (t: number): Cue[] => [
  *  impact : its ATTACK (not its peak) lands on the name's first frame; trimmed to 0.6 s
  */
 const sceneCut = (t: number, w = 'whoosh_air'): Cue[] => [
-  {file: 'ref_riser', at: t, peak: 1.06, len: 1.06, vol: 0.45, cut: true},
-  {file: w, at: t - 0.02, vol: 0.5, cut: true},
-  {file: 'impact', at: t, peak: 0.04, len: 0.6, vol: 0.42, cut: true},
+  {file: 'ref_riser', at: t, peak: 1.06, len: 1.06, vol: 0.8, cut: true},
+  {file: w, at: t - 0.02, vol: 0.85, cut: true},
+  {file: 'impact', at: t, peak: 0.04, len: 0.6, vol: 0.8, cut: true},
 ];
 
 
@@ -66,6 +66,12 @@ const CUES: Cue[] = [
 
   // ── CoinGlass three cards
   ...[16.7, 17.84, 19.04].map((t) => ({file: 'ref2_g_comet', at: t - 0.03, vol: 0.45})),     // comet arcs onto each card
+  // ── pops on visual elements (user circled these): CoinGlass cards, Wallets / Exchange nodes, ENTRY / EXIT tags
+  ...[16.7, 17.84, 19.04].map((t) => ({file: 'pop_media', at: t, vol: 0.5, keep: true})),
+  {file: 'pop_ui', at: 22.88, vol: 0.5, keep: true},              // Wallets node
+  {file: 'pop_ui', at: 23.02, vol: 0.5, keep: true},              // Exchange node
+  {file: 'pop_ui', at: 29.84, vol: 0.5, keep: true},              // ENTRY tag
+  {file: 'pop_ui', at: 30.66, vol: 0.5, keep: true},              // EXIT tag
 
   // ── CryptoQuant
   {file: 'ref2_g_photostack', at: 22.9, vol: 0.45},              // nodes appear along the line (ghost → sharp)
@@ -94,13 +100,13 @@ const CUES: Cue[] = [
  *  (while the riser builds) to 0.6 s after (while the impact rings). User rule: pops must sit under riser/whoosh/impact. */
 const CUT_TIMES = CUES.filter((c) => c.cut && c.file === 'impact').map((c) => c.at);
 const duck = (c: Cue) => {
-  if (c.cut) return 1;
+  if (c.cut || c.keep) return 1;
   const near = CUT_TIMES.some((t) => c.at >= t - 1.0 && c.at <= t + 0.6);
   return near ? 0.3 : 1;
 };
 
 /** User rule: no pop/click-type sounds on screen changes. Drop every non-name cue from 0.5 s before to 0.3 s after a screen cut. */
-const onScreenChange = (c: Cue) => !c.cut && SWITCHES.some((t) => c.at > t - 0.5 && c.at < t + 0.3);
+const onScreenChange = (c: Cue) => !c.cut && !c.keep && SWITCHES.some((t) => c.at > t - 0.5 && c.at < t + 0.3);
 const PLAYED = CUES.filter((c) => !onScreenChange(c));
 
 export const Sfx: React.FC = () => (
