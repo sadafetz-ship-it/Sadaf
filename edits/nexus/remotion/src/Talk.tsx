@@ -36,13 +36,13 @@ const ScriptsName: React.FC<{name: string; left: string; right: string; t: numbe
   const marker = (side: 'left' | 'right'): React.CSSProperties => ({position: 'absolute', top: '50%', [side]: -78, width: 34, height: 34, marginTop: -10,
     borderRadius: 9, border: `3px solid ${C.lilac}`, opacity: 0.85 * tw(frame, at + 4, 6, 0, 1), boxShadow: `0 0 10px rgba(63,224,255,.45)`});
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 560 - size, textAlign: 'center', zIndex: 2, opacity: out, whiteSpace: 'nowrap',
+    <div style={{position: 'absolute', left: 0, right: 0, top: 415 - size, textAlign: 'center', zIndex: 2, opacity: out, whiteSpace: 'nowrap',
       transform: `scale(${1 + Math.max(0, frame - at) * 0.0006})`}}>
       <div style={{position: 'relative', display: 'inline-block'}}>
         <span style={{...small(left, 2), left: 6}}>{left}</span>
         <span style={{...small(right, 4), right: 6}}>{right}</span>
         <span style={marker('left')} /><span style={marker('right')} />
-        <ScriptPixels at={at} w={name.length * size * 0.72} h={size} seed={`sc${name}`} size={44} cols={[BLUE, C.violet, C.blue, '#8FD0FF', BLUE]} />
+        <ScriptPixels at={at} w={name.length * size * 0.72} h={size} seed={`sc${name}`} size={44} cols={[BLUE, C.violet, C.blue, '#8FD0FF', BLUE]} above />
         <div style={{display: 'inline-block', transformOrigin: '50% 70%', ...b,
           filter: `${b.filter} drop-shadow(0 0 10px rgba(47,123,255,.55)) drop-shadow(0 0 34px rgba(47,123,255,.35))`,
           font: `800 ${size}px ${FONT.display}`, letterSpacing: '-0.06em', lineHeight: 0.9, color: BLUE}}>{name}</div>
@@ -60,7 +60,7 @@ const BehindName: React.FC<{name: string; tag: string; t: number; end: number}> 
   const out = interpolate(frame, [f(end) - 2, f(end) + 4], [1, 0], cl);
   const b = bloomIn(frame, at, 10);
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 555 - size, textAlign: 'center', zIndex: 2, transform: `scale(${drift})`,
+    <div style={{position: 'absolute', left: 0, right: 0, top: 415 - size, textAlign: 'center', zIndex: 2, transform: `scale(${drift})`,
       opacity: out, whiteSpace: 'nowrap'}}>
       <div style={{position: 'relative', font: `600 ${size}px ${FONT.display}`, letterSpacing: '-0.045em', lineHeight: 0.9}}>
         <ScriptPixels at={at} w={name.length * size * 0.62} h={size} seed={`bn${name}`} size={34} />
@@ -96,7 +96,7 @@ const ThreeTiles: React.FC = () => {
         const gr = glowReveal(frame, t);
         return (
           <React.Fragment key={i}>
-            <Comet d={`M${[-40, 1120, 1120][i]} ${[1060, 760, 1080][i]} Q ${[120, 760, 1040][i]} ${[1080, 820, 1120][i]} ${x + 140} ${y + 140}`} at={t - 8} dur={8} />
+            <Comet d={`M${[-40, 1120, 1120][i]} ${[1060, 1000, 1080][i]} Q ${[120, 820, 1040][i]} ${[1080, 1020, 1120][i]} ${x + 140} ${y + 140}`} at={t - 8} dur={8} />
             <div style={{...cardBody, left: x, top: y, width: 280, height: 280, zIndex: 8, opacity: out * (gr.style.opacity as number),
               transform: `rotate(${rot}deg) ${gr.style.transform}`, boxShadow: `${cardBody.boxShadow}, ${gr.style.boxShadow}`}}>
               <CardGrid /><BottomGlow c1={C.lilac} c2="rgba(63,224,255,.5)" strength={0.7} />

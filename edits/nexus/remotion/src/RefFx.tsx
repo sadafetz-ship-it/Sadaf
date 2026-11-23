@@ -66,7 +66,7 @@ const LightRing: React.FC<{w: number; h: number; color: string; at: number; seed
 export const GlowCard: React.FC<{
   title: string; sub: string; icon: keyof typeof ICONS; color: string; inAt: number; outAt: number; seed?: number;
   x?: number; y?: number; w?: number;
-}> = ({title, sub, icon, color, inAt, outAt, seed = 0, x = 360, y = 880, w = 360}) => {
+}> = ({title, sub, icon, color, inAt, outAt, seed = 0, x = 390, y = 925, w = 300}) => {
   const frame = useCurrentFrame();
   const S = f(inAt), E = f(outAt);
   if (frame < S - 1 || frame > E + 6) return null;
@@ -77,9 +77,9 @@ export const GlowCard: React.FC<{
   return (
     <div style={{position: 'absolute', left: x, top: y, width: w, height: H, zIndex: 8,
       opacity: interpolate(frame, [S - 1, S + 1], [0, 1], cl) * out,
-      transform: `scale(${(1.3 - 0.3 * p) * (1 - 0.08 * (1 - out))})`, filter: `blur(${20 * (1 - p) + 14 * (1 - out)}px)`}}>
+      transformOrigin: '50% 0%', transform: `scale(${(1.15 - 0.15 * p) * (1 - 0.08 * (1 - out))})`, filter: `blur(${20 * (1 - p) + 14 * (1 - out)}px)`}}>
       <div style={{position: 'absolute', left: -w * 0.32, top: -H * 0.3, width: w * 1.64, height: H * 1.6}}>
-        <LightRing w={w * 1.18} h={H * 1.0} color={color} at={S} seed={seed} />
+        <LightRing w={w * 1.1} h={H * 0.94} color={color} at={S} seed={seed} />
       </div>
       <div style={{position: 'absolute', inset: 0, borderRadius: 64, overflow: 'hidden',
         boxShadow: `0 40px 80px -30px ${color}, 0 0 0 2px rgba(181,243,255,.35), 0 30px 60px rgba(0,0,0,.55)`}}>
