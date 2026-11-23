@@ -36,10 +36,10 @@ const nameReveal = (t: number): Cue[] => [
   {file: 'ref2_g_comet', at: t, vol: 0.22},                      // number tile develops
 ];
 /**
- * Screen change (user rule) — used ONLY on cuts:
- *  riser  : builds ~0.85 s and ENDS on the cut (trimmed so no tail spills past it)
- *  whoosh : one smooth pass, its peak crossing the cut
- *  impact : its ATTACK (not its peak) lands on the first frame of the new screen; trimmed to 0.6 s
+ * Site-name hit (user rule) — riser → whoosh → impact, used ONLY when a crypto site name lands behind the head:
+ *  riser  : builds ~0.85 s and ENDS as the name lands (trimmed so no tail spills past it)
+ *  whoosh : one smooth pass, its peak crossing the landing
+ *  impact : its ATTACK (not its peak) lands on the name's first frame; trimmed to 0.6 s
  */
 const sceneCut = (t: number, w = 'whoosh_air'): Cue[] => [
   {file: 'ref_riser', at: t, peak: 1.06, len: 1.06, vol: 0.45, cut: true},
@@ -57,15 +57,13 @@ const CUES: Cue[] = [
   {file: 'game_over', at: 4.46, vol: 0.4},                         // "mad" 😤
 
   // ── site names (combo)
+  ...sceneCut(6.74), ...sceneCut(12.98), ...sceneCut(21.12), ...sceneCut(38.34), // riser → whoosh → impact ONLY on site names (user rule)
   ...nameReveal(6.74),
   ...nameReveal(12.98),
   ...nameReveal(21.12),
   ...nameReveal(38.34),
 
   // ── scene cuts (combo)
-  ...sceneCut(8.7), ...sceneCut(11.96), ...sceneCut(14.0), ...sceneCut(20.56),
-  ...sceneCut(22.68), ...sceneCut(27.72), ...sceneCut(31.82), ...sceneCut(37.42),
-  ...sceneCut(33.5, 'whoosh_deep'),                                // into the CTA insert
 
   // ── DefiLlama dashboard
   {file: 'gears', at: 8.84, vol: 0.3},                             // curve draws on
@@ -99,7 +97,7 @@ const CUES: Cue[] = [
   ...heavyLands.map((t) => ({file: 'ref2_g_scripts', at: t, vol: 0.4})),    // every bold word: Scripts reveal hit
 ];
 
-/** Duck every other sound (pops, clicks, reveal hits) that falls inside a screen change: from 1 s before the cut
+/** Duck every other sound (pops, clicks, reveal hits) around each site-name hit: from 1 s before the cut
  *  (while the riser builds) to 0.6 s after (while the impact rings). User rule: pops must sit under riser/whoosh/impact. */
 const CUT_TIMES = CUES.filter((c) => c.cut && c.file === 'impact').map((c) => c.at);
 const duck = (c: Cue) => {
