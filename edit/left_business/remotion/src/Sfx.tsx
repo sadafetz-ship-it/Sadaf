@@ -43,13 +43,13 @@ const CUES: Cue[] = [
   {file: 'pop_media', at: s(471), vol: 0.4, keep: true},
   // to-do list whips in, items strike, SKIPPED stamp
   {file: 'paper_slide', at: s(492), vol: 0.32, keep: true},
-  ...[528, 555, 609].map((f) => ({file: 'pop_ui', at: s(f), vol: 0.38, keep: true})),
+  ...[528, 555, 609].map((f) => ({file: 'ref_click', at: s(f), vol: 0.34, keep: true})),
   {file: 'ref2_g_drop', at: s(615), vol: 0.45, keep: true},
   // the switch: card whips in, progress ticks, click, colour wipe, ASAP
-  {file: 'paper_slide', at: s(632), vol: 0.32, keep: true},
+  {file: 'paper_slide', at: s(632), vol: 0.24, keep: true},
   {file: 'gears', at: s(640), vol: 0.22},
-  {file: 'ref_click', at: s(662), vol: 0.6, keep: true},
-  {file: 'whoosh_air', at: s(668), vol: 0.5, keep: true},
+  {file: 'ref_click', at: s(662), vol: 0.4, keep: true},
+  {file: 'whoosh_air', at: s(668), vol: 0.26, keep: true},
   {file: 'ref_ding', at: s(673), vol: 0.45, keep: true},
   // C: audience chart card, order chips
   {file: 'ref2_g_comet', at: s(832), vol: 0.45, keep: true},
