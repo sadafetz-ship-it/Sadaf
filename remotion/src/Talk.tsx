@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
 import {C, FONT} from './theme';
 import {BEHIND_NAMES, cameraZoom, f, pop, SCENES, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, Dot, glass, Metallic, Plus} from './ui';
@@ -76,6 +76,90 @@ const MadSticker: React.FC = () => {
 };
 
 
+
+/** Farside board — ORIGINAL look (purple card over the chest: title, glowing divider, star bullets),
+ *  animated like the input-bar reference: starts as a small bar whose title types on behind a spark → "+" →
+ *  orb lifts off, hovers, drops in (white flash) → bar expands into the full board → bullets pop on their words →
+ *  glossy cube bounces onto the corner → folds back into the bar at the end. */
+const FarsideBoard: React.FC = () => {
+  const frame = useCurrentFrame();
+  const S = f(39.2), END = f(44.5 + 0.6);
+  if (frame < S) return null;
+  const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
+  const LEFT = 290, W = 500, TOP = 730, BAR_H = 150, FULL_H = 470;
+  const t1 = 'Farside', t2 = 'ETF Flow Tracker';
+  // 1 · bar in + title typing with a spark caret
+  const typed = Math.floor(interpolate(frame, [S + 4, S + 20], [0, t1.length + t2.length], cl));
+  const s1 = t1.slice(0, Math.min(typed, t1.length)), s2 = t2.slice(0, Math.max(0, typed - t1.length));
+  const plusS = pop(frame, S + 20, 7);
+  // 2 · orb lifts off the "+", hovers, drops on "inflows"
+  const drop = f(40.44) - 3;
+  const lift = interpolate(frame, [S + 22, S + 29], [0, 1], {...cl, easing: Easing.out(Easing.cubic)});
+  const fall = interpolate(frame, [drop - 4, drop], [0, 1], {...cl, easing: Easing.in(Easing.cubic)});
+  const orbX = LEFT + W - 44 + lift * 60 + Math.sin(frame / 7) * 5 * (1 - fall);
+  const orbY = TOP + 44 - lift * 170 + Math.cos(frame / 9) * 7 * (1 - fall) + fall * 190;
+  // 3 · flash + expand to the full board; fold back at the end
+  const flashW = interpolate(frame, [drop, drop + 2, drop + 7], [0, 0.85, 0], cl);
+  const open = tw(frame, drop + 1, 10, 0, 1);
+  const collapse = interpolate(frame, [END - 16, END - 8], [0, 1], {...cl, easing: Easing.in(Easing.cubic)});
+  const amt = open * (1 - collapse);
+  const h = BAR_H + (FULL_H - BAR_H) * amt;
+  const line = tw(frame, drop + 4, 12, 0, 100) * (1 - collapse);
+  const fade = interpolate(frame, [END - 8, END - 1], [1, 0], cl);
+  const items: [string, number][] = [['Inflows', 40.44], ['Outflows', 41.16], ['Ethereum ETFs', 42.34], ['Bitcoin ETFs', 43.24]];
+  const cube = f(43.24) + 4;
+  const cubeS = interpolate(frame, [cube, cube + 5, cube + 9, cube + 12], [0, 1.25, 0.92, 1], cl) * (1 - collapse);
+  return (
+    <>
+      <div style={{position: 'absolute', left: LEFT, width: W, top: TOP, height: h, zIndex: 30, borderRadius: 22, overflow: 'hidden', padding: '36px 48px 30px',
+        background: `linear-gradient(170deg,rgba(128,80,232,.78) 0%,rgba(84,38,168,.82) 45%,rgba(25,13,50,.9) 100%)`,
+        border: '1.5px solid rgba(185,154,245,.45)', boxShadow: '0 30px 80px rgba(25,13,50,.55), 0 0 60px rgba(128,80,232,.35), inset 0 1px 0 rgba(238,231,255,.3)',
+        backdropFilter: 'blur(16px)', opacity: fade * tw(frame, S, 6, 0, 1),
+        transform: `translateY(${tw(frame, S, 10, 90, 0)}px) scale(${tw(frame, S, 10, 0.94, 1)})`, filter: `blur(${tw(frame, S, 8, 20, 0)}px)`}}>
+        <div style={{textAlign: 'center', font: `600 46px ${FONT.display}`, letterSpacing: -1, lineHeight: 1.05, color: C.mist, minHeight: 84}}>
+          {s1}<br /><span style={{font: `500 34px ${FONT.display}`, color: 'rgba(238,231,255,.85)'}}>{s2}</span>
+        </div>
+        <div style={{position: 'absolute', right: 16, top: 16, width: 44, height: 44, borderRadius: '50%', background: 'rgba(238,231,255,.16)',
+          border: '1.5px solid rgba(238,231,255,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: C.mist, font: `300 34px ${FONT.ui}`,
+          transform: `scale(${plusS}) rotate(${(1 - plusS) * 180 + open * 45}deg)`}}>+</div>
+        <div style={{height: 5, borderRadius: 3, margin: '22px auto 22px', width: `${line}%`, background: `linear-gradient(90deg,${C.lilac},${C.mist},${C.lilac})`,
+          boxShadow: `0 0 14px ${C.lilac}, 0 0 30px ${C.violet}`}} />
+        {items.map(([label, t], i) => {
+          const a = Math.max(f(t) - 1, drop + 6);
+          if (frame < a) return <div key={i} style={{height: 58}} />;
+          const chars = Math.floor(tw(frame, a, 8, 0, label.length, (x) => x));
+          const tw2 = 1 + 0.5 * Math.exp(-(frame - a) / 5) * Math.abs(Math.sin((frame - a) / 2));
+          return (
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: 58, font: `500 38px ${FONT.ui}`, color: C.mist, opacity: 1 - collapse,
+              transform: `scale(${interpolate(frame, [a, a + 4, a + 7], [0.6, 1.08, 1], cl)})`, transformOrigin: '0 50%'}}>
+              <svg width={40} height={40} viewBox="0 0 24 24" style={{transform: `scale(${pop(frame, a, 6) * tw2}) rotate(${(frame - a) * 2}deg)`,
+                filter: `drop-shadow(0 0 8px ${C.mist}) drop-shadow(0 0 16px ${C.lilac})`}}>
+                <path d="M12 0C12.6 8 16 11.4 24 12 16 12.6 12.6 16 12 24 11.4 16 8 12.6 0 12 8 11.4 11.4 8 12 0Z" fill={C.mist} />
+              </svg>
+              <span>{label.slice(0, chars)}<span style={{opacity: chars < label.length ? 0.5 : 0}}>{label[chars] ?? ''}</span></span>
+            </div>
+          );
+        })}
+        <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: flashW}} />
+      </div>
+      {/* glossy cube bounces onto the corner */}
+      <div style={{position: 'absolute', left: LEFT + W - 64, top: TOP + h - 70, width: 104, height: 104, zIndex: 31, borderRadius: 24, opacity: fade,
+        transform: `scale(${cubeS}) rotate(${-12 + Math.sin((frame - cube) / 4) * 4 * Math.exp(-Math.max(0, frame - cube) / 14)}deg)`,
+        background: `linear-gradient(150deg,#E6D8FF 0%,${C.lilac} 30%,${C.violet} 70%,${C.deep} 100%)`,
+        boxShadow: `inset 0 4px 0 rgba(255,255,255,.7), inset -10px -14px 20px rgba(84,38,168,.6), 0 20px 40px rgba(0,0,0,.5), 0 0 50px rgba(185,154,245,.6)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center', font: `800 56px ${FONT.display}`, color: C.mist, textShadow: '0 3px 8px rgba(84,38,168,.8)'}}>₿</div>
+      {/* spark caret while typing, then the orb */}
+      {frame >= S + 4 && frame < S + 21 && <BoardSpark x={LEFT + W / 2 + (typed <= t1.length ? s1.length * 13 : s2.length * 9.5)} y={TOP + (typed <= t1.length ? 60 : 104)} size={16} />}
+      {frame >= S + 21 && frame < drop + 1 && <BoardSpark x={orbX} y={orbY} size={24} />}
+    </>
+  );
+};
+
+const BoardSpark: React.FC<{x: number; y: number; size: number}> = ({x, y, size}) => (
+  <div style={{position: 'absolute', left: x - size / 2, top: y - size / 2, width: size, height: size, borderRadius: '50%', background: '#fff', zIndex: 35,
+    boxShadow: `0 0 ${size}px ${size / 2}px rgba(255,255,255,.9), 0 0 ${size * 3}px ${size}px rgba(185,154,245,.7), 0 0 ${size * 6}px ${size * 2}px rgba(128,80,232,.45)`}} />
+);
+
 /** Footage layer, behind-head names, speaker cut-out, plus talking-head-only graphics. Always mounted until speech ends. */
 export const Talk: React.FC = () => {
   const frame = useCurrentFrame();
@@ -99,6 +183,7 @@ export const Talk: React.FC = () => {
         <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
       </AbsoluteFill>
       <ClassifiedCard />
+      <FarsideBoard />
       {/* text arcing over the head (ref R1) */}
       <ArcText text="these crypto websites" at={f(1.22)} end={f(2.94)} cx={540} cy={610} r={285} />
       {/* stacked 3D tiles counting the sites (ref R1) */}

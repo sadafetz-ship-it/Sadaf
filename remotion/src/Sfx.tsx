@@ -70,7 +70,6 @@ const CUES: Cue[] = [
   // ── scene cuts (combo)
   ...sceneCut(8.7, 'whoosh_a'), ...sceneCut(11.96, 'whoosh_b'), ...sceneCut(14.0, 'whoosh_a'), ...sceneCut(20.56, 'whoosh_b'),
   ...sceneCut(22.68, 'whoosh_a'), ...sceneCut(27.72, 'whoosh_b'), ...sceneCut(31.82, 'whoosh_a'), ...sceneCut(37.42, 'whoosh_b'),
-  ...sceneCut(39.2, 'whoosh_a'),
   {file: 'whoosh_deep', at: 33.5, vol: 0.45},                      // into the CTA insert
 
   // ── DefiLlama dashboard
@@ -100,8 +99,9 @@ const CUES: Cue[] = [
   {file: 'stretch', at: 35.47, vol: 0.22},                         // ring round "Bitcoin."
 
   // ── Farside: typing bar → "+" → orb lifts → drops (reveal) → buttons → cube → collapse
-  {file: 'ref_typing_b', at: 39.27, vol: 0.45, len: 0.45},         // bar types (same sound as the reference's typing bar)
-  ...uiPop(39.67, 'pop_ui', 0.35),                                 // "+" appears
+  {file: 'paper_slide', at: 39.25, vol: 0.35},                     // board slides up as a bar
+  {file: 'ref_typing_b', at: 39.33, vol: 0.45, len: 0.6},         // bar types (same sound as the reference's typing bar)
+  ...uiPop(39.87, 'pop_ui', 0.35),                                 // "+" appears
   {file: 'ref_riser', at: 40.34, vol: 0.4},                        // orb rises and hovers, builds into the drop
   {file: 'ref_light_reveal', at: 40.4, vol: 0.6},                  // orb drops → white flash → card opens
   {file: 'impact', at: 40.4, vol: 0.3},

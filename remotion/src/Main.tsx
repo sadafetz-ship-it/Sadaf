@@ -2,7 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {loadFont} from '@remotion/fonts';
 import {Captions} from './Captions';
-import {CoinGlassScene, CtaScene, DefiLlamaScene, EntryExitScene, FarsideScene, FlowsScene} from './Explainers';
+import {CoinGlassScene, CtaScene, DefiLlamaScene, EntryExitScene, FlowsScene} from './Explainers';
 import {PixelGrid} from './Pixel';
 import {Sfx} from './Sfx';
 import {Talk} from './Talk';
@@ -23,7 +23,6 @@ export const Main: React.FC = () => {
       <FlowsScene />
       <EntryExitScene />
       <CtaScene />
-      <FarsideScene />
       <Captions />
       {/* pixel grid on every cut (ref R1) + a softer 2 f flash */}
       {SWITCHES.map((t, i) => <PixelGrid key={i} at={f(t)} seed={`pg${i}`} />)}
