@@ -1,6 +1,6 @@
 import React from 'react';
 import {Audio, Sequence, staticFile} from 'remotion';
-import {CAPTION_GROUPS, f, FPS} from './timing';
+import {CAPTION_GROUPS, f, FPS, SWITCHES} from './timing';
 
 /**
  * Sound design. Files live in public/sfx/ (peak-normalised to −3 dBFS).
@@ -104,9 +104,13 @@ const duck = (c: Cue) => {
   return near ? 0.3 : 1;
 };
 
+/** User rule: no pop/click-type sounds on screen changes. Drop every non-name cue from 0.5 s before to 0.3 s after a screen cut. */
+const onScreenChange = (c: Cue) => !c.cut && SWITCHES.some((t) => c.at > t - 0.5 && c.at < t + 0.3);
+const PLAYED = CUES.filter((c) => !onScreenChange(c));
+
 export const Sfx: React.FC = () => (
   <>
-    {CUES.map((c, i) => {
+    {PLAYED.map((c, i) => {
       const start = c.at - (c.peak ?? PEAK[c.file] ?? 0);
       const from = Math.max(0, f(start));
       const trim = start < 0 ? f(-start) : 0;

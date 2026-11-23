@@ -171,6 +171,8 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - **whoosh**: one smooth pass (air-woosh), peak crossing the landing. Avoid choppy multi-burst whooshes.
   - **impact**: align its **attack/onset** (not its loudest point) to the landing frame; trim to ~0.6 s.
   - Check the effects-only envelope (mix minus voice): a steady climb into the landing, then a hold for ~0.6 s.
+  - **Screen changes stay clean:** no pop/click-type sound on a screen change. Drop every non-name cue from 0.5 s before to
+    0.3 s after each cut (captions often start exactly on a cut, so their click must be skipped there).
   - **Duck pops under the name hits:** any other sound (caption click, bold-word hit, reveal, comet) from 1 s before a name
     lands to 0.6 s after plays at **30 %**, so the riser, whoosh and impact lead.
   - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
