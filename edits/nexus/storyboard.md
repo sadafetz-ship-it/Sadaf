@@ -1,4 +1,6 @@
-# Nexus: storyboard v1
+# Nexus: storyboard v2
+
+**v2 changes:** (1) the purple backlight is kept as filmed, with no green grade; (2) the circled "Golden Hour" colours are used as detail accents.
 
 **Canvas:** 1080×1920, 30 fps. **Edited length:** ≈28.3 s (two retakes cut, see `transcript.md`).
 Times below are **edited-timeline** seconds; raw time in brackets where it differs.
@@ -6,15 +8,23 @@ Times below are **edited-timeline** seconds; raw time in brackets where it diffe
 ## Look
 | Token | Hex | Use |
 |---|---|---|
-| Lime | `#A6F538` | main accent: glows, lines, pixel reveals, progress fills, the dot after heavy words |
+| Lime | `#A6F538` | main accent: glows, lines, pixel reveals, progress fills |
 | Pale lime | `#D4F98E` | script words, karaoke highlight, card borders, small labels |
 | White | `#FFFFFF` | all main caption text |
 | Ink | `#212C1A` | card bodies, number tiles, explainer world |
-| Moss | `#7E9A4E` | gradient starts, empty tracks, secondary bars, the backlight grade |
+| Moss | `#7E9A4E` | gradient starts, empty tracks, secondary bars |
 
-- **Grade:** the purple backlight behind the head becomes a soft moss glow (luminance kept, so shadows stay clean), plus a faint lime light pool behind the head. This matches the lime/brown cardigan.
+**Detail accents (Golden Hour, small touches only, never large areas):**
+
+| Token | Hex | Use |
+|---|---|---|
+| Amber | `#FFC000` | the dot after heavy words, progress-bar thumbs, `+` sparkles, one cell in each pixel cluster |
+| Gold | `#EDBF1E` | pill-tag dots, cursor glow |
+| Coral | `#EB8858` | small `+` sparkles, one cell in each pixel cluster |
+
+- **Footage:** no colour change. The purple backlight stays exactly as filmed. Explainer scenes use the same dark room with a purple light pool, with the green UI on top.
 - **Captions:** house three-line lockup in the lower third: Inter Light setup line → Allura script in pale lime → Inter SemiBold heavy word with a lime dot. Glow uses the "Golden Hour" recipe recoloured to white → pale lime → lime → moss.
-- **Pixel reveal:** "Scripts" style only (tetromino clusters in lime / pale lime / moss), on every heavy word and every behind-head name.
+- **Pixel reveal:** "Scripts" style only (tetromino clusters in lime / pale lime / moss, with single amber and coral cells), on every heavy word and every behind-head name.
 - **Camera:** slow push in each talking stretch; 4-frame punch-ins on key words; zoom-blur (scale 1.12→1, blur 28→0, 5 f) on cuts.
 
 ## Beats
@@ -33,8 +43,8 @@ Times below are **edited-timeline** seconds; raw time in brackets where it diffe
 
 Mode rhythm: name → explainer → cards → name → card → name+card → name → explainer, switching every 1.3–3 s.
 
-## Preview frames (v1)
-`preview_v1/board_v1.jpg` plus full-size JPGs:
+## Preview frames (v2)
+`preview_v2/board_v2.jpg` (v1 with the green grade is kept in `preview_v1/` for comparison) plus full-size JPGs:
 1. `01_nexus` — 0:02.8, NEXUS behind the head
 2. `02_link` — 0:05.5, link explainer
 3. `03_three` — 0:08.0, three program tiles (03 still developing from its white flash)
