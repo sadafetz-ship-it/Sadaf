@@ -45,7 +45,6 @@ const sceneCut = (t: number, w = 'whoosh_air'): Cue[] => [
   {file: 'impact', at: t, peak: 0.04, len: 0.6, vol: 0.42, cut: true},
 ];
 
-const captionStarts = CAPTION_GROUPS.map((g) => g.start + 2 / FPS);
 
 const CUES: Cue[] = [
   // ── hook
@@ -88,8 +87,7 @@ const CUES: Cue[] = [
   {file: 'ref_light_reveal', at: 40.4, vol: 0.6},                  // orb drops → white flash → card opens
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 
-  // ── captions: ONE sound for every caption, a DIFFERENT one only for bold words (user rule)
-  ...captionStarts.map((t) => ({file: 'ref_click', at: t, vol: 0.28})),     // every caption appears: same soft click
+  // ── captions: NO sound (user removed the caption click)
 ];
 
 /** Duck every other sound (pops, clicks, reveal hits) around each site-name hit: from 1 s before the cut

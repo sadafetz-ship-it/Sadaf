@@ -177,10 +177,10 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
     lands to 0.6 s after plays at **30 %**, so the riser, whoosh and impact lead.
   - **No unnecessary UI pops**: none on dots, chips, tags, ENTRY/EXIT, icons, "+" buttons, bullets, sparkles, progress bars or
     doubled clicks.
-- **Caption sound rule (user):** every caption gets the **same** soft click as it appears (skipped on screen changes). **No
-  extra hit on bold words or names**: the user rejected the Scripts reveal hit that repeated 16 times. Before sending, **count
-  plays per sound file** (bundle `Sfx.tsx` with esbuild and count the cue list). Any one sound repeating ~10+ times reads as
-  unnecessary, so cut it or vary it.
+- **Caption sound rule (user, final):** captions get **NO sound at all**. No click per caption and no hit on bold words or names
+  (the user rejected both). Before sending, **count plays per sound file** (bundle `Sfx.tsx` with esbuild and count the cue
+  list). Any one sound repeating ~10+ times reads as unnecessary, so cut it or vary it. When the user can't name a sound, export
+  every used SFX as numbered mp3s plus one catalog file with timestamps (`edit/sfx_used/`) and let them pick by number.
 - **Mix rules:**
   - All SFX × master gain ~0.6.
   - Quiet caption details (0.13–0.25).
