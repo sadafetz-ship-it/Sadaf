@@ -112,3 +112,10 @@ scale the face up, so during a punch-in the cards slide down by the same amount.
 - The pixel clusters were moved off the small words (left, right and centre-top of the box) so they never cover text.
 - The face check still passes (`preview_v8/facecheck.jpg`). `preview_v8/cmp.jpg` is a close-up of the four top words.
 - Previews: `board_v8.jpg`, `preview_v8/`.
+
+## v9 change: no captions on F8 and F9
+- **F8** (20.5–21.6 s, content orbit): the caption is removed. The orbit's centre text now carries the line word for word:
+  "We get / **a lot of content** / for you" (was "We'll give you / a lot of content"). "a lot of content" types on at 20.72 s.
+- **F9** (21.9–23.2 s, "Who is · for? · THIS JOB"): the caption is removed. The top word carries the question.
+- Captions with no caption now: F8, F9, F10, F11b, F12. Captions return at F11 ("consistency") and from F13.
+- Previews: `board_v9.jpg`, `preview_v9/`.
