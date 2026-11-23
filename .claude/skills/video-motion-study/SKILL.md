@@ -1,6 +1,6 @@
 ---
 name: video-motion-study
-description: Study reference videos frame by frame and turn them into a motion-design breakdown covering design principles (colours, fonts, layout, objects, effects), animation logic (what each element does - pop-in, blur reveal, morph, transitions, frame counts, easing) and how animations are placed and timed against the script. Use this whenever the user uploads or points to reels, ads, TikToks, Instagram edits, UI-animation clips, motion-graphics showreels or "videos I like" and wants to analyse, deconstruct, reverse-engineer, learn from, cut up, extract frames from, or copy the style or editing of them, even if they don't say "motion design" or "study". Also handles grid/collage videos that hold several videos in one frame.
+description: "Study reference videos frame by frame (colours, fonts, layout, effects, animation logic, frame counts, easing, timing against the script) AND edit the user's own raw talking-head videos in their house style: word-by-word transcript, storyboard, still previews for approval, then a Remotion build with captions, pixel reveals, card animations, speaker cut-out and sound design. Use whenever the user shares reels, ads, TikToks, UI animations or \"videos I like\" to analyse, copy or cut up; shares a raw video to edit; asks for a transcript, storyboard or preview; asks to animate cards or captions like references; or sends sound effects to place. Also handles grid videos with several clips in one frame."
 ---
 
 # Video motion study
@@ -9,16 +9,28 @@ Turn a batch of reference videos into a reusable motion-design study: clips cut 
 
 The value is in *precise, named observations* ("per-letter blur reveal, 3 f stagger, word behind the head, lands on the spoken word") rather than vague taste words. Every claim should be traceable to a timestamp on a sheet.
 
+## Two modes
+- **Study mode** (reference videos → breakdown): the workflow below.
+- **Edit mode** (the user's raw video → finished edit): read **`references/house_style.md` first** (the user's standing preferences, rejected ideas, animation recipes, sound design), then follow **`references/edit_pipeline.md`**. Use study mode on any new references they send, then map each circled or named element onto the edit. Change only what they asked: "animation" means motion only.
+
+When the user gives a new standing preference, or rejects something, add it to `house_style.md` in the same session so they never have to repeat it.
+
 ## Tools
 - `scripts/vstudy.py` wraps ffmpeg: `probe`, `split`, `sheets`, `frames`, `zoom`, `web`. Run it with `python3 -I <skill>/scripts/vstudy.py <cmd> ...` (`-I` keeps untrusted upload folders off the import path). Only ffmpeg/ffprobe are required.
 - `references/vocabulary.md` is the naming checklist for techniques, transitions and timing patterns. Read it before you start watching, so your notes use consistent names.
 - `references/example_study.md` is a finished synthesis from a real run. Skim it to calibrate depth and structure.
+- `references/house_style.md`: the user's house style and rules for edits (palette, caption lockup, the only pixel style they want, card animation recipes with measured frames, SFX roles and combos, things they rejected).
+- `references/edit_pipeline.md`: the transcript → storyboard → preview → Remotion pipeline, speaker cut-out, render and audit steps, environment workarounds.
+- `scripts/remotion_CardFx.tsx`: drop-in Remotion code for every animation recipe (Scripts pixels, glow, drop-in, whip, comet reveal, ink line, bloom).
+- `scripts/remotion_House*.tsx` + `remotion_house_theme.ts`: the full 16:9 house edit. This is the **current caption lockup** and the **motion-graphics library**: gauge, product card with light ribbon, calendar→card morph, gold key, $$$, beam sweep, Scripts-style titles, camera and grade. Start new edits from these files, recoloured to the new accent.
+- `scripts/make_sfx.py`: synthesises stand-in SFX (click, key, pop, whoosh, impact, riser, shimmer, data, ding, swell, scripts_hit) and writes their peak offsets. Use it only when the user's SFX library isn't in the container, and tell them.
+- `scripts/cutout_speaker.py`: speaker cut-out → alpha WebM, for text behind the head. `scripts/sfx_tools.py`: analyse SFX files (peak offsets, duplicates) and split SFX out of a reference video.
 
 ## Defaults to confirm only if unclear
 These came from the user who commissioned this skill. Apply them silently unless the user says otherwise.
 - **Grids count as separate videos.** If a frame holds 2×2 (or other) panels, split them and analyse each panel as its own clip.
 - **Ignore platform chrome**: Instagram/TikTok logos, usernames, timers, like/share buttons and watermarks. Keep account names out of the deliverables.
-- **Do not transcribe audio unless asked.** The on-screen text is the script in these edits; derive script timing from captions. If transcription *is* requested, faster-whisper needs model downloads from huggingface.co (may need a network allowance). The offline pocketsphinx recogniser is too inaccurate to be worth using.
+- **Do not transcribe reference audio unless asked.** The on-screen text is the script in these edits; derive script timing from captions. For the user's own raw video, a word-by-word transcript is always wanted. Use `openai-whisper` (`pip install openai-whisper`, models from openaipublic.azureedge.net), because faster-whisper's Hugging Face downloads are often blocked. The offline pocketsphinx recogniser is too inaccurate to be worth using.
 - Faces pixelated in the source are part of the source; just note it.
 
 ## Workflow

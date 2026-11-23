@@ -1,0 +1,18 @@
+{
+  "name": "house-edit",
+  "private": true,
+  "scripts": {
+    "assets": "mkdir -p public && cp ../../../raw/house.mp4 public/raw.mp4",
+    "studio": "remotion studio src/index.ts",
+    "still": "remotion still src/index.ts Main",
+    "render": "remotion render src/index.ts Main out/house_edit.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.545",
+    "@types/react": "^19.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.545",
+    "typescript": "^7.0.2"
+  }
+}

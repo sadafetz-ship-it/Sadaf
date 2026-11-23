@@ -1,18 +1,20 @@
 # House style: this user's standing preferences
 
-These rules came from the user, across a full edit (crypto-websites reel, Nov 2026). Apply them by default on every new
+These rules came from the user, across full edits (crypto-websites reel and the 16:9 house-buying video, Nov 2026). Apply them by default on every new
 project. Ask only when the user's new instructions conflict with them. When the user gives new preferences, append them here.
 
 ## Contents
 1. Working rules (approval gates, what NOT to change)
 2. Palette and colour rules
-3. Captions: lower-third three-line lockup + "Golden Hour" glow
+3. Captions: lower-third lockup, Golden Hour script pill, low-glow heavy words + highlight bar
 4. Layout and modes
 5. Pixel effect ("red Scripts" style), the only pixel style the user wants
 6. Card animation recipes (measured from the user's references)
 7. Other recurring elements
 8. Sound design: library roles, combos, mix rules
 9. Things the user rejected (do not repeat)
+10. Frame (keep 16:9), face-free side zones, Scripts-style name lockup
+11. Motion-graphics library (gauge, product card + ribbon, calendar→card morph, gold key, $$$, beam sweep...)
 
 ---
 
@@ -36,7 +38,7 @@ project. Ask only when the user's new instructions conflict with them. When the 
 - Commit and push after every meaningful step (a stop hook enforces this). Never commit the raw upload twice. Never commit voice
   files that aren't SFX.
 
-## 2. Palette (default purple set; the user may supply another)
+## 2. Palette (default purple set; replaced by the circled accent when the user gives one, see §3)
 | Token | Hex | Use |
 |---|---|---|
 | Ink | `#190D32` | backgrounds, card bodies, text on light pills |
@@ -56,26 +58,47 @@ project. Ask only when the user's new instructions conflict with them. When the 
 - **"The colour for picture effects and cards should be purple"**: pixels, glows, cards and comets all use violet / lilac / magenta
   tints.
 
-## 3. Captions (the transcript is always on screen)
-- **Position:** lower third. Block bottom edge 270 px above the frame bottom, centred, line 1 max-width 900 px with
-  `text-wrap: balance`.
-- **Three-line lockup** (from the "You're not / *competing* on / **price.**" reference):
+## 3. Captions (current default, updated Nov 2026)
+The transcript is always on screen in the **lower third**: block bottom edge 64 px above the frame bottom (16:9) or 270 px
+(9:16), centred, never above the top of the lower third.
 
-  | Line | Font | Size / tracking | Colour |
-  |---|---|---|---|
-  | 1. Setup | **Inter Display Light** | 58 px, −2 | Mist; each word types on in lilac and settles to mist over ~10 f (karaoke) |
-  | 2. Accent | **Allura** script (OFL, `@fontsource/allura` from npm) | 132 px, lilac | Written on with a left→right mask |
-  | 3. Heavy | **Inter Display SemiBold** + **rose dot** | 156 px, −7 | Auto-shrinks: `min(156, 1872 / chars)` |
+**Three-line lockup:**
 
-  - **Script mask:** give the script span 100 px padding (with matching negative margins). Otherwise the mask clips the font's
-    loops ("mad" → "maq", "detailed" → "detailea") and cuts off the glow as a visible box.
-- **"Golden Hour" glow, in purple**, on script + heavy words + site names:
-  - **Fill:** `linear-gradient(180deg,#FFF 10%,#F1E8FF 45%,#D2B8FF 75%,#B99AF5)`.
-  - **Glow:** `drop-shadow(0 0 6px rgba(238,231,255,.55)) drop-shadow(0 0 18px #B99AF5) drop-shadow(0 0 42px rgba(128,80,232,.85)) drop-shadow(0 0 80px rgba(198,91,242,.45))`.
-  - Put the glow filter on an **inner** span when the outer span has a mask.
-- **Grouping:** one hero word per group. Put the heavy word **near the end** of the spoken phrase so it stays on screen ≥0.5 s.
-  Groups are matched to transcript tokens in order, so every word lands on its spoken frame.
-- **Swoosh streak** (white arc) brings in each "First / Second / Third / And lastly", **above** the caption, not through it.
+| Line | Font | 16:9 size | 9:16 size | Look |
+|---|---|---|---|---|
+| 1. Setup | **Inter Display Light** (Inter variable, `opsz` 32) | 46 px, tracking −1.4 | 58 px, −2 | Cream. Each word blurs in on its spoken frame (blur 10→0, y 12→0, 5 f) in the accent colour and settles to cream over ~10 f (karaoke). Max-width 1200 px (16:9) / 900 px (9:16), `text-wrap: balance`. |
+| 2. Script **pill** | **Allura** script in **ink** on a glowing gradient pill | 76 px | 104 px | Taken from the circled "Golden Hour" reference. Pill: `linear-gradient(180deg,#FFE58A,#FFC000 55%,#F0913A)`, inset cream hairline, glow `0 0 22px rgba(255,192,0,.6), 0 0 50px rgba(235,136,88,.45)`. Pops in (scale 0.6→1.06→1, 8 f), then the script writes on left→right with a mask over the spoken words. |
+| 3. Heavy | **Inter Display SemiBold** (wght 620) + accent dot | ≤118 px, −5; `min(118, 1404/chars)` | ≤156 px, −7; `min(156, 1872/chars)` | **Low glow**, the "Nexus." / "$10,000 per month" look (details below). |
+
+**Heavy word style:**
+- **Fill:** `linear-gradient(180deg,#FFF 30%,<pale accent tint> 70%,<light accent> 100%)`. For Golden Hour that is `#FFF1CF` → `#FFE2A0`.
+- **Glow:** one soft glow only: `drop-shadow(0 0 8px rgba(<accent>,.35)) drop-shadow(0 2px 14px rgba(0,0,0,.35))`. The old
+  4-layer glow stack was too strong (the user's call).
+- **Dot** in the accent colour after the word. It pops 6 f after the word lands.
+- **Highlight bar** (from "$10,000 per month"), used on 2–3 key words per video:
+  - Look: a 0.26 em gradient bar behind the lower half of the word (dark → accent → light), with a glow.
+  - Motion: wipes in left→right over 8 f, starting 4 f after the word lands.
+
+**Heavy reveal (Scripts recipe):**
+1. An accent ink line drops onto the word (4 f).
+2. The word blooms in: blur 16→0, brightness 1.6→1, scale 1.08→1 over 10 f.
+3. Same-hue pixel clusters jitter and blink out by about 18 f.
+
+**Variant: 3D swing** (from "Multibillion dollar"), for the last or punchline word:
+- `perspective(900px) rotateY(75°→−18°→−10°)` and `rotateZ(−12°→−3°)` with back-ease over 14 f.
+
+**Rules:**
+- **Script mask:** pad the script span 60–100 px with matching negative margins. Otherwise the mask clips the loops
+  ("mad" → "maq").
+- **Grouping:** one hero word per group, placed near the end of the phrase, so it stays on screen ≥0.5 s. A leftover tail
+  ("right now,") goes on a small 4th line under the heavy word instead of a new group.
+  - Groups are matched to transcript tokens in order, so every word lands on its spoken frame.
+- **Exit:** the group blurs out (blur 0→10, fade) over the last 4 f before the next group starts.
+- **Swoosh streak** (white arc) brings in each "First / Second / Third", **above** the caption.
+
+**Accent per video:** when the user circles a colour reference, recolour the whole edit into it (replace the purple set, don't mix).
+- Golden Hour set: ink `#160C06`, umber `#6B3410`, ember `#EB8858`, gold `#EDBF1E`, amber `#FFC000`, cream `#FFF4DE`, title solid `#FFB21A`.
+- The reference's swatch chips gave the hexes directly.
 
 ## 4. Layout and modes
 - **Zones:**
@@ -191,23 +214,60 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
 - Thumbnail tiles in a zigzag (see §7).
 - Redesigning a card when only its animation was requested (see §1).
 
-## 10. Added Nov 2026 (house video)
-- **Accent per video:** when the user circles a colour reference (e.g. "Golden Hour"), recolour the whole edit into it.
-  - The default purple set is replaced, not mixed with it.
-  - Golden Hour palette: ink `#160C06`, umber `#6B3410`, ember `#EB8858`, gold `#EDBF1E`, amber `#FFC000`, cream `#FFF4DE`.
-- **Names behind the head use the "Make better Scripts" style:**
-  - Flat solid accent word, tight bold, no gradient or glow.
-  - Two small setup words above the left and right ends.
-  - Small outline square on the left.
-  - Same-hue chunky pixel clusters.
-  - Motion-blur ghost on entry.
-  - No pill tag.
-- **Heavy caption words: low glow, "Nexus." / "$10,000 per month" look:**
-  - Fill fades white → pale tint, with one soft ~8 px glow and an accent dot.
-  - An optional glowing highlight bar sits behind the lower half of the word.
-  - The heavy glow stack from §3 was too strong.
-- **Frame:** if the source is 16:9, the edit stays **16:9 (1920×1080)** unless the user asks for vertical. Don't crop to 9:16 without asking.
-- **Captions:** the regular caption always sits in the **lower third**.
-- **Nothing on the face:** visual elements must never cover the speaker's face.
-  - Measure the face box from the cut-out mask, then place cards and titles in the side zones beside the speaker.
-  - In 16:9, the Scripts-style names go beside the head, fully readable, not behind it.
+## 10. Frame, face and title rules (Nov 2026)
+- **Frame:** a 16:9 source stays **16:9 (1920×1080)**, full frame with no crop, unless the user asks for vertical.
+  Never crop to 9:16 without asking.
+- **Nothing on the face.** Measure the face box from the U²-Net cut-out mask on every preview still:
+  - Columns of the mask in a band 80–320 px below its top give the head's x range.
+  - Keep a margin of 40 px or more.
+  - Cards and titles live in **side zones**. In the house video (face x 690–1165, y 60–540) these were left x 60–640 and right
+    x 1240–1860, from y 110 to 620.
+  - Camera punch-ins scale around the face centre (`transform-origin` at the face), so the face grows in place and
+    doesn't slide under overlays.
+- **Names / topic words** ("HOME", "PLAN") use the **"Make better Scripts" lockup**:
+
+  | Part | Spec |
+  |---|---|
+  | Word | Flat solid accent word (`#FFB21A` for Golden Hour), weight 780, tracking −14, line-height 0.86, no gradient, no glow |
+  | Setup words | Two small cream words above the left and right ends ("buying a … new", "your … 10-year"), 40 px, each blurring in on its spoken word |
+  | Square | Small outline square (26 px, 3 px cream border) to the left, popping in 3 f after the word |
+  | Pixels | Chunky same-hue stair-step clusters at the lower-left and upper-right, cell size about 0.13 × font size, life about 22 f |
+  | Entry | Ink line drop, then the word slides in from −90 px with blur 16→0 over 9 f. A **motion-blur ghost** copy trails 60 px to the right and collapses to 18 px over 16 f (opacity 0.55→0.25). |
+  | Idle | Drifts ±3 px |
+  | Exit | Blur out over 6 f |
+
+  - In 16:9 the lockup sits in a side zone, fully readable. In 9:16 it can go behind the head.
+  - No pill tags or cursor on names.
+
+## 11. Motion-graphics library (from the user's reference grids, Nov 2026)
+All of these are recoloured into the video's accent. The working code is in `scripts/remotion_House*.tsx`:
+- `Fx`: helpers.
+- `Captions`: the lockup.
+- `Overlays`: talk-shot graphics.
+- `Explainers`: full-screen scenes and transitions.
+- `Main`: camera, grade and layering.
+- `Sfx`: the cue sheet.
+
+Plus `remotion_house_theme.ts` and `make_sfx.py`.
+
+| Graphic | Source | Recipe (30 fps) | Used for |
+|---|---|---|---|
+| **Glass gauge widget** | "Performance 48°" | A **pixel-mosaic dissolve** comes first: a 10×10 grid of 44 px squares in accent/umber flickers on over 5 f and dissolves over 10 f. The glass tile (radius 84, light-to-dark gradient ending in an accent glow at the bottom) pops in (0.86→1.03→1, blur 18→0, 9 f). Dial ticks light up one by one over 18 f, and the number rolls up to land on its spoken frame. | numbers and durations ("10 yrs") |
+| **Product card + light-ribbon loop** | green / teal / purple product cards | The card is a light top (cream→accent gradient with an icon tile) over a dark bottom with a bold italic title, a subtitle and 5 stars that pop with a 2 f stagger. It develops from a white placeholder (glow reveal, 8 f). A thick glowing cream ribbon (blurred, with accent drop-shadows) draws a loop around the card over 30 f, then **flows** (moving dashes). Blurred, tilted ghost cards sit at the sides. | the key item / goal in an explainer |
+| **Music-player card** | Spotify-style "If I hear something I like" | Album art is a crop of the speaker. Title, "Playlist · N steps", a round accent play/pause button, and the steps as tracks. The play button is pressed on the matching word. | a list of steps (offered; the user preferred the calendar for "get started") |
+| **Calendar → click → card morph** | the user's own request | The glass "Day 1" calendar pops in; day cells cascade in (0.5 f stagger) and today's cell is accent-filled, scaled 1.12 and hand-circled. A cursor glides to today's cell and **clicks** it (cell flashes cream, ripple). The **cell grows into the next card**: position, size and radius morph from the cell to the card over 8 f, with an accent glow bloom. The calendar blurs to 6 px and dims to 55 % behind it. The card's content pops in order (icon → chip → title → buttons), then the cursor moves to and **presses** "Get started" (scale 0.93, glow flash, ripple). | "get started today" / any call to action |
+| **3D gold key + orbit ring** | "Consistency is the Key" | A glossy key with a white-gold-to-umber gradient and glow zoom-drops in (from 1.5, −240 px, tilt). A thin cream arc draws over 14 f and a dot travels along it. The key floats ±6 px and sparkles twinkle around it. | ownership / "the key to" / milestones |
+| **"$$$" + V lines + 3D swing word** | "Multibillion dollar / $$$" | Huge condensed `$` glyphs (Antonio 700, cream→accent fill) **drop in one by one** (3 f stagger, −140 px, blur, back-ease). Thin V lines draw behind them. On the punchline word the glyphs pulse (1.07) and the heavy caption **swings in in 3D**. Combine with the ember **edge flash** (inset glow, 2 f up, 12 f down). | money, cost, "pricey" |
+| **Light-beam sweep transition** | red / blue spotlight cone with a ring pivot | The incoming scene is revealed through a **cone of light** from a small ring pivot near the top-left. The cone widens from 0° to about 230° over 12 f, with soft glowing cream edges and a small 1 f white flash. | cuts into full-screen explainers |
+| **Zoom-blur + white-flash cut** | Golden Hour entry | A 1 f white flash at 70 %, then an overexposed fade (3 f). The footage goes scale 1.12→1 and blur 28→0 over 5 f. | cuts back to the speaker |
+| **Ink pill label typing** | black "Bayerische Motoren Werke" pill | A dark rounded label with an accent border; text types on behind a glowing caret and can collapse to an acronym. | short labels / steps (offered) |
+| **Neon light ribbon** | "isn't a Luxury" ribbon | A thick blurred cream stroke with accent glow drawn across an explainer background, then flowing. | explainer backgrounds |
+| **Explainer world** | house | An ink radial background with two slowly moving accent light pools, a faint 72 px grid masked to the centre, and particles drifting upward. | all full-screen scenes |
+
+**Golden Hour reveal** (the circled reference, measured frame by frame):
+- f0: 1 f white flash cut.
+- From f1: the script sits in the pill, and the heavy word types letter by letter, about 3–4 f per letter.
+- The fill runs white-yellow → orange.
+- Pixel clusters: orange on the left, yellow on the right, gone by about f17.
+- The lockup sits on the chest. Its pill-plus-script part became caption line 2.
+
