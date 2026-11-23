@@ -11,6 +11,11 @@ CSS = CSS + f"""
 .big{{font-weight:300;letter-spacing:-.04em;line-height:1;background:linear-gradient(180deg,#FFFFFF 20%,{MIST} 50%,#EAFF9A 100%);-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(230,255,79,.28))}}
 .neonpill{{position:absolute;border-radius:999px;background:#03081A;border:3px solid {LIME};box-shadow:0 0 0 1px rgba(243,247,255,.25) inset,0 0 18px rgba(230,255,79,.7),0 0 70px 10px rgba(46,100,176,.55),0 0 140px 30px rgba(23,61,112,.6)}}
 .ghostw{{position:absolute;font-weight:600;letter-spacing:-.04em;color:rgba(243,247,255,.09);filter:blur(5px);white-space:nowrap}}
+.foot{{filter:brightness(.86) contrast(1.06) saturate(.95)}}
+.wash{{opacity:.14}}
+.wash2{{background:linear-gradient(180deg,transparent 55%,rgba(8,24,58,.75) 100%),radial-gradient(ellipse at 50% 40%,transparent 60%,rgba(8,24,58,.35) 100%)}}
+.st .sm{{text-shadow:0 0 6px rgba(8,24,58,.9),0 2px 16px rgba(8,24,58,.9),0 0 30px rgba(8,24,58,.6)}}
+.st .w{{filter:drop-shadow(0 4px 18px rgba(8,24,58,.55))}}
 .hl{{color:{LIME};text-shadow:0 0 10px {LIME},0 0 26px rgba(230,255,79,.7)}}
 """
 def big(txt, size, extra=''):

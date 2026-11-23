@@ -10,7 +10,7 @@
 | Lime | `#E6FF4F` | the only accent: titles, pill, glows, dots, highlight bars, pixel clusters |
 | Mist | `#F3F7FF` | all main text, heavy-word fill |
 
-**Grade:** a cool navy grade pulls the bright sky into the palette, with an ink vignette behind the captions.
+**Grade (v6, your pick B):** natural colours, slightly darker (brightness .86), with a soft navy fade only at the bottom behind the captions and a light edge vignette. The palette lives in the graphics, not the footage.
 **Face zone:** head at x ≈ 830–1160. Graphics go only in the left zone (x 60–700, y 90–470) and the right zone (x 1240–1860, y 90–640).
 **Captions:** house three-line lockup in the lower third. (1) Inter Display Light setup line, karaoke lime → mist. (2) Allura script in ink on a lime glow pill. (3) Inter Display SemiBold heavy word with a lime dot; the lime highlight bar on 2–3 words.
 
