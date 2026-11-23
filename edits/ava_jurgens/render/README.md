@@ -64,3 +64,24 @@ so each file's hit lands on its animation frame. The sounds come from the user's
 - **Measured:** each combo sits between **0 and +5 dB of average speech**, so it's clearly audible and the voice stays on top.
   Mix peak −6.2 dB after the limiter, no clipping.
 - All other element sounds (typing, comet, drops, pops, dings, caption clicks) are unchanged.
+
+## v5: riser → whoosh → impact only on some motion graphics
+`ava_jurgens_v5_sfx.mp4` is the current render. v4 is still in git history.
+
+**Full combo** (full-length riser → whoosh → impact), on four motion-graphics entrances only:
+
+| Time | Motion graphic |
+|---|---|
+| 1.6 s | Personal Brand Launch profile page |
+| 5.4 s | Talented / Hardworking / Committed glow-ring cards |
+| 15.3 s | Light-beam wipe into POSITION INFO |
+| 28.9 s | "Consistency is the key" |
+
+Each sits about +1 to +2 dB over average speech, so they clearly stand out.
+
+Everything else is lighter, about −8 dB under speech:
+- **Top words** (Ava, EDITORS, THIS JOB, YOU): a soft pop plus the pixel sparkle.
+- **Cuts back to the talking head:** a soft whoosh or paper slide.
+- **Switches inside a scene** (→ Content Flow, → gauge, → orbit): dissolve or paper slide.
+
+All other element sounds are unchanged. Peak −6.2 dB, no clipping.
