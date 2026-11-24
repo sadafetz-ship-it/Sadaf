@@ -19,3 +19,16 @@ composed in code (`compose.py`), so they are royalty-free. Each is 45.1 s, with 
 Previews: `../render/ava_v5_music_B_neon_glide.mp4`, `../render/ava_v5_music_D_insider_drive.mp4`.
 
 **Commercial / trending songs:** never baked into the export (copyright). Add them in the Instagram or TikTok app at 5–10 %.
+
+## Timeless (Instrumental, The Weeknd ft. Playboi Carti): user's upload, chosen fit
+- **Song:** 117.5 BPM, 256 s. Structure: quiet intro 0–20 s, full beat 24–96 s, 16 s breakdown 96–112 s,
+  **drop at 112.03 s** (kick and bass +18 dB), full beat to 196 s, short break, drop at 200 s, end at 248 s.
+- **Section used:** **106.63–147.63 s**. Ava's intro ("My name is Ava… CEO of Personal Brand Launch") sits on the tail of the
+  breakdown, and the **drop lands on 5.40 s (frame 162)**, the "we're hiring" riser → whoosh → impact. It was checked at
+  5.38–5.41 s in the aligned audio.
+- **Mix (`duck_mix.py`):**
+  - Music about −34 dBFS under words (about 10 dB under Ava) and about −29 dBFS in pauses.
+  - 0.6 s fade-in, 1.4 s fade-out.
+  - Peak −5.4 dB, no clipping.
+- **Output:** `../render/ava_v5_music_Timeless_instrumental.mp4`. It is **git-ignored** because the song is copyrighted.
+  The safest way to post is the no-music `ava_jurgens_v5_sfx.mp4` with Timeless added in Instagram's music picker.
