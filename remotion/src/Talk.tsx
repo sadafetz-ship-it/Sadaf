@@ -3,28 +3,57 @@ import {AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurren
 import {C, FONT} from './theme';
 import {BEHIND_NAMES, cameraZoom, f, pop, SCENES, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, Dot, glass, Metallic, Plus} from './ui';
+import {AvatarOrbit, GaugeCounter, GlowProductCard} from './RefFx';
+
+/** Motion graphics from the WA0007 grid reference (preview: gauge, avatar orbit, glow product cards). */
+const REF_FX = true;
+const SITE_CARDS: [string, number, number, string, string][] = [
+  ['DefiLlama', 6.74, 8.7, 'DeFi data', 'TVL · yields · chains'],
+  ['CoinGlass', 12.98, 13.96, 'Derivatives', 'open interest · liquidations'],
+  ['CryptoQuant', 21.12, 22.64, 'On-chain', 'exchange in / outflows'],
+  ['Farside', 38.34, 39.16, 'ETF flows', 'Bitcoin & Ethereum ETFs'],
+];
 import {PillTag} from './Pixel';
 import {bloomIn, GLOW, GLOW_FILL, InkLine, ScriptPixels, zoomDropIn} from './CardFx';
 import {ArcText, StackTiles} from './Extras';
 
-const TAGS: Record<string, string> = {DefiLlama: 'DeFi data', CoinGlass: 'Derivatives', CryptoQuant: 'On-chain', Farside: 'ETF flows'};
+const LABELS: Record<string, [string, string]> = {
+  DefiLlama: ['First,', 'Site 01'], CoinGlass: ['Second,', 'Site 02'], CryptoQuant: ['Third,', 'Site 03'], Farside: ['And lastly,', 'Site 04'],
+};
+const NAME_FILL = 'linear-gradient(180deg,#D9C9FF 0%,#B08CFF 45%,#8B5CFF 100%)';
+const NAME_GLOW = 'drop-shadow(0 4px 10px rgba(13,6,32,.85)) drop-shadow(0 0 10px rgba(139,92,255,.9)) drop-shadow(0 0 28px rgba(128,80,232,.75)) drop-shadow(0 0 60px rgba(84,38,168,.6))';
 
-/** Site name behind the head: pixel loader → smear wipe (ref R2 "price."), pill tag + cursor (ref R1). */
+/** Site name behind the head — Nexus-style lockup (user ref): small word top-left, small label top-right, huge solid
+ *  neon name between two outlined rounded squares, Scripts pixel reveal; purple palette. */
 const BehindName: React.FC<{name: string; t: number; end: number}> = ({name, t, end}) => {
   const frame = useCurrentFrame();
   const at = f(t) - 1;
   if (frame < at - 6 || frame > f(end)) return null;
   const drift = 1 + Math.max(0, frame - at) * 0.0006;
+  const size = Math.min(200, Math.floor(820 / (name.length * 0.6)));
+  const [left, right] = LABELS[name];
+  const lab = (d: number): React.CSSProperties => ({opacity: tw(frame, at + d, 6, 0, 1), transform: `translateY(${tw(frame, at + d, 8, 14, 0)}px)`,
+    filter: `blur(${tw(frame, at + d, 8, 10, 0)}px)`});
+  const sq = (d: number): React.CSSProperties => ({width: 40, height: 40, borderRadius: 11, border: '4px solid rgba(238,231,255,.85)',
+    boxShadow: '0 0 14px rgba(185,154,245,.7)', flex: 'none', transform: `scale(${pop(frame, at + d, 7)})`});
   return (
-    <div style={{position: 'absolute', left: 0, right: 0, top: 330, textAlign: 'center', zIndex: 2, transform: `scale(${drift})`}}>
-      <div style={{position: 'relative', font: `700 168px ${FONT.display}`, letterSpacing: -9, lineHeight: 1}}>
-        <ScriptPixels at={at} w={name.length * 84} h={168} seed={`bn${name}`} size={34} />
-        <div style={{display: 'inline-block', transformOrigin: '50% 70%', ...bloomIn(frame, at, 10), filter: `${bloomIn(frame, at, 10).filter} ${GLOW}`}}>
-          <Metallic style={{background: GLOW_FILL, WebkitBackgroundClip: 'text'}}>{name}</Metallic>
-          <Dot at={at + 5} />
+    <div style={{position: 'absolute', left: 0, right: 0, top: 230, display: 'flex', justifyContent: 'center', zIndex: 2, transform: `scale(${drift})`}}>
+      <div style={{position: 'relative', width: 980}}>
+        <div style={{display: 'flex', justifyContent: 'space-between', padding: '0 70px', font: `500 58px ${FONT.display}`, letterSpacing: -1.5, color: C.mist,
+          textShadow: '0 2px 16px rgba(25,13,50,.8)'}}>
+          <span style={lab(2)}>{left}</span><span style={lab(5)}>{right}</span>
+        </div>
+        <div style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 22, marginTop: -6}}>
+          <div style={sq(4)} />
+          <div style={{position: 'relative', font: `800 ${size}px ${FONT.display}`, letterSpacing: -size * 0.045, lineHeight: 1}}>
+            <ScriptPixels at={at} w={name.length * size * 0.5} h={size} seed={`bn${name}`} size={34} />
+            <div style={{display: 'inline-block', transformOrigin: '50% 70%', ...bloomIn(frame, at, 10), filter: `${bloomIn(frame, at, 10).filter} ${NAME_GLOW}`}}>
+              <span style={{background: NAME_FILL, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{name}</span>
+            </div>
+          </div>
+          <div style={sq(6)} />
         </div>
       </div>
-      {frame >= at + 6 && <div style={{position: 'absolute', left: 0, right: 0, top: -70, textAlign: 'center'}}><PillTag text={TAGS[name]} at={at + 6} /></div>}
     </div>
   );
 };
@@ -184,7 +213,11 @@ export const Talk: React.FC = () => {
         <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
       </AbsoluteFill>
       <InkLine x={540} y={820} at={f(1.82)} h={160} />
-      <ClassifiedCard />
+      {REF_FX ? <GaugeCounter at={f(1.82)} out={f(2.94)} value={4} kicker="CLASSIFIED" label="crypto websites" x={540} y={1010} /> : <ClassifiedCard />}
+      {REF_FX && <AvatarOrbit at={f(2.94)} collapse={f(4.46)} out={f(4.75)} cx={540} cy={520} r={430} />}
+      {REF_FX && SITE_CARDS.map(([name, t, end, title, sub]) => (
+        <GlowProductCard key={name} at={f(t) + 8} out={f(end) - 8} name={name} title={title} sub={sub} x={540} y={1010} />
+      ))}
       <FarsideBoard />
       {/* text arcing over the head (ref R1) */}
       <ArcText text="these crypto websites" at={f(1.22)} end={f(2.94)} cx={540} cy={610} r={285} />

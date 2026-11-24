@@ -5,7 +5,11 @@ import {CAPTION_GROUPS, f, Fx, Group, Tok, tw} from './timing';
 import {Arrow, BoxFlash, HighlightBar, RingAround} from './Extras';
 import {Dot} from './ui';
 import {Swoosh} from './Pixel';
-import {bloomIn, GLOW, GLOW_FILL, InkLine, ScriptPixels} from './CardFx';
+import {bloomIn, InkLine, ScriptPixels} from './CardFx';
+
+/** Nexus-style captions (user ref): clean white light line, white script with a soft glow, bright white bold word. */
+const CAP_GLOW = 'drop-shadow(0 0 8px rgba(238,231,255,.45)) drop-shadow(0 0 26px rgba(128,80,232,.45))';
+const CAP_FILL = 'linear-gradient(180deg,#FFFFFF 40%,#F1EBFF 75%,#DCCDFF 100%)';
 
 /** Light word: blur 20 → 0, y +10 → 0, opacity 0 → 1 in 8 f, on its spoken frame. */
 const LightWord: React.FC<{tok: Tok; box?: boolean}> = ({tok, box}) => {
@@ -27,10 +31,10 @@ const Script: React.FC<{toks: Tok[]; fx: Fx}> = ({toks, fx}) => {
   const dur = 8 + 4 * toks.length;
   const p = tw(frame, at, dur, -20, 120);
   return (
-    <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.lilac, marginRight: 24, padding: '100px 100px 100px 100px', margin: '-100px -58px -100px -100px', position: 'relative', top: 10,
+    <>{fx.arrowS && <Arrow at={at} size={56} />}<span style={{font: `400 132px ${FONT.script}`, color: C.mist, marginRight: 24, padding: '100px 100px 100px 100px', margin: '-100px -58px -100px -100px', position: 'relative', top: 10,
       display: 'inline-block',
       WebkitMaskImage: `linear-gradient(90deg,#000 ${p - 20}%,transparent ${p}%)`}}>
-      <span style={{display: 'inline-block', filter: GLOW}}>{toks.map((t) => t.text).join(' ')}</span>
+      <span style={{display: 'inline-block', filter: CAP_GLOW}}>{toks.map((t) => t.text).join(' ')}</span>
     </span></>
   );
 };
@@ -47,7 +51,7 @@ const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string; fx: Fx}> = ({tok
   return (
     <div style={{position: 'relative', font: `600 ${size}px ${FONT.display}`, letterSpacing: -7, lineHeight: 1, marginTop: -4}}>
       <ScriptPixels at={first} w={text.length * size * 0.5} h={size} seed={seed} size={Math.round(size * 0.2)} />
-      <div style={{display: 'inline-block', position: 'relative', filter: GLOW, transform: `rotate(${tilt}deg)`}}>
+      <div style={{display: 'inline-block', position: 'relative', filter: CAP_GLOW, transform: `rotate(${tilt}deg)`}}>
         {fx.ring && <RingAround at={last + 2} w={text.length * size * 0.5} h={size} />}
         {fx.bar && <HighlightBar at={last + 2} />}
         {fx.arrowH && <Arrow at={first} size={size * 0.5} />}
@@ -55,7 +59,7 @@ const Heavy: React.FC<{toks: Tok[]; dot: boolean; seed: string; fx: Fx}> = ({tok
           const at = f(t.t) - 1;
           return (
             <span key={i} style={{display: 'inline-block', transformOrigin: '0% 70%', marginRight: i < toks.length - 1 ? '0.17em' : 0, ...bloomIn(frame, at)}}>
-              <span style={{background: GLOW_FILL, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{t.text}</span>
+              <span style={{background: CAP_FILL, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{t.text}</span>
             </span>
           );
         })}
