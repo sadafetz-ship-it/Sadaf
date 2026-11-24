@@ -4,7 +4,8 @@
  * All colours are the purple palette.
  */
 import React from 'react';
-import {interpolate, random, useCurrentFrame} from 'remotion';
+import {interpolate, random} from 'remotion';
+import {useCurrentFrame} from './frame';
 import {C} from './theme';
 
 const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;

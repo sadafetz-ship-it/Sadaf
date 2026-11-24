@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, random, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, interpolate, random} from 'remotion';
+import {useCurrentFrame} from './frame';
 import {C, FONT, metallic} from './theme';
 import {pop, tw} from './timing';
 

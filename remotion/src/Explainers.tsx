@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Easing, interpolate, random, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, interpolate, random} from 'remotion';
+import {useCurrentFrame} from './frame';
 import {C, FONT} from './theme';
 import {f, pop, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, DrawPath, ExplainerBG, glass, Plus, XHead, cardIn} from './ui';

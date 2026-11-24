@@ -1,6 +1,7 @@
 import React from 'react';
 import {Audio, Sequence, staticFile} from 'remotion';
 import {CAPTION_GROUPS, f, FPS, SWITCHES} from './timing';
+import {SCALE} from './frame';
 
 /**
  * Sound design. Files live in public/sfx/ (peak-normalised to −3 dBFS).
@@ -118,8 +119,8 @@ export const Sfx: React.FC = () => (
       const from = Math.max(0, f(start));
       const trim = start < 0 ? f(-start) : 0;
       return (
-        <Sequence key={i} from={from} durationInFrames={c.len ? Math.round(c.len * FPS) : undefined} layout="none">
-          <Audio src={staticFile(`sfx/${c.file}.wav`)} volume={c.vol * SFX_GAIN * duck(c)} startFrom={trim + (c.from ? f(c.from) : 0)} />
+        <Sequence key={i} from={from * SCALE} durationInFrames={c.len ? Math.round(c.len * FPS) * SCALE : undefined} layout="none">
+          <Audio src={staticFile(`sfx/${c.file}.wav`)} volume={c.vol * SFX_GAIN * duck(c)} startFrom={(trim + (c.from ? f(c.from) : 0)) * SCALE} />
         </Sequence>
       );
     })}

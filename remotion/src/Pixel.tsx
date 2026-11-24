@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, interpolate, random, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, interpolate, random} from 'remotion';
+import {useCurrentFrame} from './frame';
 import {C} from './theme';
 
 const PIX = [C.lilac, C.violet, C.rose, C.mist, C.blueLight];

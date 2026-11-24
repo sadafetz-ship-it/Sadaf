@@ -1,5 +1,6 @@
 import React from 'react';
-import {interpolate, interpolateColors, useCurrentFrame} from 'remotion';
+import {interpolate, interpolateColors} from 'remotion';
+import {useCurrentFrame} from './frame';
 import {C, FONT, metallic} from './theme';
 import {CAPTION_GROUPS, f, Fx, Group, Tok, tw} from './timing';
 import {Arrow, BoxFlash, HighlightBar, RingAround} from './Extras';

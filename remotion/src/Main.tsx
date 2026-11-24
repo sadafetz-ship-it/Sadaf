@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, interpolate, staticFile} from 'remotion';
+import {SCALE, useCurrentFrame} from './frame';
 import {loadFont} from '@remotion/fonts';
 import {Captions} from './Captions';
 import {CoinGlassScene, CtaScene, DefiLlamaScene, EntryExitScene, FlowsScene} from './Explainers';
@@ -28,8 +29,8 @@ export const Main: React.FC = () => {
       {/* fade to ink at the very end */}
       <AbsoluteFill style={{background: C.ink, opacity: interpolate(frame, [TOTAL_FRAMES - 12, TOTAL_FRAMES - 1], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}} />
       <Sfx />
-      <Audio src={staticFile('raw.mp4')} endAt={f(SPEECH_END)}
-        volume={(fr) => interpolate(fr, [f(SPEECH_END) - 5, f(SPEECH_END)], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
+      <Audio src={staticFile('raw.mp4')} endAt={f(SPEECH_END) * SCALE}
+        volume={(fr) => interpolate(fr / SCALE, [f(SPEECH_END) - 5, f(SPEECH_END)], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
     </AbsoluteFill>
   );
 };

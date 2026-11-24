@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile} from 'remotion';
+import {useCurrentFrame} from './frame';
 import {C, FONT} from './theme';
 import {BEHIND_NAMES, cameraZoom, f, pop, SCENES, tw} from './timing';
 import {BottomGlow, CardGrid, Chip, Dot, glass, Metallic, Plus} from './ui';

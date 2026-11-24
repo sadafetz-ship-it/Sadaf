@@ -23,8 +23,8 @@ export const tw = (
 
 /** scale 0 → 1.15 → 1 pop (skill default: 7 f, back-out feel). */
 export const pop = (frame: number, start: number, dur = 7) =>
-  interpolate(frame, [start, start + dur * 0.6, start + dur], [0, 1.15, 1], {
-    extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.quad),
+  interpolate(frame, [start, start + dur * 1.5], [0, 1], {
+    extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.back(1.25)),
   });
 
 // ───────────────────────── captions (lower third) ─────────────────────────

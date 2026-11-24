@@ -5,7 +5,8 @@
  *  3. GaugeCounter    — circular gauge that counts up to a number, label + glowing wave underneath.
  */
 import React from 'react';
-import {interpolate, random, useCurrentFrame, Easing} from 'remotion';
+import {interpolate, random, Easing} from 'remotion';
+import {useCurrentFrame} from './frame';
 import {C, FONT} from './theme';
 import {pop} from './timing';
 
