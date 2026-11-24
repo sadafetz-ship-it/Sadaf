@@ -1,16 +1,30 @@
 [
  {
-  "song": "Blinding_Lights",
-  "start_in_song_s": 19.55,
-  "mean_hit_to_beat_error_s": 0.049,
+  "song": "Succession",
+  "start_in_song_s": 10.02,
+  "mean_hit_to_beat_error_s": 0.088,
   "gain_db": -11.3,
-  "peak_dbfs": -4.38
+  "peak_dbfs": -4.13
  },
  {
-  "song": "Money_Trees",
-  "start_in_song_s": 21.58,
-  "mean_hit_to_beat_error_s": 0.014,
-  "gain_db": -11.4,
-  "peak_dbfs": -4.31
+  "song": "Flower_In_A_Hurricane",
+  "start_in_song_s": 41.96,
+  "mean_hit_to_beat_error_s": 0.054,
+  "gain_db": -11.0,
+  "peak_dbfs": -4.02
+ },
+ {
+  "song": "Touch_The_Sky",
+  "start_in_song_s": 34.1,
+  "mean_hit_to_beat_error_s": 0.043,
+  "gain_db": -10.8,
+  "peak_dbfs": -4.35
+ },
+ {
+  "song": "Million_Dollar_Baby",
+  "start_in_song_s": 104.24,
+  "mean_hit_to_beat_error_s": 0.088,
+  "gain_db": -11.5,
+  "peak_dbfs": -3.98
  }
 ]
