@@ -1,0 +1,50 @@
+[
+ {
+  "track": "Rising_Tide_faster",
+  "bpm": 122,
+  "stretch": 1.0,
+  "section_start_s": 210.3,
+  "bed_gain_db": -11.0,
+  "peak_dbfs": -4.35
+ },
+ {
+  "track": "Thats_a_Wrap",
+  "bpm": 124,
+  "stretch": 0.9839,
+  "section_start_s": 31.76,
+  "bed_gain_db": -7.7,
+  "peak_dbfs": -4.32
+ },
+ {
+  "track": "Thinking_Out_Loud",
+  "bpm": 124,
+  "stretch": 0.9839,
+  "section_start_s": 113.77,
+  "bed_gain_db": -18.8,
+  "peak_dbfs": -4.35
+ },
+ {
+  "track": "Galactic_Rap",
+  "bpm": 120,
+  "stretch": 1.0167,
+  "section_start_s": 49.31,
+  "bed_gain_db": -15.0,
+  "peak_dbfs": -4.27
+ },
+ {
+  "track": "Cephalopod",
+  "bpm": 124,
+  "stretch": 0.9839,
+  "section_start_s": 101.9,
+  "bed_gain_db": -22.6,
+  "peak_dbfs": -4.44
+ },
+ {
+  "track": "Long_Time_Coming",
+  "bpm": 120,
+  "stretch": 1.0167,
+  "section_start_s": 203.82,
+  "bed_gain_db": -17.5,
+  "peak_dbfs": -4.34
+ }
+]
