@@ -83,7 +83,7 @@ The stats come from that chat's analysis: BPM, % singing in the best section, an
 **1b: Succession – Main Title Theme, beat on "playbook" (3.94 s).**
 - About 2 s of the piano intro, then the beat comes in on the title word.
 - The music stays under his voice and comes up 7 dB in his pauses.
-- It cuts out on each "he didn't have…" and gets bigger from "a strategy" (34 s).
+- It plays straight through (the cuts on "he didn't have…" were removed in v2) and gets bigger from "a strategy" (34 s).
 - It fades out over the last 0.9 s.
 - Rebuild: `python3 -I tools/mix_music.py <succession.mp3> playbook_edit_v1.mp4 words.json out.mp4 succession_playbook`.
 - The song file and mixed videos are kept out of git (copyright). For posting: upload `playbook_edit_v1.mp4` (no music) and add the song in-app.

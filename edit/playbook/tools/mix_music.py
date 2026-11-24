@@ -16,6 +16,7 @@ PLAN = {
   'succession_playbook': dict(parts=[(15.0 - 3.94, DUR)], at=0.0),    # 2 bars of piano, beat lands on "playbook" 3.94
 }
 name = sys.argv[5]; p = PLAN[name]
+NOSTOP = '--stops' not in sys.argv
 mus = np.zeros((0, 2), np.float32); xf = int(0.25 * SR)
 for ss, ln in p['parts']:
     seg = dec(MUS, ss, ln)
@@ -48,8 +49,9 @@ reg = np.where(t < 33.8, pre, post)           # level each side of the drop sepa
 off = np.where(t < 33.8, 19.0, 15.0) if not early else np.where(t < 33.8, 18.0, 15.5)          # under-speech target below the voice: build −19 dB, payoff −15 dB
 g = (vdb - off) - reg
 g[~speech] += 7.0                             # gaps: lift 7 dB
-for h in (25.16, 26.84, 28.86):              # stop-hits on each "he didn't have"
-    g[(t >= h - 0.06) & (t < h + 0.32)] = -60
+if not NOSTOP:
+    for h in (25.16, 26.84, 28.86):          # stop-hits on each "he didn't have" (off by default: the user heard them as cuts)
+        g[(t >= h - 0.06) & (t < h + 0.32)] = -60
 # smooth in dB (attack 40 ms, release 250 ms), one-pole at 1 kHz control rate
 step = SR // 1000; c = g[::step].copy(); s = np.empty_like(c); s[0] = c[0]
 aa, ar = np.exp(-1 / 40), np.exp(-1 / 250)
