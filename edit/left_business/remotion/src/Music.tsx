@@ -1,7 +1,7 @@
 // Music bed with word-following ducking. Set MUSIC.file (in public/music/) to enable; null = no music.
 // The song section starts at `startSec`; `alignSec` (a moment in the song, e.g. the swell) is placed on `alignFrame`.
 import React from 'react';
-import {Audio, interpolate, staticFile} from 'remotion';
+import {Audio, getInputProps, interpolate, staticFile} from 'remotion';
 import {WORDS} from './words';
 import {CUT, DURATION, FPS} from './theme';
 
@@ -19,6 +19,10 @@ for (const [, s, e] of WORDS) for (let f = Math.max(0, s - 4); f < Math.min(DURA
 const SMOOTH = new Float32Array(DURATION);
 let v = 0;
 for (let f = 0; f < DURATION; f++) { v += (ACTIVE[f] - v) * (ACTIVE[f] > v ? 0.35 : 0.12); SMOOTH[f] = v; }
+
+// Render-time override: --props='{"music":"music/x.mp3","alignSec":81.2,"gap":0.34,"under":0.12}'
+const P = getInputProps() as {music?: string; alignSec?: number; gap?: number; under?: number};
+if (P.music) { MUSIC.file = P.music; MUSIC.alignSec = P.alignSec ?? 0; if (P.gap) MUSIC.gap = P.gap; if (P.under) MUSIC.under = P.under; }
 
 export const Music: React.FC = () => {
   if (!MUSIC.file) return null;
