@@ -91,8 +91,8 @@ const CUES: Cue[] = [
   {file: 'ref_ding', at: 35.4, vol: 0.5},                          // "Bitcoin" lands
 
   // ── Farside: typing bar → "+" → orb lifts → drops (reveal) → buttons → cube → collapse
-  {file: 'paper_slide', at: 39.25, vol: 0.35},                     // board slides up as a bar
-  {file: 'ref_typing_b', at: 39.33, vol: 0.18, len: 0.6},         // bar types (same sound as the reference's typing bar)
+  {file: 'paper_slide', at: 39.78, vol: 0.35},                     // board slides up as a bar
+  {file: 'ref_typing_b', at: 39.82, vol: 0.18, len: 0.3},         // bar types (same sound as the reference's typing bar)
   {file: 'ref_light_reveal', at: 40.4, vol: 0.6},                  // orb drops → white flash → card opens
   {file: 'dissolve', at: 44.6, vol: 0.28},                         // card collapses
 

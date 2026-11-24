@@ -12,7 +12,7 @@ const SITE_CARDS: [string, number, number, string, string][] = [
   ['DefiLlama', 6.74, 8.7, 'DeFi data', 'TVL · yields · chains'],
   ['CoinGlass', 12.98, 13.96, 'Derivatives', 'open interest · liquidations'],
   ['CryptoQuant', 21.12, 22.64, 'On-chain', 'exchange in / outflows'],
-  ['Farside', 38.34, 39.16, 'ETF flows', 'Bitcoin & Ethereum ETFs'],
+  ['Farside', 38.34, 40.0, 'ETF flows', 'Bitcoin & Ethereum ETFs'],
 ];
 import {PillTag} from './Pixel';
 import {bloomIn, GLOW, GLOW_FILL, InkLine, ScriptPixels, zoomDropIn} from './CardFx';
@@ -114,18 +114,18 @@ const MadSticker: React.FC = () => {
  *  glossy cube bounces onto the corner → folds back into the bar at the end. */
 const FarsideBoard: React.FC = () => {
   const frame = useCurrentFrame();
-  const S = f(39.2), END = f(44.5 + 0.6);
+  const S = f(39.75), END = f(44.5 + 0.6);   // starts as the Farside product card hands over
   if (frame < S) return null;
   const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
   const LEFT = 290, W = 500, TOP = 830, BAR_H = 140, FULL_H = 350;
   const t1 = 'Farside', t2 = 'ETF Flow Tracker';
   // 1 · bar in + title typing with a spark caret
-  const typed = Math.floor(interpolate(frame, [S + 4, S + 20], [0, t1.length + t2.length], cl));
+  const typed = Math.floor(interpolate(frame, [S + 2, S + 9], [0, t1.length + t2.length], cl));
   const s1 = t1.slice(0, Math.min(typed, t1.length)), s2 = t2.slice(0, Math.max(0, typed - t1.length));
-  const plusS = pop(frame, S + 20, 7);
+  const plusS = pop(frame, S + 9, 5);
   // 2 · orb lifts off the "+", hovers, drops on "inflows"
   const drop = f(40.44) - 3;
-  const lift = interpolate(frame, [S + 22, S + 29], [0, 1], {...cl, easing: Easing.out(Easing.cubic)});
+  const lift = interpolate(frame, [S + 10, S + 15], [0, 1], {...cl, easing: Easing.out(Easing.cubic)});
   const fall = interpolate(frame, [drop - 4, drop], [0, 1], {...cl, easing: Easing.in(Easing.cubic)});
   const orbX = LEFT + W - 44 + lift * 60 + Math.sin(frame / 7) * 5 * (1 - fall);
   const orbY = TOP + 44 - lift * 170 + Math.cos(frame / 9) * 7 * (1 - fall) + fall * 190;
@@ -180,8 +180,8 @@ const FarsideBoard: React.FC = () => {
         boxShadow: `inset 0 4px 0 rgba(255,255,255,.7), inset -10px -14px 20px rgba(84,38,168,.6), 0 20px 40px rgba(0,0,0,.5), 0 0 50px rgba(185,154,245,.6)`,
         display: 'flex', alignItems: 'center', justifyContent: 'center', font: `800 56px ${FONT.display}`, color: C.mist, textShadow: '0 3px 8px rgba(84,38,168,.8)'}}>₿</div>
       {/* spark caret while typing, then the orb */}
-      {frame >= S + 4 && frame < S + 21 && <BoardSpark x={LEFT + W / 2 + (typed <= t1.length ? s1.length * 13 : s2.length * 9.5)} y={TOP + (typed <= t1.length ? 60 : 104)} size={16} />}
-      {frame >= S + 21 && frame < drop + 1 && <BoardSpark x={orbX} y={orbY} size={24} />}
+      {frame >= S + 2 && frame < S + 10 && <BoardSpark x={LEFT + W / 2 + (typed <= t1.length ? s1.length * 13 : s2.length * 9.5)} y={TOP + (typed <= t1.length ? 60 : 104)} size={16} />}
+      {frame >= S + 10 && frame < drop + 1 && <BoardSpark x={orbX} y={orbY} size={24} />}
     </>
   );
 };
