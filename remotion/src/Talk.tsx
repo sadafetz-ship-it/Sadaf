@@ -117,7 +117,7 @@ const FarsideBoard: React.FC = () => {
   const S = f(39.2), END = f(44.5 + 0.6);
   if (frame < S) return null;
   const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
-  const LEFT = 290, W = 500, TOP = 870, BAR_H = 150, FULL_H = 410;
+  const LEFT = 290, W = 500, TOP = 830, BAR_H = 140, FULL_H = 350;
   const t1 = 'Farside', t2 = 'ETF Flow Tracker';
   // 1 · bar in + title typing with a spark caret
   const typed = Math.floor(interpolate(frame, [S + 4, S + 20], [0, t1.length + t2.length], cl));
@@ -157,11 +157,11 @@ const FarsideBoard: React.FC = () => {
           boxShadow: `0 0 14px ${C.lilac}, 0 0 30px ${C.violet}`}} />
         {items.map(([label, t], i) => {
           const a = Math.max(f(t) - 1, drop + 6);
-          if (frame < a) return <div key={i} style={{height: 46}} />;
+          if (frame < a) return <div key={i} style={{height: 38}} />;
           const chars = Math.floor(tw(frame, a, 8, 0, label.length, (x) => x));
           const tw2 = 1 + 0.5 * Math.exp(-(frame - a) / 5) * Math.abs(Math.sin((frame - a) / 2));
           return (
-            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 20, height: 46, font: `500 34px ${FONT.ui}`, color: C.mist, opacity: 1 - collapse,
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 18, height: 38, font: `500 30px ${FONT.ui}`, color: C.mist, opacity: 1 - collapse,
               transform: `scale(${interpolate(frame, [a, a + 4, a + 7], [0.6, 1.08, 1], cl)})`, transformOrigin: '0 50%'}}>
               <svg width={40} height={40} viewBox="0 0 24 24" style={{transform: `scale(${pop(frame, a, 6) * tw2}) rotate(${(frame - a) * 2}deg)`,
                 filter: `drop-shadow(0 0 8px ${C.mist}) drop-shadow(0 0 16px ${C.lilac})`}}>
@@ -174,7 +174,7 @@ const FarsideBoard: React.FC = () => {
         <div style={{position: 'absolute', inset: 0, background: '#fff', opacity: flashW}} />
       </div>
       {/* glossy cube bounces onto the corner */}
-      <div style={{position: 'absolute', left: LEFT + W - 64, top: TOP + h - 70, width: 104, height: 104, zIndex: 31, borderRadius: 24, opacity: fade,
+      <div style={{position: 'absolute', left: LEFT + W - 56, top: TOP + h - 96, width: 92, height: 92, zIndex: 31, borderRadius: 24, opacity: fade,
         transform: `scale(${cubeS}) rotate(${-12 + Math.sin((frame - cube) / 4) * 4 * Math.exp(-Math.max(0, frame - cube) / 14)}deg)`,
         background: `linear-gradient(150deg,#E6D8FF 0%,${C.lilac} 30%,${C.violet} 70%,${C.deep} 100%)`,
         boxShadow: `inset 0 4px 0 rgba(255,255,255,.7), inset -10px -14px 20px rgba(84,38,168,.6), 0 20px 40px rgba(0,0,0,.5), 0 0 50px rgba(185,154,245,.6)`,
@@ -214,10 +214,10 @@ export const Talk: React.FC = () => {
         <AbsoluteFill style={{zIndex: 4, background: 'linear-gradient(180deg,rgba(25,13,50,.45) 0%,rgba(25,13,50,0) 18%,rgba(25,13,50,0) 46%,rgba(25,13,50,.75) 66%,rgba(25,13,50,.95) 100%)'}} />
       </AbsoluteFill>
       <InkLine x={540} y={820} at={f(1.82)} h={160} />
-      {REF_FX ? <GaugeCounter at={f(1.82)} out={f(2.94)} value={4} kicker="CLASSIFIED" label="crypto websites" x={540} y={1010} /> : <ClassifiedCard />}
+      {REF_FX ? <GaugeCounter at={f(1.82)} out={f(2.94)} value={4} kicker="CLASSIFIED" label="crypto websites" x={540} y={975} scale={0.72} /> : <ClassifiedCard />}
       {REF_FX && <AvatarOrbit at={f(2.94)} collapse={f(4.46)} out={f(4.75)} cx={540} cy={520} r={430} />}
       {REF_FX && SITE_CARDS.map(([name, t, end, title, sub]) => (
-        <GlowProductCard key={name} at={f(t) + 8} out={f(end) - 8} name={name} title={title} sub={sub} x={540} y={1100} scale={0.74} />
+        <GlowProductCard key={name} at={f(t) + 8} out={f(end) - 8} name={name} title={title} sub={sub} x={540} y={985} scale={0.62} />
       ))}
       <FarsideBoard />
       {/* text arcing over the head (ref R1) */}

@@ -117,7 +117,7 @@ export const AvatarOrbit: React.FC<{at: number; collapse: number; out: number; c
 };
 
 // ───────────────────────── 3. Gauge counter ─────────────────────────
-export const GaugeCounter: React.FC<{at: number; out: number; value: number; kicker: string; label: string; x: number; y: number}> = ({at, out, value, kicker, label, x, y}) => {
+export const GaugeCounter: React.FC<{at: number; out: number; value: number; kicker: string; label: string; x: number; y: number; scale?: number}> = ({at, out, value, kicker, label, x, y, scale = 1}) => {
   const frame = useCurrentFrame();
   if (frame < at || frame > out + 8) return null;
   const p = interpolate(frame, [at, at + 10], [0, 1], {...cl, easing: ease});
@@ -136,7 +136,7 @@ export const GaugeCounter: React.FC<{at: number; out: number; value: number; kic
   }).join(' ');
   return (
     <div style={{position: 'absolute', left: x - 320, top: y - 260, width: 640, height: 560, zIndex: 32, opacity: o * p,
-      transform: `scale(${0.8 + 0.2 * p})`, filter: `blur(${(1 - p) * 16}px)`}}>
+      transform: `scale(${(0.8 + 0.2 * p) * scale})`, filter: `blur(${(1 - p) * 16}px)`}}>
       <div style={{position: 'absolute', inset: 40, borderRadius: '50%', background: 'radial-gradient(50% 50% at 50% 45%,rgba(25,13,50,.85),rgba(25,13,50,.4) 60%,transparent 75%)'}} />
       <svg viewBox="-320 -230 640 560" width={640} height={560} style={{position: 'absolute', inset: 0, overflow: 'visible'}}>
         <defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stopColor={C.violet} /><stop offset="1" stopColor="#E3D6FF" /></linearGradient></defs>

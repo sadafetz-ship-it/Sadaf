@@ -78,6 +78,10 @@ project. Ask only when the user's new instructions conflict with them. When the 
 - **Swoosh streak** (white arc) brings in each "First / Second / Third / And lastly", **above** the caption, not through it.
 
 ## 4. Layout and modes
+- **Elements and captions never overlap (user rule).** The lower-third caption block can reach up to y ≈ 1290 (3 lines),
+  so every chest element (cards, boards, gauges, their rings/glows/cubes) must end above y ≈ 1200 on 1080×1920, and also
+  stay below the chin. Shrink elements (≈0.6–0.75 scale) rather than letting them touch either zone. Check stills at the
+  moments with the tallest captions.
 - **Never put an element over the speaker's face (user rule).** Cards, boards, rings, avatars, stickers and their glow or
   orbit rings must stay clear of the face ellipse (≈ centre (540, 560), rx 230, ry 270 on 1080×1920; check the real footage).
   Account for decorative overflow (orbit rings, glows) and camera punch-ins. Audit with a contact sheet of all talking-head
