@@ -35,3 +35,8 @@ Previews: `../render/ava_v5_music_B_neon_glide.mp4`, `../render/ava_v5_music_D_i
 - **Louder version** (user asked for more music): `../render/ava_v5_music_Timeless_instrumental_louder.mp4`, made with `duck_mix_loud.py`.
   - The music is **+6 dB**: about −28 dBFS under words (about 4 dB under Ava) and about −24 dBFS in pauses.
   - Mix peak −5.3 dB, no clipped samples. It is git-ignored too.
+- **Hook-intro version** (user: "make a music hook in the first 3 seconds"): `../render/ava_v5_Timeless_hook.mp4`, made with `hook_mix.py`.
+  - **0–2.93 s:** opens on the song's drop. That's 6 beats of full beat and synth (song 112.03–114.96 s), lifted **+3 dB** as the hook.
+  - **2.93–5.40 s:** a 40 ms crossfade back into the breakdown tail (song from 109.56 s), so tension rebuilds.
+  - **5.40 s:** the **drop hits again** on the "we're hiring" riser → whoosh → impact, then runs on as before.
+  - Same louder ducking as the louder version. Peak −4.4 dB, no clipping. Git-ignored (copyrighted).
