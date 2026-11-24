@@ -46,19 +46,20 @@ mdb = post
 early = name in ('succession_up', 'succession_playbook')
 if early: pre = post = lvl(4.0, 38.5)        # steady theme: one level for the whole track
 reg = np.where(t < 33.8, pre, post)           # level each side of the drop separately
-off = np.where(t < 33.8, 19.0, 15.0) if not early else np.where(t < 33.8, 18.0, 15.5)          # under-speech target below the voice: build −19 dB, payoff −15 dB
+off = np.where(t < 33.8, 19.0, 15.0) if not early else np.where(t < 33.8, 17.0, 14.5)          # under-speech target below the voice: build −19 dB, payoff −15 dB
 g = (vdb - off) - reg
-g[~speech] += 7.0                             # gaps: lift 7 dB
+if '--duck' in sys.argv: g[~speech] += 7.0   # old: lift in pauses (heard as the music cutting in and out) — now off by default
 if not NOSTOP:
     for h in (25.16, 26.84, 28.86):          # stop-hits on each "he didn't have" (off by default: the user heard them as cuts)
         g[(t >= h - 0.06) & (t < h + 0.32)] = -60
 # smooth in dB (attack 40 ms, release 250 ms), one-pole at 1 kHz control rate
 step = SR // 1000; c = g[::step].copy(); s = np.empty_like(c); s[0] = c[0]
-aa, ar = np.exp(-1 / 40), np.exp(-1 / 250)
+aa, ar = (np.exp(-1 / 40), np.exp(-1 / 250)) if '--duck' in sys.argv else (np.exp(-1 / 400), np.exp(-1 / 700))  # slow, smooth level moves
 for i in range(1, len(c)):
     k = aa if c[i] < s[i - 1] else ar
     s[i] = k * s[i - 1] + (1 - k) * c[i]
 gain = 10 ** (np.repeat(s, step)[:N] / 20)
+sd = np.repeat(s, step)[:N]; jumps = np.abs(np.diff(sd[::SR // 10])); print('   biggest music level change per 0.1 s: %.2f dB' % jumps.max())
 if len(gain) < N: gain = np.concatenate([gain, np.full(N - len(gain), gain[-1])])
 fade = np.clip(t / 0.3, 0, 1) * np.clip((DUR - t) / 0.9, 0, 1)
 mix = base + mus * (gain * fade)[:, None]
