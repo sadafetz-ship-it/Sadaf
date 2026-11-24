@@ -3,14 +3,14 @@
   "song": "Blinding_Lights",
   "start_in_song_s": 19.55,
   "mean_hit_to_beat_error_s": 0.049,
-  "gain_db": -21.3,
-  "peak_dbfs": -4.37
+  "gain_db": -11.3,
+  "peak_dbfs": -4.38
  },
  {
   "song": "Money_Trees",
   "start_in_song_s": 21.58,
   "mean_hit_to_beat_error_s": 0.014,
-  "gain_db": -21.4,
-  "peak_dbfs": -4.41
+  "gain_db": -11.4,
+  "peak_dbfs": -4.31
  }
 ]

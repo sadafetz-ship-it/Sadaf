@@ -37,14 +37,14 @@ for name, (fn, max_start) in SONGS.items():
             best = (err, s)
     s = float(best[1])
     seg_db = rms_db(['ffmpeg', '-v', 'error', '-ss', str(s), '-t', str(DUR), '-i', U + fn, '-ac', '1', '-f', 'f32le', '-'])
-    gain = (voice_db - 11) - seg_db          # a little lower than the instrumentals: lyrics compete with speech
+    gain = (voice_db - 1) - seg_db           # user: 'can't hear' at −20 dB under speech → now ≈ −9 dB under speech, ≈ −3 dB in gaps
     fc = (
         f"[1:a]atrim={s:.3f}:{s + DUR:.3f},asetpts=PTS-STARTPTS,aresample=48000,volume={gain:.2f}dB,"
         f"volume='if(between(t,26.2,27.28),0.25,1)':eval=frame,"
-        f"equalizer=f=1500:t=q:w=1.0:g=-6,"
+        f"equalizer=f=1500:t=q:w=1.0:g=-3,"
         f"afade=t=in:st=0:d=0.4,afade=t=out:st={DUR - 1.2}:d=1.2[m];"
         f"[2:a]aresample=48000[key];"
-        f"[m][key]sidechaincompress=threshold=0.025:ratio=6:attack=10:release=300:makeup=1[md];"
+        f"[m][key]sidechaincompress=threshold=0.04:ratio=3:attack=15:release=300:makeup=1[md];"
         f"[0:a]aresample=48000[mix];"
         f"[mix][md]amix=inputs=2:normalize=0,alimiter=limit=0.79:attack=2:release=40:level=false[a]"
     )
