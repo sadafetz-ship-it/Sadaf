@@ -6,11 +6,11 @@ import {WORDS} from './words';
 import {CUT, DURATION, FPS} from './theme';
 
 export const MUSIC: {file: string | null; alignSec: number; alignFrame: number; gap: number; under: number} = {
-  file: null, // e.g. 'music/cornfield_chase.mp3'
-  alignSec: 0, // second in the song where its swell / hook lands
+  file: 'music/runaway.mp3', // user's file, kept out of git (public/music is ignored); 0:16–0:46, piano → drums drop on "switch"
+  alignSec: 38.37, // the drum entry, placed on "switch"
   alignFrame: CUT.switchAt, // lands on "switch" (0:22.07), when the colour comes back
-  gap: 0.34, // level between phrases
-  under: 0.12, // level under the voice
+  gap: 0.398, // level between phrases (loudness-matched for this section)
+  under: 0.141, // level under the voice
 };
 
 // voice activity per frame from the word timings (4 f attack, 10 f release)
