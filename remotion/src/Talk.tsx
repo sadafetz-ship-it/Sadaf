@@ -116,7 +116,7 @@ const FarsideBoard: React.FC = () => {
   const S = f(39.2), END = f(44.5 + 0.6);
   if (frame < S) return null;
   const cl = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
-  const LEFT = 290, W = 500, TOP = 730, BAR_H = 150, FULL_H = 470;
+  const LEFT = 290, W = 500, TOP = 870, BAR_H = 150, FULL_H = 410;
   const t1 = 'Farside', t2 = 'ETF Flow Tracker';
   // 1 · bar in + title typing with a spark caret
   const typed = Math.floor(interpolate(frame, [S + 4, S + 20], [0, t1.length + t2.length], cl));
@@ -156,11 +156,11 @@ const FarsideBoard: React.FC = () => {
           boxShadow: `0 0 14px ${C.lilac}, 0 0 30px ${C.violet}`}} />
         {items.map(([label, t], i) => {
           const a = Math.max(f(t) - 1, drop + 6);
-          if (frame < a) return <div key={i} style={{height: 58}} />;
+          if (frame < a) return <div key={i} style={{height: 46}} />;
           const chars = Math.floor(tw(frame, a, 8, 0, label.length, (x) => x));
           const tw2 = 1 + 0.5 * Math.exp(-(frame - a) / 5) * Math.abs(Math.sin((frame - a) / 2));
           return (
-            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: 58, font: `500 38px ${FONT.ui}`, color: C.mist, opacity: 1 - collapse,
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 20, height: 46, font: `500 34px ${FONT.ui}`, color: C.mist, opacity: 1 - collapse,
               transform: `scale(${interpolate(frame, [a, a + 4, a + 7], [0.6, 1.08, 1], cl)})`, transformOrigin: '0 50%'}}>
               <svg width={40} height={40} viewBox="0 0 24 24" style={{transform: `scale(${pop(frame, a, 6) * tw2}) rotate(${(frame - a) * 2}deg)`,
                 filter: `drop-shadow(0 0 8px ${C.mist}) drop-shadow(0 0 16px ${C.lilac})`}}>
@@ -216,7 +216,7 @@ export const Talk: React.FC = () => {
       {REF_FX ? <GaugeCounter at={f(1.82)} out={f(2.94)} value={4} kicker="CLASSIFIED" label="crypto websites" x={540} y={1010} /> : <ClassifiedCard />}
       {REF_FX && <AvatarOrbit at={f(2.94)} collapse={f(4.46)} out={f(4.75)} cx={540} cy={520} r={430} />}
       {REF_FX && SITE_CARDS.map(([name, t, end, title, sub]) => (
-        <GlowProductCard key={name} at={f(t) + 8} out={f(end) - 8} name={name} title={title} sub={sub} x={540} y={1010} />
+        <GlowProductCard key={name} at={f(t) + 8} out={f(end) - 8} name={name} title={title} sub={sub} x={540} y={1100} scale={0.74} />
       ))}
       <FarsideBoard />
       {/* text arcing over the head (ref R1) */}

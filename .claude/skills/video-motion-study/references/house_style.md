@@ -78,6 +78,10 @@ project. Ask only when the user's new instructions conflict with them. When the 
 - **Swoosh streak** (white arc) brings in each "First / Second / Third / And lastly", **above** the caption, not through it.
 
 ## 4. Layout and modes
+- **Never put an element over the speaker's face (user rule).** Cards, boards, rings, avatars, stickers and their glow or
+  orbit rings must stay clear of the face ellipse (≈ centre (540, 560), rx 230, ry 270 on 1080×1920; check the real footage).
+  Account for decorative overflow (orbit rings, glows) and camera punch-ins. Audit with a contact sheet of all talking-head
+  frames before sending; text "behind the head" (under the cut-out) is fine.
 - **Zones:**
   - Top third: site or topic name **behind the head**. Speaker cut-out layered on top; grade drawn over the cut-out too.
   - Chest: cards.

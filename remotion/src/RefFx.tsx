@@ -21,8 +21,8 @@ export const SiteGlyph: React.FC<{kind: string}> = ({kind}) => {
   return <svg viewBox="0 0 100 100" width="62%" height="62%"><circle cx={50} cy={50} r={34} {...s} /><text x={50} y={64} textAnchor="middle" fontSize={40} fontWeight={800} fontFamily="DejaVu Sans" fill={C.ink}>₿</text></svg>;
 };
 
-export const GlowProductCard: React.FC<{at: number; out: number; name: string; title: string; sub: string; x: number; y: number; hue?: [string, string]}> = ({
-  at, out, name, title, sub, x, y, hue = ['#D9C9FF', '#8B5CFF'],
+export const GlowProductCard: React.FC<{at: number; out: number; name: string; title: string; sub: string; x: number; y: number; scale?: number; hue?: [string, string]}> = ({
+  at, out, name, title, sub, x, y, scale = 1, hue = ['#D9C9FF', '#8B5CFF'],
 }) => {
   const frame = useCurrentFrame();
   if (frame < at || frame > out + 8) return null;
@@ -33,7 +33,7 @@ export const GlowProductCard: React.FC<{at: number; out: number; name: string; t
   const spin = (frame - at) * 4.2;                                          // then keeps orbiting
   return (
     <div style={{position: 'absolute', left: x - W / 2, top: y - H / 2, width: W, height: H, zIndex: 32, opacity: o,
-      transform: `scale(${0.7 + 0.3 * p}) translateY(${(1 - p) * 60}px)`, filter: `blur(${(1 - p) * 18 + (1 - o) * 14}px)`}}>
+      transform: `scale(${(0.7 + 0.3 * p) * scale}) translateY(${(1 - p) * 60}px)`, filter: `blur(${(1 - p) * 18 + (1 - o) * 14}px)`}}>
       {/* glow pool behind */}
       <div style={{position: 'absolute', inset: -140, borderRadius: '50%', background: `radial-gradient(50% 45% at 50% 50%,rgba(139,92,255,${0.55 * p}),transparent 70%)`}} />
       {/* orbiting light ring (ellipse around the card) */}
@@ -99,7 +99,10 @@ export const AvatarOrbit: React.FC<{at: number; collapse: number; out: number; c
         const born = at + i * 2;
         const s = pop(frame, born, 8) * (0.55 + 0.45 * shrink);
         const rr = r * shrink * (0.86 + 0.14 * Math.sin(i * 1.7));
-        const x = cx + Math.cos(a) * rr * 1.12, y = cy + Math.sin(a) * rr * 0.78;
+        let x = cx + Math.cos(a) * rr * 1.12, y = cy + Math.sin(a) * rr * 0.78;
+        // keep the face clear: face ellipse centred (540, 560), rx 230, ry 270 (+ avatar half-size margin)
+        const fx = (x - 540) / (230 + 70), fy = (y - 560) / (270 + 70), dd = Math.hypot(fx, fy);
+        if (dd < 1 && shrink > 0.5) { x = 540 + (x - 540) / Math.max(dd, 0.05); y = 560 + (y - 560) / Math.max(dd, 0.05); }
         const size = 104 + (i % 3) * 14;
         return (
           <div key={i} style={{position: 'absolute', left: x - size / 2, top: y - size / 2, transform: `scale(${s}) rotate(${Math.sin(a) * 8}deg)`,
