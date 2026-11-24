@@ -32,3 +32,6 @@ Previews: `../render/ava_v5_music_B_neon_glide.mp4`, `../render/ava_v5_music_D_i
   - Peak −5.4 dB, no clipping.
 - **Output:** `../render/ava_v5_music_Timeless_instrumental.mp4`. It is **git-ignored** because the song is copyrighted.
   The safest way to post is the no-music `ava_jurgens_v5_sfx.mp4` with Timeless added in Instagram's music picker.
+- **Louder version** (user asked for more music): `../render/ava_v5_music_Timeless_instrumental_louder.mp4`, made with `duck_mix_loud.py`.
+  - The music is **+6 dB**: about −28 dBFS under words (about 4 dB under Ava) and about −24 dBFS in pauses.
+  - Mix peak −5.3 dB, no clipped samples. It is git-ignored too.
