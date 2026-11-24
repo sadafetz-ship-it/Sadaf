@@ -135,13 +135,8 @@ export const ContentFlow: React.FC = () => {
   const draw = interpolate(f, [270, 316], [0, 1], {...cl, easing: eio});
   const cam = p(f, 258, 69, eio);
   const nodes = [{x: 160, y: 320, l: 'Raw clip', ic: '●', at: 277}, {x: 380, y: 250, l: 'Edit', ic: '▶', at: 304}, {x: 590, y: 150, l: 'Publish', ic: '➚', at: 313}];
-  const paths = contour(300, 900, 9, 7);
   return (
     <>
-      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, filter: `drop-shadow(0 0 6px ${C.mid})`}}>
-        {paths.map((d, i) => <path key={i} d={d} fill="none" stroke={C.pale} strokeWidth={2.5} opacity={0.28} pathLength={1} strokeDasharray="1 1"
-          strokeDashoffset={1 - p(f, 258 + i * 2, 16)} />)}
-      </svg>
       <div style={{position: 'absolute', left: 90, top: 380, width: 900, height: 640, borderRadius: 40, overflow: 'hidden', fontFamily: FONT, color: '#fff',
         background: 'linear-gradient(160deg,rgba(70,82,60,.85),rgba(30,38,24,.92))', border: '1.5px solid rgba(216,255,146,.25)',
         boxShadow: `0 -4px 0 ${C.lime},0 0 60px rgba(132,229,114,.35),0 40px 80px rgba(0,0,0,.5)`, opacity: rise,

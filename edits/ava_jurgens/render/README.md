@@ -85,3 +85,10 @@ Everything else is lighter, about −8 dB under speech:
 - **Switches inside a scene** (→ Content Flow, → gauge, → orbit): dissolve or paper slide.
 
 All other element sounds are unchanged. Peak −6.2 dB, no clipping.
+
+## v6: Content Flow on black
+`ava_jurgens_v6_sfx.mp4` is the current no-music master: picture, voice and SFX. v5 and the composed-music previews are still in git history.
+- **Content Flow scene** (8.6–10.9 s): the background is **pure black**. The green world fades to black over 6 frames as the board
+  enters. The curvy contour ("rose") lines behind the board are **removed**.
+- The board, graph line, nodes and every other scene are unchanged. The other explainers keep the dark-green world.
+- With music: `ava_v6_Timeless_hook.mp4`, the Timeless hook-intro mix on the v6 picture. It is git-ignored because the song is copyrighted.
