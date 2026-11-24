@@ -92,3 +92,23 @@ All other element sounds are unchanged. Peak −6.2 dB, no clipping.
   enters. The curvy contour ("rose") lines behind the board are **removed**.
 - The board, graph line, nodes and every other scene are unchanged. The other explainers keep the dark-green world.
 - With music: `ava_v6_Timeless_hook.mp4`, the Timeless hook-intro mix on the v6 picture. It is git-ignored because the song is copyrighted.
+
+## v7: textured black background on all graphic scenes
+`ava_jurgens_v7_sfx.mp4` is the current no-music master. With music: `ava_v7_Timeless_hook.mp4`, which is git-ignored (copyrighted song).
+
+All full-screen graphic scenes have the new background: PBL page, hiring cards, Content Flow, position info, gauge, photo circle and
+Consistency. Ava's talking-head shots keep her real room, as the user chose.
+
+The background (`World` in `remotion/src/Explainers.tsx`), from the bottom layer up:
+
+| Layer | Spec |
+|---|---|
+| Base | near-black `#050505` |
+| Concrete / paper surface | fractal noise, base frequency 0.012/0.018, 4 octaves, opacity 0.10 |
+| Film grain | fine fractal noise at 0.85, desaturated, re-rolled every 2 frames, screen blend, opacity 0.09 |
+| Grid | faint white 80 px grid at 3.5 % opacity, drifting up slowly, masked to the centre |
+| Vignette | darkens the edges to 75 % |
+| Particles | floating particles, as before, slightly dimmer |
+
+- The green light pools are removed. The measured background brightness is about 14/255, so it reads as black with texture.
+- The Content Flow scene's flat black from v6 now uses the same textured background.

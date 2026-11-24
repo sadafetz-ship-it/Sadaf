@@ -3,21 +3,35 @@ import {useCurrentFrame, interpolate, random, staticFile, Img, OffthreadVideo} f
 import {C, ACC, ACCT, HEAVYFILL, FONT, cl, p, pop, eo, eio} from './theme';
 import {cardStyle, pillStyle, btnStyle, Dot, Caret, typed, Badge} from './UI';
 
-/** Dark green world: light pools that drift, faint grid, drifting particles. */
-export const World: React.FC<{hue?: number}> = ({hue = 0}) => {
+/** Textured black world: black base, concrete surface, animated film grain, vignette, faint grid, drifting particles. */
+export const World: React.FC<{hue?: number}> = () => {
   const f = useCurrentFrame();
-  const dx = Math.sin(f / 70) * 40, dy = Math.cos(f / 90) * 30;
+  const seed = Math.floor(f / 2) % 8; // grain re-rolls every 2 frames
   return (
-    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', filter: hue ? `hue-rotate(${hue}deg)` : undefined}}>
-      <div style={{position: 'absolute', inset: 0, background: `radial-gradient(600px 500px at ${20 + dx / 10}% ${25 + dy / 10}%,rgba(132,229,114,.20),transparent 70%),radial-gradient(700px 600px at ${85 - dx / 10}% ${70 - dy / 10}%,rgba(76,218,180,.22),transparent 70%),linear-gradient(180deg,#121A0A,#17200D 60%,#0A1005)`}} />
-      <div style={{position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(216,255,146,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(216,255,146,.06) 1px,transparent 1px)',
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#050505'}}>
+      {/* concrete / paper surface: low-frequency turbulence, very subtle */}
+      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.10}}>
+        <filter id="concrete"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves={4} seed={3} />
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 -0.12" /></filter>
+        <rect width="100%" height="100%" filter="url(#concrete)" />
+      </svg>
+      {/* fine film grain, animated */}
+      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.09, mixBlendMode: 'screen'}}>
+        <filter id={`grain${seed}`}><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={2} seed={seed + 11} stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" /></filter>
+        <rect width="100%" height="100%" filter={`url(#grain${seed})`} />
+      </svg>
+      {/* faint grid, slowly drifting */}
+      <div style={{position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px)',
         backgroundSize: '80px 80px', backgroundPosition: `0 ${-f * 0.6}px`, WebkitMaskImage: 'radial-gradient(ellipse at 50% 45%,#000 30%,transparent 80%)'}} />
+      {/* vignette */}
+      <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.75) 100%)'}} />
       {Array.from({length: 60}).map((_, i) => {
         const x = random(`px${i}`) * 1080, y0 = random(`py${i}`) * 1920, sp = 0.3 + random(`ps${i}`) * 1.2;
         const y = ((y0 - f * sp) % 1920 + 1920) % 1920;
         const s = [3, 4, 6][i % 3];
         return <div key={i} style={{position: 'absolute', left: x + Math.sin(f / 30 + i) * 10, top: y, width: s, height: s, borderRadius: '50%',
-          background: [C.pale, C.mid, '#fff', C.mint][i % 4], opacity: [0.25, 0.45, 0.7][i % 3] * (0.6 + 0.4 * Math.sin(f / 9 + i)), boxShadow: `0 0 8px ${C.mid}`}} />;
+          background: [C.pale, C.mid, '#fff', C.mint][i % 4], opacity: [0.18, 0.32, 0.5][i % 3] * (0.6 + 0.4 * Math.sin(f / 9 + i)), boxShadow: `0 0 6px ${C.mid}`}} />;
       })}
     </div>
   );

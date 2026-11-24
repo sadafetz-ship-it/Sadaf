@@ -61,7 +61,7 @@ export const Main: React.FC = () => {
       {f >= 162 && f < 327 && <AbsoluteFill style={sceneEnv(f, 162, 327)}><World />
         {f < 264 && <AbsoluteFill style={{opacity: 1 - p(f, 256, 6), filter: f > 256 ? `blur(${20 * p(f, 256, 6)}px)` : undefined}}>
           <GlowCards /><TopWord left="we're" leftAt={169} right="hiring" rightAt={240} big="EDITORS" at={246} out={300} top={210} size={200} seed={8} on="dark" /></AbsoluteFill>}
-        {f >= 258 && <AbsoluteFill style={{opacity: p(f, 258, 6), background: '#000'}}><ContentFlow /></AbsoluteFill>}
+        {f >= 258 && <AbsoluteFill style={{opacity: p(f, 258, 6)}}><ContentFlow /></AbsoluteFill>}
       </AbsoluteFill>}
       {f >= 459 && f < 648 && <AbsoluteFill style={sceneEnv(f, 459, 648)}><World />
         {f < 537 && <AbsoluteFill style={{opacity: 1 - p(f, 531, 6), transform: `scale(${1 + 0.08 * p(f, 531, 6)})`}}><RemoteScene src="" /></AbsoluteFill>}
