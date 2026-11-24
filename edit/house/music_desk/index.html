@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>House Music Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Allura&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday tool for a creator picking a music bed
+   IDEA a warm mixing desk: the edit on the monitor, tracks as channel strips beneath your thumb
+   PICTURE the user's own video playing with the chosen bed live underneath, level + ducking on the desk
+   COLOUR the edit's Golden Hour set: ink ground, amber accent, ember support, cream text
+   TYPE Inter (text + numbers), Allura only for the one script word, like the captions
+   LAYOUT laptop: monitor + mixer left, track list right; phone: title, monitor, mixer, list */
+:root{color-scheme:light dark;--bg:light-dark(#fbf4e6,#160c06);--panel:light-dark(#fffaf0,#22130a);--line:light-dark(#e6d3b0,#3a2414);--ink:light-dark(#2a170a,#fff4de);--soft:light-dark(#7a5a3c,#c9ab86);--amber:#ffc000;--ember:#eb8858;--deep:light-dark(#6b3410,#ffd36b)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+.band{padding-block:clamp(22px,3.5vw,48px);padding-inline:max(4vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1{font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 6px;font-weight:700}
+h1 .s{font-family:Allura,cursive;font-weight:400;color:var(--deep);font-size:1.15em;letter-spacing:0}
+h2{font-size:26px;line-height:1.1;letter-spacing:-.01em;margin:0 0 10px}
+p.lead{margin:0;color:var(--soft);max-width:70ch}
+.desk{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:20px;margin-top:20px;align-items:start}
+.monitor{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:14px}
+video{width:100%;aspect-ratio:16/9;border-radius:14px;background:#000;display:block}
+.now{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:12px}
+.now b{font-size:18px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--soft);white-space:nowrap}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--ember)}
+.ctrl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 14px;align-items:center;margin-top:14px}
+.ctrl label{font-size:14px;color:var(--soft);white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--amber);height:32px}
+.val{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:14px}
+.toggles{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.tg{display:inline-flex;align-items:center;gap:8px;font-size:14px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.tg input{width:18px;height:18px;accent-color:var(--amber)}
+button{font:inherit}
+.btn{min-height:44px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;font-weight:600}
+.btn:hover{border-color:var(--amber)}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#160c06}
+.btn:focus-visible,.tg:focus-within,.row:focus-visible{outline:3px solid var(--ember);outline-offset:2px}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:8px;max-height:660px;overflow:auto}
+.grp{font-size:13px;color:var(--soft);padding:12px 12px 4px;font-weight:600}
+.row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;border-radius:14px;cursor:pointer}
+.row:hover{background:color-mix(in srgb,var(--amber) 10%,transparent)}
+.row.sel{background:color-mix(in srgb,var(--amber) 20%,transparent)}
+.play{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.play.on{background:var(--amber);border-color:var(--amber);color:#160c06}
+.t{font-weight:600;line-height:1.25}
+.m{font-size:13px;color:var(--soft);line-height:1.35}
+.fit{width:64px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}
+.fit span{display:block;height:100%;background:var(--amber)}
+.bpm{font-size:13px;color:var(--soft);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.why{margin-top:10px;font-size:14px;color:var(--soft)}
+.credit{margin-top:8px;font-size:13px;color:var(--soft);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.credit a{color:var(--deep)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--soft);font-weight:600}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.drop{border:2px dashed var(--line);border-radius:18px;padding:16px;display:grid;gap:10px;margin-top:14px}
+.drop input[type=number]{width:96px;font:inherit;font-size:16px;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.drop select{font:inherit;font-size:16px;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);max-width:100%}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10em,1fr));gap:12px;margin:14px 0}
+.stat{border-top:2px solid var(--amber);padding-top:8px}
+.stat b{display:block;font-size:clamp(22px,3vw,30px);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--soft)}
+.note{font-size:13px;color:var(--soft)}
+.scroll{overflow-x:auto}
+.toast{min-height:20px;font-size:13px;color:var(--deep)}
+@media(max-width:860px){.desk,.two{grid-template-columns:minmax(0,1fr)}.list{max-height:none}}
+@media(max-width:600px){table{font-size:13px}th,td{padding:6px 4px}.ctrl{grid-template-columns:minmax(0,1fr) auto}.ctrl label{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<section class="band"><div class="wrap">
+  <h1>House edit <span class="s">music</span> desk</h1>
+  <p class="lead">Pick a bed and press play on the video: the track starts at its beat-synced point and ducks under your voice automatically. All 13 tracks are licensed for commercial use.</p>
+  <div class="desk">
+    <div>
+      <div class="monitor">
+        <video id="vid" src="house_edit.mp4" playsinline controls preload="auto"></video>
+        <div class="now"><b id="nowT">House Music (Remix)</b><span class="chip" id="nowV"><i></i>Warm house</span><span class="chip" id="nowB">120 BPM</span></div>
+        <div class="ctrl">
+          <label for="lvl">Music level</label><input id="lvl" type="range" min="0" max="40" value="14"><span class="val" id="lvlV">14%</span>
+          <label for="off">Start point</label><input id="off" type="range" min="0" max="50" step="0.05" value="10"><span class="val" id="offV">0:10.00</span>
+        </div>
+        <div class="toggles">
+          <label class="tg"><input id="duck" type="checkbox" checked>Duck under voice</label>
+          <label class="tg"><input id="mute" type="checkbox">Music only (mute video)</label>
+          <button class="btn" id="resync" type="button">Reset to beat sync</button>
+          <button class="btn primary" id="pv" type="button">Play video + music</button>
+        </div>
+        <div class="why" id="why"></div>
+        <div class="credit" id="credit"></div>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+    </div>
+    <div class="list" id="list" aria-label="Tracks"></div>
+  </div>
+</div></section>
+
+<section class="band" style="background:color-mix(in srgb,var(--amber) 8%,var(--bg))"><div class="wrap two">
+  <div>
+    <h2>Your songs from the Crypto chat, ranked for this video</h2>
+    <p class="note">The 23 songs you gave that chat stayed in its container (they are copyrighted, so they never went to GitHub). Ranked here from that chat's measurements plus this video's content. Pick the file from your phone to hear it under the edit; nothing is uploaded.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>#</th><th>Song</th><th>Why for this video</th><th>Start</th></tr></thead>
+      <tbody id="mine"></tbody>
+    </table></div>
+  </div>
+  <div>
+    <h2>Try one of your songs</h2>
+    <div class="drop">
+      <label for="which" class="note">Which song is it? (sets the suggested start)</label>
+      <select id="which"></select>
+      <label for="file" class="note">Choose the MP3 / M4A from your device</label>
+      <input id="file" type="file" accept="audio/*">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <label for="mstart" class="note">Start at (s)</label><input id="mstart" type="number" min="0" step="0.1" value="76.4">
+        <button class="btn primary" id="useMine" type="button">Put it under the video</button>
+      </div>
+      <p class="note">Copyrighted songs: add them in Instagram's music picker at 5–10% rather than baking them into the export, or the video can be muted.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <h2>What kind of video this is, and what music fits</h2>
+  <p class="lead">A personal-finance / home-buying explainer: one creator to camera, hook → promise ("step by step") → problem ("it's gotten pretty pricey"), Golden Hour look. The mood is warm, optimistic and trustworthy with a little urgency. Because you talk almost nonstop, the bed has to stay out of your voice's range.</p>
+  <div class="stats">
+    <div class="stat"><b>267 wpm</b><span>speech rate (very fast)</span></div>
+    <div class="stat"><b>91%</b><span>of the video is speech</span></div>
+    <div class="stat"><b>111–192 Hz</b><span>your voice pitch; energy 250 Hz–2 kHz</span></div>
+    <div class="stat"><b>112–116 BPM</b><span>tempo where your 7 big hits fall closest to the beat</span></div>
+  </div>
+  <div class="two">
+    <div><h2 style="font-size:20px">Good fits</h2><p class="note">Instrumental only · warm house, upbeat-positive, lo-fi groove, light inspiring · major key · little in 300 Hz–2.5 kHz · 110–120 BPM so cuts and hits feel on the beat · steady, not dramatic.</p></div>
+    <div><h2 style="font-size:20px">Avoid</h2><p class="note">Rap or sung hooks (they fight a 267 wpm voice) · dark phonk / trap · big cinematic swells that compete with the hook · busy lead melodies in the mid range.</p></div>
+  </div>
+  <p class="note">How the 13 were chosen: 404 commercial-use tracks searched on Openverse (Jamendo), scored on tempo fit, space for your voice, warmth, busyness and key, then checked with Whisper for singing. Start points put the HOME hit on a downbeat.</p>
+</div></section>
+
+<script>
+{
+const DATA = {"tracks": [{"vibe": "Warm house", "title": "House Music (Remix)", "creator": "DJ Frankie Holmes", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1287213", "source": "jamendo", "file": "music/house_music_remix.mp3", "bpm": 120.1, "sync": 10.0, "align_ms": 117, "mid": 0.065, "cent": 1050, "major": 0.386, "score": 91.7, "why": "Warm four-on-the-floor groove, low mids stay clear of your voice; highest fit score."}, {"vibe": "Warm house", "title": "Summer Longings", "creator": "softspace", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/112765", "source": "jamendo", "file": "music/summer_longings.mp3", "bpm": 140.9, "sync": 5.73, "align_ms": 86, "mid": 0.217, "cent": 1033, "major": 0.058, "score": 78.1, "why": "Sunny, golden-hour feel; soft synth pads, gentle energy."}, {"vibe": "Warm house", "title": "Infinity (Deep House)", "creator": "Spencer Newton", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1674324", "source": "jamendo", "file": "music/infinity_deep_house.mp3", "bpm": 120.1, "sync": 10.0, "align_ms": 117, "mid": 0.101, "cent": 1912, "major": 0.203, "score": 85.0, "why": "Deep, smooth house; premium \"real estate tour\" feel."}, {"vibe": "Warm house", "title": "Driving in Sunset", "creator": "Lfete", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1601074", "source": "jamendo", "file": "music/driving_in_sunset.mp3", "bpm": 80.0, "sync": 10.0, "align_ms": 114, "mid": 0.215, "cent": 381, "major": 0.074, "score": 69.4, "why": "Mellow sunset drive; very dark and warm, sits far under the voice."}, {"vibe": "Upbeat & positive", "title": "Happiness", "creator": "BlackBadBlood", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1235794", "source": "jamendo", "file": "music/happiness.mp3", "bpm": 114.8, "sync": 10.0, "align_ms": 68, "mid": 0.157, "cent": 1322, "major": 0.155, "score": 90.0, "why": "Bright, optimistic, closest tempo to your edit (\u2248115 BPM)."}, {"vibe": "Upbeat & positive", "title": "Positive Background", "creator": "Soundrider/Dope", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1671032", "source": "jamendo", "file": "music/positive_background.mp3", "bpm": 120.1, "sync": 10.0, "align_ms": 117, "mid": 0.26, "cent": 1269, "major": 0.095, "score": 74.9, "why": "Classic upbeat explainer bed; friendly and clean."}, {"vibe": "Upbeat & positive", "title": "Upbeat Lounge Background", "creator": "Soundrider/Dope", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1670563", "source": "jamendo", "file": "music/upbeat_lounge_background.mp3", "bpm": 120.1, "sync": 10.0, "align_ms": 117, "mid": 0.228, "cent": 1121, "major": -0.004, "score": 74.8, "why": "Lounge groove, relaxed but moving."}, {"vibe": "Lo-fi & groove", "title": "Ancient Groove One", "creator": "DJ Frankie Holmes", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1286353", "source": "jamendo", "file": "music/ancient_groove_one.mp3", "bpm": 120.1, "sync": 10.0, "align_ms": 117, "mid": 0.02, "cent": 1220, "major": 0.102, "score": 87.6, "why": "Laid-back beat with almost nothing in the voice range."}, {"vibe": "Lo-fi & groove", "title": "Close to the River", "creator": "oncoming way", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1263198", "source": "jamendo", "file": "music/close_to_the_river.mp3", "bpm": 89.8, "sync": 10.0, "align_ms": 199, "mid": 0.13, "cent": 599, "major": -0.031, "score": 76.3, "why": "Slow, warm lo-fi; calm, trustworthy money talk."}, {"vibe": "Lo-fi & groove", "title": "Jazzy Plus", "creator": "Thomas Attwood", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1141685", "source": "jamendo", "file": "music/jazzy_plus.mp3", "bpm": 120.1, "sync": 10.0, "align_ms": 117, "mid": 0.527, "cent": 1644, "major": 0.232, "score": 63.8, "why": "Light jazzy groove; friendly, a bit playful."}, {"vibe": "Inspiring", "title": "Inspiring Marketing", "creator": "Soundrider/Dope", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1670487", "source": "jamendo", "file": "music/inspiring_marketing.mp3", "bpm": 120.1, "sync": 10.0, "align_ms": 117, "mid": 0.19, "cent": 1315, "major": 0.219, "score": 87.2, "why": "Motivational build; \"you can do this\" energy for the 10-year plan."}, {"vibe": "Inspiring", "title": "I Have All the Dreams", "creator": "Alejandro Vallarino", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1329469", "source": "jamendo", "file": "music/i_have_all_the_dreams.mp3", "bpm": 109.9, "sync": 10.0, "align_ms": 148, "mid": 0.158, "cent": 1795, "major": 0.056, "score": 79.4, "why": "Hopeful and aspirational; fits \"buy a home before 40\"."}, {"vibe": "Inspiring", "title": "Fearless", "creator": "CM ONNI", "license": "BY", "license_version": "3.0", "license_url": "https://creativecommons.org/licenses/by/3.0/", "landing": "https://www.jamendo.com/track/1687755", "source": "jamendo", "file": "music/fearless.mp3", "bpm": 81.3, "sync": 10.0, "align_ms": 147, "mid": 0.015, "cent": 1240, "major": 0.253, "score": 70.0, "why": "Big, uplifting; strongest emotional lift."}], "speech": [[0.0, 4.3], [4.5, 9.44], [9.7, 12.2], [12.44, 15.32], [15.66, 16.98], [17.2, 18.38]]};
+const MINE = [
+ {n:'Cornfield Chase',why:'Instrumental, warm and low; its theme is time and the future, a perfect match for "the next 10 years". Strongest overall fit.',start:76.4,ok:'Best fit'},
+ {n:'Touch The Sky (feat. Lupe Fiasco)',why:'Triumphant horns = aspiration, "buy a home before you\'re 40". Rap vocals, so keep it very low or use in-app only.',start:174.6,ok:'Theme fit'},
+ {n:'Flower In A Hurricane',why:'#1 rising sound this week (reach). 125 BPM sits near your edit\'s beat; this stretch is the least sung (17%).',start:75.4,ok:'Trending'},
+ {n:'Blinding Lights',why:'Upbeat energy and instantly familiar; this section is about 8% vocals. Less warm than the others.',start:118.0,ok:'Energy'},
+ {n:'Succession (Main Title Theme)',why:'Money-and-power piano; suits "pricey", but colder than the Golden Hour mood.',start:67.5,ok:'Alternative'},
+ {n:'Original audio (WQFWRM)',why:'13 s and almost no vocals (3%); loops once to cover the 18.7 s video.',start:0,ok:'Short loop'},
+ {n:'Memory Reboot (Slowed)',why:'Dark phonk; fits the crypto edit, not this warm home video.',start:179.6,ok:'Not for this'},
+ {n:'Rap / sung songs (Money Trees, Million Dollar Baby, Thank You, Without Me, 20 Min…)',why:'Lyrics would fight your nonstop voice.',start:0,ok:'Not for this'}
+];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const vid = $('vid'), audio = new Audio(); audio.preload = 'auto'; audio.crossOrigin = 'anonymous';
+let ctx = null, gain = null, cur = 0, custom = null, previewing = false, raf = 0;
+const fmt = (s) => { const m = Math.floor(s / 60); return m + ':' + (s - m * 60).toFixed(2).padStart(5, '0'); };
+const track = () => custom || DATA.tracks[cur];
+const speaking = (t) => DATA.speech.some(([a, b]) => t >= a - 0.05 && t <= b + 0.1);
+function ensureAudio() {
+  if (ctx) return;
+  try { ctx = new (window.AudioContext || window.webkitAudioContext)(); const src = ctx.createMediaElementSource(audio); gain = ctx.createGain(); src.connect(gain).connect(ctx.destination); }
+  catch (e) { ctx = null; gain = null; }
+}
+function setGain(v) { if (gain && ctx) gain.gain.setTargetAtTime(v, ctx.currentTime, 0.06); else audio.volume = Math.min(1, v); }
+function target() {
+  const lvl = $('lvl').value / 100;
+  if (previewing) return Math.max(lvl, 0.6);
+  const duck = $('duck').checked && speaking(vid.currentTime) && !$('mute').checked;
+  return lvl * (duck ? 0.45 : 1) * 2.2;
+}
+function loop() {
+  setGain(target());
+  if (!previewing && !vid.paused) { const want = +$('off').value + vid.currentTime; if (Math.abs(audio.currentTime - want) > 0.08) audio.currentTime = want; }
+  raf = requestAnimationFrame(loop);
+}
+function load(i, isCustom) {
+  previewing = false; renderList();
+  const t = track();
+  audio.src = t.file; $('off').max = Math.max(50, Math.ceil(t.sync + 10)); $('off').value = t.sync; $('offV').textContent = fmt(t.sync);
+  $('nowT').textContent = t.title; $('nowV').innerHTML = '<i></i>' + esc(t.vibe); $('nowB').textContent = t.bpm ? Math.round(t.bpm) + ' BPM' : 'your file';
+  $('why').textContent = t.why || '';
+  $('credit').innerHTML = t.creator ? `“${esc(t.title)}” by ${esc(t.creator)} · <a href="${esc(t.license_url)}">CC ${esc(t.license)} ${esc(t.license_version)}</a> · <a href="${esc(t.landing)}">source</a> <button class="btn" id="copy" type="button">Copy credit</button>` : 'Your own file: not uploaded anywhere.';
+  const c = $('copy'); if (c) c.onclick = async () => { try { await navigator.clipboard.writeText(`Music: "${t.title}" by ${t.creator} (CC ${t.license} ${t.license_version}) ${t.landing}`); $('toast').textContent = 'Credit copied: paste it in your caption.'; } catch (e) { $('toast').textContent = 'Copy blocked here; the credit text is shown above.'; } };
+}
+function renderList() {
+  let html = '', last = '';
+  DATA.tracks.forEach((t, i) => {
+    if (t.vibe !== last) { html += `<div class="grp">${esc(t.vibe)}</div>`; last = t.vibe; }
+    const sel = !custom && i === cur, on = sel && previewing && !audio.paused;
+    html += `<div class="row${sel ? ' sel' : ''}" data-i="${i}" tabindex="0" role="button" aria-label="Use ${esc(t.title)}">
+      <button class="play${on ? ' on' : ''}" data-p="${i}" type="button" aria-label="Preview ${esc(t.title)}">${on ? '❚❚' : '▶'}</button>
+      <div><div class="t">${esc(t.title)}</div><div class="m">${esc(t.creator)}</div><div class="fit" title="Fit score ${t.score}"><span style="width:${Math.round(t.score)}%"></span></div></div>
+      <div class="bpm">${Math.round(t.bpm)} BPM<br>fit ${Math.round(t.score)}</div></div>`;
+  });
+  $('list').innerHTML = html;
+}
+$('list').addEventListener('click', async (e) => {
+  const p = e.target.closest('[data-p]'), r = e.target.closest('[data-i]'); if (!r) return;
+  const i = +r.dataset.i; ensureAudio(); if (ctx && ctx.state === 'suspended') await ctx.resume();
+  if (p) {
+    if (!custom && i === cur && previewing && !audio.paused) { audio.pause(); renderList(); return; }
+    custom = null; cur = i; load(i); vid.pause(); previewing = true; audio.currentTime = 0;
+    try { await audio.play(); } catch (err) { $('toast').textContent = 'Tap again to allow audio.'; } renderList();
+  } else { custom = null; cur = i; load(i); $('toast').textContent = 'Loaded. Press "Play video + music".'; }
+});
+$('list').addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.dataset.i) e.target.click(); });
+async function playBoth() {
+  ensureAudio(); if (ctx && ctx.state === 'suspended') await ctx.resume();
+  previewing = false; renderList(); if (vid.ended || vid.currentTime > vid.duration - 0.2) vid.currentTime = 0;
+  audio.currentTime = +$('off').value + vid.currentTime;
+  try { await vid.play(); await audio.play(); } catch (err) { $('toast').textContent = 'Tap again to allow audio.'; }
+}
+$('pv').onclick = playBoth;
+vid.addEventListener('play', () => { if (!previewing) { audio.currentTime = +$('off').value + vid.currentTime; audio.play().catch(() => {}); } });
+vid.addEventListener('pause', () => { if (!previewing) audio.pause(); });
+vid.addEventListener('seeked', () => { if (!previewing) audio.currentTime = +$('off').value + vid.currentTime; });
+vid.addEventListener('ended', () => { if (!previewing) audio.pause(); });
+$('lvl').oninput = () => { $('lvlV').textContent = $('lvl').value + '%'; };
+$('off').oninput = () => { $('offV').textContent = fmt(+$('off').value); if (!vid.paused) audio.currentTime = +$('off').value + vid.currentTime; };
+$('resync').onclick = () => { const t = track(); $('off').value = t.sync; $('offV').textContent = fmt(t.sync); };
+$('mute').onchange = () => { vid.muted = $('mute').checked; };
+// your songs
+$('mine').innerHTML = MINE.map((s, i) => `<tr><td class="n">${i + 1}</td><td><b>${esc(s.n)}</b><br><span class="note">${esc(s.ok)}</span></td><td>${esc(s.why)}</td><td class="n">${s.start ? fmt(s.start) : '—'}</td></tr>`).join('');
+$('which').innerHTML = MINE.slice(0, 6).map((s, i) => `<option value="${i}">${esc(s.n)}</option>`).join('');
+$('which').onchange = () => { $('mstart').value = MINE[+$('which').value].start; };
+$('useMine').onclick = () => {
+  const f = $('file').files && $('file').files[0]; if (!f) { $('toast').textContent = 'Choose a song file first.'; $('file').focus(); return; }
+  const s = MINE[+$('which').value];
+  custom = {title: f.name.replace(/\.[^.]+$/, ''), vibe: 'Your song', bpm: 0, sync: +$('mstart').value || 0, file: URL.createObjectURL(f), why: s.why};
+  load(0, true); window.scrollTo({top: 0, behavior: 'smooth'}); $('toast').textContent = 'Your song is under the video. Press "Play video + music".';
+};
+load(0); renderList(); raf = requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
