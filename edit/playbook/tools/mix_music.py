@@ -12,6 +12,8 @@ PLAN = {
   'cornfield':  dict(parts=[(8.2, DUR)], at=0.0),                     # ticking build; organ swell at 0:42.2 → 34.0
   'memory':     dict(parts=[(139.0, DUR)], at=0.0),                   # beat drop at 2:53 → 34.0
   'succession': dict(parts=[(0.5, 6.66), (0.5, DUR)], at=0.0),        # 2 piano bars repeated → beat (0:15) lands on "Schwarzman" 21.16
+  'succession_up': dict(parts=[(15.0 - 1.62, DUR)], at=0.0),          # beat (0:15) lands on "listen UP" 1.62
+  'succession_playbook': dict(parts=[(15.0 - 3.94, DUR)], at=0.0),    # 2 bars of piano, beat lands on "playbook" 3.94
 }
 name = sys.argv[5]; p = PLAN[name]
 mus = np.zeros((0, 2), np.float32); xf = int(0.25 * SR)
@@ -40,8 +42,10 @@ def lvl(a, b):
     return 20 * np.log10(np.percentile(r[r > 1e-5], 95))
 pre, post = lvl(0.5, 33.5), lvl(34.0, 38.5)
 mdb = post
+early = name in ('succession_up', 'succession_playbook')
+if early: pre = post = lvl(4.0, 38.5)        # steady theme: one level for the whole track
 reg = np.where(t < 33.8, pre, post)           # level each side of the drop separately
-off = np.where(t < 33.8, 19.0, 15.0)          # under-speech target below the voice: build −19 dB, payoff −15 dB
+off = np.where(t < 33.8, 19.0, 15.0) if not early else np.where(t < 33.8, 18.0, 15.5)          # under-speech target below the voice: build −19 dB, payoff −15 dB
 g = (vdb - off) - reg
 g[~speech] += 7.0                             # gaps: lift 7 dB
 for h in (25.16, 26.84, 28.86):              # stop-hits on each "he didn't have"
