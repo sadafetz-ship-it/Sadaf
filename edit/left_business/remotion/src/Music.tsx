@@ -9,8 +9,8 @@ export const MUSIC: {file: string | null; alignSec: number; alignFrame: number; 
   file: 'music/new_computers.mp3', // user's file, kept out of git (public/music is ignored); 1:15–1:45, no vocals
   alignSec: 97.34, // strongest beat hit in the section, placed on "switch"
   alignFrame: CUT.switchAt, // lands on "switch" (0:22.07), when the colour comes back
-  gap: 0.156, // level between phrases (loudness-matched, steady track)
-  under: 0.06, // level under the voice
+  gap: 0.25, // level between phrases (+4 dB, user: "increase the volume a little")
+  under: 0.096, // level under the voice (+4 dB)
 };
 
 // voice activity per frame from the word timings (4 f attack, 10 f release)
