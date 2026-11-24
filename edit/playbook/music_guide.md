@@ -61,3 +61,20 @@ Search these libraries with these terms:
 2. Sit it under the voice at about −24 LUFS, with **side-chain ducking** (−6 dB while he speaks).
 3. Add stop-hits on the three "didn't have" lines.
 4. Re-time any animation hits to the beat if needed, then re-render (about 5 min).
+
+## 6. Your 23 songs (from the "Crypto website" chat), ranked for *this* video
+The stats come from that chat's analysis: BPM, % singing in the best section, and loudness. Every song needs ≥ 39 s.
+
+| Rank | Song | Section | Why for "The Playbook" |
+|---|---|---|---|
+| ⭐ 1 | **Succession – Main Title Theme** | ~1:07 on | A literal Wall Street dynasty theme: money, power, insiders. Dark piano and strings over a hip-hop beat, so it matches the content exactly. No singing (the 31–43 % "vocal" score is the strings fooling the detector). |
+| 2 | **Runaway (outro)** – Kanye West | 5:06 on (3 % vocals) | The single repeated piano note fits "Alright, listen up" and the secret tone. Premium and moody. |
+| 3 | **Cornfield Chase** – Hans Zimmer | 1:16 on (5 % vocals) | Builds to a big, hopeful peak, ideal for "a strategy so powerful… forever". The quietest track, so the speech stays clear. |
+| 4 | **Memory Reboot (Slowed)** | 2:59 on (6 % vocals) | Dark edit energy; good for a more aggressive cut. Feels more "tech/crypto" than Wall Street. |
+
+**Not for this video:**
+- **Blinding Lights:** 80s neon pop, which fits the crypto edit, not a finance history story.
+- **Flower In A Hurricane:** trendy but psychedelic.
+- **Rap tracks:** Money Trees, MILLION DOLLAR BABY, Touch The Sky, THANK YOU, Without Me, 20 Min. Their lyrics would fight a 164 wpm voice.
+- **Vocal-heavy songs:** Dark Red, Freedom, Cry For Me, LA MuDANZA, Love Me.
+- **Too short for 39 s:** Dragonfly (16 s), Echo Sax (37 s), Original audio clips (10–13 s), ReelAudio (30 s).
