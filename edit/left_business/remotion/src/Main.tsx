@@ -5,6 +5,7 @@ import {Captions} from './Captions';
 import {BeamReveal, ExplainA, ExplainB, ExplainC, FlashCut} from './Explainers';
 import {Burst, cl, easeInOut, Flare, prog} from './fx';
 import {Sfx} from './Sfx';
+import {Music} from './Music';
 import {CTA, EdgeFlash, TalkOverlays} from './Talk';
 import {C, CUT, DURATION, FACE} from './theme';
 import {BehindHook, BehindReveal, FrontHook} from './Titles';
@@ -106,6 +107,7 @@ export const Main: React.FC = () => {
       <AbsoluteFill style={{background: '#000', opacity: fade}} />
       <Audio src={staticFile('raw.mp4')} volume={0.88} />
       <Sfx />
+      <Music />
     </AbsoluteFill>
   );
 };
