@@ -261,7 +261,30 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   `ref2_q_pill` / `ref2_q_morph` / `ref2_g_golden`). Avoid sustained tonal swells (e.g. `ref_light_reveal`) on UI boards: they
   read as a sung "aah". Check candidates with `librosa.pyin`; mostly-pitched files are suspect.
 - Files that turn out to be **speech** (e.g. someone's voiceover) are not SFX. Tell the user and leave them out.
-- **Music:**
+- **Music (user, Nov 2026: "give me the audio player so I don't have to go on other websites; analyse my video's type and find music for it"):**
+  - **Analyse the video first:**
+    - Type and mood, measured from the transcript and the edit: speech rate (wpm), share of the video that is speech, and voice pitch/energy band.
+    - **Tempo of the edit:** the BPM range where its big hits land closest to the beat.
+    - House video example: a finance/home-buying explainer at 267 wpm, 91 % speech → instrumental, warm and positive, 112–116 BPM, little in 300 Hz–2.5 kHz, no rap or sung hooks.
+  - **Find royalty-free music:** search Openverse (`api.openverse.org`, `license=cc0,by`, `category=music`) through curl, because Python's urllib is blocked by Cloudflare. Then:
+    1. Download 90 s previews.
+    2. Score each preview with `scripts/music_analyse.py`: tempo fit, mid-band (voice masking), warmth, busyness and major key.
+    3. Check the top 60 for singing with `scripts/music_vocal_check.py` (Whisper tiny.en). Also drop non-English titles, since Whisper misses foreign vocals.
+    4. Keep about 12, in 3–4 mood groups.
+    5. Compute each track's start point so the first big hit lands on a downbeat.
+    6. Loudness-normalise every excerpt to −16 LUFS.
+  - **Deliver a player page** (template `scripts/music_desk_template.html`, published as an artifact with the video and mp3s as its own files):
+    - The edit plays with the chosen bed in sync, with automatic ducking under the voice, a level slider, a start-point slider and music-only mode.
+    - Each track can also be previewed alone, with a fit score, BPM and a Copy credit button.
+    - The user's own songs, ranked for this video, come with a file picker to hear any of them under the edit locally.
+  - **Bake the pick in** with `scripts/remotion_HouseMusic.tsx`:
+    - Word-by-word ducking: gain 0.15 while talking, 0.30 in pauses (fast duck, slower lift).
+    - About 9–12 dB under the voice, faded with the picture.
+    - Keep a no-music export as well.
+    - CC BY tracks need the credit line in the caption.
+  - **Librosa's `beat_track` segfaults here** (a numba gufunc bug). Use `librosa.feature.tempo` plus an onset-grid phase search instead.
+  - The user's copyrighted songs (shared in other chats) stay out of git. Rank them from measurements and suggest the in-app picker at 5–10 %.
+- **Music (older notes):**
   - Suggest instrumental, no-vocal beds (100–120 BPM, dark-tech / minimal synth), ducked under the voice.
   - Trending songs go in **in-app at 5–10 %**, never baked into the export (copyright).
 

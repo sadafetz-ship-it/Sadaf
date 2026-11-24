@@ -3,6 +3,7 @@ import {AbsoluteFill, continueRender, delayRender, interpolate, OffthreadVideo, 
 import {Captions} from './Captions';
 import {BeamReveal, ExplainA, ExplainB, FlashCut} from './Explainers';
 import {cl, prog} from './fx';
+import {Music} from './Music';
 import {Sfx} from './Sfx';
 import {EdgeFlash, TalkOverlays} from './Talk';
 import {CUT, DURATION} from './theme';
@@ -48,6 +49,7 @@ export const Main: React.FC = () => {
       <EdgeFlash at={538} />
       <Captions />
       <AbsoluteFill style={{background: '#000', opacity: fade}} />
+      <Music />
       <Sfx />
     </AbsoluteFill>
   );

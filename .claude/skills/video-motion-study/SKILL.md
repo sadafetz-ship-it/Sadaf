@@ -26,6 +26,7 @@ When the user gives a new standing preference, or rejects something, add it to `
 - `scripts/remotion_House*.tsx` + `remotion_house_theme.ts`: the full 16:9 house edit. This is the **current caption lockup** and the **motion-graphics library**: gauge, product card with light ribbon, calendar→card morph, gold key, $$$, beam sweep, Scripts-style titles, camera and grade. Start new edits from these files, recoloured to the new accent.
 - `assets/sfx/` holds **the user's SFX library**. `assets/sfx/INDEX.md` lists each file's role and peak offset. Always use it for sound design.
 - `assets/references/` holds the user's references: the **circled stills** (Golden Hour accent, Scripts title, Nexus / $10,000 heavy words), the **motion-graphics reference video** (full grid plus 4 split clips), and every-frame / 6 fps sheets. `assets/examples/` holds the finished 16:9 house edit and its preview board. Catalogue: `references/reference_library.md`.
+- Music: `scripts/music_analyse.py` + `music_vocal_check.py` (find and score royalty-free beds), `music_desk_template.html` (the player page), `remotion_HouseMusic.tsx` (ducked bed). The workflow is in house_style §8 → Music.
 - `scripts/make_sfx.py`: emergency stand-in SFX only. Use it when `assets/sfx/` is somehow missing, and tell the user.
 - `scripts/cutout_speaker.py`: speaker cut-out → alpha WebM, for text behind the head. `scripts/sfx_tools.py`: analyse SFX files (peak offsets, duplicates) and split SFX out of a reference video.
 
