@@ -6,11 +6,11 @@ import {WORDS} from './words';
 import {CUT, DURATION, FPS} from './theme';
 
 export const MUSIC: {file: string | null; alignSec: number; alignFrame: number; gap: number; under: number} = {
-  file: 'music/new_computers.mp3', // user's file, kept out of git (public/music is ignored); 1:15–1:45, no vocals
-  alignSec: 97.34, // strongest beat hit in the section, placed on "switch"
+  file: 'music/new_computers_nodrums.wav', // New Computers 1:10–1:52 with the drums removed (tools/remove_drums.py); kept out of git
+  alignSec: 27.34, // = 1:37.34 in the song, placed on "switch"
   alignFrame: CUT.switchAt, // lands on "switch" (0:22.07), when the colour comes back
-  gap: 0.25, // level between phrases (+4 dB, user: "increase the volume a little")
-  under: 0.096, // level under the voice (+4 dB)
+  gap: 0.45, // level between phrases (drumless file is 5 dB quieter; this matches the v5 level)
+  under: 0.172, // level under the voice
 };
 
 // voice activity per frame from the word timings (4 f attack, 10 f release)
