@@ -1,0 +1,16 @@
+[
+ {
+  "song": "Original_audio_WQFWRM",
+  "start_in_song_s": 5.2,
+  "mean_hit_to_beat_error_s": 0.08,
+  "gain_db": -14.2,
+  "peak_dbfs": -4.32
+ },
+ {
+  "song": "THANK_YOU",
+  "start_in_song_s": 34.62,
+  "mean_hit_to_beat_error_s": 0.021,
+  "gain_db": -8.3,
+  "peak_dbfs": -4.0
+ }
+]
