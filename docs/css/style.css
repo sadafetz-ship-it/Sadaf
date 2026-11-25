@@ -688,3 +688,4 @@ nav.rail a:not(.on)::before{display:none}
 #contact{padding-top:40px}
 .intro .girl img{z-index:2}
 .intro .girl .ring,.intro .girl .haze{z-index:0}
+.wie{grid-template-columns:1fr 1fr}
