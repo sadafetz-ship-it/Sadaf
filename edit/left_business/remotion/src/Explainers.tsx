@@ -6,7 +6,7 @@ import {BigNum, cl, Corner, DrawPath, easeInOut, OutlinePill, pop, prog, Roll, S
 
 /** Black world with texture. Variant picked by --props {"bg":"A|B|C|D"} (default BG below).
  *  A clean black + fine grain · B studio spotlight + grain · C halftone dots · D brushed metal. */
-const BG = ((getInputProps() as {bg?: string}).bg ?? 'A') as 'A' | 'B' | 'C' | 'D';
+const BG = ((getInputProps() as {bg?: string}).bg ?? 'B') as 'A' | 'B' | 'C' | 'D';
 const Grain: React.FC<{o: number}> = ({o}) => {
   const f = useCurrentFrame();
   const seed = Math.floor(f / 2);
