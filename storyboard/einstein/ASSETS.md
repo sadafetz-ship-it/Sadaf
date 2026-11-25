@@ -76,3 +76,10 @@ Text glow: white text, soft outer glow (about 18–22 px blur, 45–55 % opacity
 
 ## Sound effects (free: Pixabay, freesound.org)
 Whoosh, paper slap, string creak, lamp click, chalk, clock tick, bass hit, camera flash, newspaper rustle, soft riser, low drone.
+
+## Audio (v2 video)
+| Layer | Source | Licence / credit |
+|---|---|---|
+| Voiceover | Piper TTS, voice "en_US-ryan-high" (offline), lines and start times in `audio/voiceover_lines.tsv` | Piper (MIT); Ryan voice dataset is public domain. Replace with your own recording any time |
+| Sound effects | Synthesised in code (`renderer/mix.py`): typing clicks, whooshes, paper slaps, string creak/twang, bass hits, risers, marker scribble, clock ticks, lamp clicks, glitches, ink splats, shimmer | Original, no licence needed |
+| Music | "Darkest Child" by Kevin MacLeod (incompetech.com), ducked under the voice | **Credit required:** "Darkest Child" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/ |

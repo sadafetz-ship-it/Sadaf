@@ -18,7 +18,7 @@ const css = `${fonts}
 .sc{position:absolute;inset:0;overflow:hidden;display:none}.cam{position:absolute;inset:0;transform-origin:50% 50%}.a{position:absolute}.full{position:absolute;inset:0}
 .serif{font-family:Bodoni;font-style:italic;color:#fff;text-shadow:0 0 18px rgba(255,255,255,.45),0 2px 10px rgba(0,0,0,.5);letter-spacing:-1px;line-height:.95;white-space:nowrap}
 .serifd{font-family:Bodoni;font-style:italic;color:#222;letter-spacing:-1px;line-height:.95;white-space:nowrap}
-.pop{font-family:Pop;font-weight:800;color:#fff;letter-spacing:-2px;line-height:.9;white-space:nowrap;text-shadow:0 0 22px rgba(255,255,255,.55),0 6px 0 rgba(0,0,0,.25),0 10px 30px rgba(0,0,0,.6)}
+.pop{font-family:Pop;font-weight:800;color:#fff;letter-spacing:-2px;line-height:.9;white-space:nowrap;text-shadow:1px 1px 0 #cfcfcf,2px 2px 0 #b9b9b9,3px 3px 0 #a3a3a3,4px 4px 0 #8d8d8d,5px 5px 0 #777,6px 6px 0 #616161,8px 10px 18px rgba(0,0,0,.6),0 0 30px rgba(255,255,255,.55)}
 .cut{-webkit-mask-image:linear-gradient(#000 82%,transparent 99%);filter:grayscale(1) contrast(1.1) drop-shadow(2px 0 0 rgba(255,40,40,.28)) drop-shadow(-2px 0 0 rgba(40,220,255,.28)) drop-shadow(0 20px 40px rgba(0,0,0,.6))}
 .bw{filter:grayscale(1) contrast(1.12) brightness(.9)}
 .card{position:absolute;padding:14px;background:#f4f2ec;box-shadow:0 14px 30px rgba(0,0,0,.4)}.card>div{width:100%;height:100%;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.1)}
@@ -49,14 +49,14 @@ const scenes = `
 <div class="a" style="left:690px;top:90px;width:540px;height:660px;padding:34px;background:linear-gradient(135deg,#7a5a1c,#e8c66a 25%,#9a7428 45%,#f2d98a 65%,#6d4f15);box-shadow:0 30px 60px rgba(0,0,0,.5),inset 0 0 0 6px rgba(60,40,10,.6)"><div style="width:100%;height:100%;background:url(${I.youngFull}) center 20%/cover;filter:grayscale(1) contrast(1.1)"></div></div>
 <div id="s2c" class="a" style="left:0;right:0;top:790px;text-align:center"><div class="serifd" style="font-size:84px">Albert Einstein</div><div class="serifd" style="font-size:44px;margin-top:12px">in 1902</div></div></div></div>
 <div class="sc" id="S3"><div class="cam"><div id="s3bg" class="full bw" style="background:url(${I.bern}) center 40%/cover;filter:grayscale(1) contrast(1.15) brightness(.7) blur(1.5px)"></div><div class="full" style="background:linear-gradient(transparent 40%,rgba(0,0,0,.55))"></div>
-<img id="s3p" class="a cut" src="${I.young}" style="left:560px;top:120px;height:960px">
-<div id="s3c" class="a serif" style="left:0;right:0;top:790px;text-align:center;font-size:96px"></div>
+<img id="s3p" class="a cut" src="${I.young}" style="left:520px;top:60px;height:1040px">
+<div id="s3c" class="a serif" style="left:0;right:0;top:760px;text-align:center;font-size:130px"></div>
 <div id="s3l" class="a" style="left:180px;top:-30px;width:520px;transform-origin:50% 0"><svg class="a" style="left:0;top:0" width="520" height="300"><line x1="60" y1="0" x2="150" y2="300" stroke="${RED}" stroke-width="5"/><line x1="460" y1="0" x2="370" y2="300" stroke="${RED}" stroke-width="5"/></svg>
 <div class="a" style="left:40px;top:290px;background:#4a2a1f;padding:10px 34px 18px;box-shadow:0 12px 30px rgba(0,0,0,.5);font:800 110px/1 Pop;letter-spacing:-3px;color:#e8d8b0;white-space:nowrap"><span id="s3lt"></span></div></div></div></div>
 <div class="sc" id="S4"><div class="cam"><div id="s4bg" class="full" style="background:url(${I.bern}) center 60%/cover"></div>
-<img class="a cut" src="${I.sch}" style="left:1040px;top:110px;height:970px">
-<div id="s4w" class="a serif" style="left:180px;top:200px;font-size:110px;line-height:1"></div>
-<div id="s4k" class="a serif" style="left:170px;top:560px;font-size:190px">patent office</div><div id="s4u" class="a" style="left:180px;top:770px;height:8px;background:${YEL};border-radius:4px;box-shadow:0 0 12px ${YEL}"></div></div></div>
+<img id="s4p" class="a cut" src="${I.sch}" style="left:980px;top:40px;height:1060px">
+<div id="s4w" class="a serif" style="left:150px;top:170px;font-size:150px;line-height:1"></div>
+<div id="s4k" class="a serif" style="left:120px;top:540px;font-size:230px">patent office</div><div id="s4u" class="a" style="left:130px;top:800px;height:8px;background:${YEL};border-radius:4px;box-shadow:0 0 12px ${YEL}"></div></div></div>
 <div class="sc" id="S5"><div class="cam"><div class="full" style="background:url(${I.youngFull}) center 25%/cover;filter:grayscale(1) contrast(1.1) brightness(.75)"></div>
 <div id="s5t" class="a" style="left:560px;top:590px;transform-origin:0 50%"><div style="background:${YEL};padding:4px 26px 12px;clip-path:polygon(0 8%,4% 0,30% 5%,60% 0,100% 6%,97% 50%,100% 94%,70% 100%,35% 95%,3% 100%,0 60%);box-shadow:0 8px 20px rgba(0,0,0,.4);font:italic 400 70px Bodoni;color:#1a1a1a;min-width:200px;height:100px;white-space:nowrap"><span id="s5tw"></span></div></div>
 <div id="s5k" class="a serif" style="left:640px;top:690px;font-size:190px">third class</div></div></div>
@@ -64,7 +64,7 @@ const scenes = `
 <div id="s6p" class="full">${greyWall}<div class="full" style="background:rgba(235,235,232,.55)"></div>${shadow('sh6',.18)}<div id="s6t" class="a serifd" style="left:0;right:0;top:500px;text-align:center;font-size:72px">What happened next.</div></div></div>
 <div class="sc" id="S7"><div class="cam">${darkRoom}
 <div id="s7cone" class="a" style="left:330px;top:150px;width:1100px;height:900px;clip-path:polygon(18% 0,32% 0,100% 100%,0 100%);background:radial-gradient(ellipse at 25% 0%,rgba(255,240,190,.38),rgba(255,240,190,.08) 70%);filter:blur(10px)"></div>
-<img class="a cut" src="${I.young}" style="left:820px;top:230px;height:640px">
+<img id="s7p" class="a cut" src="${I.young}" style="left:820px;top:230px;height:640px">
 <div class="a" style="left:0;right:0;top:770px;height:310px;background:linear-gradient(#4a3322,#24180f)"></div>
 <div class="a" style="left:860px;top:800px;width:300px;height:200px;background:#e6dcc4;transform:perspective(600px) rotateX(55deg) rotate(-6deg)"></div><div class="a" style="left:1000px;top:810px;width:300px;height:200px;background:#efe7d3;transform:perspective(600px) rotateX(55deg) rotate(8deg)"></div>
 <div class="a" style="left:470px;top:60px;width:12px;height:110px;background:#222"></div><div class="a" style="left:360px;top:140px;width:240px;height:110px;background:linear-gradient(#41543f,#1e2a1d);clip-path:polygon(30% 0,70% 0,100% 100%,0 100%)"></div>
@@ -97,10 +97,10 @@ ${Array.from({length:40},(_,i)=>`<div class="a dot" data-i="${i}" style="left:${
 <img class="a" src="${I.watch}" style="left:740px;top:260px;height:560px;opacity:.9;filter:grayscale(1) contrast(1.1)">
 <div id="s12s" class="a serif" style="left:0;right:0;top:330px;text-align:center;font-size:70px"></div>
 <div id="s12k" class="a" style="left:0;right:0;top:420px;text-align:center;font:800 230px/1 Pop;color:#f1e3b8;letter-spacing:-8px;text-shadow:0 0 30px rgba(255,240,200,.5),0 8px 0 rgba(0,0,0,.3)">time</div></div></div>
-<div class="sc" id="S13"><div class="cam"><div class="full" style="background:url(${I.board}) left center/cover;filter:grayscale(1) contrast(1.1) brightness(.45) blur(3px)"></div>
-<img class="a cut" src="${I.sch}" style="left:340px;top:120px;height:960px">
-<div id="s13a" class="a pop" style="left:1060px;top:300px;font-size:90px;line-height:1.05"></div>
-<div id="s13k" class="a pop" style="left:1040px;top:420px;font-size:250px"></div><div id="s13e" class="a pop" style="left:1180px;top:700px;font-size:150px">ever.</div></div></div>
+<div class="sc" id="S13"><div class="cam"><div id="s13bg" class="full" style="background:url(${I.board}) left center/cover;filter:grayscale(1) contrast(1.1) brightness(.45) blur(3px)"></div>
+<img id="s13p" class="a cut" src="${I.sch}" style="left:260px;top:40px;height:1060px">
+<div id="s13a" class="a pop" style="left:1000px;top:180px;font-size:140px;line-height:1.02"></div>
+<div id="s13k" class="a pop" style="left:930px;top:340px;font-size:270px"></div><div id="s13e" class="a pop" style="left:1120px;top:700px;font-size:220px">ever.</div></div></div>
 <div class="sc" id="S14"><div class="cam">${greyDesk}${card(I.eclipse,1060,150,600,650,5)}<div class="tape" style="left:1250px;top:120px;width:200px;transform:rotate(-6deg)"></div>${shadow('sh14',.45)}
 <div id="s14y" class="a" style="left:180px;top:250px;font:400 440px/1 Bodoni;color:#1c1c1c;letter-spacing:-14px"></div>
 <div class="a" style="left:560px;top:680px;transform:rotate(-4deg)"><div id="s14b" style="background:${LIME};padding:4px 30px 14px;font:italic 400 90px Bodoni;color:#1a1a1a;white-space:nowrap;height:130px;transform-origin:0 50%"><span id="s14t"></span></div></div></div></div>
@@ -118,8 +118,8 @@ ${[[730,270],[1190,270],[730,800],[1190,800],[560,320],[1360,320],[570,770],[136
 <div class="a" style="left:690px;top:700px;transform:rotate(-30deg);background:#111;color:#fff;font:700 28px Pop;padding:5px 14px">PHYSICIST</div>
 ${scrib('s16s')}${shadow('sh16',.4)}</div></div>
 <div class="sc" id="S17"><div class="cam">${darkRoom}<div class="full" style="background:radial-gradient(ellipse at 70% 30%,rgba(255,240,200,.18),transparent 60%)"></div>
-<img class="a cut" src="${I.harris}" style="left:960px;top:140px;height:940px">
-<div id="s17a" class="a serif" style="left:220px;top:330px;font-size:86px"></div><div id="s17k" class="a serif" style="left:200px;top:440px;font-size:190px">Nobel Prize</div>${ell('s17e',LIME)}</div></div>
+<img id="s17p" class="a cut" src="${I.harris}" style="left:940px;top:80px;height:1000px">
+<div id="s17a" class="a serif" style="left:160px;top:290px;font-size:110px"></div><div id="s17k" class="a serif" style="left:120px;top:420px;font-size:230px">Nobel Prize</div>${ell('s17e',LIME)}</div></div>
 <div class="sc" id="S18"><div class="cam">${cream}${shadow('sh18',.2)}
 <div id="s18a" class="a" style="left:0;right:0;top:390px;text-align:center;font:italic 400 76px Bodoni;color:#2a2622"></div>
 <div id="s18k" class="a" style="left:0;right:0;top:480px;text-align:center"><span id="s18b" style="display:inline-block;background:${RED};padding:0 28px 10px;clip-path:polygon(1% 6%,20% 0,48% 4%,75% 0,99% 5%,100% 40%,98% 96%,70% 100%,40% 96%,12% 100%,0 92%,2% 45%);font:900 170px/1.05 Play;color:#fff;letter-spacing:-4px;transform:scaleX(.86)"></span></div>
@@ -136,24 +136,25 @@ function words(id,arr,t,blurF=4){$(id).innerHTML=arr.filter(([tm])=>t>=tm).map((
 function blurIn(id,t,t0,f=6,max=14){const p=P(t,t0,t0+f*F);st(id,{filter:'blur('+((1-p)*max).toFixed(1)+'px)',opacity:t<t0?0:Math.min(1,p*2)});}
 function draw(id,t,t0,f){const p=E.o3(P(t,t0,t0+f*F));$(id).querySelector('path').style.strokeDashoffset=1-p;$(id).style.opacity=p>0.001?1:0;}
 function cam(sc,o){const c=$(sc).querySelector('.cam');c.style.transform='translate('+(o.x||0)+'px,'+(o.y||0)+'px) scale('+(o.s||1)+') rotate('+(o.r||0)+'deg)';c.style.filter=o.f||'none';}
+function dolly(bg,fg,t,d,fs=.22,bs=.05){if(bg)st(bg,{transform:'scale('+(1+bs*t/d)+')'});st(fg,{transformOrigin:'50% 100%',transform:'translateY('+(-20*t/d)+'px) scale('+(1+fs*E.io(cl(t/d)))+') rotate('+(Math.sin(t*1.7)*.6)+'deg)'});}
 function drift(id,t){ if($(id)) $(id).style.transform='translate('+(t*40)+'px,'+(t*12)+'px)'; }
 const SC=[
 ['S1',0,1.3,(t)=>{type('s1a','In',t,0);type('s1b','1902',t,.13);cam('S1',{s:1+.06*t/1.3});drift('sh1',t);}],
 ['S2',1.3,3.3,(t)=>{blurIn('s2c',t,.15,6);drift('sh2',t);let s=1+.08*E.io(P(t,0,1.2));const p=P(t,1.2,2.0);s+=E.i3(p)*3.4;cam('S2',{s,f:'blur('+(Math.sin(p*Math.PI)*5).toFixed(1)+'px)'});}],
 ['S3',3.3,6.3,(t)=>{const cap=[[0,'couldn’t get'],[.6,'a job'],[1.2,'at any'],[1.8,'university.']].filter(a=>t>=a[0]).pop();$('s3c').textContent=cap?cap[1]:'';
- cam('S3',{s:1.06-.06*E.o3(P(t,0,.4))+.04*t/3,f:'blur('+((1-P(t,0,6*F))*10).toFixed(1)+'px)'});
+ cam('S3',{f:'blur('+((1-P(t,0,6*F))*10).toFixed(1)+'px)'});dolly('s3bg','s3p',t,3);
  const d=P(t,2.0,2.0+10*F),k=t-2.33;st('s3l',{transform:'translateY('+((1-E.back(d))*-420)+'px) rotate('+(k>0?8*Math.exp(-4*k)*Math.sin(12*k):0)+'deg)',opacity:t<2?0:1});type('s3lt','rejected',t,2.05,1.5);}],
-['S4',6.3,8.6,(t)=>{cam('S4',{s:1+.04*t/2.3,f:'blur('+((1-P(t,0,6*F))*12).toFixed(1)+'px)'});const dk=P(t,1.4,1.7);st('s4bg',{filter:'grayscale(1) contrast(1.1) brightness('+(.6-.25*dk)+') blur(2px)'});
+['S4',6.3,8.6,(t)=>{dolly('s4bg','s4p',t,2.3);cam('S4',{f:'blur('+((1-P(t,0,6*F))*12).toFixed(1)+'px)'});const dk=P(t,1.4,1.7);st('s4bg',{filter:'grayscale(1) contrast(1.1) brightness('+(.6-.25*dk)+') blur(2px)'});
  words('s4w',[[.15,'So'],[.32,'he'],[.48,'took'],[.62,'\\n'],[.62,'a'],[.78,'job'],[.95,'at'],[1.08,'a']],t,3);
  const o=E.o3(P(t,1.4,1.4+6*F));st('s4w',{transform:'translate('+(-260*o)+'px,'+(-90*o)+'px)',filter:'blur('+(o*10)+'px)',opacity:1-.6*o});
- blurIn('s4k',t,1.45,4);st('s4u',{width:(820*E.o3(P(t,1.6,1.6+10*F)))+'px'});}],
+ blurIn('s4k',t,1.45,4);st('s4u',{width:(1050*E.o3(P(t,1.6,1.6+10*F)))+'px'});}],
 ['S5',8.6,10.3,(t)=>{cam('S5',{s:1.02+.05*t/1.7,x:t>1.6?-400*P(t,1.6,1.7):0,f:'blur('+(((1-P(t,0,6*F))*10)+(t>1.6?8:0)).toFixed(1)+'px)'});
  const u=E.back(P(t,.17,.17+4*F));st('s5t',{transform:'rotate(-5deg) scale('+(0.2+0.8*u)+','+(0.5+0.5*u)+')',opacity:t<.17?0:1});
  words('s5tw',[[.25,'Technical'],[.45,'expert,']],t,2);const k=P(t,.65,.65+3*F);st('s5k',{transform:'rotate(-5deg) scale('+(1.25-.25*E.o3(k))+')',opacity:t<.65?0:1});}],
 ['S6',10.3,11.6,(t)=>{const p=P(t,0,.5);$('s6str').style.display=t<.5?'block':'none';$('s6p').style.display=t<.5?'none':'block';
  const w=60+1860*E.i3(p);st('s6s',{width:w+'px',marginLeft:(-w/2)+'px',filter:'blur('+(1.5+p*3)+'px)',transform:'translateX('+Math.sin(t*40)*20+'px)'});
  blurIn('s6t',t,.5,6,16);drift('sh6',t);}],
-['S7',11.6,14.2,(t)=>{cam('S7',{s:1+.05*t/2.6});const on=(t>.1&&t<.17)||t>.23;st('s7cone',{opacity:on?1:0});st('s7bulb',{opacity:on?1:.15});
+['S7',11.6,14.2,(t)=>{cam('S7',{s:1+.03*t/2.6});dolly(null,'s7p',t,2.6,.12);const on=(t>.1&&t<.17)||t>.23;st('s7cone',{opacity:on?1:0});st('s7bulb',{opacity:on?1:.15});
  blurIn('s7a',t,.5,4);const p=E.back(P(t,1.0,1.0+15*F));st('s7l',{transform:'translate('+((1-p)*-380)+'px,'+((1-p)*420)+'px) rotate('+(-25+21*p)+'deg)',opacity:t<1?0:1});}],
 ['S8',14.2,15.0,(t)=>{const w=E.o3(P(t,0,5*F));cam('S8',{y:(1-w)*300,f:'blur('+((1-w)*12)+'px)'});const step=Math.min(3,Math.max(0,(t-.2)/(4*F)));st('s8d',{top:(185+200*E.io(step/3)*3)+'px'});}],
 ['S9',15.0,17.6,(t)=>{cam('S9',{s:1+.05*t/2.6,r:-2+2*t/2.6});drift('sh9',t);
@@ -166,7 +167,7 @@ const SC=[
  document.querySelectorAll('#S11 .dot').forEach(d=>{const i=+d.dataset.i;d.style.transform='translate('+(Math.sin(t*37+i)*3)+'px,'+(Math.cos(t*41+i*2)*3)+'px)';});
  words('s11w',[[.3,'One'],[.48,'\\n'],[.48,'proved']],t,3);blurIn('s11k',t,.8,3);st('s11r',{clipPath:'polygon(0 20%,8% 0,40% 8%,70% 0,100% 15%,96% 80%,100% 100%,60% 90%,20% 100%,2% 85%)',WebkitMaskImage:'linear-gradient(90deg,#000 '+(E.o3(P(t,1.0,1.0+9*F))*100)+'%,transparent '+(E.o3(P(t,1.0,1.0+9*F))*100+2)+'%)',opacity:t<1.0?0:1});}],
 ['S12',20.9,22.8,(t)=>{st('g1',{transform:'rotate('+(t*40)+'deg)'});st('g2',{transform:'rotate('+(-t*60)+'deg)'});type('s12s','One changed',t,.1,1.2);const k=P(t,.8,.8+3*F);st('s12k',{opacity:t<.8?0:1,transform:'scale('+(1.2-.2*E.o3(k))+')'});cam('S12',{s:1+.04*t/1.9});}],
-['S13',22.8,26.0,(t)=>{cam('S13',{s:1.06-.06*t/3.2});words('s13a',[[.2,'the most'],[.45,'\\n'],[.45,'famous'],[.7,'\\n'],[.7,'equation']],t,2);
+['S13',22.8,26.0,(t)=>{dolly('s13bg','s13p',t,3.2,.18,.04);words('s13a',[[.2,'the most'],[.45,'\\n'],[.45,'famous'],[.7,'\\n'],[.7,'equation']],t,2);
  const o=E.o3(P(t,1.3,1.3+6*F));st('s13a',{transform:'translateX('+(-300*o)+'px)',filter:'blur('+(o*12)+'px)',opacity:1-o});
  type('s13k','E=mc²',t,1.4,3);const b=P(t,2.4,2.4+6*F);st('s13k',{transform:'scale('+(1-.15*b)+') translateY('+(-40*b)+'px)',filter:'blur('+(b*2)+'px)',opacity:1-.3*b});
  const e=P(t,2.5,2.5+3*F);st('s13e',{opacity:t<2.5?0:1,transform:'scale('+(1.2-.2*e)+')'});}],
@@ -177,10 +178,10 @@ const SC=[
  st('s15a',{left:'260px',top:'240px',width:'1400px',height:'700px'});draw('s15a',t,.9,9);words('s15w',[[.4,'famous'],[.65,'overnight']],t,4);}],
 ['S16',31.2,34.2,(t)=>{const w=E.o3(P(t,0,10*F)),o=E.i3(P(t,2.8,3.0));cam('S16',{y:(1-w)*-600-o*900,r:(1-w)*8+1.5*t/3,s:1+.06*t/3,f:'blur('+((1-w)*12+o*14)+'px)'});drift('sh16',t);
  st('s16s',{left:'855px',top:'300px',width:'250px',height:'250px'});draw('s16s',t,1.2,24);}],
-['S17',34.2,38.0,(t)=>{const pl=P(t,2.6,2.8);cam('S17',{s:1+.04*t/3.8+.06*E.io(pl),f:'blur('+(Math.sin(pl*Math.PI)*6)+'px)'});
+['S17',34.2,38.0,(t)=>{const pl=P(t,2.6,2.8);dolly(null,'s17p',t,3.8,.15);cam('S17',{s:1+.02*t/3.8+.06*E.io(pl),f:'blur('+(Math.sin(pl*Math.PI)*6)+'px)'});
  words('s17a',[[.2,'Then'],[.4,'he won'],[.6,'the']],t,4);blurIn('s17k',t,.9,3);
  const fl=[1.0,1.07,1.13,1.2];let c='#fff';fl.forEach((x,i)=>{if(t>=x)c=i%2?'#fff':'${LIME}';});if(t>=1.27)c='${LIME}';$('s17k').style.color=c;
- st('s17e',{left:'150px',top:'450px',width:'1080px',height:'230px'});draw('s17e',t,.95,6);}],
+ st('s17e',{left:'40px',top:'400px',width:'1320px',height:'340px'});draw('s17e',t,.95,6);}],
 ['S18',38.0,44.0,(t)=>{document.querySelectorAll('#S18 .blot').forEach(b=>{const d=+b.dataset.d;const g=E.o3(P(t,d,d+.6));b.style.opacity=t<1.3?g:1-P(t,1.3,1.6);b.style.scale=0.2+g*1.2;});
  const z=P(t,1.3,1.7);cam('S18',{s:1.25-.25*E.o3(z),f:'blur('+((1-z)*(t>1.3?8:0))+'px)'});
  type('s18a','Not bad for a',t,1.6,2);const s=t<2.6?'':t<2.9?'patent':'patent clerk.';$('s18b').textContent=s;$('s18b').style.display=s?'inline-block':'none';
