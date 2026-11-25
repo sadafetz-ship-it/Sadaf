@@ -1,64 +1,61 @@
-# Einstein 45 s: photos, footage and graphics list
+# Einstein 45 s: pictures, fonts and style sources
 
-The grey silhouette boxes in the storyboard frames are **placeholders**. Replace each one with the item below. Search for the title shown on **Wikimedia Commons** (commons.wikimedia.org) or the **ETH Zürich Library image archive** (e-pics.ethz.ch). All the items marked public domain are old enough to be free to use, but check the licence line on the page you download from.
+The style is copied from your 4 reference videos: **Ref 1** Netflix, **Ref 2** Titanic, **Ref 3** McDonald's (the 16:9 one), **Ref 4** Elizabeth Loftus. The storyboard PDF says which reference each frame copies.
 
-## Already downloaded (in `photos/`)
-| File | Frame | Source | Licence |
+## Pictures (all downloaded, in `photos/`)
+All are public domain or CC0 (free to use, including commercially). Source: Wikimedia Commons.
+
+| File | Used in frame | What it is | Original source |
 |---|---|---|---|
-| `A_einstein_c1904_patent_office.jpg` | 2 | Einstein at the time of the patent office, c.1904. ETH-Bibliothek Zürich, Bildarchiv (Portr_05937), via Wikimedia Commons "Einstein patentoffice.jpg" | Public Domain Mark |
-| `C_1919_eclipse_plate.jpg` | 11 | The 1919 solar eclipse plate (Eddington/Dyson expedition), Wikimedia Commons "1919 eclipse positive.jpg" | Public domain |
-| `F_einstein_1921_harris_ewing.jpg` | 13 | Einstein, 1921, Harris & Ewing Studio. National Portrait Gallery (NPG.84.288), via Wikimedia Commons. Cropped to the photo only (the original mount carries an old printed caption) | CC0 |
+| `einstein_c1904_ETH.jpg` | 2, 3, 5, 7 | Young Einstein, c.1904, during the patent-office years | ETH-Bibliothek Zürich, Bildarchiv (Portr_05937), Public Domain Mark |
+| `einstein_1921_schmutzer.jpg` | 4, 12 | Einstein, 1921, standing, by Ferdinand Schmutzer | Public domain |
+| `einstein_1921_harris_ewing.jpg` | 15 | Einstein, 1921, Harris & Ewing Studio (cropped off the mount) | National Portrait Gallery NPG.84.288, CC0 |
+| `eclipse_1919.jpg` | 13 | The 1919 eclipse plate that confirmed relativity | Public domain |
+| `bern_kramgasse_1890s.jpg` | 3, 4 | Kramgasse in Bern with the Zytglogge clock tower, 1890s (Einstein lived on this street in 1903–05) | Rijksmuseum RP-F-00-5358-54-1, public domain |
+| `annalen_der_physik_1905.jpg` | 8 | Contents page of *Annalen der Physik*, June 1905 | CC0 |
+| `light_bulb_1883.jpg` | 9 | Light bulb by Lewis Latimer, 1883 | Museum of Science and Industry Chicago, CC0 photo |
+| `pocket_watch_met.jpg` | 11 | Gold pocket watch | Metropolitan Museum of Art, CC0 |
+| `lecture_room.jpg` | 12 | Lecture room with blackboard (used blurred and dark) | Cornell University, public domain / CC0 |
+| `extra_olympia_academy_1903.jpg` | (spare) | Einstein with Habicht and Solovine, Bern, c.1903. Good alternative for frame 7 | Public domain |
+| `extra_einstein_1947_head.jpg` | (spare) | Classic white-haired Einstein, 1947 (Orren Jack Turner) | Public domain (US) |
+| `extra_einstein_formal_portrait.jpg` | (spare) | Formal portrait, older Einstein | Public domain |
 
-These are 960–1280 px wide. Fine for 1080p if you keep them in a frame or partly zoomed. For a full-screen zoom, download the full-size file from the same Commons page.
+### Cutouts (`photos/cutouts/`, transparent PNG)
+Ready to drop over backgrounds, as your references do with the person standing in a scene:
+`einstein_c1904_cutout.png`, `einstein_1921_schmutzer_cutout.png`, `einstein_1921_harris_ewing_cutout.png`, `light_bulb_1883_cutout.png`, `pocket_watch_cutout.png`.
 
-## Still to download yourself
-| ID | Frame | What to search for |
+**Resolution:** the photos are about 960–1280 px wide, which is fine for a 1080p edit at the sizes in the storyboard. For a very close zoom, download the full-size file from the same Wikimedia Commons page.
+
+### Recreated, not photos
+- **Frame 14 newspapers:** the headlines are the real 1919 ones (NYT, 10 Nov 1919: "Lights All Askew in the Heavens… Einstein Theory Triumphs"; The Times, 7 Nov 1919: "Revolution in Science"), typeset as props. You can swap in archive scans if you find them.
+- Grey wall with window light, wood desk, desk lamp, cream paper, gears, the atoms disc: built in the editor.
+
+## Fonts (free, Google Fonts)
+| Role (as in the references) | Font used | Seen in |
 |---|---|---|
-| B | 7 | Wikimedia Commons "Annalen der Physik ToC June 1905" (CC0), or the 1905 paper title pages |
-| D | 11 | NYT 10 Nov 1919 "Lights All Askew in the Heavens" (currently recreated as a graphic) |
-| E | 11 | The Times, 7 Nov 1919 "Revolution in Science" (currently recreated as a graphic) |
+| Thin italic serif captions with soft glow ("Netflix lost", "People thought…") | **Bodoni Moda Italic** | Ref 1, Ref 4 |
+| Year / big numbers ("In 1955", "40000") | **Bodoni Moda Regular** | Ref 3 |
+| Heavy serif hero words ("smashed", "consistency") | **Playfair Display Black / Black Italic** (squeezed to 86 % width for the condensed look) | Ref 3, Ref 4 |
+| Bold sans with glow ("the streaming wars", "New York", "to find out") | **Poppins ExtraBold** | Ref 1, Ref 3, Ref 4 |
 
-## Original photo list
-| ID | Used in frame | What to search for | Status |
-|---|---|---|---|
-| **A** | 2 | Einstein portrait, c.1904–1905, Bern, by Lucien Chavan. Young Einstein in a suit, about 25 years old | Public domain |
-| **B** | 7 | *Annalen der Physik* 1905 title pages: "Zur Elektrodynamik bewegter Körper", "Über einen die Erzeugung und Verwandlung des Lichtes…", the Brownian motion paper, and "Ist die Trägheit eines Körpers…" | Public domain |
-| **C** | 11 | "1919 eclipse positive" (the Dyson/Eddington/Davidson photographic plate) | Public domain |
-| **D** | 11 | New York Times, 10 November 1919: "Lights All Askew in the Heavens" | Public domain (pre-1930 US) |
-| **E** | 11 | The Times (London), 7 November 1919: "Revolution in Science" | Old enough to be public domain in most places; check the archive's terms |
-| **F** | 13 | Einstein 1921 portrait by Ferdinand Schmutzer (the famous one with a white collar and wavy hair) | Public domain |
-| *optional* | 3 | Bern patent office building, or Einstein at his desk in the patent office (c.1905) | Mostly public domain; check |
-| *optional* | 12 | Nobel Prize 1921 certificate or telegram scans | Check source licence |
+Text glow: white text, soft outer glow (about 18–22 px blur, 45–55 % opacity) plus a slight dark shadow below.
 
-**Avoid:** the 1951 "tongue out" photo by Arthur Sasse. It is still copyrighted.
-
-## Textures and stock footage (free stock sites such as Pexels, Pixabay and Unsplash)
-| Used in frame | Search term |
+## Colours
+| Use | Hex |
 |---|---|
-| 1, 2, 4, 5, 7, 9, 12, 13 | "cream paper texture", "old paper grain" |
-| 3 | "dark wood desk top view" |
-| 6, 10 | "chalkboard texture", "blackboard background" |
-| all | "film grain overlay", "dust and scratches overlay", "light leak" (blend mode: Screen or Overlay) |
-| 10 | (optional) "hand writing on chalkboard close up" for a real-footage version of the equation |
+| Yellow tape / highlight box | `#E9C93B` |
+| Red rough box | `#B3122A` |
+| Dark-red label | `#7A1A22` |
+| Brown string label | `#4A2A1F` |
+| Lime hand-drawn circle | `#C8E63C` |
+| Grade | Black and white, contrast +10 %, film grain + dark vignette on every shot |
 
-## Graphics you make in the editor
-| Frame | Element |
-|---|---|
-| 1 | "[ In 1902 ]" text, serif with red brackets |
-| 4 | Typed form "Technical Expert, Third Class", a red marker circle (stroke animation) |
-| 6 | Chalk lines and squiggles (trim-path or stroke animation) |
-| 8 | Light beam (blurred yellow bar), particles (circles + wiggle) |
-| 9 | Clock (circle + ticks + hands) → mesh warp or bulge |
-| 10 | "E = mc²" with yellow glow |
-| 12 | Generic gold medal. Don't copy the real Nobel medal design |
-| all | Red box (#C8102E) and yellow box (#E3C21A) hero-word labels |
+## Motion rules taken from the references
+- **Captions:** 1–4 words at a time, swapped on the spoken word. Blur-to-sharp reveal, about 6 frames.
+- **Shot length:** a new shot every 1.5–3 s, with a quiet hold on "What happened next."
+- **Transitions:** push through the gold frame (Ref 1), hard cuts on black (Ref 3), and a flash or light-streak glitch on big moments (Ref 1).
+- **Labels:** slap in with a 120 → 100 % scale in 4 frames. Strings swing 2–3 times. Ellipses and arcs draw on over about 12 frames.
+- **Camera:** a constant slow push-in (100 → 108 %) on every photo scene.
 
-## Fonts
-- **Serif captions:** Playfair Display, Libre Caslon or Cormorant (italic for small captions). The storyboard uses Charter as a stand-in.
-- **Hero words:** Inter Display Black, Montserrat Black or Archivo Black.
-
-## Sound effects (free on Pixabay or freesound.org)
-Typewriter clicks, rubber stamp, paper shuffle, marker squeak, chalk scratch, pop, whoosh, glitch hit, clock tick, bass hit / boom, newspaper rustle, crowd murmur, chime, low drone.
-
-## Music
-A low ambient or cinematic piano bed that builds from 0:31 (E = mc²) to the end. Search "documentary ambient" or "inspiring cinematic piano" on Pixabay Music or the YouTube Audio Library.
+## Sound effects (free: Pixabay, freesound.org)
+Whoosh, paper slap, string creak, lamp click, chalk, clock tick, bass hit, camera flash, newspaper rustle, soft riser, low drone.
