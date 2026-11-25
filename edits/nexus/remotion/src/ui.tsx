@@ -62,25 +62,14 @@ export const Metallic: React.FC<{children: React.ReactNode; style?: React.CSSPro
 
 /** Dark explainer world: ink gradient, coloured light pools, faint grid, drifting particles. */
 export const ExplainerBG: React.FC<{seed: number}> = ({seed}) => {
+  // User reference "B" (Nov 2026): near-black backdrop, one soft NEUTRAL white spotlight from the top centre,
+  // darker edges. No colour pools, no grid, no particles: the graphics carry all the colour.
   const frame = useCurrentFrame();
-  const pts = new Array(30).fill(0).map((_, i) => {
-    const x = random(`x${seed}${i}`) * 1080, y0 = 120 + random(`y${seed}${i}`) * 1250;
-    const sz = [4, 5, 6, 8][Math.floor(random(`s${seed}${i}`) * 4)];
-    const col = [C.mist, C.lilac, C.violet, C.blue][Math.floor(random(`c${seed}${i}`) * 4)];
-    const y = y0 - frame * (0.4 + random(`v${seed}${i}`) * 0.8);
-    const o = 0.25 + 0.55 * (0.5 + 0.5 * Math.sin(frame / 12 + i));
-    return <div key={i} style={{position: 'absolute', left: x, top: y, width: sz, height: sz, borderRadius: '50%', background: col, opacity: o, boxShadow: `0 0 ${sz * 3}px ${col}`}} />;
-  });
-  const drift = Math.sin(frame / 40) * 30;
+  const breathe = 1 + 0.03 * Math.sin((frame + seed * 7) / 45);   // very slow light breathing so it isn't a dead still
   return (
-    <AbsoluteFill>
-      <AbsoluteFill style={{background: `radial-gradient(60% 34% at ${50 + drift / 20}% 34%,rgba(88,48,230,.55),rgba(60,30,170,.22) 55%,transparent 80%),
-        radial-gradient(40% 25% at 85% ${78 - drift / 15}%,rgba(63,224,255,.10),transparent 70%),
-        linear-gradient(180deg,#0d0b16,#07060b)`}} />
-      <AbsoluteFill style={{backgroundImage: 'linear-gradient(rgba(181,243,255,.06) 2px,transparent 2px),linear-gradient(90deg,rgba(181,243,255,.06) 2px,transparent 2px)',
-        backgroundSize: '72px 72px', backgroundPosition: `0 ${-frame * 0.5}px`, WebkitMaskImage: 'radial-gradient(70% 55% at 50% 40%,#000,transparent)'}} />
-      {pts}
-      <AbsoluteFill style={{background: 'linear-gradient(180deg,transparent 60%,rgba(7,6,11,.85) 80%)'}} />
+    <AbsoluteFill style={{background: '#060607'}}>
+      <AbsoluteFill style={{background: `radial-gradient(${62 * breathe}% ${30 * breathe}% at 50% 12%,rgba(255,255,255,.13),rgba(255,255,255,.05) 45%,transparent 75%)`}} />
+      <AbsoluteFill style={{background: 'radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.55) 100%)'}} />
     </AbsoluteFill>
   );
 };
