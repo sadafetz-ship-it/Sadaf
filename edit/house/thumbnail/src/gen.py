@@ -5,9 +5,11 @@ CSS=r"""
 @font-face{font-family:Antonio;src:url(antonio.woff2) format('woff2');font-weight:700}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:1280px;height:720px;overflow:hidden}
-.st{position:absolute;inset:0;overflow:hidden;font-family:Inter;font-variation-settings:'opsz' 32;
- background:radial-gradient(70% 80% at 16% 108%,rgba(235,136,88,.38),transparent 60%),radial-gradient(55% 60% at 84% -12%,rgba(255,192,0,.18),transparent 60%),linear-gradient(160deg,#050403 0%,#120a05 55%,#1d0f06 100%)}
-.sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,240,220,.04) 45%,transparent 60%)}
+.st{position:absolute;inset:0;overflow:hidden;font-family:Inter;font-variation-settings:'opsz' 32;background:#0b0705}
+.room{position:absolute;filter:blur(2.5px) brightness(.82) saturate(1.05)}
+.warm{position:absolute;inset:0;background:#ff9a3c;mix-blend-mode:soft-light;opacity:.32}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,6,2,.82) 0%,rgba(12,6,2,.62) 32%,rgba(12,6,2,.15) 55%,transparent 70%),radial-gradient(110% 90% at 60% 40%,transparent 55%,rgba(8,4,0,.55) 100%)}
+.sheen{display:none}
 .rim{position:absolute;border-radius:50%;filter:blur(60px)}
 .me{position:absolute;bottom:0;filter:brightness(1.07) contrast(1.06) saturate(1.04) drop-shadow(0 0 2px rgba(255,214,150,.9)) drop-shadow(0 0 26px rgba(255,170,60,.55))}
 .solid{font-weight:800;color:#FFB21A;letter-spacing:-.06em;line-height:.84;text-shadow:0 8px 30px rgba(60,20,0,.5)}
@@ -30,35 +32,41 @@ def pixels(x,y,w,h,cell,seed,anchors):
             c=r.choice(['#FFB21A','#F0913A','#EB8858','#FFD36B','#FFE9B8'])
             out.append(f'<div class="px" style="left:{x+ax*w+gx*cell:.0f}px;top:{y+ay*h+gy*cell:.0f}px;width:{cell-2}px;height:{cell-2}px;background:{c};opacity:{.65+.35*r.random():.2f}"></div>')
     return ''.join(out)
-def me(t,h,right=None,left=None):
-    pos=f'right:{right}px' if right is not None else f'left:{left}px'
-    return f'<div class="rim" style="{pos};bottom:60px;width:{h*0.8:.0f}px;height:{h*0.8:.0f}px;background:rgba(255,170,60,.35)"></div><img class="me" src="cut_{t}.png" style="height:{h}px;{pos}">'
+BB={'1.0':(488,58),'17.3':(480,102),'12.1':(394,63)}
+SC=0.95; L=0; TOP=20   # same camera crop for all: 1347x758 from the top-left of the 1920x1080 frame
+def me(t,h=None,right=None,left=None):
+    x0,y0=BB[t]
+    from PIL import Image
+    w,hh=Image.open(f'cut_{t}.png').size
+    room=f'<img class="room" src="full_{t}.png" style="left:{-L*SC:.0f}px;top:{-TOP*SC:.0f}px;width:{1920*SC:.0f}px">'
+    return (room+'<div class="warm"></div><div class="shade"></div>'
+            f'<img class="me" src="cut_{t}.png" style="left:{(x0-L)*SC:.1f}px;top:{(y0-TOP)*SC:.1f}px;width:{w*SC:.1f}px;bottom:auto">')
 T={}
 # A: hook question — curious face, HOME BY 40?
 T['A']=('"Home by 40?" (hook question)', me('1.0',700,right=-40)+f'''
-<div style="position:absolute;left:64px;top:110px;width:680px">
+<div style="position:absolute;left:52px;top:120px;width:600px">
  <div class="sm" style="font-size:44px;margin-left:8px">Buy a</div>
- <div class="solid" style="font-size:250px">HOME</div>
- <div style="margin-top:14px;margin-left:6px"><div class="pill"><span style="font-size:96px">before 40?</span></div></div>
-</div>'''+pixels(64,150,620,210,30,'a',[(0.0,1.0),(0.08,1.03),(0.92,-0.1),(1.0,0.0),(0.95,0.9)])+
- f'<div class="card" style="left:560px;top:520px;width:200px;height:120px;display:flex;align-items:center;gap:14px;padding:0 18px;transform:rotate(-4deg)"><div class="ic" style="width:72px;height:72px">{HOUSE.format(s=46)}</div><div style="color:#FFE27A;font-weight:700;font-size:26px;line-height:1.05">10-yr<br>plan</div></div>')
+ <div class="solid" style="font-size:205px">HOME</div>
+ <div style="margin-top:14px;margin-left:6px"><div class="pill"><span style="font-size:84px">before 40?</span></div></div>
+</div>'''+pixels(52,150,560,175,26,'a',[(0.0,1.0),(0.08,1.03),(0.92,-0.1),(1.0,0.0),(0.95,0.9)])+
+ f'<div class="card" style="left:52px;top:560px;width:200px;height:110px;display:flex;align-items:center;gap:14px;padding:0 18px;transform:rotate(-4deg)"><div class="ic" style="width:72px;height:72px">{HOUSE.format(s=46)}</div><div style="color:#FFE27A;font-weight:700;font-size:26px;line-height:1.05">10-yr<br>plan</div></div>')
 # B: plan — friendly face, timeline to house
-line='<svg style="position:absolute;inset:0" width="1280" height="720"><path d="M80 600 C 200 560, 260 470, 360 480 S 520 520, 600 440 S 740 300, 820 230" stroke="#FFC000" stroke-width="9" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 10px #FFC000) drop-shadow(0 0 24px #EB8858)"/></svg>'
-nodes=''.join(f'<div style="position:absolute;left:{x-18}px;top:{y-18}px;width:36px;height:36px;border-radius:50%;background:radial-gradient(#FFE27A,#EB8858);box-shadow:0 0 22px rgba(255,192,0,.8)"></div><div class="lbl" style="left:{x-40}px;top:{y+24}px;width:80px;text-align:center">{l}</div>' for x,y,l in [(80,600,'YR 1'),(360,480,'YR 3'),(600,440,'YR 6')])
+line='<svg style="position:absolute;inset:0" width="1280" height="720"><path d="M60 640 C 150 610, 200 560, 260 560 S 380 590, 440 530 S 540 420, 590 380" stroke="#FFC000" stroke-width="9" fill="none" stroke-linecap="round" style="filter:drop-shadow(0 0 10px #FFC000) drop-shadow(0 0 24px #EB8858)"/></svg>'
+nodes=''.join(f'<div style="position:absolute;left:{x-18}px;top:{y-18}px;width:36px;height:36px;border-radius:50%;background:radial-gradient(#FFE27A,#EB8858);box-shadow:0 0 22px rgba(255,192,0,.8)"></div><div class="lbl" style="left:{x-40}px;top:{y+24}px;width:80px;text-align:center">{l}</div>' for x,y,l in [(60,640,'YR 1'),(260,560,'YR 3'),(440,530,'YR 6')])
 T['B']=('"10-year home plan" (promise)', me('12.1',690,right=-110)+line+nodes+f'''
-<div class="ic" style="position:absolute;left:770px;top:170px;width:110px;height:110px;border-radius:30px">{HOUSE.format(s=70)}</div><div class="lbl" style="left:780px;top:290px;color:#FFE27A">YR 10</div>
+<div class="ic" style="position:absolute;left:545px;top:300px;width:96px;height:96px;border-radius:26px">{HOUSE.format(s=60)}</div><div class="lbl" style="left:556px;top:402px;color:#FFE27A">YR 10</div>
 <div style="position:absolute;left:60px;top:46px">
- <div class="hv" style="font-size:118px">Your 10-year</div>
- <div style="margin-top:4px"><div class="pill"><span style="font-size:104px">home plan</span></div></div>
+ <div class="hv" style="font-size:92px">Your 10-year</div>
+ <div style="margin-top:4px"><div class="pill"><span style="font-size:84px">home plan</span></div></div>
 </div>''')
 # C: pain — grimace face, PRICEY + $$$
 T['C']=('"Homes got pricey" (problem)', me('17.3',700,right=-30)+f'''
-<div style="position:absolute;left:70px;top:70px;font-family:Antonio;font-weight:700;font-size:260px;line-height:1;letter-spacing:-6px;background:linear-gradient(180deg,rgba(255,241,207,.95),rgba(255,192,0,.45));-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 8px 30px rgba(0,0,0,.4))">$$$</div>
-<svg style="position:absolute;inset:0" width="1280" height="720"><path d="M70 120 L 290 420 L 520 120" fill="none" stroke="rgba(255,244,222,.45)" stroke-width="3"/></svg>
-<div style="position:absolute;left:64px;top:390px">
+<div style="position:absolute;left:52px;top:60px;font-family:Antonio;font-weight:700;font-size:230px;line-height:1;letter-spacing:-6px;background:linear-gradient(180deg,rgba(255,241,207,.95),rgba(255,192,0,.45));-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 8px 30px rgba(0,0,0,.4))">$$$</div>
+<svg style="position:absolute;inset:0" width="1280" height="720"><path d="M52 100 L 250 380 L 450 100" fill="none" stroke="rgba(255,244,222,.45)" stroke-width="3"/></svg>
+<div style="position:absolute;left:52px;top:385px">
  <div class="sm" style="font-size:52px;margin-left:6px">Homes got</div>
- <div style="position:relative;isolation:isolate;display:inline-block;transform:rotate(-3deg);font-size:170px"><span class="hbar"></span><span class="hv">PRICEY</span></div>
-</div>'''+pixels(64,430,520,170,28,'c',[(1.02,0.1),(1.06,0.7),(-0.04,1.05),(0.85,1.08)]))
+ <div style="position:relative;isolation:isolate;display:inline-block;transform:rotate(-3deg);font-size:140px"><span class="hbar"></span><span class="hv">PRICEY</span></div>
+</div>'''+pixels(52,450,440,150,26,'c',[(1.02,0.1),(1.06,0.7),(-0.04,1.05),(0.85,1.08)]))
 for k,(label,body) in T.items():
     open(f'thumb_{k}.html','w').write(f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="st"><div class="sheen"></div>{body}</div></body></html>')
 import json; json.dump({k:v[0] for k,v in T.items()},open('thumbs.json','w'))
