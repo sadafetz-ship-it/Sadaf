@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SADAF — Video Editor · Built to grab attention</title>
+<meta name="description" content="Sadaf is a freelance video editor. Reels, Shorts, YouTube and ads in any format — fast cuts, bold captions and kinetic text. ₹1,000–₹4,000 per video, 2–3 day delivery.">
+<meta property="og:title" content="SADAF — Video Editor">
+<meta property="og:description" content="I turn ideas into motion with visuals that stand out.">
+<meta property="og:image" content="assets/img/og.jpg">
+<meta name="theme-color" content="#0b0605">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600;700&family=Kaushan+Script&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@600&family=Great+Vibes&family=Anton&family=Inter+Tight:wght@800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -3 1.75" result="dots"/>
+    <feComposite in="dots" in2="SourceAlpha" operator="in" result="d2"/>
+    <feFlood flood-color="#5A1400" flood-opacity=".55"/><feComposite in2="d2" operator="in" result="dark"/>
+    <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="dark"/></feMerge>
+  </filter>
+  <filter id="grunge" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" seed="4" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -16 11.2" result="specks"/>
+    <feComposite in="SourceGraphic" in2="specks" operator="in" result="speckled"/>
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .03" numOctaves="2" seed="9" result="big"/>
+    <feColorMatrix in="big" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55" result="shade"/>
+    <feComposite in="shade" in2="speckled" operator="in" result="shadeIn"/>
+    <feFlood flood-color="#3a0b00" flood-opacity=".55"/><feComposite in2="shadeIn" operator="in" result="dark"/>
+    <feMerge><feMergeNode in="speckled"/><feMergeNode in="dark"/></feMerge>
+  </filter>
+</svg>
+<div class="bgfx"></div>
+<nav class="rail" aria-label="Main"><a class="lg" href="#top" aria-label="Back to top">S</a><hr><a href="#top" data-sec="top" aria-label="Home"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span class="tip">Home</span><small class="mlab">Home</small></a><a href="#work" data-sec="work" aria-label="Work"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M10 9l5 3-5 3z"/></svg><span class="tip">Work</span><small class="mlab">Work</small></a><a href="#services" data-sec="services" aria-label="Services"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg><span class="tip">Services</span><small class="mlab">Services</small></a><hr><a href="#pricing" data-sec="pricing" aria-label="Pricing"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span class="tip">Pricing</span><small class="mlab">Pricing</small></a><a href="#process" data-sec="process" aria-label="Process"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg><span class="tip">Process</span><small class="mlab">Process</small></a><a href="#contact" data-sec="contact" aria-label="Contact"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><span class="tip">Contact</span><small class="mlab">Contact</small></a></nav>
+<main>
+<div class="topbar mono"><span>Video editor · Any format</span><span class="c"><svg class="ico" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg><span><small>BASED IN</small>INDIA</span></span><span class="r"><small style="color:#E8DCC277">AVAILABLE FOR</small><b>FREELANCE ✦</b></span></div>
+
+<!-- INTRO -->
+<section class="intro" id="top">
+  <div class="brand">
+    <div class="anton name tx-orange">SADAF</div>
+    <svg class="sig" viewBox="0 0 960 220" width="960" height="220"><g fill="#E8DCC2" font-family="Great Vibes" font-size="120"><text x="60" y="150">s</text><text x="250" y="150">a</text><text x="440" y="150">d</text><text x="630" y="150">a</text><text x="820" y="150">f</text></g><path d="M 0 148 C 25 154, 45 154, 62 146 M 105 144 C 123 158, 157.5 160, 177.5 152 S 238 138, 254 144 M 295 144 C 313 158, 347.5 160, 367.5 152 S 428 138, 444 144 M 485 144 C 503 158, 537.5 160, 557.5 152 S 618 138, 634 144 M 675 144 C 693 158, 727.5 160, 747.5 152 S 808 138, 824 144 M 865 146 C 895 158, 935 156, 940 146" fill="none" stroke="#E8DCC2" stroke-width="2.4" stroke-linecap="round"/></svg>
+  </div>
+  <div class="girl"><div class="ring"></div><div class="haze"></div><img src="assets/img/girl.png" alt="Sadaf illustrated character">
+    <div class="fp f1"><em>✦</em>Visual storytelling</div>
+    <div class="fp f2"><em>✦</em>Motion &amp; creativity</div>
+    <div class="fp f3"><em>✦</em>Dynamic execution</div>
+  </div>
+  <div class="idtag"><div class="xh" style="position:relative;margin:0 0 16px auto"><i></i></div><b>SADAF</b><b style="font-size:22px;margin-top:6px;color:#E8DCC2aa">VIDEO EDITOR</b><span class="mono">Any format · 2–3 days</span></div>
+  <span class="spk" style="left:300px;top:640px;font-size:34px">✦</span><span class="spk" style="right:330px;top:560px;font-size:24px">✦</span><div class="mono" style="position:absolute;right:60px;bottom:66px;color:#E8DCC277;z-index:4">FRAME 001 / 2026 · <span style="color:#FF5A14">● LIVE</span></div><a class="scrollbtn mono" href="#hero">Scroll to explore <span style="color:#FF5A14">↓</span></a>
+</section>
+
+<!-- HERO PANEL -->
+<section class="heroP glass glow-b" id="hero"><div class="vf"><i></i><i></i><i></i><i></i></div><div class="rec">REC</div><div class="tc">00:00:02:14 · 60 FPS</div><div class="fmt"><span class="o">9:16</span><span>16:9</span><span>1:1</span><span>4:5</span></div><span class="spk" style="left:90px;top:200px;font-size:44px">✦</span><span class="spk" style="right:110px;top:330px;font-size:30px">✦</span>
+  <h1 class="anton"><span class="tx-cream">Built to</span><span class="tx-orange">Grab attention</span></h1>
+  <div class="typer">I'm a <b id="typed">video editor</b><i></i></div>
+  <p class="lead">I turn ideas into motion with visuals that stand out — fast cuts, bold captions and kinetic text made for the scroll.</p>
+  <div class="ctas"><a class="b1" href="#work">View my work</a><a class="b2" href="https://wa.me/917376668171" target="_blank" rel="noopener">💬 WhatsApp me</a></div>
+  <div class="mq"><div class="mqt"><span>REELS</span><em>✦</em><span>SHORTS</span><em>✦</em><span>MOTION GRAPHICS</span><em>✦</em><span>KINETIC TEXT</span><em>✦</em><span>COLOR GRADE</span><em>✦</em><span>SOUND DESIGN</span><em>✦</em><span>REELS</span><em>✦</em><span>SHORTS</span><em>✦</em><span>MOTION GRAPHICS</span><em>✦</em><span>KINETIC TEXT</span><em>✦</em><span>COLOR GRADE</span><em>✦</em><span>SOUND DESIGN</span><em>✦</em></div></div>
+</section>
+
+<!-- FEATURED -->
+<section class="sec" id="work">
+  <div class="kick">Featured edits <span class="dots">06 videos · hover to preview · click to watch</span></div>
+  <div class="fgrid"><article class="fcard glass glow-b " id="edit-1"><div class="fhead"><div class="n">01</div><div><h4>4 crypto websites</h4><p>A creator shares 4 tools — animated glass cards pop in for every site.</p></div></div><div class="meta2"><span>FORMAT <b>9:16</b></span><span>LENGTH <b>0:45</b></span><span>TOOLS <b>Pr + AI</b></span></div><div class="chips2"><span class="o">UI cards</span><span class="">Kinetic captions</span><span class="">Icons</span></div><div class="fphone vbtn" role="button" tabindex="0" data-src="assets/video/reel-1.mp4" data-o="v" aria-label="Play 4 crypto websites"><div><video muted loop playsinline preload="none" poster="assets/img/reel-1.jpg" data-src="assets/video/reel-1.mp4"></video><i class="pl">▶</i><span class="snd">Preview · tap to play with sound</span></div></div><div class="cap"><b>Visuals:</b> Talking head + glass UI cards + animated captions</div></article><article class="fcard glass glow-b " id="edit-2"><div class="fhead"><div class="n">02</div><div><h4>I left my $30K business</h4><p>A story-led reel with a strong hook and widgets that explain each point.</p></div></div><div class="meta2"><span>FORMAT <b>9:16</b></span><span>LENGTH <b>0:30</b></span><span>TOOLS <b>Pr + AI</b></span></div><div class="chips2"><span class="o">Story hook</span><span class="">Glass widgets</span><span class="">Captions</span></div><div class="fphone vbtn" role="button" tabindex="0" data-src="assets/video/reel-2.mp4" data-o="v" aria-label="Play I left my $30K business"><div><video muted loop playsinline preload="none" poster="assets/img/reel-2.jpg" data-src="assets/video/reel-2.mp4"></video><i class="pl">▶</i><span class="snd">Preview · tap to play with sound</span></div></div><div class="cap"><b>Visuals:</b> Talking head + glowing widgets + stat graph</div></article><article class="fcard glass glow-b " id="edit-3"><div class="fhead"><div class="n">03</div><div><h4>3 programs, 1 link</h4><p>Neon numbered cards, counters and a chart that build the offer step by step.</p></div></div><div class="meta2"><span>FORMAT <b>9:16</b></span><span>LENGTH <b>0:29</b></span><span>TOOLS <b>Pr + AI</b></span></div><div class="chips2"><span class="o">Neon UI</span><span class="">Counters</span><span class="">Charts</span></div><div class="fphone vbtn" role="button" tabindex="0" data-src="assets/video/reel-3.mp4" data-o="v" aria-label="Play 3 programs, 1 link"><div><video muted loop playsinline preload="none" poster="assets/img/reel-3.jpg" data-src="assets/video/reel-3.mp4"></video><i class="pl">▶</i><span class="snd">Preview · tap to play with sound</span></div></div><div class="cap"><b>Visuals:</b> Talking head + numbered cards + bar chart</div></article><article class="fcard glass glow-b " id="edit-4"><div class="fhead"><div class="n">04</div><div><h4>Hiring: editor wanted</h4><p>A job-post reel with a green glass theme, profile card and checklists.</p></div></div><div class="meta2"><span>FORMAT <b>9:16</b></span><span>LENGTH <b>0:41</b></span><span>TOOLS <b>Pr + AI</b></span></div><div class="chips2"><span class="o">Colour theme</span><span class="">Profile card</span><span class="">Checklist</span></div><div class="fphone vbtn" role="button" tabindex="0" data-src="assets/video/reel-4.mp4" data-o="v" aria-label="Play Hiring: editor wanted"><div><video muted loop playsinline preload="none" poster="assets/img/reel-4.jpg" data-src="assets/video/reel-4.mp4"></video><i class="pl">▶</i><span class="snd">Preview · tap to play with sound</span></div></div><div class="cap"><b>Visuals:</b> Talking head + profile card + job checklist</div></article><article class="fcard glass glow-b wide" id="edit-5"><div class="fhead"><div class="n">05</div><div><h4>Plan your finances</h4><p>A warm gold look with 3D cards and light trails for a money explainer.</p></div></div><div class="meta2"><span>FORMAT <b>16:9</b></span><span>LENGTH <b>0:19</b></span><span>TOOLS <b>Pr + AI</b></span></div><div class="chips2"><span class="o">Gold UI</span><span class="">3D cards</span><span class="">Light trails</span></div><div class="fscreen vbtn" role="button" tabindex="0" data-src="assets/video/reel-5.mp4" data-o="h" aria-label="Play Plan your finances"><div><video muted loop playsinline preload="none" poster="assets/img/reel-5.jpg" data-src="assets/video/reel-5.mp4"></video><i class="pl">▶</i><span class="snd">Preview · tap to play with sound</span></div></div><div class="cap"><b>Visuals:</b> Talking head + gold cards + search bar</div></article><article class="fcard glass glow-b wide" id="edit-6"><div class="fhead"><div class="n">06</div><div><h4>The gatekeepers</h4><p>Editorial type, lists and a search UI telling a finance story.</p></div></div><div class="meta2"><span>FORMAT <b>16:9</b></span><span>LENGTH <b>0:39</b></span><span>TOOLS <b>Pr + AI</b></span></div><div class="chips2"><span class="o">Editorial type</span><span class="">Lists</span><span class="">Search UI</span></div><div class="fscreen vbtn" role="button" tabindex="0" data-src="assets/video/reel-6.mp4" data-o="h" aria-label="Play The gatekeepers"><div><video muted loop playsinline preload="none" poster="assets/img/reel-6.jpg" data-src="assets/video/reel-6.mp4"></video><i class="pl">▶</i><span class="snd">Preview · tap to play with sound</span></div></div><div class="cap"><b>Visuals:</b> Talking head + timeline + typed search</div></article></div>
+</section>
+
+
+<!-- WHAT I EDIT -->
+<section class="sec" id="formats">
+  <span class="spk" style="right:120px;top:110px;font-size:40px">✦</span>
+  <div class="kick">What I edit · any format <span class="dots">•••</span></div>
+  <div class="wie">
+    <div class="wc glass glow-b"><div class="frame"><i style="width:56px;height:100px"></i></div><div class="rt">9:16</div><h4>Reels &amp; Shorts</h4><p>Instagram Reels, YouTube Shorts and TikTok-style vertical edits.</p></div>
+    <div class="wc glass glow-b"><div class="frame"><i style="width:160px;height:90px"></i></div><div class="rt">16:9</div><h4>YouTube &amp; long videos</h4><p>Vlogs, tutorials, podcasts and other horizontal videos.</p></div>
+    <div class="wc glass glow-b"><div class="frame"><i style="width:96px;height:96px"></i></div><div class="rt">1:1</div><h4>Square posts</h4><p>Feed posts, ads and promos that fit square.</p></div>
+    <div class="wc glass glow-b"><div class="frame"><i style="width:80px;height:100px"></i></div><div class="rt">4:5</div><h4>Feed &amp; ads</h4><p>Instagram and Facebook feed videos that take up more screen.</p></div>
+  </div>
+  <div class="inc">
+    <div class="glass glow-b"><div class="ttl">What's included in every edit</div>
+      <div class="ilist"><div><i>✓</i>Cutting &amp; pacing</div><div><i>✓</i>Captions / subtitles</div><div><i>✓</i>Kinetic typography</div><div><i>✓</i>Music sync to the beat</div><div><i>✓</i>Sound effects (SFX)</div><div><i>✓</i>Colour correction</div><div><i>✓</i>Smooth transitions</div><div><i>✓</i>Zooms &amp; motion</div><div><i>✓</i>Thumbnail / cover frame</div><div><i>✓</i>Export ready to post</div></div>
+    </div>
+    <div class="glass glow-b snd"><div class="ttl" style="margin-bottom:8px">What you send me</div>
+      <div><span class="n">1</span><span><b>Raw footage</b>All your clips, via Drive or WhatsApp</span></div>
+      <div><span class="n">2</span><span><b>Your idea</b>Script, voice-over or a few lines</span></div>
+      <div><span class="n">3</span><span><b>Brand bits</b>Logo, fonts or colours (if any)</span></div>
+      <div><span class="n">4</span><span><b>Deadline &amp; format</b>When you need it and where it's going</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES + TOOLS -->
+<section class="sec" id="services">
+  <div class="two">
+    <div><div class="kick">What I help you shape</div><div class="h3">Every edit is built<br>to <span class="o">stop the scroll.</span><svg viewBox="0 0 110 50" style="width:80px;vertical-align:middle;margin-left:12px"><path d="M5 40 L25 12 L35 38 L55 10 L65 36 L85 8 L100 30" fill="none" stroke="#FF5A14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="margin-top:34px"><div class="acc">
+    <div class="ac cream" tabindex="0"><div class="ah"><i>01</i><b>Reels editing</b><span class="ic">▶</span><span class="pl">+</span></div></div>
+    <div class="ac cream" tabindex="0"><div class="ah"><i>02</i><b>Motion graphics</b><span class="ic">⌃</span><span class="pl">+</span></div></div>
+    <div class="ac cream" tabindex="0"><div class="ah"><i>03</i><b>YouTube Shorts</b><span class="ic">▭</span><span class="pl">+</span></div></div>
+    <div class="ac orange open" tabindex="0"><div class="ah"><i>04</i><b>Kinetic typography</b><span class="ic" style="font-family:Inter;font-weight:300">A</span><span class="pl">×</span></div>
+      <p>Text that moves with the beat. Pop-ins, word swaps and smooth transitions that make every line hit.</p>
+      <div class="pills"><span>Timing</span><span>Scale</span><span>Colour</span></div>
+      <div class="seen">Seen in <a href="#edit-1">01</a><a href="#edit-2">02</a><a href="#edit-3">03</a><a href="#edit-6">06</a></div>
+    </div>
+  </div></div></div>
+    <div><div class="kick">Tools I use</div><div class="tools2">
+<div class="tl2 glass hot"><div class="tg">Pr</div><div><b>Premiere Pro</b><small>Editing, cuts &amp; motion</small></div></div>
+<div class="tl2 glass hot"><div class="tg">AI</div><div><b>AI tools</b><small>Captions, voice &amp; visuals</small></div></div>
+<div class="tl2 glass"><div class="tg">♫</div><div><b>Audio tools</b><small>Music, SFX &amp; clean sound</small></div></div>
+<div class="tl2 glass" style="border-style:dashed"><div class="tg" style="background:transparent">+</div><div><b>&amp; more</b><small>Whatever the edit needs</small></div></div>
+</div><div class="glass glow-b qf" style="margin-top:20px;padding:26px 28px"><div class="ttl" style="font-size:26px">Quick facts <span class="spk" style="position:relative;font-size:22px">✦</span></div>
+  <div class="qrow"><span>Turnaround</span><b>2–3 days</b></div>
+  <div class="qrow"><span>Revisions</span><b>2 rounds</b></div>
+  <div class="qrow"><span>Price</span><b>₹1,000 – ₹4,000</b></div>
+  <div class="qrow"><span>Formats</span><b>9:16 · 16:9 · 1:1 · 4:5</b></div>
+  <div class="qrow"><span>Delivery</span><b>WhatsApp / Drive</b></div>
+  <div class="qrow"><span>Status</span><b style="color:#FF5A14">● Open for projects</b></div></div></div>
+  </div>
+</section>
+
+<!-- ABOUT + STATS -->
+<section class="sec" id="about">
+  <div class="kick">About me</div>
+  <div class="about2 glass glow-b">
+    <div><div style="position:relative"><div class="tp2" style="left:50%;top:-12px;transform:translateX(-50%) rotate(-5deg)"></div><div class="apic"><img src="assets/img/girl.png" alt="Sadaf illustrated character"><div class="xh" style="left:10px;top:10px"><i></i></div><div class="xh" style="right:10px;bottom:10px"><i></i></div></div><div class="cap" style="justify-content:center"><b>SADAF</b> · editor · always learning</div></div></div>
+    <div><p style="color:#E8DCC2;font-size:18px;line-height:1.6">A beginner and an aspiring video editor eager to collaborate with clients and bring ideas to life.</p><p style="color:#E8DCC299;font-size:16px;line-height:1.6;margin-top:14px">Currently building my portfolio through independent projects while refining my creative skills.</p><a class="b2" href="#contact" style="display:inline-block;margin-top:24px;padding:12px 22px;font-size:14px">Let's work together →</a></div>
+    <div class="stats" style="align-self:center"><div><b>2–3</b><span>Days<br>delivery</span></div><div><b>2</b><span>Rounds of<br>revisions</span></div><div><b>Any</b><span>Format &amp;<br>size</span></div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec" id="pricing">
+  <div class="kick">Pricing</div>
+  <div class="pr2">
+    <div class="gcard glass">
+      <div class="gtop"><span>Beginner-friendly rates</span><span>Per video ⌄</span></div>
+      <div class="gchart"><svg viewBox="0 0 600 230" preserveAspectRatio="none"><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#FF5A14" stop-opacity=".2"/><stop offset=".5" stop-color="#FF6A1A"/><stop offset="1" stop-color="#FF5A14" stop-opacity=".2"/></linearGradient></defs><path d="M0 190 C 120 180, 200 200, 250 120 S 290 40, 300 40 S 330 60, 350 120 S 470 190, 600 180" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="300" cy="40" r="10" fill="#FFE2C8"/><circle cx="300" cy="40" r="22" fill="#FF5A14" opacity=".35"/></svg></div>
+      <div class="gnum"><small>Starting at</small><b>₹1,000</b><span>per video · up to ₹4,000 for heavy motion</span></div><div class="cap" style="position:relative;z-index:2;margin-top:22px"><b>Price depends on:</b> length · amount of text · animation · deadline</div>
+    </div>
+    <div class="pcard">
+    <div class="pt"><i>01</i> Video editing</div>
+    <div class="pp">₹1,000 – ₹4,000</div>
+    <p>Per video. The price depends on length and how much editing, text and animation it needs.</p>
+    <div class="slider"><span></span><span></span></div>
+    <div class="sl"><span>₹1,000 · Lighter edit</span><span>₹4,000 · Heavy motion</span></div>
+    <div class="cpills"><span>2–3 days per Reel or Short</span><span>2 rounds of revisions</span><span>Captions and music sync</span></div>
+  </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="kick">FAQs</div>
+  <div class="faq">
+    <div>
+      <div class="q open"><b class="qq" role="button" tabindex="0">How do we get started? <i>−</i></b><p>Send me your footage and idea on WhatsApp or email. I'll confirm the style, price and deadline before I start.</p></div>
+      <div class="q"><b class="qq" role="button" tabindex="0">How long does one video take? <i>−</i></b><p>2–3 days for a reel or short. Longer videos depend on length — I'll tell you the time before starting.</p></div>
+      <div class="q"><b class="qq" role="button" tabindex="0">How many revisions do I get? <i>−</i></b><p>2 rounds of changes are included in every edit.</p></div>
+      <div class="q"><b class="qq" role="button" tabindex="0">Which formats can you edit? <i>−</i></b><p>Any format — 9:16 reels and shorts, 16:9 YouTube, 1:1 square and 4:5 feed videos.</p></div>
+      <div class="q"><b class="qq" role="button" tabindex="0">How much does it cost? <i>−</i></b><p>₹1,000 – ₹4,000 per video, depending on length and how much editing, text and animation it needs.</p></div>
+      <div class="q"><b class="qq" role="button" tabindex="0">How do I get the final video? <i>−</i></b><p>I send the exported video on WhatsApp or Google Drive, ready to post.</p></div>
+    </div>
+    <div class="panel ac orange" style="transform:rotate(3deg);align-self:start;margin-top:0">
+      <div style="font:500 40px/1.05 'EB Garamond',serif">Still not sure?<br>Let's chat first.</div>
+      <p style="margin:16px 0 26px;opacity:.9;line-height:1.5">Tell me about your video idea – no commitment, quick reply.</p>
+      <a class="btn" href="https://wa.me/917376668171" target="_blank" rel="noopener" style="background:#21100C;color:#E8DCC2">💬 WhatsApp me</a>
+    <div class="glass" style="margin-top:46px;padding:24px 26px;transform:rotate(-2deg);background:#21100Ce6"><div class="tp2" style="left:40%;top:-12px;transform:rotate(4deg)"></div><div class="mono" style="color:#FF5A14">● Average reply</div><div style="font:500 30px 'EB Garamond';color:#E8DCC2;margin-top:8px">Within a few hours</div><div class="cap"><b>Best on:</b> WhatsApp · email · Instagram DM</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="proc" id="process">
+  <div class="grid-bg"></div>
+  <div class="ptop">IDEA · EDIT · DELIVER</div>
+  <span class="spark" style="left:120px;top:120px">✦</span>
+  <span class="spark" style="right:180px;top:330px;font-size:56px">✦</span>
+  <span class="spark" style="left:60px;top:1250px;font-size:28px">✦</span>
+  <div class="cross" style="right:120px;top:150px"></div>
+  <div class="cross" style="left:200px;top:420px"></div>
+  <div class="orbit"></div>
+  <div class="dc scrap" style="left:330px;top:260px;transform:rotate(-8deg)"></div>
+  <div class="dc scrap" style="right:360px;top:520px;transform:rotate(10deg)"></div>
+  <div class="dc lstp"><div class="on"><i></i>Reels</div><div><i></i>Shorts</div><div><i></i>Captions</div><div><i></i>Motion</div><div><i></i>Colour</div></div>
+  <div class="dc pola"><div class="tape"></div><div class="im"><img src="assets/img/girl.png" alt="Sadaf illustrated character"></div><span>behind the edit</span></div>
+  <div class="dc chk8"><i style="background:#E8DCC233"></i><i style="background:transparent"></i><i style="background:#E8DCC233"></i><i style="background:transparent"></i><i style="background:transparent"></i><i style="background:#E8DCC233"></i><i style="background:transparent"></i><i style="background:#E8DCC233"></i><i style="background:#E8DCC233"></i><i style="background:transparent"></i><i style="background:#E8DCC233"></i><i style="background:transparent"></i><i style="background:transparent"></i><i style="background:#E8DCC233"></i><i style="background:transparent"></i><i style="background:#E8DCC233"></i></div>
+  <div class="dc ftag">MADE FOR THE <i></i><b>SCROLL</b></div>
+  <div class="dc" style="left:1000px;top:250px"><svg class="scrib" viewBox="0 0 110 50"><path d="M5 40 L25 12 L35 38 L55 10 L65 36 L85 8 L100 30" fill="none" stroke="#FF5A14" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="dc" style="left:170px;top:560px;transform:rotate(-14deg)"><svg class="carrow" viewBox="0 0 150 90"><path d="M8 80 C 30 20, 90 6, 132 30" fill="none" stroke="#FF5A14" stroke-width="5" stroke-linecap="round"/><path d="M116 14 L136 32 L112 44" fill="none" stroke="#FF5A14" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="dc astx" style="left:690px;top:640px">*</div>
+  <div class="dc plus" style="left:560px;top:250px">+</div><div class="dc plus" style="right:420px;top:690px">+</div><div class="dc plus" style="left:30px;top:1000px">+</div>
+  <div class="dc sun2"></div>
+
+  <div class="pbar top">
+    <div><small>PROJECT</small><span>“Your reel, built to grab attention”</span></div>
+    <div><small>STYLE</small><span>Motion graphics + kinetic typography</span></div>
+    <div><small>FORMAT</small><span>Any format · 9:16, 16:9, 1:1, 4:5</span></div>
+    <div><small>DELIVERY</small><span>2–3 days per reel</span></div>
+  </div>
+  <div class="ptitle">
+    <span class="k tx-cream">From idea</span>
+    <span class="scr">to the final cut...</span>
+    <svg class="swoosh" viewBox="0 0 360 26"><path d="M6 18 C 90 4, 220 2, 354 12" fill="none" stroke="#FF4A10" stroke-width="5" stroke-linecap="round"/></svg>
+  </div>
+  <div class="steps">
+    <svg class="path" viewBox="0 0 1280 700" preserveAspectRatio="none"><path d="M60 330 C 220 180, 320 520, 480 400 S 760 180, 830 360 S 1080 560, 1240 380" fill="none" stroke="#FF4A10" stroke-width="3" stroke-dasharray="10 12" opacity=".8"/></svg>
+    <div class="step">
+      <div class="stag">01 <s>|</s> <em>Day 0</em> <s>|</s> <i>Share</i></div>
+      <div class="tape ptape"></div><div class="paper"><svg viewBox="0 0 110 50" style="position:absolute;right:14px;top:16px;width:60px;z-index:2"><path d="M5 40 L25 12 L35 38 L55 10 L65 36 L85 8 L100 30" fill="none" stroke="#E8350A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Share</b><em>the idea</em><svg class="u" viewBox="0 0 170 18"><path d="M3 12 C 40 2, 90 4, 167 8 M20 15 C 60 9, 110 10, 150 13" fill="none" stroke="#21100C" stroke-width="3" stroke-linecap="round"/></svg></div>
+      <div class="vis">
+        <div class="bub" style="left:22px;top:22px;transform:rotate(-4deg)">🎬 footage.mp4</div>
+        <div class="bub o" style="right:22px;top:80px;transform:rotate(3deg)">💬 here’s my idea</div>
+        <div class="upl"><div class="ut"><span class="fi">▶</span><div><b>raw_clips.zip</b><small>12 clips · uploading…</small></div><em>78%</em></div><div class="bar"><i></i></div><div class="thumbs"><span></span><span></span><span></span><span class="more">+9</span></div></div><div class="chips2" style="position:absolute;left:22px;right:22px;top:330px"><span class="o">+ script</span><span>+ voice-over</span><span>+ logo</span><span>+ music</span></div>
+      </div>
+      <p>Send your footage and tell me your idea for the video.</p>
+      <div class="scap"><b>You send:</b> footage + your idea</div>
+    </div>
+    <div class="step">
+      <div class="stag">02 <s>|</s> <em>Day 1</em> <s>|</s> <i>Direction</i></div>
+      <div class="tape ptape"></div><div class="paper"><b style="font-size:54px">Set the <span class="o">direction</span></b><svg class="u" viewBox="0 0 170 18"><path d="M3 12 C 40 2, 90 4, 167 8 M20 15 C 60 9, 110 10, 150 13" fill="none" stroke="#21100C" stroke-width="3" stroke-linecap="round"/></svg></div>
+      <div class="vis"><div class="clipb">
+  <div class="blob"></div>
+  <div class="board"><div class="clamp"></div>
+    <div class="ln"><i class="on">✓</i><span><b>Style</b><u></u></span></div>
+    <div class="ln"><i class="on">✓</i><span><b>Pace</b><u></u></span></div>
+    <div class="ln"><i></i><span><b>Music</b><u></u></span></div>
+    <div class="ln"><i></i><span><b>Type</b><u></u></span></div>
+  </div>
+  <div class="pen"></div>
+</div><div class="swatch">Palette <i style="background:#E62E00"></i><i style="background:#E8DCC2"></i><i style="background:#5A2918"></i></div><div class="aa">Aa <em>Aa</em></div></div>
+      <p>We agree on style, pace, music and type before I start cutting.</p>
+      <div class="scap"><b>We lock:</b> the look before the edit</div>
+    </div>
+    <div class="step">
+      <div class="stag">03 <s>|</s> <em>Day 1–2</em> <s>|</s> <i>Edit</i></div>
+      <div class="tape ptape"></div><div class="paper"><b>Edit <span class="o">&amp;</span></b><em>refine it</em><svg class="u" viewBox="0 0 170 18"><path d="M3 12 C 40 2, 90 4, 167 8 M20 15 C 60 9, 110 10, 150 13" fill="none" stroke="#21100C" stroke-width="3" stroke-linecap="round"/></svg></div>
+      <div class="vis"><div class="daw"><div class="dhead"><span>0:00:12</span><span class="pat">Pattern 1</span><span>▶ ■ ●</span></div><div class="trk"><div class="clip" style="left:0%;right:calc(100% - 70%)"><div class="cl" style="background:#E8DCC2">▸ hook + intro (1)</div><div class="wv"><svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20.0 L0.0 16.1 L5.0 16.1 L10.0 12.2 L15.0 15.5 L20.0 11.7 L25.0 13.0 L30.0 15.5 L35.0 12.8 L40.0 16.5 L45.0 15.1 L50.0 17.6 L55.0 18.2 L60.0 18.0 L65.0 17.9 L70.0 19.1 L75.0 18.9 L80.0 17.8 L85.0 16.0 L90.0 15.9 L95.0 15.6 L100.0 11.3 L105.0 16.1 L110.0 9.7 L115.0 13.6 L120.0 14.7 L125.0 15.1 L130.0 14.3 L135.0 12.0 L140.0 16.5 L145.0 15.8 L150.0 16.7 L155.0 18.2 L160.0 18.4 L165.0 19.2 L170.0 19.1 L175.0 18.5 L180.0 16.6 L185.0 16.3 L190.0 15.8 L195.0 13.4 L200.0 13.3 L205.0 13.8 L210.0 9.6 L215.0 10.4 L220.0 14.2 L225.0 12.6 L230.0 13.9 L235.0 13.4 L240.0 15.4 L245.0 17.8 L250.0 17.1 L255.0 19.1 L260.0 18.8 L265.0 18.0 L270.0 18.5 L275.0 17.0 L280.0 17.7 L285.0 13.9 L290.0 12.1 L295.0 12.3 L300.0 9.4 L300.0 30.6 L295.0 27.7 L290.0 27.9 L285.0 26.1 L280.0 22.3 L275.0 23.0 L270.0 21.5 L265.0 22.0 L260.0 21.2 L255.0 20.9 L250.0 22.9 L245.0 22.2 L240.0 24.6 L235.0 26.6 L230.0 26.1 L225.0 27.4 L220.0 25.8 L215.0 29.6 L210.0 30.4 L205.0 26.2 L200.0 26.7 L195.0 26.6 L190.0 24.2 L185.0 23.7 L180.0 23.4 L175.0 21.5 L170.0 20.9 L165.0 20.8 L160.0 21.6 L155.0 21.8 L150.0 23.3 L145.0 24.2 L140.0 23.5 L135.0 28.0 L130.0 25.7 L125.0 24.9 L120.0 25.3 L115.0 26.4 L110.0 30.3 L105.0 23.9 L100.0 28.7 L95.0 24.4 L90.0 24.1 L85.0 24.0 L80.0 22.2 L75.0 21.1 L70.0 20.9 L65.0 22.1 L60.0 22.0 L55.0 21.8 L50.0 22.4 L45.0 24.9 L40.0 23.5 L35.0 27.2 L30.0 24.5 L25.0 27.0 L20.0 28.3 L15.0 24.5 L10.0 27.8 L5.0 23.9 L0.0 23.9 Z" fill="#E8DCC2"/></svg></div></div></div><div class="trk"><div class="clip" style="left:10%;right:calc(100% - 85%)"><div class="cl" style="background:#FF5A14">▸ captions + pop (8)</div><div class="wv"><svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20.0 L0.0 18.3 L5.0 17.6 L10.0 17.1 L15.0 16.4 L20.0 16.1 L25.0 13.7 L30.0 12.3 L35.0 14.1 L40.0 12.2 L45.0 15.7 L50.0 10.3 L55.0 10.0 L60.0 6.1 L65.0 6.7 L70.0 11.4 L75.0 9.8 L80.0 5.9 L85.0 13.1 L90.0 7.0 L95.0 11.3 L100.0 12.3 L105.0 13.4 L110.0 6.4 L115.0 13.5 L120.0 12.8 L125.0 12.1 L130.0 9.0 L135.0 15.6 L140.0 13.6 L145.0 13.6 L150.0 12.6 L155.0 13.8 L160.0 14.5 L165.0 17.3 L170.0 17.5 L175.0 18.3 L180.0 17.2 L185.0 17.1 L190.0 18.7 L195.0 18.6 L200.0 18.5 L205.0 18.5 L210.0 18.0 L215.0 17.8 L220.0 18.4 L225.0 18.9 L230.0 18.1 L235.0 18.2 L240.0 17.8 L245.0 17.1 L250.0 17.6 L255.0 17.9 L260.0 17.7 L265.0 17.6 L270.0 18.8 L275.0 17.2 L280.0 17.4 L285.0 17.2 L290.0 17.4 L295.0 18.2 L300.0 18.2 L300.0 21.8 L295.0 21.8 L290.0 22.6 L285.0 22.8 L280.0 22.6 L275.0 22.8 L270.0 21.2 L265.0 22.4 L260.0 22.3 L255.0 22.1 L250.0 22.4 L245.0 22.9 L240.0 22.2 L235.0 21.8 L230.0 21.9 L225.0 21.1 L220.0 21.6 L215.0 22.2 L210.0 22.0 L205.0 21.5 L200.0 21.5 L195.0 21.4 L190.0 21.3 L185.0 22.9 L180.0 22.8 L175.0 21.7 L170.0 22.5 L165.0 22.7 L160.0 25.5 L155.0 26.2 L150.0 27.4 L145.0 26.4 L140.0 26.4 L135.0 24.4 L130.0 31.0 L125.0 27.9 L120.0 27.2 L115.0 26.5 L110.0 33.6 L105.0 26.6 L100.0 27.7 L95.0 28.7 L90.0 33.0 L85.0 26.9 L80.0 34.1 L75.0 30.2 L70.0 28.6 L65.0 33.3 L60.0 33.9 L55.0 30.0 L50.0 29.7 L45.0 24.3 L40.0 27.8 L35.0 25.9 L30.0 27.7 L25.0 26.3 L20.0 23.9 L15.0 23.6 L10.0 22.9 L5.0 22.4 L0.0 21.7 Z" fill="#FF5A14"/></svg></div></div></div><div class="trk"><div class="clip" style="left:0%;right:calc(100% - 55%)"><div class="cl" style="background:#7a2e14">▸ b-roll + zoom (3)</div><div class="wv"><svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20.0 L0.0 19.2 L5.0 18.5 L10.0 19.2 L15.0 19.2 L20.0 18.9 L25.0 18.9 L30.0 18.6 L35.0 19.0 L40.0 19.0 L45.0 18.7 L50.0 18.7 L55.0 18.1 L60.0 18.8 L65.0 16.7 L70.0 17.2 L75.0 18.2 L80.0 17.9 L85.0 17.5 L90.0 17.3 L95.0 17.9 L100.0 15.4 L105.0 14.7 L110.0 16.3 L115.0 16.1 L120.0 17.5 L125.0 17.3 L130.0 16.1 L135.0 16.3 L140.0 13.5 L145.0 16.5 L150.0 17.1 L155.0 12.0 L160.0 14.0 L165.0 16.0 L170.0 13.5 L175.0 16.5 L180.0 13.1 L185.0 9.8 L190.0 10.3 L195.0 11.1 L200.0 14.1 L205.0 13.1 L210.0 14.4 L215.0 9.3 L220.0 11.0 L225.0 8.6 L230.0 12.2 L235.0 13.0 L240.0 7.2 L245.0 5.1 L250.0 6.0 L255.0 6.1 L260.0 5.6 L265.0 6.1 L270.0 11.4 L275.0 7.9 L280.0 9.5 L285.0 13.1 L290.0 13.0 L295.0 9.6 L300.0 9.6 L300.0 30.4 L295.0 30.4 L290.0 27.0 L285.0 26.9 L280.0 30.5 L275.0 32.1 L270.0 28.6 L265.0 33.9 L260.0 34.4 L255.0 33.9 L250.0 34.0 L245.0 34.9 L240.0 32.8 L235.0 27.0 L230.0 27.8 L225.0 31.4 L220.0 29.0 L215.0 30.7 L210.0 25.6 L205.0 26.9 L200.0 25.9 L195.0 28.9 L190.0 29.7 L185.0 30.2 L180.0 26.9 L175.0 23.5 L170.0 26.5 L165.0 24.0 L160.0 26.0 L155.0 28.0 L150.0 22.9 L145.0 23.5 L140.0 26.5 L135.0 23.7 L130.0 23.9 L125.0 22.7 L120.0 22.5 L115.0 23.9 L110.0 23.7 L105.0 25.3 L100.0 24.6 L95.0 22.1 L90.0 22.7 L85.0 22.5 L80.0 22.1 L75.0 21.8 L70.0 22.8 L65.0 23.3 L60.0 21.2 L55.0 21.9 L50.0 21.3 L45.0 21.3 L40.0 21.0 L35.0 21.0 L30.0 21.4 L25.0 21.1 L20.0 21.1 L15.0 20.8 L10.0 20.8 L5.0 21.5 L0.0 20.8 Z" fill="#CDB99A"/></svg></div></div></div><div class="trk"><div class="clip" style="left:18%;right:calc(100% - 100%)"><div class="cl" style="background:#E8350A">▸ music + beat (24)</div><div class="wv"><svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20.0 L0.0 18.4 L5.0 18.0 L10.0 18.7 L15.0 17.9 L20.0 17.8 L25.0 17.7 L30.0 18.6 L35.0 18.7 L40.0 18.6 L45.0 18.6 L50.0 18.5 L55.0 17.6 L60.0 16.8 L65.0 16.8 L70.0 17.5 L75.0 16.9 L80.0 16.4 L85.0 18.2 L90.0 16.4 L95.0 15.4 L100.0 15.6 L105.0 15.5 L110.0 16.3 L115.0 17.3 L120.0 14.7 L125.0 16.4 L130.0 14.1 L135.0 13.1 L140.0 15.6 L145.0 15.3 L150.0 12.3 L155.0 13.2 L160.0 16.0 L165.0 16.1 L170.0 15.9 L175.0 11.0 L180.0 11.3 L185.0 15.4 L190.0 10.5 L195.0 9.1 L200.0 11.1 L205.0 13.2 L210.0 11.4 L215.0 14.5 L220.0 15.3 L225.0 6.9 L230.0 9.4 L235.0 10.2 L240.0 6.0 L245.0 10.5 L250.0 5.8 L255.0 5.9 L260.0 12.1 L265.0 11.4 L270.0 10.7 L275.0 11.1 L280.0 6.8 L285.0 10.4 L290.0 8.1 L295.0 11.5 L300.0 1.2 L300.0 38.8 L295.0 28.5 L290.0 31.9 L285.0 29.6 L280.0 33.2 L275.0 28.9 L270.0 29.3 L265.0 28.6 L260.0 27.9 L255.0 34.1 L250.0 34.2 L245.0 29.5 L240.0 34.0 L235.0 29.8 L230.0 30.6 L225.0 33.1 L220.0 24.7 L215.0 25.5 L210.0 28.6 L205.0 26.8 L200.0 28.9 L195.0 30.9 L190.0 29.5 L185.0 24.6 L180.0 28.7 L175.0 29.0 L170.0 24.1 L165.0 23.9 L160.0 24.0 L155.0 26.8 L150.0 27.7 L145.0 24.7 L140.0 24.4 L135.0 26.9 L130.0 25.9 L125.0 23.6 L120.0 25.3 L115.0 22.7 L110.0 23.7 L105.0 24.5 L100.0 24.4 L95.0 24.6 L90.0 23.6 L85.0 21.8 L80.0 23.6 L75.0 23.1 L70.0 22.5 L65.0 23.2 L60.0 23.2 L55.0 22.4 L50.0 21.5 L45.0 21.4 L40.0 21.4 L35.0 21.3 L30.0 21.4 L25.0 22.3 L20.0 22.2 L15.0 22.1 L10.0 21.3 L5.0 22.0 L0.0 21.6 Z" fill="#F2A65A"/></svg></div></div></div><div class="trk"><div class="clip" style="left:40%;right:calc(100% - 80%)"><div class="cl" style="background:#CDB99A">▸ sfx + whoosh (5)</div><div class="wv"><svg viewBox="0 0 300 40" preserveAspectRatio="none"><path d="M0 20.0 L0.0 18.3 L5.0 18.1 L10.0 17.1 L15.0 15.3 L20.0 16.3 L25.0 13.4 L30.0 14.6 L35.0 13.7 L40.0 13.1 L45.0 16.0 L50.0 12.4 L55.0 13.9 L60.0 15.1 L65.0 7.0 L70.0 12.6 L75.0 8.8 L80.0 5.2 L85.0 6.5 L90.0 8.8 L95.0 6.9 L100.0 7.2 L105.0 5.4 L110.0 13.3 L115.0 9.3 L120.0 12.8 L125.0 13.1 L130.0 9.8 L135.0 12.5 L140.0 12.8 L145.0 12.4 L150.0 12.5 L155.0 15.5 L160.0 15.5 L165.0 16.6 L170.0 17.3 L175.0 17.6 L180.0 18.1 L185.0 17.9 L190.0 18.0 L195.0 17.1 L200.0 17.6 L205.0 17.2 L210.0 17.1 L215.0 18.4 L220.0 17.9 L225.0 17.1 L230.0 17.3 L235.0 18.7 L240.0 18.7 L245.0 18.1 L250.0 18.8 L255.0 18.5 L260.0 18.8 L265.0 17.6 L270.0 17.4 L275.0 17.2 L280.0 18.6 L285.0 17.6 L290.0 17.7 L295.0 18.7 L300.0 17.2 L300.0 22.8 L295.0 21.3 L290.0 22.3 L285.0 22.4 L280.0 21.4 L275.0 22.8 L270.0 22.6 L265.0 22.4 L260.0 21.2 L255.0 21.5 L250.0 21.2 L245.0 21.9 L240.0 21.3 L235.0 21.3 L230.0 22.7 L225.0 22.9 L220.0 22.1 L215.0 21.6 L210.0 22.9 L205.0 22.8 L200.0 22.4 L195.0 22.9 L190.0 22.0 L185.0 22.1 L180.0 21.9 L175.0 22.4 L170.0 22.7 L165.0 23.4 L160.0 24.5 L155.0 24.5 L150.0 27.5 L145.0 27.6 L140.0 27.2 L135.0 27.5 L130.0 30.2 L125.0 26.9 L120.0 27.2 L115.0 30.7 L110.0 26.7 L105.0 34.6 L100.0 32.8 L95.0 33.1 L90.0 31.2 L85.0 33.5 L80.0 34.8 L75.0 31.2 L70.0 27.4 L65.0 33.0 L60.0 24.9 L55.0 26.1 L50.0 27.6 L45.0 24.0 L40.0 26.9 L35.0 26.3 L30.0 25.4 L25.0 26.6 L20.0 23.7 L15.0 24.7 L10.0 22.9 L5.0 21.9 L0.0 21.7 Z" fill="#E8DCC2"/></svg></div></div></div><div class="dph"></div></div><div class="rev">REV 1 / 2</div><div class="cmt"><span>“Make the text bigger?”</span><span class="o">Done ✓</span></div></div>
+      <p>I edit and animate, send a first version, and make up to two rounds of changes.</p>
+      <div class="scap"><b>Included:</b> 2 rounds of revisions</div>
+    </div>
+    <div class="step">
+      <div class="stag">04 <s>|</s> <em>Day 2–3</em> <s>|</s> <i>Deliver</i></div>
+      <div class="tape ptape"></div><div class="paper"><b><span class="o">Ready</span></b><em>to post.</em><svg class="u" viewBox="0 0 170 18"><path d="M3 12 C 40 2, 90 4, 167 8 M20 15 C 60 9, 110 10, 150 13" fill="none" stroke="#21100C" stroke-width="3" stroke-linecap="round"/></svg></div>
+      <div class="vis vis4"><div class="ph2"><div class="pscr">
+  <div class="sb"><span>9:41</span><span class="isl"></span><span>▮▮▮ ◔ ▭</span></div>
+  <div class="plogo">SADAF</div>
+  <div class="gg"><div class="g"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#ffffff22" stroke-width="3"/><circle cx="30" cy="30" r="25" fill="none" stroke="#E8DCC2" stroke-width="3" stroke-dasharray="157" stroke-dashoffset="0" transform="rotate(-90 30 30)" stroke-linecap="round"/></svg><b>100%</b><small>Edit done</small></div>
+  <div class="g"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="25" fill="none" stroke="#ffffff22" stroke-width="3"/><circle cx="30" cy="30" r="25" fill="none" stroke="#FF5A14" stroke-width="3" stroke-dasharray="157" stroke-dashoffset="40" transform="rotate(-90 30 30)" stroke-linecap="round"/></svg><b>1080p</b><small>Exported</small></div></div>
+  <div class="thumb"><span>▶</span></div>
+  <div class="tiles"><div><b>Format</b><small>Any size</small></div><div><b>Captions</b><small>Synced ✓</small></div></div>
+  <div class="slide"><i></i>Slide to post</div>
+</div></div><div class="exp"><span>MP4</span><span>1080p / 4K</span><span>30–60 fps</span></div></div>
+      <p>You receive the final video, exported and ready to post.</p>
+      <div class="scap"><b>Sent via:</b> WhatsApp or Google Drive</div>
+    </div>
+  </div>
+  <div class="pbar bot">
+    <div><small>REVISIONS</small><span>2 rounds included</span></div>
+    <div><small>PRICE</small><span>₹1,000 – ₹4,000 per video</span></div>
+    <div><small>INCLUDED</small><span>Captions · music sync · colour · SFX</span></div>
+  </div>
+  <div class="pfoot">THE PROCESS <span class="pln"></span></div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="sec" id="contact" style="padding-bottom:60px">
+  <div class="ct glass glow-b">
+    <div class="anton big" style="position:relative;z-index:2"><span class="tx-cream">Let's build</span><br><span class="tx-orange">something that</span><br><span class="tx-cream">stops the scroll.</span></div>
+    <span class="spk" style="left:540px;top:60px;font-size:40px">✦</span><div class="tp2" style="left:120px;top:-12px;transform:rotate(-6deg)"></div><div class="conn"><div class="kick">Let's connect ↓</div>
+      <div class="crow"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:sadafetz4@gmail.com"><small>EMAIL</small>sadafetz4@gmail.com</a></div>
+      <div class="crow"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18l1.5-4A7.5 7.5 0 1 1 9 18.5z"/></svg><a href="https://wa.me/917376668171" target="_blank" rel="noopener"><small>WHATSAPP</small>+91 7376668171</a></div>
+      <div class="crow"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1"/></svg><a href="https://instagram.com/sadaf.etz" target="_blank" rel="noopener"><small>INSTAGRAM</small>@sadaf.etz</a></div>
+      <div class="crow"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><div><small>BASED IN</small>India · working worldwide</div></div><div class="cap"><b>● Replies</b> usually within a few hours · Open for new projects</div>
+    </div>
+    <svg class="globe" viewBox="0 0 200 200" fill="none" stroke="#FF5A14" stroke-width=".8"><circle cx="100" cy="100" r="90" opacity=".8"/><ellipse cx="100" cy="100" rx="45" ry="90" opacity=".6"/><ellipse cx="100" cy="100" rx="75" ry="90" opacity=".4"/><line x1="100" y1="10" x2="100" y2="190" opacity=".6"/><ellipse cx="100" cy="100" rx="90" ry="30" opacity=".5"/><ellipse cx="100" cy="100" rx="90" ry="62" opacity=".35"/><line x1="10" y1="100" x2="190" y2="100" opacity=".6"/><path d="M100 70 L104 96 130 100 104 104 100 130 96 104 70 100 96 96Z" fill="#FF6A1A" stroke="none"/><circle cx="100" cy="100" r="16" fill="#FF3B00" opacity=".25" stroke="none"/></svg>
+  </div>
+  <div class="sigfoot"><span>© 2026 SADAF – Video Editor</span><span>Built to grab attention ✦</span></div>
+</section>
+</main>
+
+
+
+<script src="js/main.js" defer></script>
+</body></html>
