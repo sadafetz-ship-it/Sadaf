@@ -12,7 +12,7 @@ import {back, cl, DrawPath, easeInOut, glassPop, HouseIcon, pop, prog, Ripple, w
  *  beams    — black with soft diagonal light shafts slowly sweeping
  *  gradient — smooth black → espresso gradient with a warm amber glow, clean and glossy
  *  warm     — the original warm-brown world with grid + particles (for comparison) */
-export const BG = ((getInputProps() as {bg?: string}).bg ?? 'studio') as 'studio' | 'bokeh' | 'dots' | 'beams' | 'gradient' | 'warm';
+export const BG = ((getInputProps() as {bg?: string}).bg ?? 'gradient') as 'studio' | 'bokeh' | 'dots' | 'beams' | 'gradient' | 'warm';
 
 const Particles: React.FC<{seed: number; n: number; o: number}> = ({seed, n, o}) => {
   const f = useCurrentFrame();

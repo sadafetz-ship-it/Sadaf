@@ -289,6 +289,7 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   - Trending songs go in **in-app at 5–10 %**, never baked into the export (copyright).
 
 ## 9. Rejected: do not repeat
+- **Textured black backgrounds** (stone/concrete noise, grit or film grain on the explainer background). The user called it "ugly".
 - Glass "phone" card behind the speaker.
 - Whole edit inside a tilted glowing phone frame.
 - Arrows before words ("→ inflows").
@@ -354,7 +355,7 @@ Plus `remotion_house_theme.ts` and `make_sfx.py`.
 | **Zoom-blur + white-flash cut** | Golden Hour entry | A 1 f white flash at 70 %, then an overexposed fade (3 f). The footage goes scale 1.12→1 and blur 28→0 over 5 f. | cuts back to the speaker |
 | **Ink pill label typing** | black "Bayerische Motoren Werke" pill | A dark rounded label with an accent border; text types on behind a glowing caret and can collapse to an acronym. | short labels / steps (offered) |
 | **Neon light ribbon** | "isn't a Luxury" ribbon | A thick blurred cream stroke with accent glow drawn across an explainer background, then flowing. | explainer backgrounds |
-| **Explainer world: black with texture** (user, Nov 2026: "make the background for motion graphics a black background with some texture") | house | Layers, bottom to top: **near-black base** `#050404`; a **stone/concrete texture** (SVG `feTurbulence` fractal noise, baseFrequency 0.045/0.06, 4 octaves, tiled 960×540, opacity **0.13**); a fine **grit** layer (baseFrequency 0.55, opacity 0.10); very soft accent light pools (≤10 % alpha); a faint 72 px grid at 3.5 % alpha; quiet particles; **moving film grain** (seed changes every 2 f, opacity 0.06, screen blend); a **vignette** to 72 % black. **Keep texture subtle:** at 0.55 opacity the texture read as grey smoke, not black. The frame must read black first, with texture only up close. | all full-screen scenes (replaces the old warm-brown radial world) |
+| **Explainer world: warm gradient (chosen)** (user, Nov 2026: asked for black with texture, then called the textured version "ugly" and picked option 5 of 5) | house | A smooth `linear-gradient(160deg,#050403 0%,#120a05 55%,#1d0f06 100%)` from black to espresso. A warm **amber/ember glow** rises from the bottom-left (`radial-gradient(70% 80% at ~18% 105%, rgba(235,136,88,.30))`, drifting ±4 %) and a faint gold glow sits top-right (rgba(255,192,0,.14)). One very soft diagonal sheen at 3.5 % alpha. **No texture, grid, grain or particles.** The other options are in `World` (`studio`, `bokeh`, `dots`, `beams`, `warm`), selectable with the input prop `bg`. When the user asks for a new background, render all of them on one board and let them pick. | all full-screen scenes |
 
 **Golden Hour reveal** (the circled reference, measured frame by frame):
 - f0: 1 f white flash cut.
