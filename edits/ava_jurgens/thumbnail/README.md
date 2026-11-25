@@ -14,3 +14,5 @@
 - **Top:** "Is this · ?" in white and a 300 px deep-green **YOU** behind the top of her hair, with pixel clusters and handles.
 - **Bottom** (below her hands, so the pointing gesture stays clear): *we're hiring* (Allura, pale green) over **editors.** (white→pale
   gradient, lime dot, mint→lime highlight bar). This is the video's caption style.
+- **Update:** the caption has moved to the **lower third**, at the video's caption position (block bottom 250 px from the frame bottom). It is
+  shown at the video's caption size (Allura 118 px / heavy 150 px), over the video's lower-third grade.
