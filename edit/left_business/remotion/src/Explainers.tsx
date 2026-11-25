@@ -4,22 +4,47 @@ import {interpolate, OffthreadVideo, random, staticFile, useCurrentFrame} from '
 import {C} from './theme';
 import {BigNum, cl, Corner, DrawPath, easeInOut, OutlinePill, pop, prog, Roll, ScriptPixels, sp, Widget} from './fx';
 
-/** Ink world: navy radial base, two drifting light pools, masked 72 px grid, particles drifting up. */
+/** Textured black world (user: "black background with some texture"): near-black base, large soft concrete mottling,
+ *  animated film grain (new seed every 2 f), faint dust specks drifting, vignette. No colour pools, no grid. */
 export const World: React.FC<{at: number}> = ({at}) => {
   const f = useCurrentFrame();
   const t = f - at;
+  const seed = Math.floor(f / 2);
   return (
-    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: 'radial-gradient(90% 60% at 50% 45%,#121A4A 0%,#070A1F 70%,#03040C 100%)'}}>
-      <div style={{position: 'absolute', left: -200 + Math.sin(t / 40) * 60, top: 260, width: 780, height: 780, borderRadius: '50%', background: 'rgba(101,126,252,.38)', filter: 'blur(100px)'}} />
-      <div style={{position: 'absolute', right: -240 + Math.cos(t / 46) * 60, top: 860, width: 820, height: 820, borderRadius: '50%', background: 'rgba(147,93,249,.32)', filter: 'blur(110px)'}} />
-      <div style={{position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(143,176,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(143,176,255,.07) 1px,transparent 1px)',
-        backgroundSize: '72px 72px', backgroundPosition: `0 ${-t * 0.6}px`, WebkitMaskImage: 'radial-gradient(60% 45% at 50% 45%,#000 30%,transparent 100%)'}} />
-      {Array.from({length: 36}).map((_, i) => {
-        const z = 3 + Math.floor(random(`p${i}`) * 4);
-        const y = ((random(`y${i}`) * 1920 - t * (0.6 + random(`v${i}`) * 1.4)) % 1920 + 1920) % 1920;
-        return <div key={i} style={{position: 'absolute', left: random(`x${i}`) * 1080, top: y, width: z, height: z, borderRadius: '50%', background: C.sky,
-          boxShadow: `0 0 8px ${C.sky}`, opacity: 0.25 + random(`o${i}`) * 0.5}} />;
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#050505'}}>
+      {/* concrete / paper mottling — static, very low contrast */}
+      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.38, mixBlendMode: 'screen'}}>
+        <filter id="mottle" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves={4} seed={7} />
+          <feColorMatrix type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.11  0 0 0 0 0.115  0 0 0 1.25 -0.42" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#mottle)" />
+      </svg>
+      {/* finer surface texture */}
+      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.3, mixBlendMode: 'screen'}}>
+        <filter id="surface" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.045 0.03" numOctaves={3} seed={3} />
+          <feColorMatrix type="matrix" values="0 0 0 0 0.12  0 0 0 0 0.12  0 0 0 0 0.125  0 0 0 1.6 -0.78" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#surface)" />
+      </svg>
+      {/* animated film grain */}
+      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.16, mixBlendMode: 'screen'}}>
+        <filter id={`grain${seed}`} x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={2} seed={seed} stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter={`url(#grain${seed})`} />
+      </svg>
+      {/* dust specks */}
+      {Array.from({length: 26}).map((_, i) => {
+        const z = 2 + Math.floor(random(`p${i}`) * 3);
+        const y = ((random(`y${i}`) * 1920 - t * (0.3 + random(`v${i}`) * 0.8)) % 1920 + 1920) % 1920;
+        return <div key={i} style={{position: 'absolute', left: random(`x${i}`) * 1080, top: y, width: z, height: z, borderRadius: '50%',
+          background: '#D9D9D9', opacity: 0.12 + random(`o${i}`) * 0.25}} />;
       })}
+      {/* vignette */}
+      <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(80% 60% at 50% 45%,transparent 40%,rgba(0,0,0,.75) 100%)'}} />
     </div>
   );
 };
