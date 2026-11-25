@@ -1,16 +1,17 @@
-01	0.05	In nineteen oh two,
+line	start_s	text
+01	0.05	In 1902,
 02	1.40	Albert Einstein
 03	3.35	couldn't get a job at any university.
-04	6.35	So he took a job at a patent office.
-05	8.65	Technical expert. Third class.
-06	11.70	In his spare time, he wrote physics papers.
-07	15.05	In nineteen oh five, he published four of them.
-08	17.65	One explained light.
-09	19.25	One proved atoms exist.
-10	20.95	One changed how we understand time.
-11	22.85	And one gave us the most famous equation... ever.
-12	26.10	In nineteen nineteen, an eclipse proved his theory right.
-13	29.25	Newspapers called it a revolution in science.
-14	31.95	He became world famous, overnight.
-15	34.30	Then, he won the Nobel Prize.
-16	39.55	Not bad... for a patent clerk.
+04	6.15	So he took a job at a patent office.
+05	8.45	Technical expert. Third class.
+06	11.85	In his spare time, he wrote physics papers.
+07	15.35	In 1905, he published four of them.
+08	18.25	One explained light.
+09	19.65	One proved atoms exist.
+10	21.35	One changed how we understand time.
+11	23.45	And one gave us the most famous equation... ever.
+12	26.65	In 1919, an eclipse proved his theory right.
+13	30.25	Newspapers called it a revolution in science.
+14	32.85	He became world famous, overnight.
+15	35.25	Then, he won the Nobel Prize.
+16	39.70	Not bad... for a patent clerk.

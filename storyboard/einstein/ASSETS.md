@@ -77,9 +77,9 @@ Text glow: white text, soft outer glow (about 18–22 px blur, 45–55 % opacity
 ## Sound effects (free: Pixabay, freesound.org)
 Whoosh, paper slap, string creak, lamp click, chalk, clock tick, bass hit, camera flash, newspaper rustle, soft riser, low drone.
 
-## Audio (v2 video)
+## Audio (v3 video)
 | Layer | Source | Licence / credit |
 |---|---|---|
-| Voiceover | Piper TTS, voice "en_US-ryan-high" (offline), lines and start times in `audio/voiceover_lines.tsv` | Piper (MIT); Ryan voice dataset is public domain. Replace with your own recording any time |
-| Sound effects | Synthesised in code (`renderer/mix.py`): typing clicks, whooshes, paper slaps, string creak/twang, bass hits, risers, marker scribble, clock ticks, lamp clicks, glitches, ink splats, shimmer | Original, no licence needed |
-| Music | "Darkest Child" by Kevin MacLeod (incompetech.com), ducked under the voice | **Credit required:** "Darkest Child" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/ |
+| Voiceover | **Kokoro-82M** text-to-speech, voice "am_michael" (offline), speed 1.12. Start times in `audio/voiceover_lines.tsv`, each line starts on its scene cut | Apache 2.0, no credit needed. Swap in your own recording any time |
+| Sound effects | Real recordings from **Freesound**, all **CC0** (no credit required): whooshes (#60026, #60007, #351256), typewriter key (#380137), rolled-paper slaps (#131359, #131358), cinematic boom (#555245), bass boom (#268084), riser (#561207), light switch (#423512), clock ticking (#130388), marker scribble (#82610), VHS glitch (#264935), pops (#244654, #244657), chime (#351408), tape rip (#187338), rope creak (#231438), splashes (#199452) | CC0 |
+| Music | "Darkest Child" by Kevin MacLeod (incompetech.com), lowered automatically under the voice | **Credit required:** "Darkest Child" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/ |

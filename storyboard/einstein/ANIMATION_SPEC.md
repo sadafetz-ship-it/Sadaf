@@ -60,27 +60,29 @@ The rendered video `einstein_45s_16x9.mp4` uses exactly these values. The render
 | **Ink spread** | Black ink blots grow across the frame over about 1.2 s, then a zoom-out blur reveals the next scene | Ref 4 34.0–36.3 s | S18 |
 | **Hard cut** | Most cuts have no transition at all | all | everywhere else |
 
-## 6. Einstein timeline (45 s, 1350 frames)
-| Scene | Time | Content |
-|---|---|---|
-| S1 | 0.0–1.3 | "In 1902" letter typing |
-| S2 | 1.3–3.3 | Gold frame + push-through |
-| S3 | 3.3–6.3 | Bern street, caption swap, "rejected" hanging label |
-| S4 | 6.3–8.6 | Word stack → "patent office" + yellow underline |
-| S5 | 8.6–10.3 | Yellow tape "Technical expert," + "third class" pop |
-| S6 | 10.3–11.6 | Light streaks → "What happened next." |
-| S7 | 11.6–14.2 | Lamp flicker, "spare time" label swing-in |
-| S8 | 14.2–15.0 | Year counter 1902 → 1905 |
-| S9 | 15.0–17.6 | Papers fly in, red scribble, lime "in 1905" |
-| S10 | 17.6–19.2 | "light": yellow box wipe + typing |
-| S11 | 19.2–20.9 | Magnifier + "atoms" red brush wipe |
-| S12 | 20.9–22.8 | Gears + "time" pop |
-| S13 | 22.8–26.0 | Bold words → "E=mc²" → "ever." |
-| S14 | 26.0–28.6 | Whip pan, lime "May 29th", "1919" |
-| S15 | 28.6–31.2 | Newspapers fly in, white arc, "famous overnight" |
-| S16 | 31.2–34.2 | Corkboard whip in, red scribble, whip out |
-| S17 | 34.2–38.0 | "Nobel Prize" + lime ellipse + selective-colour flicker |
-| S18 | 38.0–44.0 | Ink spread → "Not bad for a" + glitch "patent clerk." |
-| S19 | 44.0–45.0 | Black |
+## 6. Einstein timeline (45 s, 1350 frames, cut to the voiceover)
+| Scene | Time | Content | Voice line |
+|---|---|---|---|
+| S1 | 0.0–1.3 | "In 1902" letter typing | In 1902, |
+| S2 | 1.3–3.3 | Gold frame + push-through | Albert Einstein |
+| S3 | 3.3–6.1 | Bern street, caption swap, "rejected" hanging label | couldn't get a job at any university. |
+| S4 | 6.1–8.4 | Word stack → "patent office" + yellow underline | So he took a job at a patent office. |
+| S5 | 8.4–10.5 | Yellow tape + "third class" pop (on the spoken word) | Technical expert. Third class. |
+| S6 | 10.5–11.8 | Light streaks → "What happened next." | (silence) |
+| S7 | 11.8–14.5 | Lamp flicker, "spare time" label swing-in | In his spare time, he wrote physics papers. |
+| S8 | 14.5–15.3 | Year counter 1902 → 1905 | (music) |
+| S9 | 15.3–18.2 | Papers fly in, red scribble, lime "in 1905" | In 1905, he published four of them. |
+| S10 | 18.2–19.6 | "light": yellow box wipe + typing | One explained light. |
+| S11 | 19.6–21.3 | Magnifier + "atoms" red brush wipe | One proved atoms exist. |
+| S12 | 21.3–23.4 | Gears + "time" pop on the spoken word | One changed how we understand time. |
+| S13 | 23.4–26.6 | Bold words → "E=mc²" → "ever." | And one gave us the most famous equation… ever. |
+| S14 | 26.6–30.2 | Whip pan, "1919", lime "May 29th" | In 1919, an eclipse proved his theory right. |
+| S15 | 30.2–32.8 | Newspapers fly in, white arc | Newspapers called it a revolution in science. |
+| S16 | 32.8–35.2 | Corkboard whip in, red scribble, whip out | He became world famous, overnight. |
+| S17 | 35.2–38.2 | "Nobel Prize" + lime ellipse + colour flicker | Then, he won the Nobel Prize. |
+| S18 | 38.2–44.2 | Ink spread → "Not bad for a" + glitch "patent clerk." | Not bad… for a patent clerk. |
+| S19 | 44.2–45.0 | Black | |
+
+**v3 additions:** real motion blur (4 subframes per frame, 180° shutter, blended), expo-out easing with an 28 px rise on every word, and a subtle handheld camera drift (±5 px, ±0.22°) on all shots.
 
 **Audio:** the video is silent. Record the voiceover to this timeline, or shift scene times in `anim.js` to match your recording (each scene's start and end are in the `SC` list).
