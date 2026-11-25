@@ -1,49 +1,93 @@
 // Full-background explainer scenes + transitions (light-beam sweep, zoom-blur/white-flash).
 import React from 'react';
-import {interpolate, random, useCurrentFrame} from 'remotion';
+import {getInputProps, interpolate, random, useCurrentFrame} from 'remotion';
 import {C, GLASS, HEAVY_FILL, HEAVY_FILTER} from './theme';
 import {back, cl, DrawPath, easeInOut, glassPop, HouseIcon, pop, prog, Ripple, whipIn, wordIn, zoomDropIn} from './fx';
 
 /* ---------- world background ---------- */
-/** Black textured background (user: "a black background with some texture"):
- *  near-black base + vignette, static stone/concrete grit, moving film grain, faint grid, quiet gold particles. */
-const STONE = `url("data:image/svg+xml;utf8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.045 0.06" numOctaves="4" seed="7"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 0.93  0 0 0 0 0.82  0 0 0 1.25 -0.38"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>',
-)}")`;
-const GRIT = `url("data:image/svg+xml;utf8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2.2 -1.15"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>',
-)}")`;
-const GRAIN = (seed: number) => `url("data:image/svg+xml;utf8,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320"><filter id="r"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="1" seed="${seed}"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.6 -0.62"/></filter><rect width="100%" height="100%" filter="url(#r)"/></svg>`,
-)}")`;
+/** Explainer background. Options rendered for the user to choose (BG prop / input prop "bg"):
+ *  studio   — black studio: soft warm spotlight from above, floor horizon, no texture
+ *  bokeh    — black with large out-of-focus golden lights drifting (golden-hour city at night)
+ *  dots     — black with a fine dot grid that glows in the centre and drifts slowly
+ *  beams    — black with soft diagonal light shafts slowly sweeping
+ *  gradient — smooth black → espresso gradient with a warm amber glow, clean and glossy
+ *  warm     — the original warm-brown world with grid + particles (for comparison) */
+export const BG = ((getInputProps() as {bg?: string}).bg ?? 'studio') as 'studio' | 'bokeh' | 'dots' | 'beams' | 'gradient' | 'warm';
+
+const Particles: React.FC<{seed: number; n: number; o: number}> = ({seed, n, o}) => {
+  const f = useCurrentFrame();
+  return <>{Array.from({length: n}, (_, i) => {
+    const sz = [2, 3, 4][Math.floor(random(`${seed}s${i}`) * 3)];
+    const x = random(`${seed}x${i}`) * 1920 + Math.sin((f + i * 13) / 40) * 10;
+    const y = ((random(`${seed}y${i}`) * 1200 - f * (0.3 + random(`${seed}v${i}`) * 0.6)) % 1200 + 1200) % 1200 - 60;
+    return <div key={i} style={{position: 'absolute', left: x, top: y, width: sz, height: sz, borderRadius: '50%', background: '#FFE27A',
+      opacity: o * (0.3 + 0.7 * random(`${seed}o${i}`)) * (0.6 + 0.4 * Math.sin((f + i * 7) / 9)), boxShadow: `0 0 ${sz * 3}px #FFC000`}} />;
+  })}</>;
+};
+const full: React.CSSProperties = {position: 'absolute', inset: 0};
 
 export const World: React.FC<{seed: number}> = ({seed}) => {
   const f = useCurrentFrame();
-  const parts = Array.from({length: 46}, (_, i) => {
-    const sz = [2, 3, 4, 5][Math.floor(random(`${seed}s${i}`) * 4)];
-    const x = random(`${seed}x${i}`) * 1920 + Math.sin((f + i * 13) / 40) * 10;
-    const y = ((random(`${seed}y${i}`) * 1200 - f * (0.3 + random(`${seed}v${i}`) * 0.6)) % 1200 + 1200) % 1200 - 60;
-    const o = 0.12 + 0.4 * random(`${seed}o${i}`) * (0.6 + 0.4 * Math.sin((f + i * 7) / 9));
-    return <div key={i} style={{position: 'absolute', left: x, top: y, width: sz, height: sz, borderRadius: '50%', background: '#FFE27A', opacity: o, boxShadow: `0 0 ${sz * 3}px #FFC000`}} />;
-  });
-  const p1 = 26 + Math.sin(f / 50) * 5, p2 = 76 + Math.cos(f / 60) * 4;
-  const gs = Math.floor(f / 2) % 6; // grain changes every 2 frames
+  if (BG === 'studio') return (
+    <div style={{...full, overflow: 'hidden', background: '#030303'}}>
+      <div style={{...full, background: 'radial-gradient(60% 70% at 50% -8%,rgba(255,214,150,.20),rgba(255,170,60,.06) 45%,transparent 70%)'}} />
+      <div style={{position: 'absolute', left: 0, right: 0, top: '66%', bottom: 0, background: 'linear-gradient(180deg,#0d0a08,#060505 60%,#020202)'}} />
+      <div style={{position: 'absolute', left: '10%', right: '10%', top: '66%', height: 2, background: 'linear-gradient(90deg,transparent,rgba(255,210,150,.22),transparent)', filter: 'blur(1px)'}} />
+      <div style={{position: 'absolute', left: '25%', right: '25%', top: '66%', height: 160, background: 'radial-gradient(50% 100% at 50% 0%,rgba(255,190,90,.10),transparent 70%)'}} />
+      <Particles seed={seed} n={24} o={0.35} />
+      <div style={{...full, background: 'radial-gradient(100% 90% at 50% 45%,transparent 60%,rgba(0,0,0,.6) 100%)'}} />
+    </div>
+  );
+  if (BG === 'bokeh') return (
+    <div style={{...full, overflow: 'hidden', background: 'linear-gradient(180deg,#020202,#0b0603 70%,#140904)'}}>
+      {Array.from({length: 26}, (_, i) => {
+        const r = 40 + random(`b${seed}r${i}`) * 150, depth = random(`b${seed}d${i}`);
+        const x = random(`b${seed}x${i}`) * 2100 - 90 + Math.sin((f + i * 30) / (80 + depth * 60)) * 30 * (1 - depth);
+        const y = 120 + random(`b${seed}y${i}`) * 900 + Math.cos((f + i * 17) / 90) * 14;
+        const c = ['255,192,0', '235,136,88', '255,226,160', '255,160,60'][i % 4];
+        return <div key={i} style={{position: 'absolute', left: x - r, top: y - r, width: r * 2, height: r * 2, borderRadius: '50%',
+          background: `radial-gradient(circle,rgba(${c},${0.16 + 0.14 * (1 - depth)}) 0%,rgba(${c},${0.08 + 0.08 * (1 - depth)}) 55%,rgba(${c},0) 72%)`,
+          boxShadow: `inset 0 0 ${r * 0.15}px rgba(${c},${0.12 * (1 - depth)})`, filter: `blur(${4 + depth * 14}px)`}} />;
+      })}
+      <div style={{...full, background: 'radial-gradient(90% 80% at 50% 50%,transparent 45%,rgba(0,0,0,.75) 100%)'}} />
+    </div>
+  );
+  if (BG === 'dots') return (
+    <div style={{...full, overflow: 'hidden', background: '#040404'}}>
+      <div style={{position: 'absolute', inset: -40, transform: `translate(${(f * 0.25) % 28}px, ${(f * 0.12) % 28}px)`,
+        backgroundImage: 'radial-gradient(circle,rgba(255,236,205,.22) 1.3px,transparent 1.6px)', backgroundSize: '28px 28px',
+        WebkitMaskImage: 'radial-gradient(55% 60% at 50% 45%,#000 0%,rgba(0,0,0,.35) 55%,transparent 85%)'}} />
+      <div style={{...full, background: 'radial-gradient(40% 45% at 50% 42%,rgba(255,180,70,.10),transparent 70%)'}} />
+      <Particles seed={seed} n={16} o={0.3} />
+    </div>
+  );
+  if (BG === 'beams') return (
+    <div style={{...full, overflow: 'hidden', background: '#030303'}}>
+      {[[-18, 18, 0.12], [-24, 44, 0.08], [-14, 70, 0.06]].map(([rot, x, o], i) => (
+        <div key={i} style={{position: 'absolute', top: -300, left: `${x + Math.sin((f + i * 40) / 70) * 3}%`, width: 260 + i * 90, height: 1800,
+          transform: `rotate(${rot}deg)`, background: `linear-gradient(180deg,rgba(255,220,160,${o}),rgba(255,180,80,${o * 0.5}) 50%,transparent 85%)`, filter: 'blur(38px)'}} />
+      ))}
+      <Particles seed={seed} n={30} o={0.4} />
+      <div style={{...full, background: 'radial-gradient(100% 90% at 50% 40%,transparent 50%,rgba(0,0,0,.65) 100%)'}} />
+    </div>
+  );
+  if (BG === 'gradient') {
+    const p1 = 18 + Math.sin(f / 70) * 4, p2 = 82 + Math.cos(f / 80) * 3;
+    return (
+      <div style={{...full, overflow: 'hidden', background: `radial-gradient(70% 80% at ${p1}% 105%,rgba(235,136,88,.30),transparent 60%),radial-gradient(55% 60% at ${p2}% -10%,rgba(255,192,0,.14),transparent 60%),linear-gradient(160deg,#050403 0%,#120a05 55%,#1d0f06 100%)`}}>
+        <div style={{...full, background: 'linear-gradient(115deg,transparent 30%,rgba(255,240,220,.035) 45%,transparent 60%)'}} />
+      </div>
+    );
+  }
+  // warm (original)
+  const p1 = 25 + Math.sin(f / 50) * 6, p2 = 78 + Math.cos(f / 60) * 5;
   return (
-    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#050404'}}>
-      {/* stone / concrete texture */}
-      <div style={{position: 'absolute', inset: 0, backgroundImage: STONE, backgroundSize: '960px 540px', opacity: 0.13}} />
-      <div style={{position: 'absolute', inset: 0, backgroundImage: GRIT, backgroundSize: '480px 480px', opacity: 0.1}} />
-      {/* very soft warm light pools so the gold graphics feel lit */}
-      <div style={{position: 'absolute', inset: 0, background: `radial-gradient(40% 50% at ${p1}% 32%,rgba(235,136,88,.10),transparent 70%),radial-gradient(36% 46% at ${p2}% 70%,rgba(255,192,0,.07),transparent 70%)`}} />
-      {/* faint grid */}
+    <div style={{...full, overflow: 'hidden'}}>
+      <div style={{...full, background: `radial-gradient(45% 55% at ${p1}% 30%,rgba(235,136,88,.35),transparent 70%),radial-gradient(40% 50% at ${p2}% 72%,rgba(255,192,0,.22),transparent 70%),radial-gradient(80% 80% at 50% 50%,#2A1508,#0E0703 85%)`}} />
       <div style={{position: 'absolute', inset: -72, transform: `translate(${(f * 0.3) % 72}px, ${(f * 0.15) % 72}px)`,
-        backgroundImage: 'linear-gradient(rgba(255,240,220,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,240,220,.035) 1px,transparent 1px)', backgroundSize: '72px 72px',
+        backgroundImage: 'linear-gradient(rgba(255,210,140,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,210,140,.07) 1px,transparent 1px)', backgroundSize: '72px 72px',
         WebkitMaskImage: 'radial-gradient(60% 60% at 50% 45%,#000,transparent)'}} />
-      {parts}
-      {/* moving film grain */}
-      <div style={{position: 'absolute', inset: 0, backgroundImage: GRAIN(gs + 1), backgroundSize: '320px 320px', opacity: 0.06, mixBlendMode: 'screen'}} />
-      {/* vignette */}
-      <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(95% 85% at 50% 48%,transparent 55%,rgba(0,0,0,.72) 100%)'}} />
+      <Particles seed={seed} n={70} o={0.8} />
     </div>
   );
 };
