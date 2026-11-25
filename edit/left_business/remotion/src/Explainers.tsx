@@ -1,50 +1,54 @@
 // Full-screen explainer scenes (ink world + widgets in the reference look) and the transitions in/out.
 import React from 'react';
-import {interpolate, OffthreadVideo, random, staticFile, useCurrentFrame} from 'remotion';
+import {getInputProps, interpolate, OffthreadVideo, random, staticFile, useCurrentFrame} from 'remotion';
 import {C} from './theme';
 import {BigNum, cl, Corner, DrawPath, easeInOut, OutlinePill, pop, prog, Roll, ScriptPixels, sp, Widget} from './fx';
 
-/** Textured black world (user: "black background with some texture"): near-black base, large soft concrete mottling,
- *  animated film grain (new seed every 2 f), faint dust specks drifting, vignette. No colour pools, no grid. */
-export const World: React.FC<{at: number}> = ({at}) => {
+/** Black world with texture. Variant picked by --props {"bg":"A|B|C|D"} (default BG below).
+ *  A clean black + fine grain · B studio spotlight + grain · C halftone dots · D brushed metal. */
+const BG = ((getInputProps() as {bg?: string}).bg ?? 'A') as 'A' | 'B' | 'C' | 'D';
+const Grain: React.FC<{o: number}> = ({o}) => {
   const f = useCurrentFrame();
-  const t = f - at;
   const seed = Math.floor(f / 2);
   return (
-    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#050505'}}>
-      {/* concrete / paper mottling — static, very low contrast */}
-      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.38, mixBlendMode: 'screen'}}>
-        <filter id="mottle" x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.0055" numOctaves={4} seed={7} />
-          <feColorMatrix type="matrix" values="0 0 0 0 0.11  0 0 0 0 0.11  0 0 0 0 0.115  0 0 0 1.25 -0.42" />
+    <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: o, mixBlendMode: 'screen'}}>
+      <filter id={`grain${seed}`} x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves={2} seed={seed} stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter={`url(#grain${seed})`} />
+    </svg>
+  );
+};
+export const World: React.FC<{at: number}> = () => {
+  const vignette = <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(85% 65% at 50% 45%,transparent 45%,rgba(0,0,0,.8) 100%)'}} />;
+  if (BG === 'B') return (
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: 'radial-gradient(70% 45% at 50% 18%,#1E1E22 0%,#0C0C0E 45%,#000 80%)'}}>
+      <Grain o={0.09} />{vignette}
+    </div>
+  );
+  if (BG === 'C') return (
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#030303'}}>
+      <div style={{position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle,rgba(255,255,255,.09) 1.4px,transparent 1.8px)', backgroundSize: '16px 16px',
+        WebkitMaskImage: 'radial-gradient(75% 55% at 50% 45%,#000 20%,transparent 100%)'}} />
+      <Grain o={0.06} />{vignette}
+    </div>
+  );
+  if (BG === 'D') return (
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: 'linear-gradient(180deg,#0B0B0C,#050505 60%,#020202)'}}>
+      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.5, mixBlendMode: 'screen'}}>
+        <filter id="brushed" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.002 0.55" numOctaves={2} seed={11} />
+          <feColorMatrix type="matrix" values="0 0 0 0 0.16  0 0 0 0 0.16  0 0 0 0 0.17  0 0 0 1.4 -0.55" />
         </filter>
-        <rect width="100%" height="100%" filter="url(#mottle)" />
+        <rect width="100%" height="100%" filter="url(#brushed)" />
       </svg>
-      {/* finer surface texture */}
-      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.3, mixBlendMode: 'screen'}}>
-        <filter id="surface" x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.045 0.03" numOctaves={3} seed={3} />
-          <feColorMatrix type="matrix" values="0 0 0 0 0.12  0 0 0 0 0.12  0 0 0 0 0.125  0 0 0 1.6 -0.78" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#surface)" />
-      </svg>
-      {/* animated film grain */}
-      <svg width={1080} height={1920} style={{position: 'absolute', inset: 0, opacity: 0.16, mixBlendMode: 'screen'}}>
-        <filter id={`grain${seed}`} x="0" y="0" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={2} seed={seed} stitchTiles="stitch" />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <rect width="100%" height="100%" filter={`url(#grain${seed})`} />
-      </svg>
-      {/* dust specks */}
-      {Array.from({length: 26}).map((_, i) => {
-        const z = 2 + Math.floor(random(`p${i}`) * 3);
-        const y = ((random(`y${i}`) * 1920 - t * (0.3 + random(`v${i}`) * 0.8)) % 1920 + 1920) % 1920;
-        return <div key={i} style={{position: 'absolute', left: random(`x${i}`) * 1080, top: y, width: z, height: z, borderRadius: '50%',
-          background: '#D9D9D9', opacity: 0.12 + random(`o${i}`) * 0.25}} />;
-      })}
-      {/* vignette */}
-      <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(80% 60% at 50% 45%,transparent 40%,rgba(0,0,0,.75) 100%)'}} />
+      <Grain o={0.06} />{vignette}
+    </div>
+  );
+  return (
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#020202'}}>
+      <Grain o={0.1} />{vignette}
     </div>
   );
 };
