@@ -112,3 +112,19 @@ The background (`World` in `remotion/src/Explainers.tsx`), from the bottom layer
 
 - The green light pools are removed. The measured background brightness is about 14/255, so it reads as black with texture.
 - The Content Flow scene's flat black from v6 now uses the same textured background.
+
+## v8: "B" spotlight background
+`ava_jurgens_v8_sfx.mp4` is the current no-music master. With music: `ava_v8_Timeless_hook.mp4`, which is git-ignored.
+
+All graphic scenes now match the user's reference **B**: smooth near-black (`#040404`), lit by a **soft, colourless spotlight
+from the top centre** and fading to black at the edges and bottom.
+
+| | Our render | Reference B |
+|---|---|---|
+| Top centre | about 18–35 / 255 | about 25 |
+| Edges | about 7–8 | 4–9 |
+| Bottom | about 6–7 | 5–6 |
+
+- **Removed:** the concrete texture, grid and particles. B has none.
+- **Kept:** only an ultra-faint grain (3.5 %), so the gradient doesn't band.
+- **Unchanged:** Ava's talking-head shots, and everything else.
