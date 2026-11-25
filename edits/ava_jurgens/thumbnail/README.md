@@ -16,3 +16,15 @@
   gradient, lime dot, mint→lime highlight bar). This is the video's caption style.
 - **Update:** the caption has moved to the **lower third**, at the video's caption position (block bottom 250 px from the frame bottom). It is
   shown at the video's caption size (Allura 118 px / heavy 150 px), over the video's lower-third grade.
+
+## Thumbnail 2 with elements
+`ava_thumbnail2_elements_1080x1920.jpg` / `.png`, with source `thumbnail2_elements.html`. It is thumbnail 2 plus on-screen elements from the video,
+all **outside the face zone** (x 360–760, y 330–1010) and tilted slightly for energy:
+
+| Element | Where |
+|---|---|
+| **"Editing test" application card**: "In progress", 64 % gradient progress bar | left, beside her cheek |
+| **Personal Brand Launch chip**: avatar ring, **1M followers**, ✓ handle | right, beside her cheek |
+| **"⌂ Remote · 5–8 h"** gradient pill | left, below the card |
+| **"Mon → Fri"** gradient pill | right, below the chip |
+| 4-point sparkle stars (lime, mint, white) | scattered around |
