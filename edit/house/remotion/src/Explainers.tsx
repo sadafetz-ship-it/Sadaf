@@ -5,23 +5,45 @@ import {C, GLASS, HEAVY_FILL, HEAVY_FILTER} from './theme';
 import {back, cl, DrawPath, easeInOut, glassPop, HouseIcon, pop, prog, Ripple, whipIn, wordIn, zoomDropIn} from './fx';
 
 /* ---------- world background ---------- */
+/** Black textured background (user: "a black background with some texture"):
+ *  near-black base + vignette, static stone/concrete grit, moving film grain, faint grid, quiet gold particles. */
+const STONE = `url("data:image/svg+xml;utf8,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.045 0.06" numOctaves="4" seed="7"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 0.93  0 0 0 0 0.82  0 0 0 1.25 -0.38"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>',
+)}")`;
+const GRIT = `url("data:image/svg+xml;utf8,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2.2 -1.15"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>',
+)}")`;
+const GRAIN = (seed: number) => `url("data:image/svg+xml;utf8,${encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320"><filter id="r"><feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="1" seed="${seed}"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.6 -0.62"/></filter><rect width="100%" height="100%" filter="url(#r)"/></svg>`,
+)}")`;
+
 export const World: React.FC<{seed: number}> = ({seed}) => {
   const f = useCurrentFrame();
-  const parts = Array.from({length: 70}, (_, i) => {
-    const s = [3, 4, 5, 7][Math.floor(random(`${seed}s${i}`) * 4)];
+  const parts = Array.from({length: 46}, (_, i) => {
+    const sz = [2, 3, 4, 5][Math.floor(random(`${seed}s${i}`) * 4)];
     const x = random(`${seed}x${i}`) * 1920 + Math.sin((f + i * 13) / 40) * 10;
-    const y = ((random(`${seed}y${i}`) * 1200 - f * (0.4 + random(`${seed}v${i}`) * 0.9)) % 1200 + 1200) % 1200 - 60;
-    const o = 0.2 + 0.6 * random(`${seed}o${i}`) * (0.6 + 0.4 * Math.sin((f + i * 7) / 9));
-    return <div key={i} style={{position: 'absolute', left: x, top: y, width: s, height: s, borderRadius: '50%', background: '#FFE27A', opacity: o, boxShadow: `0 0 ${s * 3}px #FFC000`}} />;
+    const y = ((random(`${seed}y${i}`) * 1200 - f * (0.3 + random(`${seed}v${i}`) * 0.6)) % 1200 + 1200) % 1200 - 60;
+    const o = 0.12 + 0.4 * random(`${seed}o${i}`) * (0.6 + 0.4 * Math.sin((f + i * 7) / 9));
+    return <div key={i} style={{position: 'absolute', left: x, top: y, width: sz, height: sz, borderRadius: '50%', background: '#FFE27A', opacity: o, boxShadow: `0 0 ${sz * 3}px #FFC000`}} />;
   });
-  const p1 = 25 + Math.sin(f / 50) * 6, p2 = 78 + Math.cos(f / 60) * 5;
+  const p1 = 26 + Math.sin(f / 50) * 5, p2 = 76 + Math.cos(f / 60) * 4;
+  const gs = Math.floor(f / 2) % 6; // grain changes every 2 frames
   return (
-    <div style={{position: 'absolute', inset: 0, overflow: 'hidden'}}>
-      <div style={{position: 'absolute', inset: 0, background: `radial-gradient(45% 55% at ${p1}% 30%,rgba(235,136,88,.35),transparent 70%),radial-gradient(40% 50% at ${p2}% 72%,rgba(255,192,0,.22),transparent 70%),radial-gradient(80% 80% at 50% 50%,#2A1508,#0E0703 85%)`}} />
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', background: '#050404'}}>
+      {/* stone / concrete texture */}
+      <div style={{position: 'absolute', inset: 0, backgroundImage: STONE, backgroundSize: '960px 540px', opacity: 0.13}} />
+      <div style={{position: 'absolute', inset: 0, backgroundImage: GRIT, backgroundSize: '480px 480px', opacity: 0.1}} />
+      {/* very soft warm light pools so the gold graphics feel lit */}
+      <div style={{position: 'absolute', inset: 0, background: `radial-gradient(40% 50% at ${p1}% 32%,rgba(235,136,88,.10),transparent 70%),radial-gradient(36% 46% at ${p2}% 70%,rgba(255,192,0,.07),transparent 70%)`}} />
+      {/* faint grid */}
       <div style={{position: 'absolute', inset: -72, transform: `translate(${(f * 0.3) % 72}px, ${(f * 0.15) % 72}px)`,
-        backgroundImage: 'linear-gradient(rgba(255,210,140,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,210,140,.07) 1px,transparent 1px)', backgroundSize: '72px 72px',
+        backgroundImage: 'linear-gradient(rgba(255,240,220,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,240,220,.035) 1px,transparent 1px)', backgroundSize: '72px 72px',
         WebkitMaskImage: 'radial-gradient(60% 60% at 50% 45%,#000,transparent)'}} />
       {parts}
+      {/* moving film grain */}
+      <div style={{position: 'absolute', inset: 0, backgroundImage: GRAIN(gs + 1), backgroundSize: '320px 320px', opacity: 0.06, mixBlendMode: 'screen'}} />
+      {/* vignette */}
+      <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(95% 85% at 50% 48%,transparent 55%,rgba(0,0,0,.72) 100%)'}} />
     </div>
   );
 };
