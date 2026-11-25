@@ -57,5 +57,22 @@ Text glow: white text, soft outer glow (about 18–22 px blur, 45–55 % opacity
 - **Labels:** slap in with a 120 → 100 % scale in 4 frames. Strings swing 2–3 times. Ellipses and arcs draw on over about 12 frames.
 - **Camera:** a constant slow push-in (100 → 108 %) on every photo scene.
 
+## Extra reference details used (v3)
+| Detail | Reference | Frame |
+|---|---|---|
+| Diagonal window-light shadows drifting over paper and desk (multiply blend, heavy blur) | Ref 2 throughout, Ref 1 opening | 1, 6, 9, 15, 17, 19 |
+| Top-down grey desk with masking tape on every print | Ref 2 | 9, 15, 17 |
+| Hand-drawn red marker scribble circle (thick, overshooting, draws on in about 10 f) | Ref 2 "Edward Smith" | 9, 17 |
+| Lime date label with a big black serif year | Ref 2 "1912 / April 15th" | 9, 15 |
+| Evidence board: red strings, red pushpins, black vertical name tag + small angled tag | Ref 2 | 17 |
+| Year counter in circles with a glowing yellow dot | Ref 4 "day 7 … day 1" | 8 |
+| Circular spotlight (iris) vignette | Ref 4 | 8 |
+| Linen paper texture | Ref 4 | 8, 11 |
+| Magnifying glass revealing detail inside the lens | Ref 4 brain/polaroids | 11 |
+| Red brush stroke behind a heavy italic serif word | Ref 4 "smashed" | 11 |
+| Red/orange vertical light-streak transition | Ref 1 Netflix logo | 13 |
+| Black ink-splat transition | Ref 4 | 19 |
+| Slight red/cyan colour fringing on cutout edges | all references | all cutouts |
+
 ## Sound effects (free: Pixabay, freesound.org)
 Whoosh, paper slap, string creak, lamp click, chalk, clock tick, bass hit, camera flash, newspaper rustle, soft riser, low drone.
