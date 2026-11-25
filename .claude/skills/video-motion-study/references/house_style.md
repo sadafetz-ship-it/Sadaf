@@ -207,6 +207,9 @@ Code for all of these is in the crypto-websites project's `remotion/src/CardFx.t
   `ref2_q_pill` / `ref2_q_morph` / `ref2_g_golden`). Avoid sustained tonal swells (e.g. `ref_light_reveal`) on UI boards: they
   read as a sung "aah". Check candidates with `librosa.pyin`; mostly-pitched files are suspect.
 - Files that turn out to be **speech** (e.g. someone's voiceover) are not SFX. Tell the user and leave them out.
+- **Songs carry over (user rule):** once the user has picked songs, every new render must be re-delivered WITH those songs
+  (re-run `edit/music/mix_song.py` with `BASE=<new render>` for each chosen song) in addition to the no-music version.
+  Never send a new version without them and never imply the song was removed.
 - **Music:**
   - Suggest instrumental, no-vocal beds (100–120 BPM, dark-tech / minimal synth), ducked under the voice.
   - Trending songs go in **in-app at 5–10 %**, never baked into the export (copyright).
