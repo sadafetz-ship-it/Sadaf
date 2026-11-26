@@ -8,6 +8,7 @@ P={
 'blue':dict(ink='#06101F',deep='#123C7A',main='#2F7BFF',light='#8CC4FF',mist='#EAF4FF',sec='#36D6FF',dot='#FFB547',title='#4DA3FF',sec2='#36D6FF',pale='#D6EBFF',cream='#F2F8FF',d0='#030810',d1='#0A1A33',d2='#0F2A55',d3='#163A73'),
 'teal':dict(ink='#061A1A',deep='#0E5C5A',main='#19C2A8',light='#8FF0DC',mist='#EAFFF9',sec='#3DE0FF',dot='#FF7A6B',title='#2EE6C1',sec2='#2B8CFF',pale='#D2FFF4',cream='#F2FFFB',d0='#020C0C',d1='#0A2626',d2='#0D3634',d3='#125250'),
 'gold':dict(ink='#160C06',deep='#6B3410',main='#EB8858',light='#FFE2A0',mist='#FFF4DE',sec='#EDBF1E',dot='#FFC000',title='#FFB21A',sec2='#FFC000',pale='#FFF1CF',cream='#FFF4DE',d0='#0A0502',d1='#22120A',d2='#3A1E0C',d3='#5A2E12'),
+'yellow':dict(ink='#141005',deep='#6B5400',main='#FFD000',light='#FFE866',mist='#FFFBEA',sec='#FFB800',dot='#FFE600',title='#FFD000',sec2='#FFE27A',pale='#FFF6C8',cream='#FFFCEF',d0='#080601',d1='#1C1704',d2='#2B2306',d3='#3D320A'),
 'crimson':dict(ink='#1A0710',deep='#7A1030',main='#FF3D6E',light='#FF9FB8',mist='#FFEEF2',sec='#FF6A3D',dot='#FFD23F',title='#FF4D7A',sec2='#B03DFF',pale='#FFE0E8',cream='#FFF3F6',d0='#0C0307',d1='#2A0A16',d2='#3E0E22',d3='#5A1330'),
 }
 def rgb(h): h=h.lstrip('#'); return ','.join(str(int(h[i:i+2],16)) for i in (0,2,4))
@@ -16,5 +17,5 @@ for n in sys.argv[2:]:
     for name,pal in P.items():
         s=re.sub('|'.join(map(re.escape,TOK)),lambda m:pal[TOK[m.group(0)]],src)
         s=re.sub(r'rgba\((\d+,\d+,\d+),',lambda m:f'rgba({rgb(pal[RGB[m.group(1)]])},' if m.group(1) in RGB else m.group(0),s)
-        s=s.replace('class="tag">',f'class="tag">{name.upper()} · ')
+        s=s.replace('class="tag">',f'class="tag">{name.upper()} · ') if name!='yellow' else s
         open(f'{W}/frames/{n}_{name}.html','w').write(s)
