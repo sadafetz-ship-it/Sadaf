@@ -83,3 +83,20 @@ Whoosh, paper slap, string creak, lamp click, chalk, clock tick, bass hit, camer
 | Voiceover | **Kokoro-82M** text-to-speech, voice "am_michael" (offline), speed 1.12. Start times in `audio/voiceover_lines.tsv`, each line starts on its scene cut | Apache 2.0, no credit needed. Swap in your own recording any time |
 | Sound effects | Real recordings from **Freesound**, all **CC0** (no credit required): whooshes (#60026, #60007, #351256), typewriter key (#380137), rolled-paper slaps (#131359, #131358), cinematic boom (#555245), bass boom (#268084), riser (#561207), light switch (#423512), clock ticking (#130388), marker scribble (#82610), VHS glitch (#264935), pops (#244654, #244657), chime (#351408), tape rip (#187338), rope creak (#231438), splashes (#199452) | CC0 |
 | Music | "Darkest Child" by Kevin MacLeod (incompetech.com), lowered automatically under the voice | **Credit required:** "Darkest Child" Kevin MacLeod (incompetech.com). Licensed under Creative Commons: By Attribution 4.0 License, http://creativecommons.org/licenses/by/4.0/ |
+
+
+## Sound effects from your reference reel (v6)
+Taken from the podcast reel you sent (`VID_20261126_021025_755.mp4`):
+1. Separated the voice with the **Kim Vocal 2** MDX-Net model (`renderer/separate_vocals.py`).
+2. Detected and classified each effect in the remaining music-and-effects track.
+3. Cut the cleanest example of each and removed the music bed underneath by spectral subtraction.
+
+The clips are in `audio/sfx_from_reference/`:
+| Clips | What they are | Used for |
+|---|---|---|
+| `click_1,2,3,5,8` | Caption word clicks | All typing and word reveals (replace the typewriter keys) |
+| `swish_1,2,4,5,6,7` | Short bright swishes | Every whoosh (label swings, slides, papers flying, small cuts) |
+| `pop_2,3,4,6` | Keyword pops | Concept labels, pins, dot steps, and layered on "third class", "time", "ever.", "Nobel Prize", "patent clerk." |
+| `trans_low_1,2,3` | Deep whoosh into a sub impact | Every medium and big cut, aligned on the impact |
+
+These sounds come from someone else's published video and may originate from a commercial sound pack. Fine for practice and personal edits. For a monetised or client video, swap in sounds you hold a licence for: the mixer only needs new files in that folder.

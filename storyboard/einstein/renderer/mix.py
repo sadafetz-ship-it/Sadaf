@@ -7,11 +7,20 @@ def load(path, ch=1):
     x = np.frombuffer(raw, np.float32); return x.reshape(-1, ch) if ch > 1 else x
 _raw = {}
 def raw(name):
-    if name not in _raw: x = load(f'{A}/sfx/{name}.mp3'); _raw[name] = x / (np.max(np.abs(x)) + 1e-9)
+    if name not in _raw:
+        path = f'{A}/sfx_ref/{name[4:]}.wav' if name.startswith('REF:') else f'{A}/sfx/{name}.mp3'
+        x = load(path); _raw[name] = x / (np.max(np.abs(x)) + 1e-9)
     return _raw[name]
 def env_rms(x, w=.01): w = max(1, int(w * SR)); return np.sqrt(np.convolve(x ** 2, np.ones(w) / w, 'same'))
 # Library: name -> (file, segment start s, segment end s, anchor) ; anchor = 'peak' | 'onset' | 'end'
 LIB = {
+ # --- from the user's reference reel (separated from voice + music, music bed spectrally subtracted) ---
+ 'r_click1': ('REF:click_1', 0, 0.13, 'onset'), 'r_click2': ('REF:click_2', 0, 0.13, 'onset'), 'r_click3': ('REF:click_3', 0, 0.13, 'onset'),
+ 'r_click5': ('REF:click_5', 0, 0.13, 'onset'), 'r_click8': ('REF:click_8', 0, 0.13, 'onset'),
+ 'r_pop2': ('REF:pop_2', 0, 0.31, 'peak'), 'r_pop3': ('REF:pop_3', 0, 0.31, 'peak'), 'r_pop4': ('REF:pop_4', 0, 0.31, 'peak'), 'r_pop6': ('REF:pop_6', 0, 0.31, 'peak'),
+ 'r_swish1': ('REF:swish_1', 0, 0.40, 'peak'), 'r_swish2': ('REF:swish_2', 0, 0.30, 'peak'), 'r_swish4': ('REF:swish_4', 0, 0.30, 'peak'),
+ 'r_swish5': ('REF:swish_5', 0, 0.37, 'peak'), 'r_swish6': ('REF:swish_6', 0, 0.38, 'peak'), 'r_swish7': ('REF:swish_7', 0, 0.36, 'peak'),
+ 'r_trans1': ('REF:trans_low_1', 0, 0.75, 'lowpeak'), 'r_trans2': ('REF:trans_low_2', 0, 0.72, 'lowpeak'), 'r_trans3': ('REF:trans_low_3', 0, 0.80, 'lowpeak'),
  'key':      ('type_key', 0.00, 0.20, 'onset'),
  'key2':     ('type_snip', 0.17, 0.32, 'onset'),
  'key3':     ('type_snip', 0.32, 0.50, 'onset'),
@@ -49,14 +58,20 @@ def clip(key, pitch=1.0):
     if pitch != 1.0: x = np.interp(np.arange(0, len(x) - 1, pitch), np.arange(len(x)), x)
     fi, fo = int(.002 * SR), int(min(.04, len(x) / SR / 4) * SR); x[:fi] *= np.linspace(0, 1, fi); x[-fo:] *= np.linspace(1, 0, fo)
     r = env_rms(x); pk = r.max()
-    if anc == 'peak': off = np.argmax(r)
+    if anc == 'lowpeak':
+        from scipy.signal import butter as _bb, sosfilt as _ss
+        off = int(np.argmax(env_rms(_ss(_bb(2, 150, 'low', fs=SR, output='sos'), x), .02)))
+    elif anc == 'peak': off = np.argmax(r)
     elif anc == 'end': off = len(x)
     else: off = max(0, np.argmax(r > pk * .3) - int(.003 * SR))
     return x / (np.max(np.abs(x)) + 1e-9), off
 ev = []  # (sync_time, key, gain_db, pitch, duck_under_vo)
-def at(t, key, db=0, pitch=1.0, duck=True): ev.append((t, key, db, pitch, duck))
+REMAP = {'whoosh_s': ['r_swish2', 'r_swish4', 'r_swish6'], 'whoosh_m': ['r_swish1', 'r_swish5', 'r_swish7'], 'pop': ['r_pop3', 'r_pop6'], 'pop2': ['r_pop2', 'r_pop4']}
+def at(t, key, db=0, pitch=1.0, duck=True):
+    if key in REMAP: key = REMAP[key][int(t * 7) % len(REMAP[key])]   # reference-reel sounds, varied deterministically
+    ev.append((t, key, db, pitch, duck))
 def typing(t0, n, step, db=-8):
-    for i in range(n): at(t0 + i * step, rng.choice(['key', 'key2', 'key3']), db + rng.uniform(-3, 1), rng.uniform(.93, 1.08))
+    for i in range(n): at(t0 + i * step, rng.choice(['r_click1', 'r_click2', 'r_click3', 'r_click5', 'r_click8']), db - 2 + rng.uniform(-3, 1), rng.uniform(.93, 1.08))
 F = 1 / 30
 # ---- sync points (derived from anim.js v3 scene times and in-scene timings) ----
 typing(0.0, 2, 2 * F, -4); typing(0.13, 4, 2 * F, -4)                             # S1 "In" + "1902"
@@ -68,7 +83,7 @@ at(5.2, 'whoosh_s', -10); at(5.53, 'slap', -4, duck=False); at(5.6, 'creak', -10
 at(6.1, 'whoosh_s', -12)                                                           # S4 rack-focus cut
 at(7.55, 'whoosh_m', -8); at(7.85, 'whoosh_s', -16)                                 # word block slides out, underline draws
 at(8.57, 'tape', -6, duck=False)                                                   # S5 tape unfolds
-at(9.45, 'punch', -4, duck=False); at(9.45, 'boom', -6, duck=False)                                                   # "third class" pop (on the word)
+at(9.45, 'r_pop3', -3, duck=False); at(9.45, 'punch', -7, duck=False); at(9.45, 'boom', -6, duck=False)                                                   # "third class" pop (on the word)
 at(10.48, 'whoosh_m', -6)                                                          # motion-blur exit on the cut
 at(11.0, 'punch', -4, duck=False); at(11.0, 'riser_s', -6, duck=False); at(10.55, 'glitch_l', -14, duck=False)        # S6 light streaks build to title
 at(11.0, 'sub', -8, duck=False)                                                    # "What happened next." lands
@@ -100,7 +115,7 @@ at(31.15, 'whoosh_s', -15)                                                      
 at(32.9, 'whoosh_l', -4, duck=False)                                               # S16 whip in (rotation)
 at(34.0, 'scribble', -4)                                                           # red scribble on face
 at(35.12, 'whoosh_l', -5, duck=False)                                              # whip out on the cut
-at(36.15, 'punch', -4, duck=False); at(36.15, 'boom', -4, duck=False); at(36.15, 'chime', -8, duck=False)              # S17 "Nobel Prize"
+at(36.15, 'r_pop3', -3, duck=False); at(36.15, 'punch', -7, duck=False); at(36.15, 'boom', -4, duck=False); at(36.15, 'chime', -8, duck=False)              # S17 "Nobel Prize"
 at(36.18, 'whoosh_s', -15)                                                         # ellipse draws
 for t in [36.2, 36.27, 36.33, 36.4]: at(t, 'pop2', -16, 1.3)                       # lime flicker
 at(37.5, 'whoosh_m', -10)                                                          # push pulse
@@ -130,24 +145,13 @@ at(41.8, 'slap2', -20)                                                          
 # ---- cut hits (Ref 5): every scene cut gets whoosh-into-impact; strength by importance ----
 CUTS = [(1.3,1),(3.3,3),(6.1,2),(8.4,2),(10.5,2),(11.8,1),(14.5,2),(15.3,1),(18.2,3),(19.6,1),(21.3,2),(23.4,2),(26.6,3),(30.2,2),(32.8,2),(35.2,2),(38.2,3)]
 for t, w in CUTS:
-    if t != 19.6: at(t - .04, 'whoosh_m' if w < 3 else 'whoosh_l', [-12, -8, -4][w - 1], rng.uniform(.95, 1.05), duck=False)  # no pre-whoosh into S11: it would mask the "t" of "light"
-    at(t + .02, 'punch', [-10, -6, -2][w - 1], duck=False)
-    at(t + .03, 'boom', [-18, -12, -7][w - 1], rng.uniform(.92, 1.04), duck=False)
-    if w == 3: at(t + .02, 'sub', -8, duck=False)
-# ---- retime S11–S13 after the longer 'light' line (scene starts 19.6→19.95, 21.3→21.6, 23.4→23.6) ----
-def _shift(t):
-    if 19.6 <= t < 21.3: return t + .35
-    if 21.3 <= t < 23.4: return t + .3
-    if 23.4 <= t < 26.6: return t + .2
-    return t
-ev[:] = [(_shift(t), k, db, p, d) for t, k, db, p, d in ev]
-# word-synced hits at the narrator's measured word times (speech-recognition word timestamps)
-at(19.2, 'whoosh_s', -16); typing(19.35, 5, 2 * F, -22); at(19.6, 'pop2', -22)     # "light" (spoken ~19.4)
-at(20.5, 'pop', -10); at(20.7, 'whoosh_s', -7)                                       # "atoms" 20.50, red brush
-at(22.5, 'pop2', -15); at(22.95, 'punch', -4, duck=False); at(22.95, 'boom', -7, duck=False)  # concept label, "time" 22.94
-at(25.45, 'whoosh_s', -14); at(25.55, 'punch', -4, duck=False); at(25.55, 'boom', -3, duck=False)  # "ever" 25.52
-at(40.6, 'glitch', -6, duck=False); at(40.6, 'pop', -10)                             # "patent"
-at(40.88, 'punch', -4, duck=False); at(40.88, 'glitch', -5, duck=False); at(40.88, 'boom', -2, duck=False)  # "clerk" 40.88
+    if w == 1:
+        if t != 19.6: at(t - .03, 'whoosh_m', -10, rng.uniform(.95, 1.05), duck=False)
+        at(t + .02, 'punch', -12, duck=False)
+    else:
+        at(t + .02, ['r_trans1', 'r_trans2', 'r_trans3'][int(t * 3) % 3], [0, -6, -2][w - 1], duck=False)
+        at(t + .02, 'punch', -6 if w == 3 else -11, duck=False)   # marks the cut frame under the reel transition
+        if w == 3: at(t + .02, 'sub', -10, duck=False)
 # ---- render ----
 vo = np.zeros(N)
 for line in open(A + '/vo2/lines.tsv'):
