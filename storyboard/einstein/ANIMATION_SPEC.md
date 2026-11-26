@@ -2,7 +2,7 @@
 
 All timings were measured frame by frame at **30 fps** (1 f = 1 frame = 0.033 s).
 **Ref 1** = Netflix, **Ref 2** = Titanic, **Ref 3** = McDonald's, **Ref 4** = Elizabeth Loftus.
-The rendered video `einstein_45s_16x9.mp4` uses exactly these values. The renderer is `renderer/anim.js`.
+The video is now built in **Remotion** (`/remotion-einstein`, see its README), using exactly these values. The original Playwright renderer is kept in `renderer/anim.js` for reference.
 
 ## 1. Global rules (seen in every reference)
 | Rule | Measured value | Where measured |
@@ -72,10 +72,10 @@ The rendered video `einstein_45s_16x9.mp4` uses exactly these values. The render
 | S7 | 11.8–14.5 | Lamp flicker, "spare time" label swing-in | In his spare time, he wrote physics papers. |
 | S8 | 14.5–15.3 | Year counter 1902 → 1905 | (music) |
 | S9 | 15.3–18.2 | Papers fly in, red scribble, lime "in 1905" | In 1905, he published four of them. |
-| S10 | 18.2–19.6 | "light": yellow box wipe + typing | One explained light. |
-| S11 | 19.6–21.3 | Magnifier + "atoms" red brush wipe | One proved atoms exist. |
-| S12 | 21.3–23.4 | Gears + "time" pop on the spoken word | One changed how we understand time. |
-| S13 | 23.4–26.6 | Bold words → "E=mc²" → "ever." | And one gave us the most famous equation… ever. |
+| S10 | 18.2–19.95 | "light": yellow box wipe + typing | One explained light. |
+| S11 | 19.95–21.6 | Magnifier + "atoms" red brush wipe | One proved atoms exist. |
+| S12 | 21.6–23.6 | Gears + "time" pop on the spoken word | One changed how we understand time. |
+| S13 | 23.6–26.6 | Bold words → "E=mc²" → "ever." | And one gave us the most famous equation… ever. |
 | S14 | 26.6–30.2 | Whip pan, "1919", lime "May 29th" | In 1919, an eclipse proved his theory right. |
 | S15 | 30.2–32.8 | Newspapers fly in, white arc | Newspapers called it a revolution in science. |
 | S16 | 32.8–35.2 | Corkboard whip in, red scribble, whip out | He became world famous, overnight. |
@@ -97,5 +97,25 @@ The rendered video `einstein_45s_16x9.mp4` uses exactly these values. The render
 | **Hard stop** | At the end everything cuts dead, leaving one tail | Music and drone cut in 40 ms at 44.2 s; one sub boom rings into black |
 
 Every effect is placed by its **sync point** (the frame its visual happens) and aligned on the sound's own anchor: the transient for clicks and hits, the loudest moment for whooshes, the end for risers. The full cue list is in `audio/sfx_cue_sheet.tsv`.
+
+## 8. Documentary touches (Remotion version)
+| Touch | Where | Sound |
+|---|---|---|
+| Film grain, dust specks, hairs and scratches, exposure flicker, vignette | Whole piece | Quiet film-projector flutter bed (-46 dB) |
+| Gate weave (±1.2 px jitter) and flicker on archival photos | S2, S5, S14 | — |
+| Light leaks | Frame push-through, "ever.", Nobel push | — |
+| Location and date lower-thirds | S3, S7, S14, S17 | Switch tick + soft whoosh |
+| Source credits on every archival image | Most scenes | — |
+| Museum caption card | S2 | Paper |
+| German office name, real job title and start date | S4, S5 | Pencil, typewriter |
+| Pencil date tags on the four 1905 papers | S9 | Pencil |
+| Concept labels (Photoelectric Effect, Brownian Motion, Special Relativity) | S10–S12 | Soft pop |
+| Highlighter sweep + push-in on "Einstein Theory Triumphs" | S15 | Marker swipe + slow whoosh |
+| Dust motes in the lamp beam | S7 | — |
+| End card "Albert Einstein · 1879 – 1955" | S18 | Paper |
+
+**Word sync:** pops on "light", "atoms", "time", "ever.", "Nobel Prize" and "patent clerk." are placed at the narrator's word times, measured with speech recognition.
+
+**Mastering:** voice presence boost (+4 dB at 2–6 kHz); measured fixed gain to -14 LUFS; true-peak limiter at -1 dBFS.
 
 **Audio:** the video is silent. Record the voiceover to this timeline, or shift scene times in `anim.js` to match your recording (each scene's start and end are in the `SC` list).

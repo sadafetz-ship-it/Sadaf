@@ -1,0 +1,24 @@
+{
+  "name": "remotion-einstein",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render Einstein out/einstein_45s_16x9.mp4"
+  },
+  "dependencies": {
+    "@fontsource/bodoni-moda": "*",
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/playfair-display": "*",
+    "@fontsource/poppins": "*",
+    "@fontsource/special-elite": "^5.3.0",
+    "@remotion/cli": "*",
+    "@remotion/motion-blur": "*",
+    "react": "*",
+    "react-dom": "*",
+    "remotion": "*"
+  },
+  "devDependencies": {
+    "@types/react": "*",
+    "typescript": "*"
+  }
+}

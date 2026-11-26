@@ -80,16 +80,16 @@ for i in range(3):                                                              
     at(15.42 + i * 4 * F, 'whoosh_s', -9, rng.uniform(.95, 1.05)); at(15.57 + i * 4 * F, ['slap', 'slap2', 'slap'][i], -5 - i, rng.uniform(.95, 1.05))
 at(16.2, 'tape', -9); typing(16.42, 7, 2 * F, -11); at(16.4, 'scribble', -4)       # lime label, typing, red scribble
 at(18.2, 'boom', -5, duck=False); typing(18.25, 13, 1 * F, -14)                    # S10 hard cut + fast small typing
-at(18.72, 'whoosh_s', -10); typing(18.8, 5, 2 * F, -6)                             # yellow box wipe + "light"
+pass                             # yellow box wipe + "light"
 at(19.75, 'whoosh_m', -6)                                                          # S11 magnifier slides in
-at(20.4, 'pop', -10); at(20.75, 'whoosh_s', -7)                                    # "atoms", red brush wipe
+pass                                    # "atoms", red brush wipe
 at(21.3, 'clock', -8); typing(21.4, 11, 1.2 * F, -14)                              # S12 gears/clock, typing
-at(22.85, 'punch', -4, duck=False); at(22.85, 'boom', -7, duck=False)                                                  # "time" pop (on the word)
+pass                                                  # "time" pop (on the word)
 at(23.4, 'whoosh_s', -12)                                                          # S13 cut
 for t in [23.6, 23.85, 24.1]: at(t, 'pop2', -12, rng.uniform(.95, 1.05))           # words pop in
 at(24.72, 'whoosh_m', -8)                                                          # block blurs out
 for i in range(5): at(24.8 + i * 3 * F, 'pop', -8, 1 + .05 * i)                    # E=mc² builds letter by letter
-at(25.8, 'whoosh_s', -14); at(25.9, 'punch', -4, duck=False); at(25.9, 'boom', -3, duck=False)                        # pushes back, "ever." hits
+pass                        # pushes back, "ever." hits
 at(26.7, 'whoosh_l', -4, duck=False)                                               # S14 whip pan in
 at(26.9, 'sub', -6, duck=False); at(27.1, 'pop', -12)                              # "19" … "1919"
 at(27.6, 'tape', -9); typing(27.65, 8, 2 * F, -10)                                 # lime label + "May 29th"
@@ -106,22 +106,47 @@ at(37.5, 'whoosh_m', -10)                                                       
 for i, t in enumerate(sorted(set(38.2 + (k % 9) * .12 for k in range(26)))): at(t + .05, 'splat', -8 - (i % 3), rng.uniform(.9, 1.1), duck=False)  # S18 ink blots spread
 at(39.62, 'whoosh_m', -8)                                                          # zoom-out reveal
 typing(39.8, 13, 2 * F, -8)                                                        # "Not bad for a"
-at(40.8, 'glitch', -6, duck=False); at(40.8, 'pop', -10)                           # red box "patent"
-at(41.1, 'punch', -4, duck=False); at(41.1, 'glitch', -5, duck=False); at(41.1, 'boom', -2, duck=False)               # "patent clerk." hit
+pass                           # red box "patent"
+pass               # "patent clerk." hit
 at(44.2, 'sub', -14, duck=False)                                                   # cut to black
+# ---- documentary details (Remotion v4) ----
+at(1.75, 'slap2', -18)                                                              # museum caption card
+for t in [3.55, 13.1, 28.5, 36.7]: at(t, 'click', -14, 1.2, duck=False); at(t + .05, 'whoosh_s', -18)   # lower-thirds
+at(7.85, 'scribble', -15)                                                           # pencil note (German office name)
+typing(9.65, 24, 2 * F, -18)                                                        # German job title typed
+for i in range(4): at(16.9 + i * .18, 'scribble', -17, rng.uniform(1.05, 1.2))       # pencil date tags on papers
+at(20.2, 'pop2', -15)                                    # concept labels
+at(28.2, 'scribble', -15); at(33.4, 'scribble', -15)                                # pencil notes
+at(31.65, 'scribble', -8, .85); at(31.9, 'whoosh_m', -13, .8)                       # highlighter sweep + zoom-in
+at(41.8, 'slap2', -20)                                                              # end title card
 # ---- cut hits (Ref 5): every scene cut gets whoosh-into-impact; strength by importance ----
 CUTS = [(1.3,1),(3.3,3),(6.1,2),(8.4,2),(10.5,2),(11.8,1),(14.5,2),(15.3,1),(18.2,3),(19.6,1),(21.3,2),(23.4,2),(26.6,3),(30.2,2),(32.8,2),(35.2,2),(38.2,3)]
 for t, w in CUTS:
-    at(t - .04, 'whoosh_m' if w < 3 else 'whoosh_l', [-12, -8, -4][w - 1], rng.uniform(.95, 1.05), duck=False)
+    if t != 19.6: at(t - .04, 'whoosh_m' if w < 3 else 'whoosh_l', [-12, -8, -4][w - 1], rng.uniform(.95, 1.05), duck=False)  # no pre-whoosh into S11: it would mask the "t" of "light"
     at(t + .02, 'punch', [-10, -6, -2][w - 1], duck=False)
     at(t + .03, 'boom', [-18, -12, -7][w - 1], rng.uniform(.92, 1.04), duck=False)
     if w == 3: at(t + .02, 'sub', -8, duck=False)
+# ---- retime S11–S13 after the longer 'light' line (scene starts 19.6→19.95, 21.3→21.6, 23.4→23.6) ----
+def _shift(t):
+    if 19.6 <= t < 21.3: return t + .35
+    if 21.3 <= t < 23.4: return t + .3
+    if 23.4 <= t < 26.6: return t + .2
+    return t
+ev[:] = [(_shift(t), k, db, p, d) for t, k, db, p, d in ev]
+# word-synced hits at the narrator's measured word times (speech-recognition word timestamps)
+at(19.2, 'whoosh_s', -16); typing(19.35, 5, 2 * F, -22); at(19.6, 'pop2', -22)     # "light" (spoken ~19.4)
+at(20.5, 'pop', -10); at(20.7, 'whoosh_s', -7)                                       # "atoms" 20.50, red brush
+at(22.5, 'pop2', -15); at(22.95, 'punch', -4, duck=False); at(22.95, 'boom', -7, duck=False)  # concept label, "time" 22.94
+at(25.45, 'whoosh_s', -14); at(25.55, 'punch', -4, duck=False); at(25.55, 'boom', -3, duck=False)  # "ever" 25.52
+at(40.6, 'glitch', -6, duck=False); at(40.6, 'pop', -10)                             # "patent"
+at(40.88, 'punch', -4, duck=False); at(40.88, 'glitch', -5, duck=False); at(40.88, 'boom', -2, duck=False)  # "clerk" 40.88
 # ---- render ----
 vo = np.zeros(N)
 for line in open(A + '/vo2/lines.tsv'):
     n, t = line.split(); x = load(f'{A}/vo2/vo_{n}.wav'); x = x / (np.max(np.abs(x)) + 1e-9) * .9
     i = int(float(t) * SR); j = min(N, i + len(x)); vo[i:j] += x[:j - i]
-vo = vo + .15 * np.concatenate([[0], np.diff(vo)])
+from scipy.signal import butter as _b, sosfilt as _sf
+vo = vo + 0.7 * _sf(_b(2, [2000, 6000], 'band', fs=SR, output='sos'), vo)   # VO presence boost (~+4 dB at 2–6 kHz) so consonants cut through
 venv = np.clip(np.convolve(np.abs(vo), np.ones(int(SR * .25)) / (SR * .25), 'same') / .06, 0, 1)
 sfx = np.zeros(N); log = []
 for t, key, db, pitch, duck in ev:
@@ -135,10 +160,17 @@ tt = np.arange(N) / SR; fade = np.minimum(1, tt / .5) * np.clip((44.2 - tt) / .0
 mus = mus * (fade * (1 - .45 * venv) * .30)[:, None]
 from scipy.signal import butter, sosfilt
 drone = sosfilt(butter(2, 120, 'low', fs=SR, output='sos'), rng.standard_normal(N)) * 2.5 + .5 * np.sin(2 * np.pi * 43.65 * tt) + .25 * np.sin(2 * np.pi * 65.4 * tt)
-drone *= .06 * np.minimum(1, tt / 1.0) * np.clip((44.2 - tt) / .04, 0, 1) * (1 + .3 * np.sin(2 * np.pi * .12 * tt))
-mix = mus + (vo + sfx * 1.0 + drone)[:, None]
+drone *= .06 * (1 - .5 * venv) * np.minimum(1, tt / 1.0) * np.clip((44.2 - tt) / .04, 0, 1) * (1 + .3 * np.sin(2 * np.pi * .12 * tt))
+proj = rng.standard_normal(N); proj = sosfilt(butter(2, [300, 3000], 'band', fs=SR, output='sos'), proj) * (0.55 + 0.45 * np.sign(np.sin(2 * np.pi * 24 * tt)))
+proj *= 10 ** (-46 / 20) * 4 * np.minimum(1, tt / 1.0) * np.clip((44.2 - tt) / .04, 0, 1)   # quiet film-projector flutter
+mix = mus + (vo + sfx * 1.0 + drone + proj)[:, None]
 mix = np.tanh(mix * 1.1) / np.tanh(1.1)
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', '-af', 'highpass=f=35,loudnorm=I=-14:TP=-1:LRA=9', '-ar', str(SR), A + '/mix3.wav'], input=mix.astype(np.float32).tobytes())
+# master: fixed gain to -14 LUFS (measured, no dynamic pumping) + true-peak limiter
+pre = A + '/_pre.wav'
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', '-af', 'highpass=f=35', pre], input=mix.astype(np.float32).tobytes())
+meas = subprocess.run(['ffmpeg', '-hide_banner', '-i', pre, '-af', 'ebur128', '-f', 'null', '-'], capture_output=True, text=True).stderr
+I = float(meas.split('Integrated loudness:')[1].split('I:')[1].split('LUFS')[0])
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pre, '-af', f'volume={-14.0 - I:.2f}dB,alimiter=limit=0.89:attack=1:release=60:level=disabled', '-ar', str(SR), A + '/mix3.wav'])
 np.save(A + '/sfx_only.npy', sfx.astype(np.float32))
 with open(A + '/sfx_cue_sheet.tsv', 'w') as f:
     f.write('sync_s\tsound\tclip_starts_s\n'); [f.write(f'{t:.3f}\t{k}\t{s:.3f}\n') for t, k, s in sorted(log)]
