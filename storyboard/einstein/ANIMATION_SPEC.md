@@ -85,4 +85,17 @@ The rendered video `einstein_45s_16x9.mp4` uses exactly these values. The render
 
 **v3 additions:** real motion blur (4 subframes per frame, 180° shutter, blended), expo-out easing with an 28 px rise on every word, and a subtle handheld camera drift (±5 px, ±0.22°) on all shots.
 
+## 7. Sound design rules (measured from Ref 5, the 1976 Nice bank-heist video, 16:9)
+| Rule | Measured in Ref 5 | Applied in the Einstein mix |
+|---|---|---|
+| **Hit on every cut** | All 8 cuts get a strong impact 0–130 ms after the cut (or a whoosh peaking just before it) | 17 cuts: whoosh peaking 40 ms before + kick-like punch + boom body 20–30 ms after; big cuts add a sub drop. Measured: every hit lands +10 ms after its cut |
+| **Fewer, bigger accents** | The strongest sounds in the track are the cut hits | The 20 strongest transients in the mix are all cuts or key-word hits |
+| **Sound matches how a thing appears** | Typing on the typed title, dial clicks on the combination lock, spray hiss while graffiti is written | Typing on every typed word (varied keys and pitch), marker scribble on red circles, tape rip on labels, paper slaps when papers land, lamp switch on the flicker, clock under the gears, splats on the ink |
+| **Narration starts after the hit** | The voice continues over cuts and never fights the impact | Lines that start on a big cut begin 0.15 s after the hit |
+| **Constant low end** | Heavy sub/drone under the whole piece | Low drone bed (43.6 Hz + filtered rumble) under everything |
+| **Effects stay forward** | Effects remain clearly audible under the voice | Effects dip only about 2.5 dB under the voice; music dips about 5 dB |
+| **Hard stop** | At the end everything cuts dead, leaving one tail | Music and drone cut in 40 ms at 44.2 s; one sub boom rings into black |
+
+Every effect is placed by its **sync point** (the frame its visual happens) and aligned on the sound's own anchor: the transient for clicks and hits, the loudest moment for whooshes, the end for risers. The full cue list is in `audio/sfx_cue_sheet.tsv`.
+
 **Audio:** the video is silent. Record the voiceover to this timeline, or shift scene times in `anim.js` to match your recording (each scene's start and end are in the `SC` list).
