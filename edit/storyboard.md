@@ -1,0 +1,26 @@
+# Storyboard v1: “sound design” reel
+
+House style (video-motion-study skill), **purple set**: no colour reference was circled for this video. Format stays **9:16, 1080×1920**. Face box measured with U²-Net on every still: head at y ≈ 470–990. Titles go in the top zone behind the head, cards on the chest (y 1010–1380), captions in the lower third (bottom edge 270 px up).
+
+Preview stills: `storyboard_v1/F01–F14.jpg`. Labelled boards: `storyboard_v1/board_A_F01-F07.jpg`, `board_B_F08-F14.jpg`.
+
+**Status: preview only, not built.** Waiting for approval before the Remotion build.
+
+| # | time (s) | mode | spoken | on screen / motion | SFX |
+|---|---|---|---|---|---|
+| F1 | 0.00–2.02 | title behind head | Not focusing on this ONE THING | Scripts lockup “ONE / THING” stacked in the top zone, behind the cut-out head. ONE lands 1.38 s, THING 1.70 s: ink line drop 4 f → slide from −90 px, blur 16→0 (15 f) + ghost trail → purple stair-step pixel clusters (~30 f). Setup words “focusing on … this” blur in above. Slow push-in starts. | riser (ends 1.38) → air whoosh → impact on ONE |
+| F2 | 2.02–3.70 | chest card | is ruining your videos. | Muted-video glass card zoom-drops onto the chest (16 f, tilt settles). Rose edge flash on “ruining” (2 f up, 12 f down). “videos” blooms in as the heavy word (16 f) + rose dot. | zoom drop-in (ref2_g_drop); dissolve under the flash |
+| F3 | 3.72–8.00 | chest row | you're missing clients, better videos and so many opportunities. | Three tiles arrive by comet + glow reveal, each on its spoken word (4.90 / 6.04 / 7.44): comet arcs in 8 f, tile flashes white and develops (scale 0.6→1.06→1). Each carries a rose “missing” chip. Card row held to 8.3 s. | pop_media ×3 (one per tile), comet whoosh on first |
+| F4 | 8.38–9.50 | caption-only | Just because one thing, | No graphics: full three-line lockup. “one” pops in the purple script pill (13 f, then writes on), “thing” blooms + Scripts pixel clusters + highlight bar wipe (+6–20 f). 8 f punch-in on “thing”, scaled about the face. | none (captions stay silent) |
+| F5 | 9.58–11.84 | chest gauge | I've edited more than 200 videos | Pixel-mosaic dissolve → glass gauge pops (12 f). Dial ticks light one by one over 18 f, number rolls up and lands “200+” on the spoken “200” (10.72). | ref_wheel under the roll (low), pop_ui on landing |
+| F6 | 11.84–15.20 | → explainer | …a few weeks ago that I discovered this. | Captions carry “wasn't until a few weeks ago”. On “this.” (14.86) a light-beam sweep opens from a ring pivot top-left: cone widens 0°→230° over 20 f, glowing cream edges, 1 f white flash. | whoosh + digital burst + light-reveal shimmer (scene cut) |
+| F7 | 15.34–17.00 | EXPLAINER | The importance of sound designing, | Full-screen dark-ink world (light pools, faint grid, rising particles). “Sound Design” product card develops from white (8 f), stars pop 2 f apart, a thick cream light ribbon draws a loop around it (30 f) then flows. Blurred ghost cards “Color” / “Captions” at the sides. Pill caption “sound designing”. | light reveal + soft impact on card open; ref2_g_comet as ribbon draws |
+| F8 | 17.24–18.70 | EXPLAINER | it's a whole new world. | Card zooms back and dissolves into a glowing waveform; sound rings ripple outward (20 f) on “world”. Heavy word “world” swings in 3D (rotateY 75°→−18°→−10°, 22 f). | ripple swell (short), impact on “world” |
+| F9 | 19.02–20.16 | caption-only | You may not get it now, | Cut back to speaker: zoom-blur (1.12→1, blur 28→0, 9 f) + 1 f white flash at 19.0. Caption-only beat: “now,” in the script pill. | whoosh only (screen change stays clean) |
+| F10 | 20.50–22.34 | chest card | but your videos get to a new level. | Audio level-meter glass card pops on the chest at 20.6 (early, so it settles). 16 bars climb on the words and peak at the top with a rose glow exactly on “level” (22.06). “new level” heavy + highlight bar. | ref_riser short build into “level” (no impact), pop_ui when card appears |
+| F11 | 22.40–24.44 | chest card | I want to share with you the exact same video | Video card whips in from the right (15 f, skew/blur, overshoot settles +11 f). Cursor glides to the play button and presses it on “video” (24.06): scale 0.93, glow flash, ripple. | whoosh (whip), ref_click on the press |
+| F12 | 24.44–26.36 | card held | that helped me master these skills. | Same card held (≥1.2 s): now playing, progress bar fills, waveform tile pulses. “skills” heavy word with highlight bar. | none |
+| F13 | 26.40–27.88 | CTA · title + card | Just comment some EFFECTS | Card morphs into the comment box (quest-card morph, 14 f); “effects” types in the field behind a glowing caret. EFFECTS lands behind the head as a Scripts title on 27.12 (removed from the caption to avoid doubling). | riser → whoosh → impact on EFFECTS; ref_typing_b low (0.18) |
+| F14 | 27.88–29.20 | END | and I send it to you right now. | Send button pressed → comment box turns into a “Sent to you ✓✓” DM card; paper-plane comet flies off top-right. Short fade to black from 29.2. Trim “Also, you know that.” (29.16–30.34, sounds like an outtake). | pop_ui on send, whoosh_air on the plane |
+
+Mode rhythm: title → card → row → caption-only → gauge → explainer ×2 → caption-only → card → card → CTA. That is a switch every ~1.3–2.5 s, and every graphic holds for at least 1.2 s.
