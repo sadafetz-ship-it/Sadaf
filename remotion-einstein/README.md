@@ -32,6 +32,8 @@ npx remotion still EinsteinPreview out/frame.png --frame=520              # sing
 - **Eclipse explainer diagram (S14):** Sun, Earth and a star. The real light path bends around the Sun, the dashed line shows where the star appears, and a label gives the 1.75″ shift Einstein predicted.
 - **E = mc² annotated in pencil (S13):** energy, mass, speed of light squared.
 - **Real newspaper mastheads (S15):** "New York, Monday, November 10, 1919 · Two Cents" and "London, Friday, November 7, 1919".
+- **Paper physics:** every sheet (1905 papers, newspapers, eclipse print, diagram, museum card, magnifier page) drops in 3D. It starts lifted toward camera (tilted, larger, soft far shadow, motion blur), lands in 9–10 frames as its shadow tightens, and settles with a damped wobble. Sheets have curl shading and edge ageing; newspapers have a centre fold. Pinned board cards sway gently.
+- **Torn-paper transition** into "Four papers": the frame rips along a jagged line and the halves pull apart (Ref 2).
 - **Film texture:** animated grain, dust specks, the odd hair and scratch, exposure flicker, vignette. Gate weave on archival photos.
 - **Light leaks:** on the frame push-through, "ever." and the Nobel push.
 - **Lower-thirds:** Bern, Switzerland · 1902; Bern · Kramgasse 49; Sobral, Brazil · Príncipe; Nobel Prize in Physics · 1921 with the real citation.

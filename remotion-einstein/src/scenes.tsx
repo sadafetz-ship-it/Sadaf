@@ -2,6 +2,7 @@
 import React from 'react';
 import { AbsoluteFill, Img, random, useCurrentFrame } from 'remotion';
 import { EuropeMap } from './map';
+import { paperDrop, PaperCard, PaperShade, PaperTear } from './lib';
 import { ARC, Card, Cam, Concept, Credit, Cut, Draw, E, ELLIPSE, F, LIME, LightLeak, LowerThird, Note, P, Pin, RED, Reveal, SCRIBBLE, Tape, WindowShadow, Words, YEL, cl, dolly, img, typed, useT, useWeave } from './lib';
 
 type S = { g: number };
@@ -34,8 +35,8 @@ export const S2: React.FC<S> = ({ g }) => { const t = useT(); const wv = useWeav
     <div style={abs({ left: 690, top: 90, width: 540, height: 660, padding: 34, background: 'linear-gradient(135deg,#7a5a1c,#e8c66a 25%,#9a7428 45%,#f2d98a 65%,#6d4f15)', boxShadow: '0 30px 60px rgba(0,0,0,.5),inset 0 0 0 6px rgba(60,40,10,.6)' })}>
       <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}><Img src={img('young.jpg')} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%', filter: 'grayscale(1) contrast(1.1)', ...wv }} /></div></div>
     <Reveal t={t} t0={0.15} style={abs({ left: 0, right: 0, top: 790, textAlign: 'center' })}><div style={{ ...serifD, fontSize: 84 }}>Albert Einstein</div><div style={{ ...serifD, fontSize: 44, marginTop: 12 }}>in 1902</div></Reveal>
-    <Reveal t={t} t0={0.45} style={abs({ left: 1290, top: 560, width: 300, padding: '14px 18px', background: '#f1ece0', boxShadow: '0 6px 14px rgba(0,0,0,.25)', font: '400 18px/1.4 "Special Elite"', color: '#333' })}>
-      ALBERT EINSTEIN<br />Bern, c. 1904<br /><span style={{ opacity: 0.6 }}>Gelatin silver print<br />ETH-Bibliothek Zürich</span></Reveal>
+    <div style={abs({ left: 1290, top: 560, width: 300, padding: '14px 18px', background: '#f1ece0', font: '400 18px/1.4 "Special Elite"', color: '#333', ...paperDrop(t, 0.45, { r: 2, dx: 500, dy: -120, f: 9 }).style })}>
+      ALBERT EINSTEIN<br />Bern, c. 1904<br /><span style={{ opacity: 0.6 }}>Gelatin silver print<br />ETH-Bibliothek Zürich</span><PaperShade /></div>
   </Cam><LightLeak t={t} t0={1.55} dur={0.6} /></AbsoluteFill>); };
 
 // S3 3.3–6.1  Bern street, caption swaps every 0.4–0.6 s, "rejected" label drops on strings (Ref 1 + Ref 4)
@@ -112,16 +113,17 @@ export const S8: React.FC<S> = ({ g }) => { const t = useT(); const w = E.o3(P(t
 const PAPERS = [{ x: 330, y: 300, r: -8, tag: 'Mar · light' }, { x: 650, y: 250, r: 3, tag: 'May · atoms' }, { x: 970, y: 320, r: 9, tag: 'Jun · relativity' }, { x: 1290, y: 270, r: -4, tag: 'Sep · E=mc²' }];
 export const S9: React.FC<S> = ({ g }) => { const t = useT(); const lb = E.o3(P(t, 0.9, 0.9 + 6 * F));
   return (<AbsoluteFill><Cam gt={g + t} s={1 + 0.05 * t / 2.9} r={-2 + 2 * t / 2.9}>{greyDesk}
-    {PAPERS.map((pp, i) => { const t0 = i * 4 * F, q = E.back(P(t, t0, t0 + 8 * F)), m = 1 - P(t, t0, t0 + 8 * F);
+    {PAPERS.map((pp, i) => { const t0 = 0.12 + i * 4 * F;
       return <React.Fragment key={i}>
-        <Card src="annalen.jpg" x={pp.x} y={pp.y} w={300} h={420} r={pp.r} style={{ transform: `translate(${(1 - q) * -900}px,${(1 - q) * -700}px) rotate(${pp.r + (1 - q) * 25}deg)`, filter: `blur(${m * 10}px)`, opacity: t < t0 ? 0 : 1 }} />
-        <Tape x={pp.x + 80} y={pp.y - 20} r={pp.r * 2} show={t > t0 + 10 * F} />
+        <PaperCard src="annalen.jpg" x={pp.x} y={pp.y} w={300} h={420} r={pp.r} t={t} t0={t0} dx={-500 - i * 120} dy={-650} />
+        <Tape x={pp.x + 80} y={pp.y - 20} r={pp.r * 2} show={t > t0 + 12 * F} />
         <Note t={t} t0={1.6 + i * 0.18} text={pp.tag} style={{ left: pp.x + 30, top: pp.y + 450, transform: `rotate(${pp.r / 2}deg)`, fontSize: 38 }} /></React.Fragment>; })}
     <Draw d={SCRIBBLE} vb="0 0 100 100" t={t} t0={1.1} f={24} color="#d0121c" width={12} style={{ left: 600, top: 190, width: 420, height: 600 }} />
     <WindowShadow t={t} o={0.42} />
     <Words t={t} style={{ ...serifD, position: 'absolute', left: 0, right: 0, top: 60, textAlign: 'center', fontSize: 140, color: '#1c1c1c' }} items={[[0.5, 'Four'], [0.72, 'papers']]} />
     <div style={abs({ left: 1440, top: 860, transform: 'rotate(-6deg)', opacity: lb > 0.001 ? 1 : 0 })}><div style={{ background: LIME, padding: '6px 26px 12px', font: 'italic 400 64px "Bodoni Moda"', color: '#1a1a1a', whiteSpace: 'nowrap', height: 96, minWidth: 60, transform: `scaleX(${lb})`, transformOrigin: '0 50%' }}>{typed('in 1905', t, 1.12)}</div></div>
-  </Cam><Credit text="Annalen der Physik, vol. 17, 1905" dark /></AbsoluteFill>); };
+  </Cam><Credit text="Annalen der Physik, vol. 17, 1905" dark />
+    <PaperTear t={t} f={9}><AbsoluteFill style={{ background: '#cdbfa8' }}><AbsoluteFill style={{ background: 'radial-gradient(circle at 50% 50%,transparent 32%,rgba(20,15,10,.85) 52%)' }} /></AbsoluteFill></PaperTear></AbsoluteFill>); };
 
 // S10 18.2–19.6  "light": yellow box wipe + typing over an 1883 bulb (Ref 3 "burgers")
 export const S10: React.FC<S> = ({ g }) => { const t = useT(); const q = E.o3(P(t, 1.05, 1.05 + 5 * F)); const fl = 0.85 + 0.15 * random(`b${Math.floor(t * 30)}`);
@@ -136,7 +138,7 @@ export const S10: React.FC<S> = ({ g }) => { const t = useT(); const q = E.o3(P(
 
 // S11 19.6–21.3  Magnifier over the 1905 page, jiggling particles, "atoms" with red brush wipe (Ref 4)
 export const S11: React.FC<S> = ({ g }) => { const t = useT(); const m = E.o3(P(t, 0.05, 0.05 + 10 * F)), b = E.o3(P(t, 0.75, 0.75 + 9 * F));
-  return (<AbsoluteFill><Cam gt={g + t} s={1 + 0.04 * t / 1.7}><Linen /><Card src="annalen.jpg" x={640} y={90} w={520} h={760} r={-4} />
+  return (<AbsoluteFill><Cam gt={g + t} s={1 + 0.04 * t / 1.7}><Linen /><PaperCard src="annalen.jpg" x={640} y={90} w={520} h={760} r={-4} t={t} t0={0} dx={0} dy={700} />
     <div style={abs({ left: 700, top: 200, width: 620, height: 760, transform: `translateX(${(1 - m) * 1100}px)` })}>
       <div style={abs({ left: 0, top: 0, width: 520, height: 520, borderRadius: '50%', overflow: 'hidden', border: '22px solid #2a2a2a', boxShadow: '0 30px 60px rgba(0,0,0,.5)' })}>
         <AbsoluteFill style={{ background: '#c9a96a' }} />
@@ -186,7 +188,7 @@ const EclipseDiagram: React.FC<{ t: number; t0: number }> = ({ t, t0 }) => {
   const d = (a: number, f: number) => E.o3(P(t, t0 + a, t0 + a + f * F)); const card = E.x(P(t, t0, t0 + 8 * F));
   const line = (path: string, p: number, dash?: string, color = '#2a2218') => <path d={path} fill="none" stroke={color} strokeWidth={3} strokeLinecap="round" strokeDasharray={dash} pathLength={1} style={dash ? { opacity: p > 0 ? 1 : 0 } : { strokeDasharray: 1, strokeDashoffset: 1 - p }} />;
   return (
-    <div style={abs({ left: 1080, top: 812, width: 640, height: 240, background: '#f1ece0', boxShadow: '0 10px 24px rgba(0,0,0,.35)', transform: `rotate(-2deg) translateY(${(1 - card) * 40}px)`, opacity: card })}>
+    <div style={abs({ left: 1080, top: 812, width: 640, height: 240, background: '#f1ece0', ...paperDrop(t, t0, { r: -2, dx: 300, dy: 400, f: 9 }).style })}><PaperShade />
       <div style={abs({ left: 18, top: 10, font: '700 30px Caveat', color: '#2a2218' })}>starlight bends around the Sun</div>
       <svg width="640" height="240" style={{ position: 'absolute' }}>
         <circle cx="300" cy="150" r="38" fill="none" stroke="#c98a1a" strokeWidth={4} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - d(0.1, 8)} />
@@ -204,7 +206,7 @@ const EclipseDiagram: React.FC<{ t: number; t0: number }> = ({ t, t0 }) => {
 // S14 26.6–30.2  Whip pan, big "1919", lime "May 29th", eclipse print taped (Ref 2), location lower-third
 export const S14: React.FC<S> = ({ g }) => { const t = useT(); const w = E.o3(P(t, 0, 8 * F)), q = E.o3(P(t, 1.0, 1.0 + 5 * F)); const wv = useWeave();
   return (<AbsoluteFill><Cam gt={g + t} x={(1 - w) * -1920} s={1 + 0.04 * t / 3.6} blur={(1 - w) * 14}>{greyDesk}
-    <div style={{ ...wv, position: 'absolute', inset: 0 }}><Card src="eclipse.jpg" x={1060} y={150} w={600} h={650} r={5} /></div><Tape x={1250} y={120} r={-6} w={200} />
+    <div style={{ ...wv, position: 'absolute', inset: 0 }}><PaperCard src="eclipse.jpg" x={1060} y={150} w={600} h={650} r={5} t={t} t0={0.15} dx={600} dy={-500} /></div><Tape x={1250} y={120} r={-6} w={200} show={t > 0.6} />
     <WindowShadow t={t} o={0.45} />
     <div style={abs({ left: 180, top: 250, font: '400 440px/1 "Bodoni Moda"', color: '#1c1c1c', letterSpacing: -14 })}>{t < 0.3 ? '' : t < 0.3 + 6 * F ? '19' : '1919'}</div>
     <div style={abs({ left: 560, top: 680, transform: 'rotate(-4deg)' })}><div style={{ background: LIME, padding: '4px 30px 14px', font: 'italic 400 90px "Bodoni Moda"', color: '#1a1a1a', whiteSpace: 'nowrap', height: 130, transformOrigin: '0 50%', transform: `scaleX(${q})`, opacity: q > 0.001 ? 1 : 0 }}>{typed('May 29th', t, 1.05)}</div></div>
@@ -215,9 +217,9 @@ export const S14: React.FC<S> = ({ g }) => { const t = useT(); const w = E.o3(P(
 // S15 30.2–32.8  Newspapers fly onto wood, white arc, highlighter sweep over "Einstein Theory Triumphs" (Ref 1 + Vox highlight)
 export const S15: React.FC<S> = ({ g }) => { const t = useT(); const hl = E.o3(P(t, 1.45, 1.45 + 9 * F)), z = E.io(P(t, 1.3, 2.4));
   return (<AbsoluteFill><Cam gt={g + t} s={1 + 0.05 * t / 2.6 + 0.35 * z} origin="560px 560px"><Wood />
-    {[0, 1].map((i) => { const t0 = i * 4 * F, q = E.back(P(t, t0, t0 + 8 * F)), m = 1 - P(t, t0, t0 + 8 * F); const base = [-7, 5][i];
-      const st: React.CSSProperties = { position: 'absolute', background: 'linear-gradient(160deg,#efe4c9,#d9c7a0)', boxShadow: '0 18px 40px rgba(0,0,0,.55)', padding: '26px 30px', color: '#1d1a16', overflow: 'hidden',
-        transform: `translate(${(1 - q) * (i ? 900 : -900)}px,${(1 - q) * -600}px) rotate(${base + (1 - q) * (i ? -20 : 20)}deg)`, filter: `blur(${m * 12}px)` };
+    {[0, 1].map((i) => { const t0 = i * 4 * F; const base = [-7, 5][i];
+      const st: React.CSSProperties = { position: 'absolute', background: 'linear-gradient(160deg,#efe4c9,#d9c7a0)', padding: '26px 30px', color: '#1d1a16', overflow: 'hidden',
+        ...paperDrop(t, t0, { r: base, dx: i ? 900 : -900, dy: -600, f: 9 }).style };
       return i === 0 ? (
         <div key={i} style={{ ...st, left: 300, top: 300, width: 560, height: 700 }}>
           <div style={{ font: '900 30px "Playfair Display"', textAlign: 'center', borderBottom: '3px double #333', paddingBottom: 6, marginBottom: 12 }}>The New York Times<div style={{ font: '400 13px "Special Elite"', letterSpacing: 1, marginTop: 4 }}>NEW YORK, MONDAY, NOVEMBER 10, 1919 · TWO CENTS</div></div>
@@ -225,13 +227,13 @@ export const S15: React.FC<S> = ({ g }) => { const t = useT(); const hl = E.o3(P
           <div style={{ font: 'italic 400 20px/1.2 "Bodoni Moda"', textAlign: 'center', margin: '10px 0' }}>Men of Science More or Less Agog Over Results of Eclipse Observations</div>
           <div style={{ position: 'relative', font: '900 30px "Playfair Display"', textAlign: 'center', textTransform: 'uppercase' }}>
             <span style={{ position: 'absolute', left: 20, top: 4, height: 34, width: 440 * hl, background: 'rgba(255,225,40,.75)', mixBlendMode: 'multiply' }} />Einstein Theory Triumphs</div>
-          <div style={{ columns: 3, columnGap: 16, font: '11px/1.35 Georgia,serif', color: '#3b352c', textAlign: 'justify', marginTop: 12 }}>{LOREM}</div></div>
+          <div style={{ columns: 3, columnGap: 16, font: '11px/1.35 Georgia,serif', color: '#3b352c', textAlign: 'justify', marginTop: 12 }}>{LOREM}</div><PaperShade fold /></div>
       ) : (
         <div key={i} style={{ ...st, left: 1000, top: 280, width: 600, height: 720 }}>
           <div style={{ font: '900 30px "Playfair Display"', textAlign: 'center', borderBottom: '3px double #333', paddingBottom: 6, marginBottom: 12 }}>THE TIMES<div style={{ font: '400 13px "Special Elite"', letterSpacing: 1, marginTop: 4 }}>LONDON, FRIDAY, NOVEMBER 7, 1919</div></div>
           <div style={{ font: '900 60px/1.02 "Playfair Display"', textAlign: 'center', textTransform: 'uppercase' }}>Revolution in Science</div>
           <div style={{ font: 'italic 400 20px/1.2 "Bodoni Moda"', textAlign: 'center', margin: '10px 0' }}>New Theory of the Universe. Newtonian Ideas Overthrown.</div>
-          <div style={{ columns: 3, columnGap: 16, font: '11px/1.35 Georgia,serif', color: '#3b352c', textAlign: 'justify' }}>{LOREM}</div></div>); })}
+          <div style={{ columns: 3, columnGap: 16, font: '11px/1.35 Georgia,serif', color: '#3b352c', textAlign: 'justify' }}>{LOREM}</div><PaperShade fold /></div>); })}
     <Draw d={ARC} vb="0 0 100 60" t={t} t0={0.9} f={9} color="#fff" width={5} style={{ left: 260, top: 240, width: 1400, height: 700, opacity: 1 - z }} />
     <Words t={t} style={{ ...serif, position: 'absolute', left: 0, right: 0, top: 80, textAlign: 'center', fontSize: 120, opacity: 1 - z }} items={[[0.4, 'Revolution'], [0.65, 'in science']]} />
   </Cam><Credit text="The New York Times, 10 Nov 1919 · The Times, 7 Nov 1919 (recreated)" /></AbsoluteFill>); };
@@ -239,7 +241,7 @@ export const S15: React.FC<S> = ({ g }) => { const t = useT(); const hl = E.o3(P
 // S16 32.8–35.2  Evidence board whip-in, red scribble on face, whip out (Ref 2 "Edward Smith")
 export const S16: React.FC<S> = ({ g }) => { const t = useT(); const w = E.o3(P(t, 0, 10 * F)), o = E.i3(P(t, 2.2, 2.4));
   return (<AbsoluteFill><Cam gt={g + t} y={(1 - w) * -600 - o * 900} r={(1 - w) * 8 + 1.5 * t / 2.4} s={1 + 0.06 * t / 2.4} blur={(1 - w) * 12 + o * 14}>{greyDesk}
-    <Card src="young.jpg" x={200} y={60} w={360} h={270} r={-4} pos="center 25%" /><Card src="annalen.jpg" x={1360} y={60} w={330} h={270} r={5} /><Card src="bern.jpg" x={200} y={760} w={380} h={260} r={3} /><Card src="eclipse.jpg" x={1360} y={760} w={330} h={270} r={-5} />
+    <PaperCard src="young.jpg" x={200} y={60} w={360} h={270} r={-4} pos="center 25%" t={t} t0={-1} sway={0.5} /><PaperCard src="annalen.jpg" x={1360} y={60} w={330} h={270} r={5} t={t} t0={-1} sway={0.5} /><PaperCard src="bern.jpg" x={200} y={760} w={380} h={260} r={3} t={t} t0={-1} sway={0.5} /><PaperCard src="eclipse.jpg" x={1360} y={760} w={330} h={270} r={-5} t={t} t0={-1} sway={0.5} />
     <svg width="1920" height="1080" style={{ position: 'absolute' }}><g stroke="#9b1b22" strokeWidth={5} fill="none" strokeLinecap="round"><path d="M730 270 L1190 270 L1190 800 L730 800 Z" /><path d="M560 320 L730 270 M1360 320 L1190 270 M570 770 L730 800 M1360 770 L1190 800" /></g></svg>
     <Card src="sch.jpg" x={770} y={300} w={380} h={470} r={0} pos="center 20%" />
     <Tape x={240} y={40} r={-15} /><Tape x={1470} y={40} r={10} /><Tape x={880} y={282} r={-3} w={200} />

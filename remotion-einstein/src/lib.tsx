@@ -180,3 +180,52 @@ export const FilmTexture: React.FC = () => {
     </AbsoluteFill>
   );
 };
+
+// ---------------- Paper physics ----------------
+/** Paper drop: the sheet starts lifted toward camera (bigger, tilted in 3D, soft far shadow, motion blur), lands in
+ *  `f` frames as its shadow tightens, then settles with a small damped wobble. Ref 1 newspapers / Ref 2 desk prints. */
+export const paperDrop = (t: number, t0: number, opt: { r?: number; dx?: number; dy?: number; f?: number; tilt?: number } = {}) => {
+  const { r = 0, dx = -700, dy = -500, f = 10, tilt = 1 } = opt;
+  const p = E.o3(P(t, t0, t0 + f * F)), lift = 1 - p, k = t - (t0 + f * F);
+  const wob = k > 0 ? 1.6 * Math.exp(-7 * k) * Math.sin(22 * k) : 0;
+  return {
+    visible: t >= t0,
+    style: {
+      opacity: t < t0 ? 0 : 1,
+      transform: `perspective(1400px) translate(${dx * lift}px,${dy * lift}px) rotateX(${16 * lift * tilt}deg) rotateY(${-12 * lift * tilt}deg) rotate(${r + 22 * lift + wob}deg) scale(${1 + 0.28 * lift})`,
+      boxShadow: `0 ${14 + 50 * lift}px ${30 + 70 * lift}px rgba(0,0,0,${0.42 - 0.17 * lift})`,
+      filter: lift > 0.02 ? `blur(${lift * 9}px)` : undefined,
+    } as React.CSSProperties,
+  };
+};
+/** Light curl + grazing light across a sheet. */
+export const PaperShade: React.FC<{ fold?: boolean }> = ({ fold }) => (
+  <>
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'linear-gradient(105deg,rgba(255,255,255,.16),rgba(255,255,255,0) 38%,rgba(0,0,0,0) 70%,rgba(0,0,0,.12))' }} />
+    {fold && <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', width: 26, marginLeft: -13, pointerEvents: 'none', background: 'linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,.13) 45%,rgba(255,255,255,.18) 55%,rgba(0,0,0,0))' }} />}
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', boxShadow: 'inset 0 0 30px rgba(120,90,40,.22)' }} />
+  </>
+);
+/** Paper sheet with a photo/scan on it, using paperDrop. */
+export const PaperCard: React.FC<{ src: string; x: number; y: number; w: number; h: number; r: number; t: number; t0: number; pos?: string; dx?: number; dy?: number; sway?: number }> =
+  ({ src, x, y, w, h, r, t, t0, pos = 'center', dx, dy, sway = 0 }) => {
+    const d = paperDrop(t, t0, { r: r + Math.sin(t * 1.3 + x) * sway, dx, dy });
+    return (
+      <div style={{ position: 'absolute', left: x, top: y, width: w, height: h, padding: 14, background: '#f4f2ec', ...d.style }}>
+        <div style={{ width: '100%', height: '100%', backgroundImage: `url(${img(src)})`, backgroundSize: 'cover', backgroundPosition: pos, filter: 'grayscale(1) contrast(1.1) sepia(.12)' }} />
+        <PaperShade />
+      </div>
+    );
+  };
+/** Torn-paper transition: the frame rips along a jagged line and both halves pull apart (Ref 2). `children` = the outgoing image. */
+const JAG = Array.from({ length: 25 }, (_, i) => `${(i / 24) * 100}% ${50 + Math.sin(i * 2.3) * 3 + ((i * 7) % 5) - 2}%`);
+export const PaperTear: React.FC<{ t: number; t0?: number; f?: number; children: React.ReactNode }> = ({ t, t0 = 0, f = 9, children }) => {
+  const p = E.i3(P(t, t0, t0 + f * F)) ;
+  if (p >= 1) return null;
+  const top = `polygon(0 0,100% 0,${[...JAG].reverse().join(',')})`, bot = `polygon(${JAG.join(',')},100% 100%,0 100%)`;
+  const half = (clip: string, dir: number) => (
+    <AbsoluteFill style={{ clipPath: clip, transform: `translateY(${dir * p * 700}px) rotate(${dir * p * 4}deg)`, filter: `drop-shadow(0 ${dir * -6}px 8px rgba(0,0,0,.45))` }}>{children}
+      <AbsoluteFill style={{ clipPath: clip, background: 'transparent', boxShadow: 'inset 0 0 0 0 transparent' }} /></AbsoluteFill>
+  );
+  return (<AbsoluteFill>{half(top, -1)}{half(bot, 1)}</AbsoluteFill>);
+};

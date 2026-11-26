@@ -76,8 +76,9 @@ at(11.9, 'click', -2, duck=False); at(11.97, 'click', -8, 1.1, duck=False); at(1
 at(13.0, 'whoosh_m', -8); at(13.3, 'slap2', -5)                                    # label swings in, lands
 at(14.53, 'whoosh_m', -6)                                                          # S8 whip in
 for i, t in enumerate([14.7, 14.83, 14.97, 15.1]): at(t, 'tick', -6 + i, 1 + .04 * i)   # yellow dot steps
-for i in range(3):                                                                 # S9 papers fly + land
-    at(15.42 + i * 4 * F, 'whoosh_s', -9, rng.uniform(.95, 1.05)); at(15.57 + i * 4 * F, ['slap', 'slap2', 'slap'][i], -5 - i, rng.uniform(.95, 1.05))
+at(15.34, 'tape', -3, .8, duck=False); at(15.3, 'whoosh_s', -12)                   # S9 torn-paper transition
+for i in range(4):                                                                 # four papers drop (3D) and land
+    at(15.62 + i * 4 * F, 'whoosh_s', -11, rng.uniform(.95, 1.05)); at(15.75 + i * 4 * F, ['slap', 'slap2', 'slap', 'slap2'][i], -5 - i, rng.uniform(.95, 1.05))
 at(16.2, 'tape', -9); typing(16.42, 7, 2 * F, -11); at(16.4, 'scribble', -4)       # lime label, typing, red scribble
 at(18.2, 'boom', -5, duck=False); typing(18.25, 13, 1 * F, -14)                    # S10 hard cut + fast small typing
 pass                             # yellow box wipe + "light"
@@ -109,14 +110,15 @@ typing(39.8, 13, 2 * F, -8)                                                     
 pass                           # red box "patent"
 pass               # "patent clerk." hit
 at(44.2, 'sub', -14, duck=False)                                                   # cut to black
+at(27.08, 'slap', -8, .9); at(19.93, 'slap2', -14)                                 # eclipse print lands; magnifier page lands
 # ---- documentary details v5: map, E=mc² notes, eclipse diagram ----
 at(0.1, 'scribble', -16, .9)                                                        # route pencil Ulm→Zürich→Bern
 for t in [0.1, 0.45, 0.8]: at(t, 'pop2', -11, rng.uniform(.95, 1.1))                 # city pins
 # (zoom into Bern uses the 1.3 s cut whoosh)
 for t in [24.95, 25.03, 25.11]: at(t, 'scribble', -19, 1.15)   # (+0.2 S13 shift → 25.15–25.31)                        # pencil notes on E=mc²
-at(28.1, 'slap2', -12); at(28.4, 'scribble', -15)                                    # diagram card lands, path draws
+at(28.4, 'slap2', -11); at(28.5, 'scribble', -15)                                    # diagram card lands, path draws
 # ---- documentary details (Remotion v4) ----
-at(1.75, 'slap2', -18)                                                              # museum caption card
+at(2.05, 'slap2', -14)                                                              # museum caption card
 for t in [3.55, 13.1, 28.5, 36.7]: at(t, 'click', -14, 1.2, duck=False); at(t + .05, 'whoosh_s', -18)   # lower-thirds
 at(7.85, 'scribble', -15)                                                           # pencil note (German office name)
 typing(9.65, 24, 2 * F, -18)                                                        # German job title typed
