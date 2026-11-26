@@ -109,6 +109,12 @@ typing(39.8, 13, 2 * F, -8)                                                     
 pass                           # red box "patent"
 pass               # "patent clerk." hit
 at(44.2, 'sub', -14, duck=False)                                                   # cut to black
+# ---- documentary details v5: map, E=mc² notes, eclipse diagram ----
+at(0.1, 'scribble', -16, .9)                                                        # route pencil Ulm→Zürich→Bern
+for t in [0.1, 0.45, 0.8]: at(t, 'pop2', -11, rng.uniform(.95, 1.1))                 # city pins
+# (zoom into Bern uses the 1.3 s cut whoosh)
+for t in [24.95, 25.03, 25.11]: at(t, 'scribble', -19, 1.15)   # (+0.2 S13 shift → 25.15–25.31)                        # pencil notes on E=mc²
+at(28.1, 'slap2', -12); at(28.4, 'scribble', -15)                                    # diagram card lands, path draws
 # ---- documentary details (Remotion v4) ----
 at(1.75, 'slap2', -18)                                                              # museum caption card
 for t in [3.55, 13.1, 28.5, 36.7]: at(t, 'click', -14, 1.2, duck=False); at(t + .05, 'whoosh_s', -18)   # lower-thirds

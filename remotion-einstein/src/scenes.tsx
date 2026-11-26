@@ -1,6 +1,7 @@
 // The 19 scenes of the Einstein short. Each scene receives `g` = its global start (s) for handheld drift.
 import React from 'react';
 import { AbsoluteFill, Img, random, useCurrentFrame } from 'remotion';
+import { EuropeMap } from './map';
 import { ARC, Card, Cam, Concept, Credit, Cut, Draw, E, ELLIPSE, F, LIME, LightLeak, LowerThird, Note, P, Pin, RED, Reveal, SCRIBBLE, Tape, WindowShadow, Words, YEL, cl, dolly, img, typed, useT, useWeave } from './lib';
 
 type S = { g: number };
@@ -19,10 +20,10 @@ const Wood = () => (<svg width="1920" height="1080" style={{ position: 'absolute
 const rack = (t: number, max = 10) => (1 - P(t, 0, 6 * F)) * max;
 const LOREM = 'The observations made during the eclipse of May 29 at Sobral and Principe confirm the deflection of light predicted by the new theory. '.repeat(14);
 
-// S1 0.0–1.3  "In 1902" letter typing (Ref 3)
+// S1 0.0–1.3  "In 1902" letter typing (Ref 3) over a vintage map: route Ulm → Zürich → Bern, zoom into Bern
 export const S1: React.FC<S> = ({ g }) => { const t = useT(); return (
-  <AbsoluteFill><Cam gt={g + t} s={1 + 0.06 * t / 1.3}>{cream}<WindowShadow t={t} o={0.22} />
-    <div style={abs({ left: 0, right: 0, top: 400, textAlign: 'center', fontFamily: '"Bodoni Moda"', color: '#2a2622' })}>
+  <AbsoluteFill><Cam gt={g + t}><EuropeMap t={t} />
+    <div style={abs({ left: 0, right: 0, top: 70, textAlign: 'center', fontFamily: '"Bodoni Moda"', color: '#2a2218', opacity: 1 - P(t, 0.95, 1.25) })}>
       <span style={{ fontSize: 70 }}>{typed('In', t, 0)}</span><span style={{ fontSize: 230, letterSpacing: -6 }}>{typed('1902', t, 0.13)}</span></div>
   </Cam></AbsoluteFill>); };
 
@@ -169,8 +170,36 @@ export const S13: React.FC<S> = ({ g }) => { const t = useT(); const o = E.o3(P(
     <div style={abs({ left: 1000, top: 180, transform: `translateX(${-300 * o}px)`, filter: `blur(${o * 12}px)`, opacity: 1 - o })}>
       <Words t={t} blurF={2} style={{ ...pop, fontSize: 140, lineHeight: 1.02 }} items={[[0.2, 'the most'], [0.45, '\n'], [0.45, 'famous'], [0.7, '\n'], [0.7, 'equation']]} /></div>
     <div style={abs({ ...pop, left: 930, top: 340, fontSize: 270, transform: `scale(${1 - 0.15 * b}) translateY(${-40 * b}px)`, filter: `blur(${b * 2}px)`, opacity: 1 - 0.3 * b })}>{typed('E=mc²', t, 1.4, 3)}</div>
+    <div style={abs({ left: 930, top: 150, opacity: 1 - P(t, 2.3, 2.6), transform: `scale(${1 - 0.15 * b}) translateY(${-40 * b}px)`, transformOrigin: '400px 330px' })}>
+      {[{ x: 0, w: 'energy', t0: 1.55 }, { x: 330, w: 'mass', t0: 1.63 }, { x: 560, w: 'speed of light, squared', t0: 1.71 }].map((a) => t >= a.t0 && (
+        <div key={a.w} style={abs({ left: a.x, top: 0 })}>
+          <div style={{ font: '700 44px Caveat', color: '#f3ead2', whiteSpace: 'nowrap', textShadow: '0 2px 8px rgba(0,0,0,.7)' }}>{typed(a.w, t, a.t0, 0.6)}</div>
+          <svg width="60" height="120" style={{ position: 'absolute', left: 30, top: 52 }}><path d="M10 0 C 30 40, 20 80, 34 110 M22 98 L34 112 L44 96" fill="none" stroke="#f3ead2" strokeWidth={3} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - E.o3(P(t, a.t0, a.t0 + 8 * F))} /></svg>
+        </div>))}
+    </div>
     <div style={abs({ ...pop, left: 1120, top: 700, fontSize: 220, opacity: t < 1.95 ? 0 : 1, transform: `scale(${1.2 - 0.2 * e})` })}>ever.</div>
   </Cam><LightLeak t={t} t0={1.9} dur={0.5} /></AbsoluteFill>); };
+
+// Explainer: starlight grazing the Sun bends (solid), so the star appears shifted (dashed). Einstein predicted 1.75″.
+const EclipseDiagram: React.FC<{ t: number; t0: number }> = ({ t, t0 }) => {
+  if (t < t0) return null;
+  const d = (a: number, f: number) => E.o3(P(t, t0 + a, t0 + a + f * F)); const card = E.x(P(t, t0, t0 + 8 * F));
+  const line = (path: string, p: number, dash?: string, color = '#2a2218') => <path d={path} fill="none" stroke={color} strokeWidth={3} strokeLinecap="round" strokeDasharray={dash} pathLength={1} style={dash ? { opacity: p > 0 ? 1 : 0 } : { strokeDasharray: 1, strokeDashoffset: 1 - p }} />;
+  return (
+    <div style={abs({ left: 1080, top: 812, width: 640, height: 240, background: '#f1ece0', boxShadow: '0 10px 24px rgba(0,0,0,.35)', transform: `rotate(-2deg) translateY(${(1 - card) * 40}px)`, opacity: card })}>
+      <div style={abs({ left: 18, top: 10, font: '700 30px Caveat', color: '#2a2218' })}>starlight bends around the Sun</div>
+      <svg width="640" height="240" style={{ position: 'absolute' }}>
+        <circle cx="300" cy="150" r="38" fill="none" stroke="#c98a1a" strokeWidth={4} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - d(0.1, 8)} />
+        <text x="282" y="210" style={{ font: '400 18px "Special Elite"', fill: '#5a4a32' }}>SUN</text>
+        <circle cx="40" cy="160" r="12" fill="#3a6aa0" opacity={d(0.15, 4)} /><text x="22" y="200" style={{ font: '400 18px "Special Elite"', fill: '#5a4a32' }}>EARTH</text>
+        <text x="600" y="72" textAnchor="middle" style={{ font: '700 26px Poppins', fill: '#2a2218' }} opacity={d(0.2, 4)}>★</text>
+        {line('M600 64 C 420 80, 340 104, 300 106 S 120 140, 52 158', d(0.3, 14), undefined, RED)}
+        <path d="M52 158 L 600 40" fill="none" stroke="#2a2218" strokeWidth={2.5} strokeDasharray="10 8" opacity={d(0.75, 6)} />
+        <text x="560" y="30" style={{ font: '700 26px Poppins', fill: '#2a2218' }} opacity={d(0.8, 4) * 0.55}>★</text>
+        <text x="440" y="190" style={{ font: '700 34px Caveat', fill: RED }} opacity={d(0.95, 6)}>1.75″ shift</text>
+      </svg>
+    </div>);
+};
 
 // S14 26.6–30.2  Whip pan, big "1919", lime "May 29th", eclipse print taped (Ref 2), location lower-third
 export const S14: React.FC<S> = ({ g }) => { const t = useT(); const w = E.o3(P(t, 0, 8 * F)), q = E.o3(P(t, 1.0, 1.0 + 5 * F)); const wv = useWeave();
@@ -179,9 +208,9 @@ export const S14: React.FC<S> = ({ g }) => { const t = useT(); const w = E.o3(P(
     <WindowShadow t={t} o={0.45} />
     <div style={abs({ left: 180, top: 250, font: '400 440px/1 "Bodoni Moda"', color: '#1c1c1c', letterSpacing: -14 })}>{t < 0.3 ? '' : t < 0.3 + 6 * F ? '19' : '1919'}</div>
     <div style={abs({ left: 560, top: 680, transform: 'rotate(-4deg)' })}><div style={{ background: LIME, padding: '4px 30px 14px', font: 'italic 400 90px "Bodoni Moda"', color: '#1a1a1a', whiteSpace: 'nowrap', height: 130, transformOrigin: '0 50%', transform: `scaleX(${q})`, opacity: q > 0.001 ? 1 : 0 }}>{typed('May 29th', t, 1.05)}</div></div>
-    <Note t={t} t0={1.6} text="starlight bent by the Sun ↗" style={{ left: 1110, top: 830, transform: 'rotate(4deg)', fontSize: 40 }} />
+    <EclipseDiagram t={t} t0={1.5} />
     <LowerThird t={t} t0={1.9} title="SOBRAL, BRAZIL · PRÍNCIPE" sub="total solar eclipse" dur={1.4} dark />
-  </Cam><Credit text="Eclipse plate, 1919 · Dyson, Eddington & Davidson" dark /></AbsoluteFill>); };
+  </Cam><Credit text="Eclipse plate, 1919 · Dyson, Eddington & Davidson" dark top /></AbsoluteFill>); };
 
 // S15 30.2–32.8  Newspapers fly onto wood, white arc, highlighter sweep over "Einstein Theory Triumphs" (Ref 1 + Vox highlight)
 export const S15: React.FC<S> = ({ g }) => { const t = useT(); const hl = E.o3(P(t, 1.45, 1.45 + 9 * F)), z = E.io(P(t, 1.3, 2.4));
@@ -191,7 +220,7 @@ export const S15: React.FC<S> = ({ g }) => { const t = useT(); const hl = E.o3(P
         transform: `translate(${(1 - q) * (i ? 900 : -900)}px,${(1 - q) * -600}px) rotate(${base + (1 - q) * (i ? -20 : 20)}deg)`, filter: `blur(${m * 12}px)` };
       return i === 0 ? (
         <div key={i} style={{ ...st, left: 300, top: 300, width: 560, height: 700 }}>
-          <div style={{ font: '900 30px "Playfair Display"', textAlign: 'center', borderBottom: '3px double #333', paddingBottom: 6, marginBottom: 12 }}>The New York Times</div>
+          <div style={{ font: '900 30px "Playfair Display"', textAlign: 'center', borderBottom: '3px double #333', paddingBottom: 6, marginBottom: 12 }}>The New York Times<div style={{ font: '400 13px "Special Elite"', letterSpacing: 1, marginTop: 4 }}>NEW YORK, MONDAY, NOVEMBER 10, 1919 · TWO CENTS</div></div>
           <div style={{ font: '900 46px/1.02 "Playfair Display"', textAlign: 'center', textTransform: 'uppercase' }}>Lights All Askew in the Heavens</div>
           <div style={{ font: 'italic 400 20px/1.2 "Bodoni Moda"', textAlign: 'center', margin: '10px 0' }}>Men of Science More or Less Agog Over Results of Eclipse Observations</div>
           <div style={{ position: 'relative', font: '900 30px "Playfair Display"', textAlign: 'center', textTransform: 'uppercase' }}>
@@ -199,7 +228,7 @@ export const S15: React.FC<S> = ({ g }) => { const t = useT(); const hl = E.o3(P
           <div style={{ columns: 3, columnGap: 16, font: '11px/1.35 Georgia,serif', color: '#3b352c', textAlign: 'justify', marginTop: 12 }}>{LOREM}</div></div>
       ) : (
         <div key={i} style={{ ...st, left: 1000, top: 280, width: 600, height: 720 }}>
-          <div style={{ font: '900 30px "Playfair Display"', textAlign: 'center', borderBottom: '3px double #333', paddingBottom: 6, marginBottom: 12 }}>THE TIMES</div>
+          <div style={{ font: '900 30px "Playfair Display"', textAlign: 'center', borderBottom: '3px double #333', paddingBottom: 6, marginBottom: 12 }}>THE TIMES<div style={{ font: '400 13px "Special Elite"', letterSpacing: 1, marginTop: 4 }}>LONDON, FRIDAY, NOVEMBER 7, 1919</div></div>
           <div style={{ font: '900 60px/1.02 "Playfair Display"', textAlign: 'center', textTransform: 'uppercase' }}>Revolution in Science</div>
           <div style={{ font: 'italic 400 20px/1.2 "Bodoni Moda"', textAlign: 'center', margin: '10px 0' }}>New Theory of the Universe. Newtonian Ideas Overthrown.</div>
           <div style={{ columns: 3, columnGap: 16, font: '11px/1.35 Georgia,serif', color: '#3b352c', textAlign: 'justify' }}>{LOREM}</div></div>); })}

@@ -18,6 +18,7 @@ npx remotion still EinsteinPreview out/frame.png --frame=520              # sing
 |---|---|
 | `src/Main.tsx` | Scene list with cut times (`SCENES`), motion blur (`CameraMotionBlur`, 4 samples, 180° shutter), film texture, audio |
 | `src/scenes.tsx` | The 19 scenes (S1–S19), one component each. In-scene times are in seconds from the scene start |
+| `src/map.tsx` | Vintage parchment map with the route animation |
 | `src/lib.tsx` | Motion helpers (`E` easings, `typed`, `Words`, `Reveal`, `Draw`, `Cam` with handheld drift, `dolly`) and documentary pieces (`LowerThird`, `Credit`, `Note`, `Concept`, `LightLeak`, `FilmTexture`, `useWeave`) |
 | `public/img/` | Archival photos and cutouts (credits in `../storyboard/einstein/ASSETS.md`) |
 | `public/audio/mix.wav` | Final mix: voiceover, sound effects and music, built by `../storyboard/einstein/renderer/mix.py` |
@@ -27,6 +28,10 @@ npx remotion still EinsteinPreview out/frame.png --frame=520              # sing
 - **Change when a word pops:** edit the number in that scene (for example `t < 1.35` for "time" in `S12`). Keep the matching sound-effect sync time in `mix.py` the same.
 
 ## Documentary touches
+- **Animated vintage map (S1):** real Natural Earth borders (world-atlas + d3-geo). Einstein's route Ulm (born 1879) → Zürich (ETH, 1900) → Bern (1902) draws on with pins, Switzerland hatched, period names "Deutsches Reich" and "Schweiz", then a zoom into Bern.
+- **Eclipse explainer diagram (S14):** Sun, Earth and a star. The real light path bends around the Sun, the dashed line shows where the star appears, and a label gives the 1.75″ shift Einstein predicted.
+- **E = mc² annotated in pencil (S13):** energy, mass, speed of light squared.
+- **Real newspaper mastheads (S15):** "New York, Monday, November 10, 1919 · Two Cents" and "London, Friday, November 7, 1919".
 - **Film texture:** animated grain, dust specks, the odd hair and scratch, exposure flicker, vignette. Gate weave on archival photos.
 - **Light leaks:** on the frame push-through, "ever." and the Nobel push.
 - **Lower-thirds:** Bern, Switzerland · 1902; Bern · Kramgasse 49; Sobral, Brazil · Príncipe; Nobel Prize in Physics · 1921 with the real citation.

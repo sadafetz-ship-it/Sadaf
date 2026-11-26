@@ -130,8 +130,8 @@ export const LowerThird: React.FC<{ t: number; t0: number; title: string; sub?: 
 };
 
 /** Small archival source credit, bottom-right (documentary convention). */
-export const Credit: React.FC<{ text: string; dark?: boolean }> = ({ text, dark = false }) => (
-  <div style={{ position: 'absolute', right: 40, bottom: 34, font: '400 17px "Special Elite"', letterSpacing: 1, color: dark ? 'rgba(20,20,20,.65)' : 'rgba(255,255,255,.7)', textShadow: dark ? 'none' : '0 1px 4px rgba(0,0,0,.8)' }}>{text}</div>
+export const Credit: React.FC<{ text: string; dark?: boolean; top?: boolean }> = ({ text, dark = false, top = false }) => (
+  <div style={{ position: 'absolute', right: 40, ...(top ? { top: 30 } : { bottom: 34 }), font: '400 17px "Special Elite"', letterSpacing: 1, color: dark ? 'rgba(20,20,20,.65)' : 'rgba(255,255,255,.7)', textShadow: dark ? 'none' : '0 1px 4px rgba(0,0,0,.8)' }}>{text}</div>
 );
 
 /** Handwritten tag (pencil note on archival material). */

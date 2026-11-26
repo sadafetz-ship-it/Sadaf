@@ -101,6 +101,10 @@ Every effect is placed by its **sync point** (the frame its visual happens) and 
 ## 8. Documentary touches (Remotion version)
 | Touch | Where | Sound |
 |---|---|---|
+| Animated vintage map: Ulm 1879 → Zürich 1900 → Bern 1902, pins pop 0.1/0.45/0.8 s, zoom into Bern | S1 | Pencil route, pin pops, cut whoosh |
+| Eclipse explainer: Sun, Earth, star, bent light path vs. apparent position, "1.75″ shift" | S14 | Paper slap + pencil |
+| Pencil annotations on E = mc² (energy, mass, speed of light squared) | S13 | Pencil |
+| Real masthead lines (dates and price) on both 1919 newspapers | S15 | — |
 | Film grain, dust specks, hairs and scratches, exposure flicker, vignette | Whole piece | Quiet film-projector flutter bed (-46 dB) |
 | Gate weave (±1.2 px jitter) and flicker on archival photos | S2, S5, S14 | — |
 | Light leaks | Frame push-through, "ever.", Nobel push | — |
