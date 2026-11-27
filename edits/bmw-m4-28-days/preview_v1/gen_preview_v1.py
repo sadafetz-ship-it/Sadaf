@@ -108,6 +108,18 @@ def product_card(x, y, w=520, scale=1.0, ghost=False, title="BMW M4", sub="Goal 
   <div style="font-size:30px;color:{LILAC};margin-top:10px">{sub}</div>
   <div style="font-size:42px;letter-spacing:8px;margin-top:16px">{stars}</div></div></div>"""
 
+CARIMG = "file:///home/user/Sadaf/edits/bmw-m4-28-days/remotion/public/bmw_m4_cutout.png"
+def product_card_photo(x, y, w=600):
+    stars = "".join(f'<span style="color:{AMBER};text-shadow:0 0 10px {AMBER}">★</span>' for _ in range(5))
+    return f"""<div style="position:absolute;left:{x}px;top:{y}px;width:{w}px;border-radius:56px;overflow:visible;">
+ <div style="height:{int(w*.62)}px;border-radius:56px 56px 0 0;background:linear-gradient(170deg,{IVORY},{BUTTER} 60%,{AMBER});border:2px solid rgba(243,232,184,.8);border-bottom:0"></div>
+ <img src="{CARIMG}" style="position:absolute;left:-70px;top:{int(w*.05)}px;width:{w+140}px;filter:drop-shadow(0 26px 22px rgba(26,20,40,.55))">
+ <div style="background:linear-gradient(180deg,#2B2245,{INK});padding:34px 40px 40px;text-align:center;border-radius:0 0 56px 56px;border:2px solid rgba(243,232,184,.8);border-top:0;
+  box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 40px rgba(21,156,194,.35)">
+  <div style="font-weight:800;font-style:italic;font-size:96px;letter-spacing:-4px;color:{IVORY};line-height:1">BMW M4</div>
+  <div style="font-size:30px;color:{LILAC};margin-top:10px">Goal car · 28-day plan</div>
+  <div style="font-size:42px;letter-spacing:8px;margin-top:16px">{stars}</div></div></div>"""
+
 def ribbon(cx, cy, rx, ry, prog=1.0):
     import math
     L = 2 * math.pi * math.sqrt((rx * rx + ry * ry) / 2)
@@ -176,6 +188,9 @@ FR["F6"] = dict(still="still_282.png", zoom=1.06, origin="420px 620px",
               heavy("what I would do", 116, bar="16%;left:auto;right:-.02em", extra_style="transform:perspective(900px) rotateY(-10deg) rotateZ(-3deg)")),
     label="0:09.4 · Close — heavy line swings in 3D, bar under “do.” · punch-in · short fade out")
 
+exb = explainer_world() + ribbon(540, 820, 420, 580, .999) + product_card_photo(240, 380)
+FR["F4b"] = dict(still="still_177.png", front=exb + cap(setup(["If", "I", "had", "to"], 4, 0), pill("buy a")),
+    label="0:05.9 · OPTION B — same card with the real white M4 photo (CC BY-SA, plate blurred) bursting out of the top")
 for k, v in FR.items():
     html = page(dict(behind=v.get("behind", ""), front=v["front"]), v["still"], v.get("cut"), v.get("zoom", 1.0), v.get("origin", "400px 640px"))
     open(os.path.join(P, f"{k}.html"), "w").write(html)
