@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto websites reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a creator's screening room — calm, dark, the reel is the star
+   IDEA: a phone-shaped viewing booth glowing in the video's own purple
+   PICTURE: the 9:16 reel itself, large, framed like a phone
+   COLOUR and TYPE: ink #190D32 ground, violet #8050E8 glow, mist #EEE7FF text; Inter
+   LAYOUT: reel first, covers beneath as two 9:16 cards */
+:root{color-scheme:dark;--bg:#190D32;--ink:#EEE7FF;--soft:#B99AF5;--violet:#8050E8}
+:root[data-theme=light]{color-scheme:dark}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:radial-gradient(70% 45% at 50% 0%,#3b2180 0%,var(--bg) 60%) fixed,var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+main{max-width:1000px;margin:0 auto;padding:clamp(24px,5vw,56px) max(5vw,16px) 64px}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.05;font-weight:800;margin:0 0 6px;text-wrap:balance}
+.sub{color:#cbbcf1;margin:0 0 28px}
+.stage{display:flex;justify-content:center}
+.phone{width:min(100%,420px);aspect-ratio:9/16;border-radius:32px;overflow:hidden;background:#000;
+  box-shadow:0 0 0 2px rgba(185,154,245,.45),0 0 60px rgba(128,80,232,.55),0 30px 80px rgba(0,0,0,.6)}
+.phone video{width:100%;height:100%;display:block;object-fit:cover}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;margin:18px 0 0;color:#cbbcf1;font-size:14px}
+.meta span{white-space:nowrap}
+h2{font-size:22px;margin:56px 0 6px}
+.note{color:#cbbcf1;margin:0 0 18px;font-size:15px}
+.covers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:640px}
+figure{margin:0}
+figure img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:22px;display:block;box-shadow:0 0 0 2px rgba(185,154,245,.35),0 0 40px rgba(128,80,232,.35)}
+figcaption{margin-top:10px;font-size:15px}
+figcaption b{font-weight:600}
+@media (max-width:600px){.covers{gap:12px}}
+@media (prefers-reduced-motion:no-preference){.phone{animation:in .6s ease-out both}@keyframes in{from{opacity:0;transform:translateY(14px)}}}
+</style>
+</head>
+<body>
+<main>
+  <h1>4 crypto websites — final reel</h1>
+  <p class="sub">Version 23 · voice and sound effects, no music (add your song in Instagram).</p>
+  <div class="stage">
+    <div class="phone"><video src="crypto-websites.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video></div>
+  </div>
+  <p class="meta"><span>45 s</span><span>1080 × 1920</span><span>60 fps</span></p>
+
+  <h2>Cover options</h2>
+  <p class="note">Pick one in Instagram under Edit cover → Add from camera roll.</p>
+  <div class="covers">
+    <figure><img src="cover_A.jpg" alt="Cover A: SECRET behind the speaker, I shouldn't be sharing these"><figcaption><b>A</b> · “SECRET”</figcaption></figure>
+    <figure><img src="cover_B.jpg" alt="Cover B: CRYPTO with locked tiles 1 to 4, websites they don't want you to know"><figcaption><b>B</b> · locked 1–4 tiles</figcaption></figure>
+  </div>
+</main>
+</body>
+</html>
