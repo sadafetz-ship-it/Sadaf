@@ -14,3 +14,4 @@ docs/
 !build/segs.json
 tx/*.json
 __pycache__/
+*.pdf
