@@ -205,10 +205,10 @@ FR["P03"] = dict(still="still_63.png", cut="cut_63.png", behind=title_block(), f
     label="f63 · 0:02.1 · NAME HIT — “PART-TIME” lands f43, “JOB” f57 behind the head · ghost trail · pixel clusters")
 FR["P04"] = dict(still="still_74.png", cut="cut_74.png", behind=title_block(strike=1, ghost=False) + slash(1), front=cap(setup(["when", "you", "can", "just"], 1, 1)),
     label="f74 · 0:02.5 · STRIKE — amber ink slash rips through the title on “when” · title drains colour, then drops away")
-FR["P05"] = dict(still="still_100.png", zoom=1.04, origin="850px 760px", front=ring(.45) + cap(setup(["when", "you", "can", "just"], 4, 0), pill("do this")),
-    label="f100 · 0:03.3 · “this” — camera eases toward the slime · hand-drawn ring starts circling it")
-FR["P06"] = dict(still="still_110.png", zoom=1.05, origin="850px 760px", front=ring(1) + sparkles([(1000,300,26),(690,520,18),(1020,900,22),(720,1180,16)]) + cap(setup(["when", "you", "can", "just"], 4, 0), pill("do this"), heavy("instead", 156, bar="55%")),
-    label="f110 · 0:03.7 · “instead.” blooms + highlight bar · ring closed · cyan-white sparkles twinkle on the slime")
+FR["P05"] = dict(still="still_100.png", zoom=1.04, origin="850px 760px", front=cap(setup(["when", "you", "can", "just"], 4, 0), pill("do this")),
+    label="f100 · 0:03.3 · “this” — camera eases toward the slime (focus pull)")
+FR["P06"] = dict(still="still_110.png", zoom=1.05, origin="850px 760px", front=sparkles([(1000,300,26),(690,520,18),(1020,900,22),(720,1180,16)]) + cap(setup(["when", "you", "can", "just"], 4, 0), pill("do this"), heavy("instead", 156, bar="55%")),
+    label="f110 · 0:03.7 · “instead.” blooms + highlight bar · cyan-white sparkles twinkle on the slime")
 beam = f"""<div class="L" style="clip-path:polygon(90px 150px,1080px 0,1080px 1920px,420px 1920px)">{explainer_world()}</div>
 <svg class="L" width="1080" height="1920"><defs><filter id="b"><feGaussianBlur stdDeviation="10"/></filter></defs>
 <line x1="90" y1="150" x2="1180" y2="-20" stroke="{IVORY}" stroke-width="22" filter="url(#b)" opacity=".9"/>

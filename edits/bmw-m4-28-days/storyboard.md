@@ -1,7 +1,7 @@
-# Storyboard v2: "BMW M4 in 28 days" (awaiting approval)
+# Storyboard v2.1: "BMW M4 in 28 days" (awaiting approval)
 
 **Canvas:** 1080×1920 (9:16, source aspect), 30 fps, 9.53 s (286 frames), from `cut_tight.mp4`.
-**Board:** `preview_v2/board_v2.jpg` (13 moments, P01–P13). v1 is kept in `preview_v1/` for comparison.
+**Board:** `preview_v2/board_v2.jpg` (v2.1: no ring around the slime) (13 moments, P01–P13). v1 is kept in `preview_v1/` for comparison.
 **Script:** "Don't even think about getting that part-time job when you can just do this instead. If I had to buy a BMW M4 in the next 28 days, this is exactly what I would do."
 
 ## The story in one line
@@ -10,7 +10,7 @@
 | Act | Time | Story job | Visual idea | Mode |
 |---|---|---|---|---|
 | 1. The problem | 0.00–2.25 | Kill the obvious option | A thought bubble ("think"), then PART-TIME JOB behind the head, then an amber slash through it with a retro fail sting | caption → name behind the head |
-| 2. The alternative | 2.25–3.93 | Point at the slime | The camera drifts toward the slime, a hand-drawn ring circles it, sparkles, "instead." with a highlight bar | caption + concrete visual |
+| 2. The alternative | 2.25–3.93 | Point at the slime | The camera drifts toward the slime (focus pull), sparkles twinkle on it, "instead." with a highlight bar | caption + concrete visual |
 | 3. The goal | 3.93–6.23 | Make the dream tangible | A light-beam sweep into a lavender world; a comet lands, the card develops into the real white M4 and its headlights glint | full-background explainer |
 | 4. The deadline + promise | 6.23–9.53 | Urgency, then the hook | Flash back to you; a 28-cell calendar fills to Day 28 with a tiny M4 parked on it; punch-in on "exactly"; 3D close; "STEP 1" teases part 2 | chest card → caption close |
 
@@ -19,7 +19,7 @@ Mode rhythm: 1.4 s · 0.8 s (held 1.2 s) · 1.7 s · 2.3 s · 1.5 s · 1.8 s. Ev
 ## Palette (the colours you circled) and what each one does
 | Colour | Hex | Job in this edit |
 |---|---|---|
-| Warm ivory | `#F3E8B8` | Main caption text, card light tops, ring and ribbon cores, calendar circle |
+| Warm ivory | `#F3E8B8` | Main caption text, card light tops, ribbon core, calendar circle |
 | Pale butter | `#E8D98B` | Fill end of the heavy words, card gradient |
 | Soft lilac | `#B99ACB` | Script pill, glass borders, thought bubble, calendar cells, light pools |
 | Muted lavender | `#8E78B5` | Pill shading, explainer world, start of the highlight bar |
@@ -32,7 +32,7 @@ Mode rhythm: 1.4 s · 0.8 s (held 1.2 s) · 1.7 s · 2.3 s · 1.5 s · 1.8 s. Ev
 |---|---|---|
 | Face box | x 50–760, y 270–1000 | Nothing on it |
 | Window band | y 0–290 | Thought bubble, title (behind the head), STEP 1 pill |
-| Slime | x 680–1050 | Only the ring and sparkles go here |
+| Slime | x 680–1050 | Only the sparkles go here (no ring: removed at your request) |
 | Chest, left | x 40–440, y 1100–1430 | Calendar |
 | Captions | Bottom edge 270 px above the frame bottom; block shifted 100 px left of centre to clear the slime | 2–3 line lockup |
 
@@ -83,13 +83,12 @@ Group exit: blur 0→10 and fade over the last 7 f before the next group.
 **P05 · f84–108 · "just do this"** (board: f100)
 - f84: the pill "*do this*" pops and writes on.
 - f88–103: the **camera eases toward the slime**: scale 1.03→1.06 with the origin moved to the slime (850, 760), over 15 f, ease-in-out.
-- f93 "this": a **hand-drawn ring** draws around the slime (ivory 9 px stroke, cyan glow, 20 f, pen ease). The end overshoots past the start like a real marker loop.
+- f93 "this": the drift is the only move on "this". There's no ring around the slime; you asked for it to be removed in v2.
 
 **P06 · f103–117 · "instead."** (board: f110)
 - f103 "instead." does the **heavy bloom**: blur 16→0, brightness 1.6→1, scale 1.08→1 over 16 f.
 - The amber dot pops at f113. The **highlight bar** (lavender → cyan → ivory) wipes under the word f109–123.
 - f108–117: four **cyan-white sparkles** twinkle on the slime (scale 0→1→0.6, staggered 3 f, rotating 20°).
-- The ring holds and breathes (opacity 1↔0.8).
 
 ### Act 3 · The goal
 **P07 · f118–137 · "If I had"** (board: f126)
@@ -156,7 +155,6 @@ Group exit: blur 0→10 and fade over the last 7 f before the next group.
 | f43 | " | `whoosh_air` | 0.71 | 0.85 | name hit |
 | f43 | " | `impact` (attack aligned) | 1.39 | 0.8 | name hit, trimmed to 0.6 s |
 | f67 | Slash | `game_over` | 2.12 | 0.5 | retro fail sting |
-| f93 | Ring draws | `ref2_g_photostack` | 3.01 | 0.4 | line-path sound |
 | f118 | Beam cut | none | none | none | screen changes stay clean |
 | f146 | Comet + develop | `ref2_g_comet` | 4.60 | 0.3 | ducked: within 1 s before the name hit |
 | f154 | BMW lands | `ref_riser` / `whoosh_air` / `impact` | 4.07 / 4.41 / 5.09 | 0.8 / 0.85 / 0.8 | name hit |
