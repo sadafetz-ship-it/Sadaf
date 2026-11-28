@@ -99,7 +99,7 @@ const FaceCam: React.FC<{base: number; x?: number; y?: number; w?: number; h?: n
 const Card: React.FC<{base: number; at: number; style: React.CSSProperties; dark?: boolean; children: React.ReactNode}> = ({base, at, style, dark, children}) => {
   const p = fade(useT(base), at, 6);
   return (
-    <div style={{position: 'absolute', borderRadius: 30, background: dark ? 'rgba(38,40,38,.92)' : '#fff', boxShadow: dark ? '0 24px 70px rgba(0,0,0,.55)' : '0 24px 70px rgba(15,60,30,.16)', opacity: p, transform: `scale(${0.96 + 0.04 * p})`, ...style}}>
+    <div style={{position: 'absolute', borderRadius: 30, background: 'rgba(30,32,30,.94)', border: '1px solid rgba(255,255,255,.08)', boxShadow: '0 24px 70px rgba(0,0,0,.6)', opacity: p, transform: `scale(${0.96 + 0.04 * p})`, ...style}}>
       {children}
     </div>
   );
@@ -156,30 +156,30 @@ const B02: React.FC<{base: number}> = ({base}) => {
 
 // 04 · "which is more customers from Google." (illustrative local search)
 const Listing: React.FC<{name: string; rating: string; rev: string; hi?: number}> = ({name, rating, rev, hi = 0}) => (
-  <div style={{display: 'flex', alignItems: 'center', gap: 26, padding: '22px 30px', borderRadius: 20, outline: `6px solid rgba(15,120,43,${hi})`, background: `rgba(242,250,244,${hi})`}}>
-    <div style={{width: 90, height: 90, borderRadius: 16, background: 'linear-gradient(135deg,#d9e7dd,#b8cfbf)'}} />
+  <div style={{display: 'flex', alignItems: 'center', gap: 26, padding: '22px 30px', borderRadius: 20, outline: `5px solid rgba(34,179,87,${hi})`, background: `rgba(34,179,87,${hi * 0.12})`, color: '#fff'}}>
+    <div style={{width: 90, height: 90, borderRadius: 16, background: 'linear-gradient(135deg,#2c3a30,#1d2a22)'}} />
     <div style={{flex: 1}}>
       <div style={{fontSize: 32, fontWeight: 600}}>{name}</div>
-      <div style={{fontSize: 25, color: '#555'}}>{rating} <span style={{color: '#f5a623'}}>★★★★★</span> ({rev}) · House cleaning · Open now</div>
+      <div style={{fontSize: 25, color: '#aaa'}}>{rating} <span style={{color: '#f5a623'}}>★★★★★</span> ({rev}) · House cleaning · Open now</div>
     </div>
-    <div style={{border: `3px solid ${G}`, color: G, fontSize: 25, padding: '9px 28px', borderRadius: 999, fontWeight: 700}}>Call</div>
+    <div style={{border: `3px solid ${G2}`, color: G2, fontSize: 25, padding: '9px 28px', borderRadius: 999, fontWeight: 700}}>Call</div>
   </div>
 );
 const B04: React.FC<{base: number}> = ({base}) => {
   const hi = fade(useT(base), 12.56, 6);
   return (
     <AbsoluteFill>
-      <LightBg base={base} />
-      <div style={{position: 'absolute', left: 0, right: 0, top: 95, textAlign: 'center', fontSize: 74, fontWeight: 700, color: INK}}>
-        <Words base={base} ws={[{t: 'More', at: 11.10}, {t: 'customers', at: 11.40}, {t: 'from', at: 12.16}, {t: 'Google', at: 12.50, c: G}]} />
+      <DarkBg base={base} />
+      <div style={{position: 'absolute', left: 0, right: 0, top: 95, textAlign: 'center', fontSize: 74, fontWeight: 700, color: '#fff'}}>
+        <Words base={base} ws={[{t: 'More', at: 11.10}, {t: 'customers', at: 11.40}, {t: 'from', at: 12.16}, {t: 'Google', at: 12.50, c: G2}]} />
       </div>
       <Card base={base} at={11.04} style={{left: 340, top: 250, width: 1240, padding: '32px 38px'}}>
-        <div style={{border: '2px solid #dfe1e5', borderRadius: 999, padding: '16px 32px', fontSize: 29, color: '#333', marginBottom: 20}}>🔍&nbsp; house cleaner near me</div>
+        <div style={{border: '2px solid rgba(255,255,255,.18)', borderRadius: 999, padding: '16px 32px', fontSize: 29, color: '#ddd', marginBottom: 20}}>🔍&nbsp; house cleaner near me</div>
         <Listing name="Sparkle Home Cleaning" rating="4.9" rev="212" hi={hi} />
         <Listing name="Bright Maids Co." rating="4.6" rev="87" />
         <Listing name="City Clean Pros" rating="4.3" rev="41" />
       </Card>
-      <div style={{position: 'absolute', right: 40, bottom: 24, fontSize: 22, color: '#7a7a7a', fontWeight: 500}}>Illustration</div>
+      <div style={{position: 'absolute', right: 40, bottom: 24, fontSize: 22, color: '#8a8a8a', fontWeight: 500}}>Illustration</div>
     </AbsoluteFill>
   );
 };
@@ -222,9 +222,9 @@ const B07: React.FC<{base: number}> = ({base}) => {
   return (
     <AbsoluteFill>
       <Footage base={base} scale={1.12} />
-      <div style={{position: 'absolute', left: 90, bottom: 110, background: '#fff', borderRadius: 18, padding: '20px 34px', boxShadow: '0 14px 40px rgba(0,0,0,.35)', display: 'flex', gap: 18, alignItems: 'center', opacity: o, transform: `translateY(${(1 - o) * 14}px)`}}>
-        <div style={{width: 10, height: 56, background: G, borderRadius: 6}} />
-        <div><div style={{fontSize: 40, fontWeight: 700, color: INK}}>Review Harvest</div><div style={{fontSize: 26, color: '#666', fontStyle: 'italic'}}>my agency</div></div>
+      <div style={{position: 'absolute', left: 90, bottom: 110, background: 'rgba(20,22,20,.92)', borderRadius: 18, padding: '20px 34px', boxShadow: '0 14px 40px rgba(0,0,0,.45)', display: 'flex', gap: 18, alignItems: 'center', opacity: o, transform: `translateY(${(1 - o) * 14}px)`}}>
+        <div style={{width: 10, height: 56, background: G2, borderRadius: 6}} />
+        <div><div style={{fontSize: 40, fontWeight: 700, color: '#fff'}}>Review Harvest</div><div style={{fontSize: 26, color: '#aaa', fontStyle: 'italic'}}>my agency</div></div>
       </div>
     </AbsoluteFill>
   );
@@ -236,19 +236,19 @@ const Tile: React.FC<{value: number; prefix?: string; suffix?: string; label: st
   const o = fade(f, at, 5);
   const n = Math.round(interpolate(f, [F(at), F(at) + 16], [0, value], {...clamp, easing: Easing.out(Easing.cubic)}));
   return (
-    <div style={{flex: 1, background: '#f5f8f6', borderRadius: 24, padding: '34px 32px', borderBottom: `8px solid ${G}`, opacity: o, transform: `translateY(${(1 - o) * 16}px)`}}>
-      <div style={{fontSize: 96, fontWeight: 700, lineHeight: 1, color: green ? G : INK}}>{prefix}{n}{suffix}</div>
-      <div style={{fontSize: 29, color: '#555', marginTop: 14, fontWeight: 500}}>{label}</div>
+    <div style={{flex: 1, background: 'rgba(255,255,255,.05)', borderRadius: 24, padding: '34px 32px', borderBottom: `8px solid ${G2}`, opacity: o, transform: `translateY(${(1 - o) * 16}px)`}}>
+      <div style={{fontSize: 96, fontWeight: 700, lineHeight: 1, color: green ? G2 : '#fff'}}>{prefix}{n}{suffix}</div>
+      <div style={{fontSize: 29, color: '#aaa', marginTop: 14, fontWeight: 500}}>{label}</div>
     </div>
   );
 };
 const B08: React.FC<{base: number}> = ({base}) => (
   <AbsoluteFill>
-    <LightBg base={base} />
+    <DarkBg base={base} />
     <Card base={base} at={21.36} style={{left: 150, top: 140, width: 1500, height: 720, padding: '58px 66px 0'}}>
-      <div style={{fontSize: 28, fontWeight: 600, color: '#666', letterSpacing: 2}}><Words base={base} ws={pop('CLIENT RESULT', 21.42)} /></div>
-      <div style={{fontSize: 72, fontWeight: 700, marginBottom: 44, color: INK}}>
-        <Words base={base} ws={[{t: 'MaidMe', at: 22.50}]} /> <span style={{fontSize: 40, color: '#888', fontWeight: 500}}><Words base={base} ws={pop('· first 90 days', 22.66)} /></span>
+      <div style={{fontSize: 28, fontWeight: 600, color: '#9a9a9a', letterSpacing: 2}}><Words base={base} ws={pop('CLIENT RESULT', 21.42)} /></div>
+      <div style={{fontSize: 72, fontWeight: 700, marginBottom: 44, color: '#fff'}}>
+        <Words base={base} ws={[{t: 'MaidMe', at: 22.50}]} /> <span style={{fontSize: 40, color: '#9a9a9a', fontWeight: 500}}><Words base={base} ws={pop('· first 90 days', 22.66)} /></span>
       </div>
       <div style={{display: 'flex', gap: 28}}>
         <Tile base={base} value={50} suffix="+" label="organic calls" at={23.66} />
@@ -256,7 +256,7 @@ const B08: React.FC<{base: number}> = ({base}) => (
         <Tile base={base} value={90} label="days" at={30.12} />
         <Tile base={base} value={0} prefix="$" label="paid ads" at={31.26} green />
       </div>
-      <div style={{fontSize: 24, color: '#777', marginTop: 42}}>One client's result. Results vary and are not guaranteed.</div>
+      <div style={{fontSize: 24, color: '#9a9a9a', marginTop: 42}}>One client's result. Results vary and are not guaranteed.</div>
     </Card>
     <FaceCam base={base} x={1560} y={700} w={290} h={320} />
   </AbsoluteFill>
@@ -264,22 +264,22 @@ const B08: React.FC<{base: number}> = ({base}) => (
 
 // 09 / 11 · roadmap — white card on soft gradient (ref 1), items pop as spoken
 const ROAD: W[][] = [
-  [{t: '1', at: 34.00}, {t: 'The', at: 34.00}, {t: 'exact', at: 34.12}, {t: 'offer', at: 34.48, c: G}],
-  [{t: '2', at: 35.78}, {t: 'What', at: 35.78}, {t: 'to', at: 36.00}, {t: 'charge', at: 36.32, c: G}],
-  [{t: '3', at: 37.08}, {t: 'Finding', at: 37.38}, {t: 'your', at: 37.58}, {t: 'first', at: 37.92, c: G}, {t: 'clients', at: 38.14, c: G}],
-  [{t: '4', at: 39.85}, {t: 'Doing', at: 39.89}, {t: 'the', at: 39.97}, {t: 'work', at: 40.05, c: G}],
-  [{t: '5', at: 40.93}, {t: 'Turning', at: 40.93}, {t: 'results', at: 41.71}, {t: 'into', at: 42.17}, {t: 'a', at: 42.59}, {t: 'client', at: 42.81, c: G}, {t: 'system', at: 42.91, c: G}],
+  [{t: '1', at: 34.00}, {t: 'The', at: 34.00}, {t: 'exact', at: 34.12}, {t: 'offer', at: 34.48, c: G2}],
+  [{t: '2', at: 35.78}, {t: 'What', at: 35.78}, {t: 'to', at: 36.00}, {t: 'charge', at: 36.32, c: G2}],
+  [{t: '3', at: 37.08}, {t: 'Finding', at: 37.38}, {t: 'your', at: 37.58}, {t: 'first', at: 37.92, c: G2}, {t: 'clients', at: 38.14, c: G2}],
+  [{t: '4', at: 39.85}, {t: 'Doing', at: 39.89}, {t: 'the', at: 39.97}, {t: 'work', at: 40.05, c: G2}],
+  [{t: '5', at: 40.93}, {t: 'Turning', at: 40.93}, {t: 'results', at: 41.71}, {t: 'into', at: 42.17}, {t: 'a', at: 42.59}, {t: 'client', at: 42.81, c: G2}, {t: 'system', at: 42.91, c: G2}],
 ];
 const Road: React.FC<{base: number; n: number; cardAt: number}> = ({base, n, cardAt}) => {
   const f = useT(base);
   return (
     <AbsoluteFill>
-      <LightBg base={base} />
+      <DarkBg base={base} />
       <Card base={base} at={cardAt} style={{left: 330, top: 150, width: 1160, height: 780, padding: '64px 86px'}}>
-        <div style={{fontSize: 52, fontStyle: 'italic', fontWeight: 500, color: INK, marginBottom: 18}}><Words base={base} ws={[{t: 'In', at: 32.92}, {t: 'this', at: 33.06}, {t: 'video', at: 33.22}]} /></div>
+        <div style={{fontSize: 52, fontStyle: 'italic', fontWeight: 500, color: '#fff', marginBottom: 18}}><Words base={base} ws={[{t: 'In', at: 32.92}, {t: 'this', at: 33.06}, {t: 'video', at: 33.22}]} /></div>
         {ROAD.slice(0, n).map((ws, i) => (
-          <div key={i} style={{display: 'flex', gap: 24, alignItems: 'baseline', marginTop: 30, fontSize: 48, fontWeight: 700, color: INK}}>
-            <span style={{fontSize: 30, color: G, opacity: fade(f, ws[0].at, 4)}}>●</span>
+          <div key={i} style={{display: 'flex', gap: 24, alignItems: 'baseline', marginTop: 30, fontSize: 48, fontWeight: 700, color: '#fff'}}>
+            <span style={{fontSize: 30, color: G2, opacity: fade(f, ws[0].at, 4)}}>●</span>
             <span><Words ws={ws.slice(1)} base={base} /></span>
           </div>
         ))}
@@ -296,11 +296,11 @@ const B10: React.FC<{base: number}> = ({base}) => {
   const f = useT(base);
   const pill = fade(f, 38.66, 6);
   return (
-    <AbsoluteFill style={{background: '#fff'}}>
+    <AbsoluteFill style={{background: '#000'}}>
       <AbsoluteFill style={{filter: 'blur(7px)', transform: 'scale(1.05)'}}>
         <OffthreadVideo src={staticFile('teaser.mp4')} muted style={{width: 1920, height: 1080}} />
       </AbsoluteFill>
-      <AbsoluteFill style={{background: 'rgba(255,255,255,.18)'}} />
+      <AbsoluteFill style={{background: 'rgba(0,0,0,.45)'}} />
       <div style={{position: 'absolute', left: '50%', bottom: 90, transform: `translateX(-50%) scale(${0.9 + 0.1 * pill})`, opacity: pill, background: G, color: '#fff', fontSize: 64, fontWeight: 700, padding: '16px 48px', borderRadius: 18, boxShadow: '0 16px 44px rgba(15,120,43,.45)', whiteSpace: 'nowrap'}}>LATER IN THIS VIDEO</div>
       <FaceCam base={base} x={1560} y={700} w={290} h={320} />
     </AbsoluteFill>
@@ -326,9 +326,9 @@ const B14: React.FC<{base: number}> = ({base}) => {
   return (
     <AbsoluteFill>
       <Footage base={base} />
-      <div style={{position: 'absolute', left: 110, bottom: 120, background: '#fff', borderRadius: 20, padding: '24px 40px 24px 30px', boxShadow: '0 14px 40px rgba(0,0,0,.35)', display: 'flex', gap: 22, alignItems: 'center', opacity: o, transform: `translateY(${(1 - o) * 14}px)`}}>
-        <div style={{width: 12, height: 84, background: G, borderRadius: 6}} />
-        <div><div style={{fontSize: 52, fontWeight: 700, lineHeight: 1.1, color: INK}}>Clay Lawrence</div><div style={{fontSize: 30, color: '#555'}}>Founder, Review Harvest</div></div>
+      <div style={{position: 'absolute', left: 110, bottom: 120, background: 'rgba(20,22,20,.92)', borderRadius: 20, padding: '24px 40px 24px 30px', boxShadow: '0 14px 40px rgba(0,0,0,.45)', display: 'flex', gap: 22, alignItems: 'center', opacity: o, transform: `translateY(${(1 - o) * 14}px)`}}>
+        <div style={{width: 12, height: 84, background: G2, borderRadius: 6}} />
+        <div><div style={{fontSize: 52, fontWeight: 700, lineHeight: 1.1, color: '#fff'}}>Clay Lawrence</div><div style={{fontSize: 30, color: '#aaa'}}>Founder, Review Harvest</div></div>
       </div>
     </AbsoluteFill>
   );
@@ -342,7 +342,8 @@ const Stripe: React.FC<{base: number; img: string; value: number; countAt: numbe
   const [px, py, pw, ph] = patch;                     // number box in screenshot pixels
   const fx = px + 260, fy = py + 10;                  // focus point (a little right of the number)
   const S = interpolate(f, [base, F(end)], [1.28, 1.42], clamp);
-  const sx = 760, sy = 640;                           // where the focus point sits on screen
+  const CX = 150, CY = 140, CW = 1620, CH = 820;
+  const sx = 600, sy = 470;                           // where the focus point sits on screen
   const n = interpolate(f, [F(countAt), F(countAt) + 30], [value * 0.82, value], {...clamp, easing: Easing.out(Easing.cubic)});
   const mark = interpolate(f, [F(countAt) + 32, F(countAt) + 40], [0, 1], {...clamp, easing: ease});
   const chipO = fade(f, base / FPS + 0.05, 6);
@@ -356,15 +357,19 @@ const Stripe: React.FC<{base: number; img: string; value: number; countAt: numbe
     </div>
   );
   return (
-    <AbsoluteFill style={{background: '#fff', overflow: 'hidden'}}>
-      {layer(true)}
-      <AbsoluteFill style={{WebkitMaskImage: `radial-gradient(ellipse 52% 48% at ${sx}px ${sy}px, black 58%, transparent 100%)`, maskImage: `radial-gradient(ellipse 52% 48% at ${sx}px ${sy}px, black 58%, transparent 100%)`}}>
-        {layer(false)}
-      </AbsoluteFill>
-      <AbsoluteFill style={{background: 'radial-gradient(ellipse 75% 70% at 45% 52%, transparent 60%, rgba(255,255,255,.85) 100%)'}} />
-      <div style={{position: 'absolute', left: 70, top: 60, opacity: chipO, background: INK, color: '#fff', borderRadius: 14, padding: '12px 26px', fontSize: 34, fontWeight: 600}}>{chip}</div>
-      {pill && <div style={{position: 'absolute', left: 560, top: 840, opacity: po, transform: `scale(${0.9 + 0.1 * po})`, background: '#fff', color: G, border: `4px solid ${G}`, fontSize: 50, fontWeight: 700, padding: '14px 38px', borderRadius: 999, boxShadow: '0 14px 40px rgba(15,120,43,.25)'}}>{pill.t}</div>}
-      <div style={{position: 'absolute', left: 70, bottom: 36, fontSize: 22, color: '#6b6b6b', fontWeight: 500}}>Results not typical or guaranteed.</div>
+    <AbsoluteFill>
+      <DarkBg base={base} />
+      {/* the dashboard sits in a rounded window on the dark background */}
+      <div style={{position: 'absolute', left: CX, top: CY, width: CW, height: CH, borderRadius: 28, overflow: 'hidden', background: '#fff', boxShadow: '0 30px 90px rgba(0,0,0,.65)', border: '1px solid rgba(255,255,255,.12)'}}>
+        {layer(true)}
+        <AbsoluteFill style={{WebkitMaskImage: `radial-gradient(ellipse 55% 52% at ${sx}px ${sy}px, black 58%, transparent 100%)`, maskImage: `radial-gradient(ellipse 55% 52% at ${sx}px ${sy}px, black 58%, transparent 100%)`}}>
+          {layer(false)}
+        </AbsoluteFill>
+        <AbsoluteFill style={{background: `radial-gradient(ellipse 70% 68% at ${sx}px ${sy}px, transparent 62%, rgba(255,255,255,.8) 100%)`}} />
+      </div>
+      <div style={{position: 'absolute', left: CX, top: CY - 74, opacity: chipO, background: G, color: '#fff', borderRadius: 14, padding: '10px 24px', fontSize: 32, fontWeight: 600}}>{chip}</div>
+      {pill && <div style={{position: 'absolute', left: CX + 420, top: CY + 640, opacity: po, transform: `scale(${0.9 + 0.1 * po})`, background: 'rgba(20,22,20,.95)', color: G2, border: `4px solid ${G2}`, fontSize: 50, fontWeight: 700, padding: '14px 38px', borderRadius: 999, boxShadow: '0 14px 40px rgba(0,0,0,.45)'}}>{pill.t}</div>}
+      <div style={{position: 'absolute', left: CX, top: CY + CH + 18, fontSize: 22, color: '#a0a0a0', fontWeight: 500}}>Results not typical or guaranteed.</div>
     </AbsoluteFill>
   );
 };
