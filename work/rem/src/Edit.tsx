@@ -9,7 +9,7 @@ import {
 // Style: graphics hard-cut in, only text animates; words fade in on the spoken word.
 // ---------------------------------------------------------------------------
 
-export const DURATION = Math.round(65.88 * 30);
+export const DURATION = Math.round(65.14 * 30);
 const FPS = 30;
 const G = '#0F782B';         // Clay's brand green
 const LG = '#7fe39b';        // lighter tint, readable over footage
@@ -343,8 +343,8 @@ const B15: React.FC<{base: number}> = ({base}) => (
 );
 const B16: React.FC<{base: number}> = ({base}) => (
   <Stripe base={base} img="stripe_oct.png" label="Stripe · Month to date (Oct 1 – 13)" number="$40,184.90" typeAt={60.40}
-    headline={[{t: 'Not', at: 61.98}, {t: 'even', at: 62.04}, {t: '2', at: 62.22, c: G}, {t: 'weeks', at: 62.50, c: G}, {t: 'in', at: 62.66}]}
-    pill={{t: 'On pace for $75K+', at: 64.42}} />
+    headline={[{t: 'Not', at: 61.16}, {t: 'even', at: 61.30}, {t: '2', at: 61.50, c: G}, {t: 'weeks', at: 61.76, c: G}, {t: 'in', at: 61.96}]}
+    pill={{t: 'On pace for $75K+', at: 63.68}} />
 );
 
 const B05: React.FC<{base: number}> = ({base}) => <Footage base={base} />;
@@ -354,7 +354,7 @@ const BEATS: [number, number, React.FC<{base: number}>][] = [
   [0.00, 4.34, B01], [4.34, 7.92, B02], [7.92, 11.02, B03], [11.02, 13.00, B04],
   [13.00, 15.06, B05], [15.06, 18.90, B06], [18.90, 21.34, B07], [21.34, 32.63, B08],
   [32.63, 38.60, B09], [38.60, 40.54, B10], [40.54, 45.56, B11], [45.56, 48.40, B12],
-  [48.40, 50.91, B13], [50.91, 54.32, B14], [54.32, 60.02, B15], [60.02, 65.88, B16],
+  [48.40, 50.91, B13], [50.91, 54.32, B14], [54.32, 60.02, B15], [60.02, 65.14, B16],
 ];
 
 export const Edit: React.FC = () => {

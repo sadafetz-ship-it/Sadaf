@@ -1,5 +1,5 @@
 import numpy as np, wave
-SR=48000; DUR=65.88
+SR=48000; DUR=65.14
 rng=np.random.default_rng(7)
 out=np.zeros(int(SR*(DUR+2)))
 def env(n,a=0.003,d=0.08):
@@ -34,7 +34,7 @@ def scratch(level=-30):
 def put(t,x):
     i=int(t*SR);out[i:i+len(x)]+=x
 for t in (4.34,11.02,15.06,21.34,32.63,38.60,40.54,48.40,54.32,60.02): put(t,soft_in())
-for t in (5.72,6.86,38.72,64.42,19.58,52.20): put(t,pop())
+for t in (5.72,6.86,38.72,63.68,19.58,52.20): put(t,pop())
 put(7.28,scratch())
 for t in (12.56,): put(t,click(-25))
 for t in (15.20,15.74,34.00,35.78,37.08,40.54,41.64): put(t,tick())
