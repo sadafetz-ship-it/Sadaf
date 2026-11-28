@@ -13,3 +13,4 @@ docs/
 *.json
 !build/segs.json
 tx/*.json
+__pycache__/
