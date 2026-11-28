@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clay Lawrence First Minute</title>
+<style>
+/* VOICE: calm screening room for one finished cut
+   IDEA: a single film reel on a dark stage
+   PICTURE: the video itself, full width
+   COLOUR and TYPE: near-black with Clay's green, Poppins
+   LAYOUT: modest title, player, two short lines under it */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap');
+:root{color-scheme:dark;--bg:#0a0b0a;--ink:#f2f4f2;--mute:#9aa39c;--g:#22b357}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:radial-gradient(circle at 10% 90%,rgba(34,179,87,.10),transparent 35%),radial-gradient(circle at 90% 10%,rgba(34,179,87,.07),transparent 32%),var(--bg);color:var(--ink);font:16px/1.55 Poppins,system-ui,sans-serif;min-height:100vh;overflow-x:clip}
+main{max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,48px) max(4vw,14px)}
+h1{font-size:clamp(24px,4vw,40px);line-height:1.1;margin:0 0 6px;font-weight:700}
+p.sub{margin:0 0 20px;color:var(--mute)}
+.player{border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
+video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;color:var(--mute);font-size:14px}
+.meta b{color:var(--g);font-weight:500}
+</style></head><body>
+<main>
+  <h1>If I Started an AI Marketing Agency in 2026 — first minute</h1>
+  <p class="sub">Trial edit · Clay Lawrence · 1:04 · 1080p</p>
+  <div class="player"><video src="video.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video></div>
+  <div class="meta"><span><b>Music:</b> "Inspired" Kevin MacLeod (incompetech.com), CC BY 4.0</span><span><b>Sound effects:</b> Freesound, CC0</span></div>
+</main>
+</body></html>
