@@ -352,7 +352,7 @@ const Stripe: React.FC<{base: number; img: string; value: number; countAt: numbe
       <Img src={staticFile(img)} style={{width: '100%', height: '100%', display: 'block'}} />
       {/* live counter painted over the real figure; green marker sweeps in behind it */}
       <div style={{position: 'absolute', left: (px - 6) * S, top: (py - 6) * S, width: (pw + 10) * S, height: (ph + 12) * S, background: '#fff'}} />
-      <div style={{position: 'absolute', left: (px - 6) * S, top: (py - 8) * S, display: 'inline-block', padding: `0 ${6 * S}px`, borderRadius: 8 * S, fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: 47 * S, lineHeight: `${(ph + 16) * S}px`, letterSpacing: -0.6 * S, whiteSpace: 'nowrap', color: mark > 0.5 ? '#fff' : '#3c4150', background: `linear-gradient(90deg, ${G} ${mark * 100}%, transparent ${mark * 100}%)`}}>{money(n)}</div>
+      <div style={{position: 'absolute', left: (px - 6) * S, top: (py - 8) * S, display: 'inline-block', padding: `0 ${6 * S}px`, borderRadius: 8 * S, fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: 47 * S, lineHeight: `${(ph + 16) * S}px`, letterSpacing: -0.6 * S, whiteSpace: 'nowrap', color: mark >= 1 ? '#fff' : '#3c4150', background: `linear-gradient(90deg, ${G} ${mark * 100}%, transparent ${mark * 100}%)`}}>{money(n)}</div>
     </div>
   );
   return (
