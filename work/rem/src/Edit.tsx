@@ -239,7 +239,7 @@ const B08: React.FC<{base: number}> = ({base}) => (
     <div style={{position: 'absolute', left: 170, top: 130, width: 1580, height: 760, padding: '60px 70px 0 70px', background: '#fff', borderRadius: 34, boxShadow: '0 30px 80px rgba(0,0,0,.18)'}}>
       <div style={{fontSize: 28, fontWeight: 600, color: '#666', letterSpacing: 2}}>CLIENT RESULT</div>
       <div style={{fontSize: 72, fontWeight: 700, marginBottom: 46, color: INK}}>
-        <Words base={base} ws={[{t: 'MaidMe', at: 22.40}]} /> <span style={{fontSize: 40, color: '#888', fontWeight: 500}}><Words base={base} ws={[{t: '· first 90 days', at: 22.60}]} /></span>
+        <Words base={base} ws={[{t: 'MaidMe', at: 21.40}]} /> <span style={{fontSize: 40, color: '#888', fontWeight: 500}}><Words base={base} ws={[{t: '· first 90 days', at: 21.60}]} /></span>
       </div>
       <div style={{display: 'flex', gap: 30}}>
         <Tile base={base} value={50} suffix="+" label="organic calls" at={23.66} />
