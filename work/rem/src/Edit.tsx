@@ -14,7 +14,7 @@ import {
 // Times are seconds on the edited timeline (from the transcript of the cut).
 // ---------------------------------------------------------------------------
 
-export const DURATION = Math.round(65.14 * 30);
+export const DURATION = Math.round(64.43 * 30);
 const FPS = 30;
 const G = '#0F782B';        // Clay's brand green (only hex supplied)
 const G2 = '#22b357';       // brighter tint of the brand green for dark backgrounds
@@ -267,8 +267,8 @@ const ROAD: W[][] = [
   [{t: '1', at: 34.00}, {t: 'The', at: 34.00}, {t: 'exact', at: 34.12}, {t: 'offer', at: 34.48, c: G}],
   [{t: '2', at: 35.78}, {t: 'What', at: 35.78}, {t: 'to', at: 36.00}, {t: 'charge', at: 36.32, c: G}],
   [{t: '3', at: 37.08}, {t: 'Finding', at: 37.38}, {t: 'your', at: 37.58}, {t: 'first', at: 37.92, c: G}, {t: 'clients', at: 38.14, c: G}],
-  [{t: '4', at: 40.56}, {t: 'Doing', at: 40.60}, {t: 'the', at: 40.68}, {t: 'work', at: 40.76, c: G}],
-  [{t: '5', at: 41.64}, {t: 'Turning', at: 41.64}, {t: 'results', at: 42.42}, {t: 'into', at: 42.88}, {t: 'a', at: 43.30}, {t: 'client', at: 43.52, c: G}, {t: 'system', at: 43.62, c: G}],
+  [{t: '4', at: 39.85}, {t: 'Doing', at: 39.89}, {t: 'the', at: 39.97}, {t: 'work', at: 40.05, c: G}],
+  [{t: '5', at: 40.93}, {t: 'Turning', at: 40.93}, {t: 'results', at: 41.71}, {t: 'into', at: 42.17}, {t: 'a', at: 42.59}, {t: 'client', at: 42.81, c: G}, {t: 'system', at: 42.91, c: G}],
 ];
 const Road: React.FC<{base: number; n: number; cardAt: number}> = ({base, n, cardAt}) => {
   const f = useT(base);
@@ -311,10 +311,10 @@ const B10: React.FC<{base: number}> = ({base}) => {
 const B13: React.FC<{base: number}> = ({base}) => (
   <AbsoluteFill>
     <DarkBg base={base} />
-    <Card base={base} at={48.42} dark style={{left: 410, top: 330, width: 1100, height: 400, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+    <Card base={base} at={47.71} dark style={{left: 410, top: 330, width: 1100, height: 400, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
       <div style={{fontSize: 80, fontWeight: 600, color: '#fff', lineHeight: 1.3, textAlign: 'center'}}>
-        <Words base={base} ws={[{t: 'You', at: 48.46}, {t: 'can', at: 48.62}, {t: 'build', at: 48.90}, {t: 'this.', at: 49.24}]} /><br />
-        <Words base={base} ws={[{t: "It's", at: 49.54, c: G2}, {t: 'just', at: 49.80, c: G2}, {t: 'not', at: 49.92, c: G2}, {t: 'easy.', at: 50.44, c: G2}]} />
+        <Words base={base} ws={[{t: 'You', at: 47.75}, {t: 'can', at: 47.91}, {t: 'build', at: 48.19}, {t: 'this.', at: 48.53}]} /><br />
+        <Words base={base} ws={[{t: "It's", at: 48.83, c: G2}, {t: 'just', at: 49.09, c: G2}, {t: 'not', at: 49.21, c: G2}, {t: 'easy.', at: 49.73, c: G2}]} />
       </div>
     </Card>
   </AbsoluteFill>
@@ -322,7 +322,7 @@ const B13: React.FC<{base: number}> = ({base}) => (
 
 const B14: React.FC<{base: number}> = ({base}) => {
   const f = useT(base);
-  const o = fade(f, 52.20, 6) * interpolate(f, [F(54.0), F(54.3)], [1, 0], clamp);
+  const o = fade(f, 51.49, 6) * interpolate(f, [F(53.29), F(53.59)], [1, 0], clamp);
   return (
     <AbsoluteFill>
       <Footage base={base} />
@@ -368,15 +368,50 @@ const Stripe: React.FC<{base: number; img: string; value: number; countAt: numbe
     </AbsoluteFill>
   );
 };
-const B15: React.FC<{base: number}> = ({base}) => <Stripe base={base} img="stripe_aug.png" value={60498.87} countAt={55.36} patch={[66, 860, 250, 44]} chip="Last month · Stripe, August 2026" end={60.02} />;
-const B16: React.FC<{base: number}> = ({base}) => <Stripe base={base} img="stripe_oct.png" value={40184.90} countAt={60.30} patch={[66, 870, 246, 44]} chip="This month · Oct 1 – 13" pill={{t: 'On pace for $75K+', at: 63.68}} end={65.14} />;
+const B15: React.FC<{base: number}> = ({base}) => <Stripe base={base} img="stripe_aug.png" value={60498.87} countAt={54.65} patch={[66, 860, 250, 44]} chip="Last month · Stripe, August 2026" end={59.31} />;
+const B16: React.FC<{base: number}> = ({base}) => <Stripe base={base} img="stripe_oct.png" value={40184.90} countAt={59.59} patch={[66, 870, 246, 44]} chip="This month · Oct 1 – 13" pill={{t: 'On pace for $75K+', at: 62.97}} end={64.43} />;
+
+
+// ---- captions on talking-head shots (key phrases, green accent) ---------------
+const LG = '#7fe39b';
+const shadow = '0 4px 18px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.5)';
+const Caption: React.FC<{ws: W[]; base: number}> = ({ws, base}) => (
+  <div style={{position: 'absolute', left: 0, right: 0, bottom: 95, textAlign: 'center', color: '#fff', fontSize: 62, fontWeight: 700, textShadow: shadow}}>
+    <Words ws={ws} base={base} />
+  </div>
+);
+const B01: React.FC<{base: number}> = ({base}) => (
+  <AbsoluteFill>
+    <Footage base={base} />
+    <div style={{position: 'absolute', left: 0, right: 0, bottom: 120, textAlign: 'center', color: '#fff', textShadow: shadow}}>
+      <div style={{fontSize: 86, fontWeight: 700, letterSpacing: 1}}>
+        <Words base={base} ws={[{t: 'AI', at: 0.92}, {t: 'MARKETING', at: 1.18}, {t: 'AGENCY', at: 1.46}]} />
+      </div>
+      <div style={{fontSize: 54, fontWeight: 600, marginTop: 6}}>
+        <Words base={base} ws={[{t: 'FROM', at: 2.04, c: LG}, {t: 'ZERO', at: 2.42, c: LG}, {t: '· 2026', at: 3.14}]} />
+      </div>
+    </div>
+  </AbsoluteFill>
+);
+const B03: React.FC<{base: number}> = ({base}) => (
+  <AbsoluteFill>
+    <Footage base={base} scale={1.12} />
+    <Caption base={base} ws={[{t: 'something', at: 9.44}, {t: 'they', at: 9.70}, {t: 'already', at: 9.90, c: LG}, {t: 'pay', at: 10.24, c: LG}, {t: 'for', at: 10.54, c: LG}]} />
+  </AbsoluteFill>
+);
+const B12: React.FC<{base: number}> = ({base}) => (
+  <AbsoluteFill>
+    <Footage base={base} scale={1.12} />
+    <Caption base={base} ws={[{t: "I'll", at: 45.77}, {t: 'be', at: 46.07}, {t: 'honest', at: 46.17}, {t: 'about', at: 46.51}, {t: 'the', at: 46.77, c: LG}, {t: 'timeline', at: 46.93, c: LG}]} />
+  </AbsoluteFill>
+);
 
 // [start, end, component] on the edited timeline
 const BEATS: [number, number, React.FC<{base: number}>][] = [
-  [0.00, 4.34, TH], [4.34, 7.92, B02], [7.92, 11.02, THCrop], [11.02, 13.00, B04],
+  [0.00, 4.34, B01], [4.34, 7.92, B02], [7.92, 11.02, B03], [11.02, 13.00, B04],
   [13.00, 15.06, TH], [15.06, 18.90, B06], [18.90, 21.34, B07], [21.34, 32.63, B08],
-  [32.63, 38.60, B09], [38.60, 40.54, B10], [40.54, 45.56, B11], [45.56, 48.40, THCrop],
-  [48.40, 50.91, B13], [50.91, 54.32, B14], [54.32, 60.02, B15], [60.02, 65.14, B16],
+  [32.63, 38.60, B09], [38.60, 39.83, B10], [39.83, 44.85, B11], [44.85, 47.69, B12],
+  [47.69, 50.20, B13], [50.20, 53.61, B14], [53.61, 59.31, B15], [59.31, 64.43, B16],
 ];
 
 export const Edit: React.FC = () => {
