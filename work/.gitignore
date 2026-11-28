@@ -1,0 +1,15 @@
+# Large media and client materials stay out of git
+raw/
+refs/
+frames/
+rem/public/
+docs/
+*.mp4
+*.mov
+*.m4a
+*.wav
+*.png
+*.jpg
+*.json
+!build/segs.json
+tx/*.json
