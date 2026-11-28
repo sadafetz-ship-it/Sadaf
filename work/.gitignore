@@ -15,3 +15,5 @@ docs/
 tx/*.json
 __pycache__/
 *.pdf
+*.mp3
+rem/node_modules
