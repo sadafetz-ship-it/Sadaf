@@ -1,46 +1,27 @@
+"""Places real CC0 sound effects (Freesound, via Openverse) on the edit timeline."""
 import numpy as np, wave
 SR=48000; DUR=65.14
-rng=np.random.default_rng(7)
+def load(n):
+    w=wave.open(f'lib/{n}.wav');x=np.frombuffer(w.readframes(w.getnframes()),np.int16).astype(float)/32768
+    i=np.where(np.abs(x)>np.abs(x).max()*0.02)[0][0]; x=x[max(0,i-48):]          # trim leading silence
+    return x/np.abs(x).max()
+S={'whoosh':load('whoosh_0'),'pop':load('pop_2'),'click':load('click_1'),'tick':load('click_2'),'ding':load('ding_0'),'strike':load('whoosh_2')}
 out=np.zeros(int(SR*(DUR+2)))
-def env(n,a=0.003,d=0.08):
-    t=np.arange(n)/SR; return np.minimum(1,t/a)*np.exp(-t/d)
-def bp(x,lo,hi):
-    X=np.fft.rfft(x);f=np.fft.rfftfreq(len(x),1/SR);X[(f<lo)|(f>hi)]=0;return np.fft.irfft(X,len(x))
-def db(x,level):
-    return x/ (np.max(np.abs(x))+1e-9) * 10**(level/20)
-def pop(level=-25):
-    n=int(.12*SR);t=np.arange(n)/SR;f=900*np.exp(-t*18)+380
-    x=np.sin(2*np.pi*np.cumsum(f)/SR)*env(n,.002,.035)+bp(rng.normal(0,1,n),2000,8000)*env(n,.001,.008)*.3
-    return db(x,level)
-def soft_in(level=-31):   # gentle air swell for a graphic cutting in
-    n=int(.28*SR);t=np.arange(n)/SR
-    x=bp(rng.normal(0,1,n),500,4000)*np.sin(np.pi*t/t[-1])**2
-    return db(x,level)
-def click(level=-27):
-    n=int(.03*SR);x=bp(rng.normal(0,1,n),1500,9000)*env(n,.0005,.004);return db(x,level)
-def tick(level=-29):
-    n=int(.05*SR);t=np.arange(n)/SR;x=np.sin(2*np.pi*2400*t)*env(n,.0005,.01);return db(x,level)
-def typing(dur=.4,level=-28):
-    n=int(dur*SR);x=np.zeros(n);k=0
-    while k<n-2000:
-        c=click(level+rng.uniform(-3,1));x[k:k+len(c)]+=c;k+=int(SR*rng.uniform(.03,.05))
-    return x
-def ding(level=-27):
-    n=int(1.0*SR);t=np.arange(n)/SR
-    x=(np.sin(2*np.pi*1568*t)+.45*np.sin(2*np.pi*2352*t)+.2*np.sin(2*np.pi*3136*t))*env(n,.002,.35)
-    return db(x,level)
-def scratch(level=-30):
-    n=int(.2*SR);t=np.arange(n)/SR;x=bp(rng.normal(0,1,n),1200,6000)*np.sin(np.pi*t/t[-1]);return db(x,level)
-def put(t,x):
-    i=int(t*SR);out[i:i+len(x)]+=x
-for t in (4.34,11.02,15.06,21.34,32.63,38.60,40.54,48.40,54.32,60.02): put(t,soft_in())
-for t in (5.72,6.86,38.72,63.68,19.58,52.20): put(t,pop())
-put(7.28,scratch())
-for t in (12.56,): put(t,click(-25))
-for t in (15.20,15.74,34.00,35.78,37.08,40.54,41.64): put(t,tick())
-for t in (23.66,26.22,30.12): put(t,typing(.45,-30))
-put(31.26,ding())
-put(55.36,typing(.4)); put(60.40,typing(.4))
+def put(t,name,db):
+    x=S[name]*10**(db/20); i=int(t*SR); out[i:i+len(x)]+=x
+# graphics cutting in: soft swipe, a touch early so it peaks on the cut
+for t in (4.34,11.02,15.06,21.34,32.63,38.60,48.40,54.32,60.02): put(t-0.08,'whoosh',-27)
+# cards / boxes / labels / pills popping in
+for t in (4.36,5.72,6.86,15.10,15.50,16.12,19.58,38.66,52.20,63.68): put(t,'pop',-25)
+put(7.28,'strike',-24)
+# highlights and list items
+for t in (12.56,18.20,34.00,35.78,37.08,40.56,41.64): put(t,'click',-25)
+# counters: fast ticks while numbers roll up
+for t0,d in ((23.66,.5),(26.22,.5),(30.12,.5),(55.36,1.0),(60.30,1.0)):
+    k=0.0
+    while k<d: put(t0+k,'tick',-31+(-4*k/d)); k+=0.055
+for t in (56.45,61.40): put(t,'click',-24)        # green marker lands
+put(31.26,'ding',-27)                              # "$0 paid ads"
 out=out[:int(SR*DUR)]
-pk=np.max(np.abs(out)); print("peak dBFS",20*np.log10(pk))
+print("peak dBFS",round(20*np.log10(np.abs(out).max()),1))
 w=wave.open('sfx.wav','wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((np.clip(out,-1,1)*32767).astype(np.int16).tobytes());w.close()
