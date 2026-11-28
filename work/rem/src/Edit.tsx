@@ -65,6 +65,10 @@ const DarkBg: React.FC<{base: number}> = ({base}) => {
   const s = interpolate(f - base, [0, 120], [1, 1.04], clamp);
   return (
     <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, #1a1c1a, #070807 75%)'}}>
+      {/* soft green haze, slowly drifting (same glows as the light theme, on black) */}
+      <AbsoluteFill style={{background: `radial-gradient(circle at ${12 + Math.sin(f / 90) * 2}% ${86 - Math.sin(f / 90) * 1.5}%, rgba(34,179,87,.42), transparent 40%)`, filter: 'blur(40px)'}} />
+      <AbsoluteFill style={{background: `radial-gradient(circle at ${88 - Math.sin(f / 90) * 1.6}% ${14 + Math.sin(f / 90) * 1.3}%, rgba(34,179,87,.30), transparent 38%)`, filter: 'blur(40px)'}} />
+      <AbsoluteFill style={{background: 'radial-gradient(circle at 92% 90%, rgba(127,227,155,.18), transparent 30%)', filter: 'blur(40px)'}} />
       <svg width={1920} height={1080} style={{position: 'absolute', transform: `scale(${s})`, transformOrigin: '50% 50%'}}>
         <defs><filter id="glow"><feGaussianBlur stdDeviation="6" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter></defs>
         {[
