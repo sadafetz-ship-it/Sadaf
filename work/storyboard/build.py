@@ -51,7 +51,7 @@ BEATS = [
  ("00:21.3 – 00:32.6", "PROOF CARD · RESULT DASHBOARD",
   "For one of our clients, MaidMe, it brought in 50 more organic calls plus 74 high-intent form submissions from their site in the first 90 days without any paid ads.",
   "th_024.0", "ace00a38",
-  "Light dashboard card (Positive-ROI style). Header: <b>Client result · MaidMe</b>. Stat tiles appear as he says each one: <b>50+</b> organic calls · <b>74</b> high-intent form submissions · <b>90</b> days · <b class=g>$0</b> paid ads. Face-cam inset bottom left. Required compliance line at the bottom: <i>One client's result. Results vary and are not guaranteed.</i> No invented charts or numbers.",
+  "Light dashboard card. Header: <b>Client result · MaidMe</b>. Stat tiles appear as he says each one: <b>50+</b> organic calls · <b>74</b> high-intent form submissions · <b>90</b> days · <b class=g>$0</b> paid ads. Face-cam inset bottom left. Required compliance line at the bottom: <i>One client's result. Results vary and are not guaranteed.</i> No invented charts or numbers.",
   "The card eases in. Each number counts up over 12 frames as it is spoken, and the tile gets a green underline. The second take join (00:25.9) is hidden under the card.",
   "Whoosh in, a soft counter tick on each number, a light 'ding' on $0 paid ads."),
  ("00:32.6 – 00:45.6", "ROADMAP CARD + FACE-CAM INSET",
@@ -75,31 +75,31 @@ BEATS = [
  ("00:50.9 – 00:54.3", "TALKING HEAD · WIDE + LOWER THIRD",
   "If you don't know who I am, my name is Clay Lawrence, founder of Review Harvest here.",
   "th_052.5", "f34ab71a",
-  "Wide shot. Lower third on 'Clay Lawrence': white card with a green bar: <b>Clay Lawrence</b> / Founder, Review Harvest. (The reference uses a highlighted website. His site isn't on screen in the raw footage, so this is a clean lower third instead.)",
+  "Wide shot. Lower third on 'Clay Lawrence': white card with a green bar: <b>Clay Lawrence</b> / Founder, Review Harvest.",
   "The bar wipes in, then the text reveals; it holds 2.5 s and fades out.",
   "Soft swipe."),
  ("00:54.3 – 01:00.0", "REAL PROOF · STRIPE SCREENSHOT (AUG)",
   "You can see last month we did over $60,000 just helping local business owners get more customers from Google.",
   "rf_stripe_aug", "b9a9622c",
   "Real screenshot from his own screen recording: the Stripe overview for Aug 1–31, 2026. Cropped to the dashboard cards so no URL, account ID, tabs or bookmarks show. Label: <b>Last month · August 2026</b>.",
-  "Slow push-in onto <b>Gross volume $60,498.87</b>, with the rest of the dashboard defocused (depth-of-field blur + vignette, like the reference). A green highlight box draws around the number on '$60,000'.",
+  "Slow push-in onto <b>Gross volume $60,498.87</b>, with the rest of the dashboard defocused (depth-of-field blur). A green highlight box draws around the number on '$60,000'.",
   "Soft whoosh, highlight click."),
  ("01:00.0 – 01:05.9", "REAL PROOF · STRIPE SCREENSHOT (OCT MTD)",
   "And this month, not even two weeks in, we're already on pace to do over $75,000.",
   "rf_stripe_oct", "c96d62f2",
-  "Headline above the screenshot, like the 'In the last 90 days' reference: <b>Not even 2 weeks in</b>. Stripe month-to-date (Oct 1–13): <b>Gross volume $40,184.90</b> (+56.15%). On '$75,000' a pill appears: <b class=g>On pace for $75K+</b> (his words, not a stronger claim). Small line: <i>Results not typical or guaranteed.</i>",
+  "Headline above the screenshot: <b>Not even 2 weeks in</b>. Stripe month-to-date (Oct 1–13): <b>Gross volume $40,184.90</b> (+56.15%). On '$75,000' a pill appears: <b class=g>On pace for $75K+</b> (his words, not a stronger claim). Small line: <i>Results not typical or guaranteed.</i>",
   "Headline word-blur reveal, then a push-in and highlight on $40,184.90. The pill pops in on '$75,000'. The internal cut join (61.1) is hidden under the graphic.",
   "Whoosh, a counter tick, a light 'ding' on the pill. Music resolves into Section 1."),
 ]
 
 STYLE = """
-<b>Style taken from the reference screenshots</b>
+<b>Style (matched to the reference videos)</b>
 <ul>
-<li><b>Graphics:</b> full-frame light panels (white with a soft coloured vignette at the edges) and dark panels (black with a coloured edge glow). One accent colour, used only on the key words. Accent = Clay's brand green <b class=g>#0F782B</b>, in place of the references' blue or purple.</li>
+<li><b>Graphics:</b> full-frame light panels (white with a soft coloured vignette at the edges) and dark panels (black with a coloured edge glow). One accent colour, used only on the key words. Accent = Clay's brand green <b class=g>#0F782B</b>.</li>
 <li><b>Type:</b> one clean rounded sans (Poppins) everywhere, with consistent sizes. Titles are italic. No text strokes, only soft shadows (editing notes).</li>
-<li><b>Text animation:</b> word-by-word blur and fade-up reveal, timed to the voice (seen in 'Brainwashed Into Chasing', 'Decide What the Budget Needs to', 'Their Problems').</li>
-<li><b>Proof:</b> real screenshots and dashboards, pushed in with depth-of-field blur and vignette on the key number ('Revenue per year', 'Total Agents'). Headlines sit above screenshots ('In the last 90 days').</li>
-<li><b>Lists:</b> white rounded card with the face-cam in a rounded-square inset overlapping its left edge ('Why the Retainer Model Was Fragile').</li>
+<li><b>Text animation:</b> word-by-word blur and fade-up reveal, timed to the voice.</li>
+<li><b>Proof:</b> real screenshots and dashboards, pushed in with depth-of-field blur and vignette on the key number. Headlines sit above screenshots.</li>
+<li><b>Lists:</b> white rounded card with the face-cam in a rounded-square inset overlapping its left edge.</li>
 <li><b>Talking head:</b> centred, eyes near the upper third, warm grade. Cuts are hidden with crop-ins (never mid-sentence) or by cutting to a graphic. No light leaks or flashy transitions.</li>
 <li><b>Compliance:</b> 'results vary / not guaranteed' stays on screen for every result claim. No invented charts or numbers.</li>
 </ul>
@@ -118,10 +118,7 @@ for i, (t, shot, line, th, ref, vis, mot, snd) in enumerate(BEATS, 1):
 <section class=beat>
  <div class=hd><span class=n>{i:02d}</span><span class=t>{t}</span><span class=s>{shot}</span></div>
  <div class=line>“{html.escape(line)}”</div>
- <div class=imgs>
-  <figure><img src="{img(th)}"><figcaption>Raw footage at this moment</figcaption></figure>
-  <figure><img src="{img(ref)}"><figcaption>Style reference</figcaption></figure>
- </div>
+ <img class=frame src="frames/{i:02d}.jpg">
  <div class=d><b>On screen:</b> {vis}</div>
  <div class=d><b>Motion:</b> {mot}</div>
  <div class=d><b>Sound:</b> {snd}</div>
@@ -139,13 +136,13 @@ h1{{font-size:24px;margin:0 0 4px}} .sub{{color:#555;margin-bottom:16px}}
 .n{{background:#0F782B;color:#fff;border-radius:6px;padding:2px 8px;font-weight:700}}
 .t{{font-weight:700}} .s{{color:#0F782B;font-weight:700;font-size:12px;letter-spacing:.04em}}
 .line{{font-style:italic;color:#333;margin-bottom:8px}}
-.imgs{{display:flex;gap:10px;margin-bottom:8px}}
+.frame{{width:100%;border-radius:10px;display:block;margin-bottom:8px;border:1px solid #ddd}}
 figure{{margin:0;flex:1}} figure img{{width:100%;border-radius:8px;display:block}}
 figcaption{{font-size:11px;color:#777;margin-top:3px}}
 .d{{margin-top:4px}}
 </style></head><body>
 <h1>Storyboard · First Minute (Hook + Intro)</h1>
-<div class=sub>“If I Started an AI Marketing Agency In 2026, I'd Do This” · Clay Lawrence · Cut length 1:05.9 · 1920×1080 · 30 fps</div>
+<div class=sub>Every frame below is a design mock-up for this edit, built from Clay's own footage and screen recording. “If I Started an AI Marketing Agency In 2026, I'd Do This” · Clay Lawrence · Cut length 1:05.9 · 1920×1080 · 30 fps</div>
 <div class=style>{STYLE}</div>
 {''.join(rows)}
 </body></html>"""
